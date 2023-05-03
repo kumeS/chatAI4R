@@ -46,7 +46,7 @@ Copyright (c) 2023 Satoshi Kume released under the [Artistic License 2.0](http:/
 
 ## Cite
 
-Kume S, (2023) chatAI4BI: Chat-based Artificial Intelligence for Bioinformatic in R.
+Kume S. (2023) chatAI4BI: Chat-based Artificial Intelligence for Bioinformatic in R.
 
 ```
 #BibTeX
