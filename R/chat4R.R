@@ -28,6 +28,7 @@ chat4R <- function(content, api_key,
                    temperature = 1) {
 
   # Set parameters
+  # See detail: https://platform.openai.com/docs/guides/chat
   api_url <- "https://api.openai.com/v1/chat/completions"
   api_key <- api_key
   n <- 1
@@ -52,5 +53,6 @@ chat4R <- function(content, api_key,
   # Extract content from the request
   return(data.frame(httr::content(response, "parsed")))
 }
+
 
 

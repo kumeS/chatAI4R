@@ -12,7 +12,7 @@
 #'
 #' @return A data frame containing the detected source language, target language, and translated text.
 #'
-#' @export transDeePL
+#' @export deepel
 #'
 #' @author Satoshi Kume
 #'
@@ -22,12 +22,12 @@
 #' sentence <- "Hello, how are you?"
 #' target_lang <- "JA"
 #'
-#' translated_text <- transDeePL(sentence, target_lang, Auth_Key)
+#' translated_text <- deepel(sentence, target_lang, Auth_Key)
 #' print(translated_text)
 #' }
 #'
 
-transDeePL <- function(sentence, target_lang, Auth_Key, free_mode=TRUE) {
+deepel <- function(sentence, target_lang, Auth_Key, free_mode=TRUE) {
 
   if(free_mode){
     base_url <- "https://api-free.deepl.com/v2/translate"
