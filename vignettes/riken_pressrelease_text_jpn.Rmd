@@ -86,12 +86,14 @@ text(mds_result,
 ```{r echo=TRUE, eval=FALSE}
 dat2 <- c()
 for(k in 1:length(dataset)){
-  d <- data.frame(NO=k, dataset[[k]][-1,])
+  d <- data.frame(NO=k, 
+                  textNO=2:nrow(dataset[[k]]), 
+                  dataset[[k]][-1,])
   dat2 <- rbind(dat2, d)
 }
 
 #mds
-mds_result <- cmdscale(dist(dat2[,-c(1:2)]), k = 2)
+mds_result <- cmdscale(dist(dat2[,-c(1:3)]), k = 2)
 
 #plot
 par(family = "HiraKakuPro-W3")
@@ -101,15 +103,20 @@ plot(mds_result,
      type = "p", pch=21, 
      bg=rainbow(max(dat2$NO), alpha = 0.7)[dat2$NO], cex=1.25)
 text(mds_result, 
-     labels = dat2$NO, 
-     cex=0.5)
+     labels = paste0(dat2$NO, "-", dat2$textNO), 
+     cex=0.4)
 
 #出力
 print(dat1[,1])
 table(dat2$NO)
 
-
-
+dat2[dat2$NO == 1,3]
+dat2[dat2$NO == 2,3]
+dat2[dat2$NO == 3,3]
+dat2[dat2$NO == 4,3]
+dat2[dat2$NO == 5,3]
+dat2[dat2$NO == 6,3]
+dat2[dat2$NO == 7,3]
 ```
 
 

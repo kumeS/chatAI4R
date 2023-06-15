@@ -4,10 +4,12 @@
 \alias{riken_pressrelease_text_jpn}
 \title{riken_pressrelease_text_jpn}
 \usage{
-riken_pressrelease_text_jpn(url)
+riken_pressrelease_text_jpn(url, k = 4)
 }
 \arguments{
 \item{url}{A string. The URL of the RIKEN press-release from which to extract the text.}
+
+\item{k}{Integer. Number of texts to skip from the end. Default is 4.}
 }
 \value{
 A character vector of the filtered text from the RIKEN press-release.

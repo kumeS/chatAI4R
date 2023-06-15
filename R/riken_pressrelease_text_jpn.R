@@ -6,6 +6,7 @@
 #' In the first stage, the text is split at certain strings, and in the second
 #' stage, specific strings are removed. Finally, the filtered text is returned.
 #' @param url A string. The URL of the RIKEN press-release from which to extract the text.
+#' @param k Integer. Number of texts to skip from the end. Default is 4.
 #' @importFrom rvest read_html html_nodes html_text
 #' @importFrom stringr str_split
 #' @importFrom magrittr %>%
@@ -19,8 +20,9 @@
 #' }
 
 #url <- "https://www.riken.jp/press/2017/20170427_1/index.html"
+#library(magrittr)
 
-riken_pressrelease_text_jpn <- function(url){
+riken_pressrelease_text_jpn <- function(url, k=4){
 
   # Get text from RIKEN press-release (Japanese)
   text <- url %>%
@@ -53,6 +55,12 @@ riken_pressrelease_text_jpn <- function(url){
            "\r\n発表者\r\n",
            "\r\n発表者",
            "\r\n※共同研究グループ",
+           "\r\n研究チーム\r\n",
+           "\r\n研究チーム",
+           "\r\n共同研究グループ\r\n",
+           "\r\n共同研究グループ",
+           "\r\n国際共同研究グループ\r\n",
+           "\r\n国際共同研究グループ",
            "\r\nお問い合わせ先\r\n",
            "\r\nお問い合わせ先",
            "\r\n報道担当\r\n",
@@ -87,7 +95,14 @@ riken_pressrelease_text_jpn <- function(url){
   text2g <- text2g[!grepl("^理化学研究所", text2g)]
   text3 <- c(paste(text2g, collapse = " "),
              text1[(length(text2)+1):length(text1)])
+  text4 <- text3[c(1:(length(text3)-k))]
 
-  return(text3)
+  if(grepl("^理化学研究所", text4[length(text4)])){
+    text5 <- text4[-length(text4)]
+  }else{
+    text5 <- text4
+  }
+
+  return(text5)
 
 }
