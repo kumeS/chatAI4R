@@ -10,6 +10,7 @@ Chat-based Artificial Intelligence (AI) for Bioinformatics, "chatAI4BI," is an R
 - R language usage for AI API
   - ChatGPT API
   - DeepL API
+  - Text embeddings API (text-embedding-ada-002)
 - LLM-based AI technique for Bioinformatics
   - ゲノム解析
   - タンパク質構造予測
