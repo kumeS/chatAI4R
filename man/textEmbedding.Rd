@@ -4,12 +4,10 @@
 \alias{textEmbedding}
 \title{Text Embedding from OpenAI API}
 \usage{
-textEmbedding(text, max_tokens = 60, api_key)
+textEmbedding(text, api_key)
 }
 \arguments{
 \item{text}{The input text to get the embedding for. This should be a character string.}
-
-\item{max_tokens}{The maximum number of tokens for the API request. This should be an integer. Default is 60.}
 
 \item{api_key}{The API key for the OpenAI API. This should be a character string.}
 }

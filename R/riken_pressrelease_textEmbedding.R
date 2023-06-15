@@ -22,6 +22,7 @@ riken_pressrelease_textEmbedding <- function(url, api_key){
   result <- purrr::map(text, ~textEmbedding(.x, api_key))
   #str(result)
 
+
   # Combine text and embeddings into a data frame
   dat <- data.frame(text = text, X = do.call(rbind, result))
   #str(dat); dim(dat)
@@ -33,9 +34,3 @@ riken_pressrelease_textEmbedding <- function(url, api_key){
   return(dat)
 
 }
-
-
-
-
-
-

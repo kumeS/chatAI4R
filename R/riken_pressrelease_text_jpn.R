@@ -8,6 +8,8 @@
 #' @param url A string. The URL of the RIKEN press-release from which to extract the text.
 #' @importFrom rvest read_html html_nodes html_text
 #' @importFrom stringr str_split
+#' @importFrom magrittr %>%
+#'
 #' @return A character vector of the filtered text from the RIKEN press-release.
 #' @export
 #' @author Satoshi Kume
@@ -15,6 +17,8 @@
 #' \dontrun{
 #' riken_pressrelease_text_jpn("https://www.riken.jp/pr/press/2020/20201218_1/")
 #' }
+
+#url <- "https://www.riken.jp/press/2017/20170427_1/index.html"
 
 riken_pressrelease_text_jpn <- function(url){
 
@@ -30,16 +34,31 @@ riken_pressrelease_text_jpn <- function(url){
            "\n\t\t\t\t\n\t\t\t\t\t",
            "\n\n\n\n\n\n",
            "\t\t\t理化学研究所\n\t\t",
+           "\r\n要旨\r\n",
+           "\r\n要旨",
            "\r\n背景\r\n",
+           "\r\n背景",
            "\r\n研究手法と成果\r\n",
+           "\r\n研究手法と成果",
            "\r\n今後の期待\r\n",
+           "\r\n今後の期待",
            "\r\n補足説明\r\n",
+           "\r\n補足説明",
            "\r\n共同研究チーム\r\n",
+           "\r\n共同研究チーム",
            "\r\n研究支援\r\n",
+           "\r\n研究支援",
            "\r\n原論文情報\r\n",
+           "\r\n原論文情報",
            "\r\n発表者\r\n",
+           "\r\n発表者",
+           "\r\n※共同研究グループ",
+           "\r\nお問い合わせ先\r\n",
+           "\r\nお問い合わせ先",
            "\r\n報道担当\r\n",
-           "\r\n産業利用に関するお問い合わせ\r\n")
+           "\r\n報道担当",
+           "\r\n産業利用に関するお問い合わせ\r\n",
+           "\r\n産業利用に関するお問い合わせ")
   text0 <- stringr::str_split(text,
                      pattern = paste0(sp0, collapse = "|"))[[1]][-1]
 
@@ -55,11 +74,18 @@ riken_pressrelease_text_jpn <- function(url){
     .[nchar(.) > 3] %>%
     .[. != "理化学研究所"] %>%
     .[. != "理化学研究所 広報室 報道担当お問い合わせフォーム"] %>%
-    .[. != "お問い合わせフォーム"]
+    .[. != "お問い合わせフォーム"] %>%
+    .[!grepl("お問い合わせフォーム", .)]
+
+  # Filter 03
+  for(j in 1:10){text1 <- gsub("  ", " ", text1)}
+  text1 <- gsub("^[ ]", "", text1)
 
   # Proc 01
   text2 <- text1[1:5][nchar(text1[1:5]) < 50]
-  text3 <- c(paste(text1[1:length(text2)], collapse = " "),
+  text2g <- text2[!grepl("^[0-9][0-9][0-9][0-9]年", text2)]
+  text2g <- text2g[!grepl("^理化学研究所", text2g)]
+  text3 <- c(paste(text2g, collapse = " "),
              text1[(length(text2)+1):length(text1)])
 
   return(text3)

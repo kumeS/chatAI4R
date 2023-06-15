@@ -1,0 +1,121 @@
+
+---
+title: "Text embedding dataset with riken pressrelease text (Japanese)"
+author:
+  - name: Satoshi Kume
+date: "`r Sys.Date()`"
+graphics: no
+package: chatAI4BI
+output:
+  BiocStyle::html_document:
+  toc_float: true
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{chatAI4BI}
+  %\VignetteIndexEntry{Text embedding dataset with riken pressrelease text (Japanese)}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r style, echo = FALSE, results = 'asis', message=FALSE}
+BiocStyle::markdown()
+```
+
+**Last modified:** `r file.info("riken_pressrelease_text_jpn.Rmd")$mtime`<br>
+**Compiled**: `r Sys.time()`
+
+# Collect URLs
+
+```{r echo=TRUE, eval=FALSE}
+#Bio
+urls1 <- c("https://www.riken.jp/press/2020/20200120_2/",
+          "https://www.riken.jp/press/2023/20230606_1/index.html",
+          "https://www.riken.jp/press/2023/20230126_1/index.html",
+          "https://www.riken.jp/press/2023/20230130_2/index.html",
+          "https://www.riken.jp/press/2017/20170427_1/index.html")
+
+#Pysics
+urls2 <- c("https://www.riken.jp/press/2023/20230321_1/index.html",
+           "https://www.riken.jp/press/2023/20230120_1/index.html")
+
+#combine
+urls <- c(urls1, urls2)
+```
+
+# text embedding for press release 
+
+You should always check your API key.
+
+```{r echo=TRUE, eval=FALSE}
+dataset <- list()
+#api_key <- "your API key"
+
+#perform text embedding
+for(n in 1:length(urls)){
+  cat(n)
+  dataset[[n]] <- riken_pressrelease_textEmbedding(urls[n], api_key)
+  cat(" ")
+}
+```
+
+#MDS for press release tittles
+
+```{r echo=TRUE, eval=FALSE}
+dat1 <- c()
+for(k in 1:length(dataset)){
+  dat1 <- rbind(dat1, dataset[[k]][1,])
+}
+
+#mds
+mds_result <- cmdscale(dist(dat1[,-1]), k = 2)
+
+#plot
+par(family = "HiraKakuPro-W3")
+plot(mds_result, 
+     xlab = "Dimension 1", ylab = "Dimension 2", 
+     main = "MDS Result", 
+     type = "p")
+text(mds_result, 
+     labels = sapply(dat1[,1], function(x) paste(strwrap(x, width = 20), collapse = "\n")), 
+     cex=0.25)
+```
+
+#MDS for main text
+
+```{r echo=TRUE, eval=FALSE}
+dat2 <- c()
+for(k in 1:length(dataset)){
+  d <- data.frame(NO=k, dataset[[k]][-1,])
+  dat2 <- rbind(dat2, d)
+}
+
+#mds
+mds_result <- cmdscale(dist(dat2[,-c(1:2)]), k = 2)
+
+#plot
+par(family = "HiraKakuPro-W3")
+plot(mds_result, 
+     xlab = "Dimension 1", ylab = "Dimension 2", 
+     main = "MDS Result", 
+     type = "p", pch=21, 
+     bg=rainbow(max(dat2$NO), alpha = 0.7)[dat2$NO], cex=1.25)
+text(mds_result, 
+     labels = dat2$NO, 
+     cex=0.5)
+
+#出力
+print(dat1[,1])
+table(dat2$NO)
+
+
+
+```
+
+
+
+
+# Session information {.unnumbered}
+```{r sessionInfo, echo=TRUE}
+sessionInfo()
+```
