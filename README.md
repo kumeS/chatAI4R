@@ -12,14 +12,9 @@ Chat-based Artificial Intelligence (AI) for Bioinformatics, "chatAI4BI," is an R
   - DeepL API
   - Text embeddings API (text-embedding-ada-002)
 - LLM-based AI technique for Bioinformatics
-  - ゲノム解析
-  - タンパク質構造予測
-  - 遺伝子発現解析
-  - 変異解析
-  - データ解析のデザイン
-  - データ可視化
-  - 自然言語での質問応答
-
+  - ゲノム解析, タンパク質構造予測, 遺伝子発現解析, 変異解析
+  - 自動解析: 解析デザイン, 統計, データ可視化, 考察, 質問応答
+  - 専門文章の言語モデル: 自然言語での質問応答
 
 ## Installation
 
@@ -37,6 +32,17 @@ devtools::install_github("kumeS/chatAI4BI")
 library(chatAI4BI)
 ```
 
+## Basic functions
+
+- chat4R: Interact with GPT-3.5-turbo (default) using OpenAI API
+- textEmbedding: Text Embedding from OpenAI API
+- deepel: DeepL Translation Function
+
+## Task-specific functions
+
+- riken_pressrelease_text_jpn: 
+- riken_pressrelease_textEmbedding
+ 
 ## Simple usage
 
 

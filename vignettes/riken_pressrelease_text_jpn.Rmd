@@ -25,6 +25,21 @@ BiocStyle::markdown()
 **Last modified:** `r file.info("riken_pressrelease_text_jpn.Rmd")$mtime`<br>
 **Compiled**: `r Sys.time()`
 
+# Introduction
+
+The advent of Large Language Models (LLM) has significantly advanced the resolution of general challenges that were previously anticipated in the field of natural language processing. An LLM is a type of AI that learns from a vast amount of text data, enabling it to understand and generate natural language. Its capabilities have found applications in various areas, such as question-answering systems and text generation tools.
+
+Moreover, LLMs have allowed natural language to serve as a prompt, enabling us to give instructions to Artificial Intelligence (AI). This development has blurred the boundary between natural language and computer language in the context of AI, creating a new paradigm where both hold equivalent meanings.
+
+However, there are still challenges when it comes to specialized language models. For instance, the accuracy of LLMs is not as high in specific areas, such as highly specialized documents in fields like medicine or law, niche sectors, or materials published exclusively by certain institutions.
+
+In this study, we attempted to construct a specialized language model based on structured, specialized documents. Specifically, we focused on press release articles from RIKEN. These articles, which summarize RIKEN's research achievements, are created based on certain standards, making them semi-structured text data.
+
+Our first step was to create a dataset based on these articles. We broke down each article into titles and specialized texts, performed text embedding to convert each text into vector space. From there, we extracted specialized knowledge and context related to specific research fields and used this information to train the specialized language model. In essence, we provided these as prompts to the LLM, and by fine-tuning the model as needed, we expected to improve its accuracy.
+
+This initiative opens up new possibilities in the field of AI and natural language processing. It holds the potential to significantly enhance the accuracy and efficiency of information processing in areas that require specialized knowledge.
+
+
 # Collect URLs
 
 ```{r echo=TRUE, eval=FALSE}
@@ -117,6 +132,17 @@ dat2[dat2$NO == 4,3]
 dat2[dat2$NO == 5,3]
 dat2[dat2$NO == 6,3]
 dat2[dat2$NO == 7,3]
+```
+
+#
+
+```{r}
+questions <- "音楽を聞いている時の気分変化から自律神経機能を予測できますか？"
+
+
+
+
+
 ```
 
 
