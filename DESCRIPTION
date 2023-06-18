@@ -1,8 +1,8 @@
 Package: chatAI4RBI
 Type: Package
 Title: chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics
-Version: 0.0.1
-Date: 2023-04-29
+Version: 0.0.2
+Date: 2023-06-18
 Authors@R: c(person("Satoshi", "Kume", 
              role = c("aut", "cre"),
              email = "satoshi.kume.1984@gmail.com"))
