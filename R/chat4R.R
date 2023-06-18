@@ -1,6 +1,6 @@
 #' Chat4R Function
 #'
-#' @title Chat4R: Interact with GPT-3.5-turbo (default) using OpenAI API
+#' @title Chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API
 #' @description This function uses the OpenAI API to interact with the GPT-3.5-turbo model (default)
 #' and generates responses based on user input.
 #' @param content A character string containing the user's input message.
@@ -22,9 +22,8 @@
 #' }
 #'
 
-
 chat4R <- function(content, api_key,
-                   Model = "gpt-3.5-turbo",
+                   Model = "gpt-3.5-turbo-16k",
                    temperature = 1) {
 
   # Set parameters
@@ -53,6 +52,5 @@ chat4R <- function(content, api_key,
   # Extract content from the request
   return(data.frame(httr::content(response, "parsed")))
 }
-
 
 

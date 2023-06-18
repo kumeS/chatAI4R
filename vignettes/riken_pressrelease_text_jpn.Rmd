@@ -5,13 +5,13 @@ author:
   - name: Satoshi Kume
 date: "`r Sys.Date()`"
 graphics: no
-package: chatAI4BI
+package: chatAI4RBI
 output:
   BiocStyle::html_document:
   toc_float: true
 vignette: >
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{chatAI4BI}
+  %\VignetteDepends{chatAI4RBI}
   %\VignetteIndexEntry{Text embedding dataset with riken pressrelease text (Japanese)}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

@@ -2,9 +2,9 @@
 % Please edit documentation in R/chat4R.R
 \name{chat4R}
 \alias{chat4R}
-\title{Chat4R: Interact with GPT-3.5-turbo (default) using OpenAI API}
+\title{Chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API}
 \usage{
-chat4R(content, api_key, Model = "gpt-3.5-turbo", temperature = 1)
+chat4R(content, api_key, Model = "gpt-3.5-turbo-16k", temperature = 1)
 }
 \arguments{
 \item{content}{A character string containing the user's input message.}

@@ -1,13 +1,13 @@
-Package: chatAI4BI
+Package: chatAI4RBI
 Type: Package
-Title: chatAI4BI: Chat-based Artificial Intelligence for Bioinformatic in R
+Title: chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics
 Version: 0.0.1
 Date: 2023-04-29
 Authors@R: c(person("Satoshi", "Kume", 
              role = c("aut", "cre"),
              email = "satoshi.kume.1984@gmail.com"))
-Description: Chat-based Artificial Intelligence for Bioinformatics, "chatAI4BI," 
-    is an R package designed to integrate the ChatGPT API with bioinformatics. 
+Description: Chat-based Artificial Intelligence for R and Bioinformatics, "chatAI4RBI," 
+    is an R package designed to integrate the OpenAI and other APIs with bioinformatics. 
     This package aims to enable efficient data analysis and knowledge 
     discovery based on a large language model-based AI technique, ChatGPT. 
     The package utilizes the ChatGPT API for natural language processing and 
@@ -17,7 +17,7 @@ Depends: R (>= 4.2.0)
 Imports: xml2
 Suggests: testthat
 License: Artistic-2.0
-URL: https://github.com/kumeS/chatAI4BI
+URL: https://github.com/kumeS/chatAI4RBI
 RoxygenNote: 7.2.2
 Encoding: UTF-8
 LazyData: true

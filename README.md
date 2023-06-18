@@ -1,9 +1,9 @@
 # UNDER DEVELOPMENT
-# chatAI4BI: Chat-based Artificial Intelligence for Bioinformatic in R
+# chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics
 
 ## Description
 
-Chat-based Artificial Intelligence (AI) for Bioinformatics, "chatAI4BI," is an R package designed to integrate the ChatGPT API with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package utilizes the ChatGPT API for natural language processing and provides a set of functions capable of executing various bioinformatics analysis methods.
+Chat-based Artificial Intelligence (AI) for Bioinformatics, "chatAI4RBI," is an R package designed to integrate the ChatGPT API with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package utilizes the ChatGPT API for natural language processing and provides a set of functions capable of executing various bioinformatics analysis methods.
 
 ## About this project
 
@@ -24,12 +24,12 @@ Chat-based Artificial Intelligence (AI) for Bioinformatics, "chatAI4BI," is an R
 
 ```r
 #CRAN-version
-install.packages("chatAI4BI")
-library(chatAI4BI)
+install.packages("chatAI4RBI")
+library(chatAI4RBI)
 
 #Dev-version
-devtools::install_github("kumeS/chatAI4BI")
-library(chatAI4BI)
+devtools::install_github("kumeS/chatAI4RBI")
+library(chatAI4RBI)
 ```
 
 ## Basic functions
@@ -54,15 +54,15 @@ Copyright (c) 2023 Satoshi Kume released under the [Artistic License 2.0](http:/
 
 ## Cite
 
-Kume S. (2023) chatAI4BI: Chat-based Artificial Intelligence for Bioinformatic in R.
+Kume S. (2023) chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics.
 
 ```
 #BibTeX
-@misc{Kume2023chatAI4BI,
-  title={chatAI4BI: Chat-based Artificial Intelligence for Bioinformatic in R},
+@misc{Kume2023chatAI4RBI,
+  title={chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics},
   author={Kume, Satoshi}, year={2023},
   publisher={GitHub}, note={R Package},
-  howpublished={\url{https://github.com/kumeS/chatAI4BI}},
+  howpublished={\url{https://github.com/kumeS/chatAI4RBI}},
 }
 ```
 
