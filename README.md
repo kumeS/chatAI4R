@@ -1,4 +1,3 @@
-# UNDER DEVELOPMENT
 # chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics
 
 ## Description
@@ -34,15 +33,25 @@ library(chatAI4RBI)
 
 ## Basic functions
 
-- chat4R: Interact with GPT-3.5-turbo (default) using OpenAI API
-- textEmbedding: Text Embedding from OpenAI API
+- chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API
+- textEmbedding: Text Embedding from OpenAI API (model: text-embedding-ada-002)
 - deepel: DeepL Translation Function
+
+## Secondary Layer Functions
+
+- chat4R_history:
+- conversation4R: 
 
 ## Task-specific functions
 
+
+
+### Functions for RIKEN press release
+
+- get_riken_pressrelease_urls:
 - riken_pressrelease_text_jpn: 
-- riken_pressrelease_textEmbedding
- 
+- riken_pressrelease_textEmbedding:
+
 ## Simple usage
 
 
