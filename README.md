@@ -2,27 +2,26 @@
 
 ## Description
 
-Chat-based Artificial Intelligence (AI) for Bioinformatics, "chatAI4RBI," is an R package designed to integrate the ChatGPT API with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package utilizes the ChatGPT API for natural language processing and provides a set of functions capable of executing various bioinformatics analysis methods.
+Chat-based Artificial Intelligence (AI) for R and Bioinformatics, "chatAI4RBI," is an R package designed to integrate the ChatGPT API and other APIs with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
 
-## About this project
+## About this project and future devlopments
 
 - R language usage for AI API
-  - ChatGPT API
+  - OpenAI API (ChatGPT, Text embeddings)
   - DeepL API
-  - Text embeddings API (text-embedding-ada-002)
-- LLM-based AI technique for Bioinformatics
-  - ゲノム解析, タンパク質構造予測, 遺伝子発現解析, 変異解析
-  - 自動解析: 解析デザイン, 統計, データ可視化, 考察, 質問応答
-  - 専門文章の言語モデル: 自然言語での質問応答
+- LLM-based technique for bioinformatics
+  - Genome analysis, protein structure prediction, gene expression analysis
+  - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
+  - Linguistic modeling of technical texts: natural language question answering
 
-## Installation
+## Installation of chatAI4RBI
 
 1. Start R.app
 
 2. Run the following commands in the R console.
 
 ```r
-#CRAN-version
+#CRAN-version (Not yet available)
 install.packages("chatAI4RBI")
 library(chatAI4RBI)
 
@@ -44,8 +43,6 @@ library(chatAI4RBI)
 
 ## Task-specific functions
 
-
-
 ### Functions for RIKEN press release
 
 - get_riken_pressrelease_urls:
@@ -54,8 +51,41 @@ library(chatAI4RBI)
 
 ## Simple usage
 
+###One-Shot Chatting
 
+chat4R関数を使った実行では､すべてOne-Shot Chattingです。
+会話の履歴は次の会話に引き継がれません。
 
+```{r}
+#Set your API key
+api_key <- "Your API key"
+
+#First
+chat4R("Hello", api_key)
+
+#Second
+chat4R("Hello", api_key)
+```
+
+###Few-Shots/Chain-Shots Chatting
+
+conversation4R関数を使ったI実行では､会話の履歴が保持されます。
+The number of previous messages to keep in memoryはデフォルト2です。
+
+```{r}
+#Set your API key
+api_key <- "Your API key"
+
+#First shot
+conversation4R("Hello", api_key)
+
+#Second shot
+conversation4R("Hello", api_key)
+```
+
+## Applied usage for bioinformatics
+
+- vignette: AI-based chatting loaded with professional documents (RIKEN Pressrelease text)
 
 ## License
 
