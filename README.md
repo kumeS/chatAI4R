@@ -4,7 +4,9 @@
 
 Chat-based Artificial Intelligence (AI) for R and Bioinformatics, "chatAI4RBI," is an R package designed to integrate the ChatGPT API and other APIs with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
 
-## About this project and future devlopments
+chatAI4RBI is an experimental effort that aims to build applications using the basic functions in the chatAI4RBI package, in addition to building R functions that implement various LLM functions. 
+
+## About this project and future developments
 
 - R language usage for AI API
   - OpenAI API (ChatGPT, Text embeddings)

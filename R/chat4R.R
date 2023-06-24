@@ -7,6 +7,7 @@
 #' @param api_key A character string containing the user's OpenAI API key.
 #' @param Model A character string specifying the GPT model to use (default: "gpt-3.5-turbo").
 #' @param temperature Numeric value controlling the randomness of the model's output (default: 1).
+#' @param simple Logical, if TRUE, only the content of the model's message will be returned.
 #' @importFrom httr POST add_headers content
 #' @importFrom jsonlite toJSON
 #' @return A data frame containing the response from the chatGPT model.
@@ -24,33 +25,33 @@
 
 chat4R <- function(content, api_key,
                    Model = "gpt-3.5-turbo-16k",
-                   temperature = 1) {
+                   temperature = 1,
+                   simple=FALSE) {
 
-  # Set parameters
-  # See detail: https://platform.openai.com/docs/guides/chat
+  # Define parameters
+  # For more details, refer to: https://platform.openai.com/docs/guides/chat
   api_url <- "https://api.openai.com/v1/chat/completions"
-  api_key <- api_key
   n <- 1
   top_p <- 1
 
-  # Create headers
-  headers <-
-    httr::add_headers(`Content-Type` = "application/json",
+  # Configure headers for the API request
+  headers <- httr::add_headers(`Content-Type` = "application/json",
                       `Authorization` = paste("Bearer", api_key))
 
-  # Create arguments
-  body <-
-    list(model = Model,
-         messages = list(list(role = "user", content = content)),
-         temperature = temperature, top_p = top_p, n = n)
+  # Define the body of the API request
+  body <- list(model = Model,
+               messages = list(list(role = "user", content = content)),
+               temperature = temperature, top_p = top_p, n = n)
 
-  # Send POST request to the server
+  # Send a POST request to the OpenAI server
   response <- httr::POST(url = api_url,
                          body = jsonlite::toJSON(body, auto_unbox = TRUE),
                          encode = "json", config = headers)
 
-  # Extract content from the request
-  return(data.frame(httr::content(response, "parsed")))
+  # Extract and return the response content
+  if(simple){
+   return(data.frame(httr::content(response, "parsed"))$choices.message.content)
+  }else{
+   return(data.frame(httr::content(response, "parsed")))
+  }
 }
-
-
