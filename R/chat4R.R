@@ -26,7 +26,8 @@
 chat4R <- function(content, api_key,
                    Model = "gpt-3.5-turbo-16k",
                    temperature = 1,
-                   simple=FALSE) {
+                   simple=TRUE,
+                   fromJSON_parsed=FALSE) {
 
   # Define parameters
   # For more details, refer to: https://platform.openai.com/docs/guides/chat
@@ -47,11 +48,23 @@ chat4R <- function(content, api_key,
   response <- httr::POST(url = api_url,
                          body = jsonlite::toJSON(body, auto_unbox = TRUE),
                          encode = "json", config = headers)
+  #a <- unlist(response);
 
   # Extract and return the response content
   if(simple){
    return(data.frame(httr::content(response, "parsed"))$choices.message.content)
   }else{
-   return(data.frame(httr::content(response, "parsed")))
+
+  if(fromJSON_parsed){
+  raw_content <- httr::content(response, "raw")
+  char_content <- rawToChar(raw_content)
+  parsed_data <- jsonlite::fromJSON(char_content)
+  return(parsed_data)
+  }else{
+  return(data.frame(httr::content(response, "parsed")))
   }
+  }
+
 }
+
+
