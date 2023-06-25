@@ -53,7 +53,7 @@ library(chatAI4RBI)
 
 ## Simple usage
 
-###One-Shot Chatting
+### One-Shot Chatting
 
 chat4R関数を使った実行では､すべてOne-Shot Chattingです。
 会話の履歴は次の会話に引き継がれません。
@@ -69,7 +69,7 @@ chat4R("Hello", api_key)
 chat4R("Hello", api_key)
 ```
 
-###Few-Shots/Chain-Shots Chatting
+### Few-Shots/Chain-Shots Chatting
 
 conversation4R関数を使ったI実行では､会話の履歴が保持されます。
 The number of previous messages to keep in memoryはデフォルト2です。
