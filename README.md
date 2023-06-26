@@ -32,24 +32,27 @@ devtools::install_github("kumeS/chatAI4RBI")
 library(chatAI4RBI)
 ```
 
-## Basic functions
+## R functions
+
+### Basic functions
 
 - chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API
-- textEmbedding: Text Embedding from OpenAI API (model: text-embedding-ada-002)
+- completions4R: Generate text using OpenAI's API
+- textEmbedding:  Text Embedding from OpenAI API (model: text-embedding-ada-002)
 - deepel: DeepL Translation Function
 
-## Secondary Layer Functions
+### Secondary Layer Functions
 
-- chat4R_history:
-- conversation4R: 
-
-## Task-specific functions
+- chat4R_history: This function retrieves the chat history from OpenAI's GPT-3.5-turbo model.
+- conversation4R: This function manages a conversation with OpenAI's GPT-3.5-turbo model.
+- createFunction4R: Generate and Improve R Functions
+- longTextSummary: 
 
 ### Functions for RIKEN press release
 
-- get_riken_pressrelease_urls:
-- riken_pressrelease_text_jpn: 
-- riken_pressrelease_textEmbedding:
+- get_riken_pressrelease_urls: Get URLs of RIKEN Press Releases
+- riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)
+- riken_pressrelease_textEmbedding: Extract text and perform text embedding from RIKEN press-release
 
 ## Simple usage
 
@@ -60,13 +63,13 @@ Conversation history is not carried over to the next conversation.
 
 ```{r}
 #Set your API key
-api_key <- "Your API key"
+Sys.setenv(OPENAI_API_KEY = "Your API key")
 
 #First
-chat4R("Hello", api_key)
+chat4R("Hello")
 
 #Second
-chat4R("Hello", api_key)
+chat4R("Hello")
 ```
 
 ### Few-Shots/Chain-Shots Chatting
@@ -76,16 +79,28 @@ The number of previous messages to keep in memory defaults to 2.
 
 ```{r}
 #Set your API key
-api_key <- "Your API key"
+Sys.setenv(OPENAI_API_KEY = "Your API key")
 
 #First shot
-conversation4R("Hello", api_key)
+conversation4R("Hello")
 
 #Second shot
-conversation4R("Hello", api_key)
+conversation4R("Hello")
 ```
 
-## Applied usage for bioinformatics
+### Text Embedding
+
+Converts input text to a numeric vector. The model text-embedding-ada-002 results in a vector of 1536 floats.
+
+```{r}
+#Set your API key
+Sys.setenv(OPENAI_API_KEY = "Your API key")
+
+#Embedding
+textEmbedding("Hello, world!")
+```
+
+## Applied use of the chatAI4RBI package
 
 - vignette: AI-based chatting loaded with professional documents (RIKEN Pressrelease text)
 

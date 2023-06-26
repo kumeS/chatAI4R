@@ -9,11 +9,13 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#'   textEmbedding("Hello, world!", api_key = "your_openai_api_key")
+#' 　Sys.setenv(OPENAI_API_KEY = "Your API key")
+#'   textEmbedding("Hello, world!")
 #' }
 
 
-textEmbedding <- function(text, api_key) {
+textEmbedding <- function(text,
+                          api_key = Sys.getenv("OPENAI_API_KEY")) {
 
   #API endpoint
   url <- "https://api.openai.com/v1/embeddings"

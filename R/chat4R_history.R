@@ -15,16 +15,19 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
+#' Sys.setenv(OPENAI_API_KEY = "Your API key")
+#'
 #' history <- list(list('role' = 'system', 'content' = 'You are a helpful assistant.'),
 #'                 list('role' = 'user', 'content' = 'Who won the world series in 2020?'))
-#' api_key <- "your_api_key"
-#' chat4R_history(history, api_key)
+#'
+#' chat4R_history(history)
 #' }
 #'
 
 
 
-chat4R_history <- function(history, api_key,
+chat4R_history <- function(history,
+                           api_key = Sys.getenv("OPENAI_API_KEY"),
                    Model = "gpt-3.5-turbo-16k",
                    temperature = 1) {
 

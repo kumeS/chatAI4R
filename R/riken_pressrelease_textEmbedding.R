@@ -10,10 +10,12 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
+#' Sys.setenv(OPENAI_API_KEY = "Your API key")
 #' riken_pressrelease_textEmbedding("https://www.riken.jp/pr/press/2020/20201218_1/", "your_api_key")
 #' }
 
-riken_pressrelease_textEmbedding <- function(url, api_key){
+riken_pressrelease_textEmbedding <- function(url,
+                                             api_key = Sys.getenv("OPENAI_API_KEY")){
 
   # Get text
   text <- riken_pressrelease_text_jpn(url)

@@ -15,15 +15,17 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' api_key <- "your_api_key_here"
-#' response <- chat4R("What is the capital of France?", api_key)
+#' Sys.setenv(OPENAI_API_KEY = "Your API key")
+#'
+#' response <- chat4R("What is the capital of France?")
 #'
 #' #Check the result
 #' response
 #' }
 #'
 
-chat4R <- function(content, api_key,
+chat4R <- function(content,
+                   api_key = Sys.getenv("OPENAI_API_KEY"),
                    Model = "gpt-3.5-turbo-16k",
                    temperature = 1,
                    simple=TRUE,
