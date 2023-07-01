@@ -65,11 +65,11 @@ Conversation history is not carried over to the next conversation.
 #Set your API key
 Sys.setenv(OPENAI_API_KEY = "Your API key")
 
-#First
+#API: "https://api.openai.com/v1/chat/completions"
 chat4R("Hello")
 
-#Second
-chat4R("Hello")
+#API: "https://api.openai.com/v1/completions"
+completions4R("Hello")
 ```
 
 ### Few-Shots/Chain-Shots Chatting
