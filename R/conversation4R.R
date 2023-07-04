@@ -65,7 +65,7 @@ template4 = "
 
 if(identical(as.character(chat_history$history), character(0))){
 
-res <- chatAI4RBI::chat4R(content=message,
+res <- chatAI4R::chat4R(content=message,
               api_key=api_key,
               Model = Model,
               temperature = temperature)
@@ -104,7 +104,7 @@ new_conversation <- list(list(role = "user", content = message))
 chat_historyR <- c(chat_historyR, new_conversation)
 
 # Run
-res <- chatAI4RBI::chat4R_history(history = chat_historyR,
+res <- chatAI4R::chat4R_history(history = chat_historyR,
                api_key = api_key,
                Model = Model,
                temperature = temperature)

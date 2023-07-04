@@ -3,7 +3,7 @@ library(magrittr)
 library(purrr)
 
 #テストテキスト
-text <- read.delim("/Users/sas/Desktop/R_chatAI4RBI/text/pivot_text.txt")
+text <- read.delim("/Users/sas/Desktop/R_chatAI4R/text/pivot_text.txt")
 
 #長文要約するR関数
 longTextSummary <- function(text,
@@ -46,7 +46,7 @@ pr <- paste0(template1s, text1, sep=" ")
 
 #実行
 result <- purrr::map(pr,
-                     ~chatAI4RBI::chat4R(content=.x,
+                     ~chatAI4R::chat4R(content=.x,
                                          api_key=api_key,
                                          Model = Model,
                                          temperature = temperature,

@@ -13,7 +13,7 @@ NSH_search <- function(sequence, api_key){
 pb <- progress::progress_bar$new(total = 3)
 
 s1 <- paste0(sequence, ": Is this input a nucleotide sequence? Answer TRUE or FALSE only.")
-response1 <- chatAI4RBI::chat4R(s, api_key)$choices.message.content
+response1 <- chatAI4R::chat4R(s, api_key)$choices.message.content
 
 pb$tick()
 if(!as.logical(response1)){
@@ -21,7 +21,7 @@ if(!as.logical(response1)){
 }
 
 s2 <- paste0(sequence, ": What kind of sequence is this sequence? Answer species only. if unknown, answer 'Unknown' only")
-response2 <- chatAI4RBI::chat4R(s2, api_key)$choices.message.content
+response2 <- chatAI4R::chat4R(s2, api_key)$choices.message.content
 
 pb$tick()
 if(!as.logical(response1)){

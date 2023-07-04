@@ -1,10 +1,10 @@
-# chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics
+# chatAI4R: Chat-based Artificial Intelligence for R and Bioinformatics
 
 ## Description
 
-Chat-based Artificial Intelligence (AI) for R and Bioinformatics, "chatAI4RBI," is an R package designed to integrate the ChatGPT API and other APIs with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
+chatAI4R, chat-based Artificial Intelligence (AI) for R and Bioinformatics, is an R package designed to integrate the ChatGPT API and other APIs with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
 
-chatAI4RBI is an experimental effort that aims to build applications using the basic functions in the chatAI4RBI package, in addition to building R functions that implement various LLM functions. 
+chatAI4R is an experimental effort that aims to build applications using the basic functions in the chatAI4R package, in addition to building R functions that implement various LLM functions. 
 
 ## About this project and future developments
 
@@ -16,7 +16,7 @@ chatAI4RBI is an experimental effort that aims to build applications using the b
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
   - Linguistic modeling of technical texts: natural language question answering
 
-## Installation of chatAI4RBI
+## Installation of chatAI4R
 
 1. Start R.app
 
@@ -24,12 +24,12 @@ chatAI4RBI is an experimental effort that aims to build applications using the b
 
 ```r
 #CRAN-version (Not yet available)
-install.packages("chatAI4RBI")
-library(chatAI4RBI)
+install.packages("chatAI4R")
+library(chatAI4R)
 
 #Dev-version
-devtools::install_github("kumeS/chatAI4RBI")
-library(chatAI4RBI)
+devtools::install_github("kumeS/chatAI4R")
+library(chatAI4R)
 ```
 
 ## R functions
@@ -100,7 +100,7 @@ Sys.setenv(OPENAI_API_KEY = "Your API key")
 textEmbedding("Hello, world!")
 ```
 
-## Applied use of the chatAI4RBI package
+## Applied use of the chatAI4R package
 
 - vignette: AI-based chatting loaded with professional documents (RIKEN Pressrelease text)
 
@@ -110,15 +110,15 @@ Copyright (c) 2023 Satoshi Kume released under the [Artistic License 2.0](http:/
 
 ## Cite
 
-Kume S. (2023) chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics.
+Kume S. (2023) chatAI4R: Chat-based Artificial Intelligence for R and Bioinformatics.
 
 ```
 #BibTeX
-@misc{Kume2023chatAI4RBI,
-  title={chatAI4RBI: Chat-based Artificial Intelligence for R and Bioinformatics},
+@misc{Kume2023chatAI4R,
+  title={chatAI4R: Chat-based Artificial Intelligence for R and Bioinformatics},
   author={Kume, Satoshi}, year={2023},
   publisher={GitHub}, note={R Package},
-  howpublished={\url{https://github.com/kumeS/chatAI4RBI}},
+  howpublished={\url{https://github.com/kumeS/chatAI4R}},
 }
 ```
 
