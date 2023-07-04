@@ -2,7 +2,7 @@
 
 ## Description
 
-chatAI4R, chat-based Artificial Intelligence (AI) for R, is an R package designed to integrate the ChatGPT API and other APIs with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
+chatAI4R, chat-based Artificial Intelligence (AI) for R, is an R package designed to integrate the ChatGPT API and other APIs. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
 
 chatAI4R is an experimental effort that aims to build applications using the basic functions in the chatAI4R package, in addition to building R functions that implement various LLM functions. 
 
