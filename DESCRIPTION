@@ -6,13 +6,13 @@ Date: 2023-06-18
 Authors@R: c(person("Satoshi", "Kume", 
              role = c("aut", "cre"),
              email = "satoshi.kume.1984@gmail.com"))
-Description: chatAI4R, chat-based Artificial Intelligence for R and Bioinformatics, 
-    is an R package designed to integrate the OpenAI and other APIs with bioinformatics. 
+Description: chatAI4R, chat-based Artificial Intelligence for R, 
+    is an R package designed to integrate the OpenAI and other APIs. 
     This package aims to enable efficient data analysis and knowledge 
     discovery based on a large language model-based AI technique, ChatGPT. 
     The package utilizes the ChatGPT API for natural language processing and 
-    provides a set of functions capable of executing various bioinformatics 
-    analysis methods.
+    provides a set of functions capable of executing bioinformatics 
+    analysis methods as well.
 Depends: R (>= 4.2.0)
 Imports: xml2
 Suggests: testthat

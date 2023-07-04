@@ -1,10 +1,12 @@
-# chatAI4R: Chat-based Artificial Intelligence for R and Bioinformatics
+# chatAI4R: Chat-based Artificial Intelligence for R
 
 ## Description
 
-chatAI4R, chat-based Artificial Intelligence (AI) for R and Bioinformatics, is an R package designed to integrate the ChatGPT API and other APIs with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
+chatAI4R, chat-based Artificial Intelligence (AI) for R, is an R package designed to integrate the ChatGPT API and other APIs with bioinformatics. This package aims to enable efficient data analysis and knowledge discovery based on a large language model (LLM)-based AI technique, ChatGPT. The package provides basic functions for the LLM usage and provides a set of functions capable of executing analysis methods for bioinformatics.
 
 chatAI4R is an experimental effort that aims to build applications using the basic functions in the chatAI4R package, in addition to building R functions that implement various LLM functions. 
+
+Bioinformatics解析への拡張性を考えて開発を進めています。
 
 ## About this project and future developments
 
@@ -110,12 +112,12 @@ Copyright (c) 2023 Satoshi Kume released under the [Artistic License 2.0](http:/
 
 ## Cite
 
-Kume S. (2023) chatAI4R: Chat-based Artificial Intelligence for R and Bioinformatics.
+Kume S. (2023) chatAI4R: Chat-based Artificial Intelligence for R.
 
 ```
 #BibTeX
 @misc{Kume2023chatAI4R,
-  title={chatAI4R: Chat-based Artificial Intelligence for R and Bioinformatics},
+  title={chatAI4R: Chat-based Artificial Intelligence for R},
   author={Kume, Satoshi}, year={2023},
   publisher={GitHub}, note={R Package},
   howpublished={\url{https://github.com/kumeS/chatAI4R}},
