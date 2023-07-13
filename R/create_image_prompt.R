@@ -37,8 +37,7 @@ create_image_prompt <- function(content = "",
                  list('role' = 'user', 'content' = content))
 
   # Executing chat4R_history
-  res <- chat4R_history(history,
-                        Model = Model)$choices.message.content
+  res <- chat4R_history(history, Model = Model)
 
   # Returning the image generation prompt
   return(res)
