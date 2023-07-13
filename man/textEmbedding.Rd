@@ -4,7 +4,7 @@
 \alias{textEmbedding}
 \title{Text Embedding from OpenAI API}
 \usage{
-textEmbedding(text, api_key)
+textEmbedding(text, api_key = Sys.getenv("OPENAI_API_KEY"))
 }
 \arguments{
 \item{text}{The input text to get the embedding for. This should be a character string.}
@@ -19,7 +19,8 @@ This function calls the OpenAI API to get the text embedding of the input text.
 }
 \examples{
 \dontrun{
-  textEmbedding("Hello, world!", api_key = "your_openai_api_key")
+　Sys.setenv(OPENAI_API_KEY = "Your API key")
+  textEmbedding("Hello, world!")
 }
 }
 \author{

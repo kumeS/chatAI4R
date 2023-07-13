@@ -24,7 +24,7 @@
 #' }
 
 #test
-#message = "こんにちわ"; template1=""; ConversationBufferWindowMemory_k = 2; Model="gpt-3.5-turbo-16k"; initialization = FALSE; output=FALSE
+#message = "Hello"; template1=""; ConversationBufferWindowMemory_k = 2; Model="gpt-3.5-turbo-16k"; initialization = FALSE; output=FALSE
 
 conversation4R <- function(message,
                            api_key,

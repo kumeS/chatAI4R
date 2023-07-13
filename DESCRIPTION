@@ -1,23 +1,22 @@
 Package: chatAI4R
 Type: Package
-Title: chatAI4R: Chat-based Artificial Intelligence for R
+Title: Chat-based Artificial Intelligence for R
 Version: 0.0.2
-Date: 2023-06-18
+Date: 2023-07-12
 Authors@R: c(person("Satoshi", "Kume", 
              role = c("aut", "cre"),
              email = "satoshi.kume.1984@gmail.com"))
-Description: chatAI4R, chat-based Artificial Intelligence for R, 
-    is an R package designed to integrate the OpenAI and other APIs. 
-    This package aims to enable efficient data analysis and knowledge 
-    discovery based on a large language model-based AI technique, ChatGPT. 
-    The package utilizes the ChatGPT API for natural language processing and 
-    provides a set of functions capable of executing bioinformatics 
-    analysis methods as well.
+Description: chatAI4R provides a seamless interface for integrating 
+    OpenAI and other APIs into R. It utilizes the ChatGPT API 
+    (see <https://platform.openai.com/docs/api-reference>) for natural 
+    language processing, making it ideal for efficient data analysis and 
+    knowledge discovery. Additionally, it includes functionalities for executing 
+    bioinformatics analysis methods, making it a versatile tool for a variety of research domains.
 Depends: R (>= 4.2.0)
-Imports: xml2
+Imports: xml2, httr, jsonlite, magrittr, purrr, rvest, stringr, assertthat, clipr, crayon, EBImage
 Suggests: testthat
 License: Artistic-2.0
 URL: https://github.com/kumeS/chatAI4R
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 LazyData: true

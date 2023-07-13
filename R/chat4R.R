@@ -24,6 +24,7 @@
 #' }
 #'
 
+
 chat4R <- function(content,
                    api_key = Sys.getenv("OPENAI_API_KEY"),
                    Model = "gpt-3.5-turbo-16k",

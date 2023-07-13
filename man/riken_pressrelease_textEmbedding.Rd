@@ -4,7 +4,7 @@
 \alias{riken_pressrelease_textEmbedding}
 \title{riken_pressrelease_textEmbedding}
 \usage{
-riken_pressrelease_textEmbedding(url, api_key)
+riken_pressrelease_textEmbedding(url, api_key = Sys.getenv("OPENAI_API_KEY"))
 }
 \arguments{
 \item{url}{A string. The URL of the RIKEN press-release from which to extract the text.}
@@ -22,6 +22,7 @@ Extract text and perform text embedding from RIKEN press-release
 }
 \examples{
 \dontrun{
+Sys.setenv(OPENAI_API_KEY = "Your API key")
 riken_pressrelease_textEmbedding("https://www.riken.jp/pr/press/2020/20201218_1/", "your_api_key")
 }
 }

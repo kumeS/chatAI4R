@@ -4,7 +4,12 @@
 \alias{chat4R_history}
 \title{Chat History for R}
 \usage{
-chat4R_history(history, api_key, Model = "gpt-3.5-turbo-16k", temperature = 1)
+chat4R_history(
+  history,
+  api_key = Sys.getenv("OPENAI_API_KEY"),
+  Model = "gpt-3.5-turbo-16k",
+  temperature = 1
+)
 }
 \arguments{
 \item{history}{A list of message objects. Each object should have a 'role' that can be 'system', 'user', or 'assistant', and 'content' which is the content of the message from that role.}
@@ -28,10 +33,12 @@ This function retrieves the chat history from OpenAI's GPT-3.5-turbo model.
 }
 \examples{
 \dontrun{
+Sys.setenv(OPENAI_API_KEY = "Your API key")
+
 history <- list(list('role' = 'system', 'content' = 'You are a helpful assistant.'),
                 list('role' = 'user', 'content' = 'Who won the world series in 2020?'))
-api_key <- "your_api_key"
-chat4R_history(history, api_key)
+
+chat4R_history(history)
 }
 
 }

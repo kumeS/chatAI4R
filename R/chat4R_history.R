@@ -25,7 +25,6 @@
 #'
 
 
-
 chat4R_history <- function(history,
                            api_key = Sys.getenv("OPENAI_API_KEY"),
                    Model = "gpt-3.5-turbo-16k",
@@ -52,6 +51,10 @@ chat4R_history <- function(history,
   response <- httr::POST(url = api_url,
                          body = jsonlite::toJSON(body, auto_unbox = TRUE),
                          encode = "json", config = headers)
+
+  if(is.null(httr::content(response, "parsed")$error$param)){
+    return(cat(httr::content(response, "parsed")$error$message))
+  }
 
   # Parsing the result
   return(data.frame(httr::content(response, "parsed")))

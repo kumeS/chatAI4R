@@ -4,7 +4,14 @@
 \alias{chat4R}
 \title{Chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API}
 \usage{
-chat4R(content, api_key, Model = "gpt-3.5-turbo-16k", temperature = 1)
+chat4R(
+  content,
+  api_key = Sys.getenv("OPENAI_API_KEY"),
+  Model = "gpt-3.5-turbo-16k",
+  temperature = 1,
+  simple = TRUE,
+  fromJSON_parsed = FALSE
+)
 }
 \arguments{
 \item{content}{A character string containing the user's input message.}
@@ -14,6 +21,8 @@ chat4R(content, api_key, Model = "gpt-3.5-turbo-16k", temperature = 1)
 \item{Model}{A character string specifying the GPT model to use (default: "gpt-3.5-turbo").}
 
 \item{temperature}{Numeric value controlling the randomness of the model's output (default: 1).}
+
+\item{simple}{Logical, if TRUE, only the content of the model's message will be returned.}
 }
 \value{
 A data frame containing the response from the chatGPT model.
@@ -27,8 +36,9 @@ Chat4R Function
 }
 \examples{
 \dontrun{
-api_key <- "your_api_key_here"
-response <- chat4R("What is the capital of France?", api_key)
+Sys.setenv(OPENAI_API_KEY = "Your API key")
+
+response <- chat4R("What is the capital of France?")
 
 #Check the result
 response
