@@ -4,21 +4,16 @@
 \alias{create_image_prompt}
 \title{Create Image Prompt}
 \usage{
-create_image_prompt(
-  content = "",
-  Model = "gpt-3.5-turbo-16k",
-  Text2Img = "DALL-E model",
-  len = 100
-)
+create_image_prompt(content = "", Model = "gpt-3.5-turbo-16k", len = 200)
 }
 \arguments{
 \item{content}{A character string describing the image to be generated. If not provided, the function will throw a warning and stop.}
 
 \item{Model}{A character string specifying the AI model to be used for text generation.}
 
-\item{Text2Img}{A character string specifying the model to be used for text to image transformation.}
-
 \item{len}{Integer specifying the maximum length of the text input.}
+
+\item{Text2Img}{A character string specifying the model to be used for text to image transformation.}
 }
 \value{
 A character string that serves as the prompt for generating an image.

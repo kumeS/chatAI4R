@@ -18,12 +18,10 @@
 
 create_image_prompt <- function(content = "",
                                 Model = "gpt-3.5-turbo-16k",
-                                Text2Img = "DALL-E model",
-                                len = 100){
+                                len = 200){
   # Asserting input types and values
   assertthat::assert_that(assertthat::is.string(content))
   assertthat::assert_that(assertthat::is.string(Model))
-  assertthat::assert_that(assertthat::is.string(Text2Img))
   assertthat::assert_that(assertthat::is.count(len), len > 0)
 
   if(content == "") {
@@ -32,9 +30,9 @@ create_image_prompt <- function(content = "",
   }
 
   # Creating the prompt
-  len_w <- paste0("Texts should be less than ", len, " words. The model for text to image transformation is ", Text2Img)
-  history <- list(list('role' = 'system', 'content' = paste0('You are a helpful assistant and prompt master for creating text to images. ', len_w)),
-                 list('role' = 'user', 'content' = content))
+  len_w <- paste0("Texts should be less than ", len, " words and the prompt should be in English. Please use the following information to create an image generation prompt for the scene/story.", content)
+  history <- list(list('role' = 'system', 'content' = paste0('You are a helpful assistant and prompt master for creating text to images.')),
+                 list('role' = 'user', 'content' = len_w))
 
   # Executing chat4R_history
   res <- chat4R_history(history, Model = Model)

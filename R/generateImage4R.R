@@ -22,6 +22,7 @@
 #'                 response_format = "url", Output_image = TRUE,
 #'                 api_key = Sys.getenv("OPENAI_API_KEY"))
 #' }
+
 generateImage4R <- function(content,
                             n = 3,
                             size = "256x256",
