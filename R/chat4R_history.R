@@ -52,12 +52,8 @@ chat4R_history <- function(history,
                          body = jsonlite::toJSON(body, auto_unbox = TRUE),
                          encode = "json", config = headers)
 
-  if(is.null(httr::content(response, "parsed")$error$param)){
-    return(cat(httr::content(response, "parsed")$error$message))
-  }
-
   # Parsing the result
-  return(data.frame(httr::content(response, "parsed")))
+  return(data.frame(httr::content(response, "parsed"))$choices.message.content)
 }
 
 

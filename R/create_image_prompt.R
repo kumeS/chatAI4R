@@ -21,10 +21,10 @@ create_image_prompt <- function(content = "",
                                 Text2Img = "DALL-E model",
                                 len = 100){
   # Asserting input types and values
-  assertthat::assert_that(is.string(content))
-  assertthat::assert_that(is.string(Model))
-  assertthat::assert_that(is.string(Text2Img))
-  assertthat::assert_that(is.count(len), len > 0)
+  assertthat::assert_that(assertthat::is.string(content))
+  assertthat::assert_that(assertthat::is.string(Model))
+  assertthat::assert_that(assertthat::is.string(Text2Img))
+  assertthat::assert_that(assertthat::is.count(len), len > 0)
 
   if(content == "") {
     warning("No input provided.")
