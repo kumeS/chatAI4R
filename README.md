@@ -24,10 +24,16 @@ chatAI4R is an experimental project that aims to build applications using its ba
 
 ```r
 #CRAN-version (Not yet available)
+install.packages("BiocManager")
+BiocManager::install("EBImage")
+
 install.packages("chatAI4R")
 library(chatAI4R)
 
 #Dev-version
+install.packages(c("devtools", "BiocManager"), repos="http://cran.r-project.org")
+BiocManager::install("EBImage")
+
 devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
 ```

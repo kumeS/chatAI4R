@@ -4,23 +4,28 @@
 \alias{Display}
 \title{Display Images}
 \usage{
-Display(img)
+Display(img, write = FALSE)
 }
 \arguments{
-\item{img}{A list of images, as returned by the generateImage4R function.}
+\item{img}{A list of images. Each element of the list is expected to be an image of class "Image".}
+
+\item{write}{A logical, if TRUE, the function will also write each image to a file. Defaults to FALSE.}
+}
+\value{
+No return value, this function is used for its side effect of displaying images or writing images to file.
 }
 \description{
-This function displays images that are returned by the generateImage4R function.
+This function displays images that are stored in a list. Each image is expected to be of the "Image" class. If write parameter is set to TRUE, it also saves each image as a PNG file.
 }
 \details{
 Display Images
 }
 \examples{
 \dontrun{
-# Generate images
-results <- generateImage4R(content = "Japanese gal girl")
-# Display the generated images
-Display(results)
+# Assuming "images" is a list of Image objects
+Display(images)
+# To also save images to file
+Display(images, write = TRUE)
 }
 }
 \author{

@@ -13,7 +13,7 @@ Description: chatAI4R provides a seamless interface for integrating
     knowledge discovery. Additionally, it includes functionalities for executing 
     bioinformatics analysis methods, making it a versatile tool for a variety of research domains.
 Depends: R (>= 4.2.0)
-Imports: xml2, httr, jsonlite, magrittr, purrr, rvest, stringr, assertthat, clipr, crayon, EBImage
+Imports: xml2, httr, jsonlite, magrittr, purrr, rvest, stringr, assertthat, clipr, crayon, remotes, EBImage
 Suggests: testthat
 License: Artistic-2.0
 URL: https://github.com/kumeS/chatAI4R

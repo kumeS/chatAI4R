@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateImage4R.R
 \name{generateImage4R}
 \alias{generateImage4R}
-\title{Generate Images from Text}
+\title{Generate Images Using OpenAI API}
 \usage{
 generateImage4R(
   content,
@@ -10,36 +10,40 @@ generateImage4R(
   size = "256x256",
   response_format = "url",
   Output_image = TRUE,
+  SaveImg = TRUE,
   api_key = Sys.getenv("OPENAI_API_KEY")
 )
 }
 \arguments{
-\item{content}{A character string describing the image to be generated.}
+\item{content}{A character string, the content to generate images.}
 
-\item{n}{Integer specifying the number of images to generate. Must be between 1 and 10.}
+\item{n}{A count, the number of images to generate. Must be between 1 and 10.}
 
-\item{size}{A character string specifying the size of the generated images. Must be one of "256x256", "512x512", or "1024x1024".}
+\item{size}{A character string, the size of the images. Must be one of "256x256", "512x512", "1024x1024".}
 
-\item{response_format}{A character string specifying the format in which the generated images are returned. Must be one of "url" or "b64_json".}
+\item{response_format}{A character string, the format of the response from the API. Must be one of "url", "b64_json".}
 
-\item{Output_image}{Logical indicating whether to return the images or their URLs. If TRUE, the images are returned.}
+\item{Output_image}{A flag, whether to output the images.}
 
-\item{api_key}{A character string specifying the OpenAI API key. If not provided, the function will attempt to read it from the system environment.}
+\item{SaveImg}{A flag, whether to save the images.}
+
+\item{api_key}{A character string, the API key for OpenAI.}
 }
 \value{
-A list of images or their URLs, depending on the value of Output_image.
+If Output_image is TRUE, returns a list of images; if Output_image is FALSE, returns a character vector of URLs.
 }
 \description{
-This function generates images from text using the OpenAI API.
+This function generates images using OpenAI API.
 }
 \details{
-Generate Images from Text
+Generate Images Using OpenAI API
 }
 \examples{
 \dontrun{
-generateImage4R(content = "Japanese gal girl", n = 3, size = "256x256",
-                response_format = "url", Output_image = TRUE,
-                api_key = Sys.getenv("OPENAI_API_KEY"))
+# Generate images
+results <- generateImage4R(content = "Japanese gal girl", n = 3, size = "256x256", response_format = "url", Output_image = TRUE, SaveImg = TRUE, api_key = Sys.getenv("OPENAI_API_KEY"))
+# Display the generated images
+Display(results)
 }
 }
 \author{
