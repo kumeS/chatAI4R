@@ -38,6 +38,13 @@ devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
 ```
 
+3. Set the API key according to each Web API.
+
+```r
+#Set your key for the OpenAI API
+Sys.setenv(OPENAI_API_KEY = "Your API key")
+```
+
 ## R functions
 
 ### Basic functions
