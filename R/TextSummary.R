@@ -2,7 +2,9 @@
 #'
 #' @title Summarize Long Text
 #' @description This function summarizes a long text using an AI model.
-#' @param text A character vector containing the text to be summarized. If not provided, the function will attempt to read from the clipboard.
+#' This is an experimental function.
+#' @param text A character vector containing the text to be summarized.
+#' If not provided, the function will attempt to read from the clipboard.
 #' @param nch Integer specifying the number of characters at which to split the input text for processing.
 #' @param Summary_block Integer specifying the target number of characters for the summarized output.
 #' @param Model A character string specifying the AI model to be used for text summarization.

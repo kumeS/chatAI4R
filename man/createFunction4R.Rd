@@ -28,7 +28,10 @@ createFunction4R(
 The function returns a character string that represents the generated and improved R function.
 }
 \description{
-This function generates an R function based on a given description, proposes improvements, and then generates an improved version of the function. It is expected to use an AI model (possibly GPT-3 or similar) to perform these tasks.
+This function generates an R function based on a given description,
+proposes improvements, and then generates an improved version of the function.
+It is expected to use an AI model (possibly GPT-3 or similar) to perform these tasks.
+This is an experimental function.
 }
 \details{
 Generate and Improve R Functions

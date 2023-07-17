@@ -1,7 +1,10 @@
 #' Generate and Improve R Functions
 #'
 #' @title createFunction4R
-#' @description This function generates an R function based on a given description, proposes improvements, and then generates an improved version of the function. It is expected to use an AI model (possibly GPT-3 or similar) to perform these tasks.
+#' @description This function generates an R function based on a given description,
+#' proposes improvements, and then generates an improved version of the function.
+#' It is expected to use an AI model (possibly GPT-3 or similar) to perform these tasks.
+#' This is an experimental function.
 #' @param Func_description A character string that describes the function to be generated.
 #' @param api_key A character string that represents the API key for the AI model being used. Default is the "OPENAI_API_KEY" environment variable.
 #' @param packages A character string that specifies the packages to be used in the function. Default is "base".

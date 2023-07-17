@@ -14,7 +14,8 @@ TextSummary(
 )
 }
 \arguments{
-\item{text}{A character vector containing the text to be summarized. If not provided, the function will attempt to read from the clipboard.}
+\item{text}{A character vector containing the text to be summarized.
+If not provided, the function will attempt to read from the clipboard.}
 
 \item{nch}{Integer specifying the number of characters at which to split the input text for processing.}
 
@@ -31,6 +32,7 @@ A list of character vectors where each vector is a part of the summarized text.
 }
 \description{
 This function summarizes a long text using an AI model.
+This is an experimental function.
 }
 \details{
 Summarize Long Text
