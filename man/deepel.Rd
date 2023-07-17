@@ -4,7 +4,12 @@
 \alias{deepel}
 \title{DeepL Translation Function}
 \usage{
-deepel(sentence, target_lang, Auth_Key, free_mode = TRUE)
+deepel(
+  sentence,
+  target_lang,
+  Auth_Key = Sys.getenv("DeepL_API_KEY"),
+  free_mode = TRUE
+)
 }
 \arguments{
 \item{sentence}{The text to be translated.}

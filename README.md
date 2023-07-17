@@ -9,28 +9,27 @@ chatAI4R is an experimental project that aims to build applications using its ba
 ## About this project and future developments
 
 - AI API integration with R
-  - OpenAI API (ChatGPT, Text embeddings)
+  - OpenAI API (ChatGPT, txt2img, text embeddings)
   - DeepL API
-- LLM-based techniques for bioinformatics
-  - Genome analysis, protein structure prediction, gene expression analysis
+- LLM-based techniques for bioinformatics (future developments)
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
   - Linguistic modeling of technical texts: natural language question answering
 
-## Installation of chatAI4R
+## Installation of chatAI4R package
 
 1. Start R.app
 
 2. Run the following commands in the R console:
 
 ```r
-#CRAN-version (Not yet available)
+# CRAN-version (Not yet available)
 install.packages("BiocManager")
 BiocManager::install("EBImage")
 
 install.packages("chatAI4R")
 library(chatAI4R)
 
-#Dev-version
+# Dev-version
 install.packages(c("devtools", "BiocManager"), repos="http://cran.r-project.org")
 BiocManager::install("EBImage")
 
@@ -43,7 +42,14 @@ library(chatAI4R)
 ```r
 #Set your key for the OpenAI API
 Sys.setenv(OPENAI_API_KEY = "Your API key")
+
+#Set your key for the DeepL API
+Sys.setenv(DeepL_API_KEY = "Your API key")
 ```
+
+## Tutorial
+
+- [How to use the chatAI4R's functions]()
 
 ## R functions
 

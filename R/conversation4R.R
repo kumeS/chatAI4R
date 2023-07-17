@@ -27,7 +27,7 @@
 #message = "Hello"; template1=""; ConversationBufferWindowMemory_k = 2; Model="gpt-3.5-turbo-16k"; initialization = FALSE; output=FALSE
 
 conversation4R <- function(message,
-                           api_key,
+                           api_key = Sys.getenv("OPENAI_API_KEY"),
                            template1="",
                            ConversationBufferWindowMemory_k = 2,
                            Model="gpt-3.5-turbo-16k",

@@ -27,7 +27,10 @@
 #' }
 #'
 
-deepel <- function(sentence, target_lang, Auth_Key, free_mode=TRUE) {
+deepel <- function(sentence,
+                   target_lang,
+                   Auth_Key = Sys.getenv("DeepL_API_KEY"),
+                   free_mode=TRUE) {
 
   if(free_mode){
     base_url <- "https://api-free.deepl.com/v2/translate"
