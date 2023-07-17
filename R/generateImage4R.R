@@ -31,7 +31,7 @@ generateImage4R <- function(content,
                             size = "256x256",
                             response_format = "url",
                             Output_image = TRUE,
-                            SaveImg = TRUE,
+                            SaveImg = FALSE,
                             api_key = Sys.getenv("OPENAI_API_KEY")){
   # Asserting input types and values
   assertthat::assert_that(is.string(content))
@@ -65,7 +65,6 @@ generateImage4R <- function(content,
     result <- purrr::map(extract.url, ~EBImage::readImage(files = .x, type = "png"))
     if(SaveImg){ saveRDS(result, file = paste0("CreatedImg_", formatC(length(dir(pattern = "[.]Rds"))+1, flag = "0", width = 3), ".Rds")) }
     return(result)
-
   } else {
     return(extract.url)
   }

@@ -1,39 +1,42 @@
-#' Display Images and Optionally Write Them to Disk
+#' Display Images and Optionally Write Them to File
 #'
-#' This function displays a list of EBImage objects, and optionally writes them to disk as PNG files.
+#' This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.
 #'
-#' @title Display Images and Optionally Write Them to Disk
-#' @description Displays a list of EBImage objects. If write is TRUE, it also writes them to the disk.
+#' @title Display Images and Optionally Write Them to File
+#' @description This function takes in a list of images, displays each image, and optionally writes each image to a .Rds or .png file.
 #'
-#' @param img A list of EBImage objects. These are the images to display and optionally write to disk.
-#' @param write A boolean. Defaults to FALSE. If TRUE, the function writes the images to disk as PNG files.
-#' @param Rds A boolean. Defaults to FALSE. If TRUE, the function saves the images as Rds files.
+#' @param img A list. The list of images to display. Each image in the list should be of class "Image".
+#' @param write A logical. Whether to write the images to .png files. Defaults to FALSE.
+#' @param Rds A logical. Whether to save the images as .Rds files. Defaults to FALSE.
+#' @param mar A numeric. The margin size for the plot. Defaults to 0.05.
 #'
+#' @importFrom graphics par
 #' @importFrom assertthat assert_that
-#' @importFrom EBImage display rotate
-#' @importFrom abind abind
+#' @importFrom EBImage display
 #' @importFrom png writePNG
 #' @importFrom grDevices as.raster
-#' @importFrom graphics par plot
 #'
-#' @return This function doesn't return anything. It displays images and optionally writes them to disk.
+#' @return Invisible NULL. The function is called for its side effect of displaying images and optionally writing them to file.
 #'
-#' @export
+#' @export Display
 #' @author Satoshi Kume
 #'
 #' @examples
 #' \dontrun{
-#' # Load an image
-#' img <- list(EBImage::readImage(system.file("images", "sample-color.png", package="EBImage")))
+#' # Create a list of images
+#' img <- list(image1, image2, image3)
 #'
-#' # Display the image
+#' # Display the images
 #' Display(img)
 #'
-#' # Display and write the image to disk
+#' # Display the images and write them to .png files
 #' Display(img, write = TRUE)
+#'
+#' # Display the images and save them as .Rds files
+#' Display(img, Rds = TRUE)
 #' }
 
-Display <- function(img, write = FALSE, Rds = FALSE){
+Display <- function(img, write = FALSE, Rds = FALSE, mar = 0.05){
   # Store the current graphics parameters
   oldpar <- graphics::par(no.readonly = TRUE)
 
@@ -75,15 +78,15 @@ Display <- function(img, write = FALSE, Rds = FALSE){
   "1" = c(1,1),
   "2" = c(1,2),
   "3" = c(1,3),
-  "4" = c(1,4),
-  "5" = c(2,4),
-  "6" = c(2,4),
+  "4" = c(2,2),
+  "5" = c(2,3),
+  "6" = c(2,3),
   "7" = c(2,4),
   "8" = c(2,4),
   "9" = c(3,3),
   "10" = c(3,4))
 
-  graphics::par(mfrow=ans, mar=rep(0, 4))
+  graphics::par(mfrow=ans, mar=rep(mar, 4))
   for(n in seq_len(length(img))){
   #n <- 1
   plot(t(grDevices::as.raster(img[[n]]@.Data, max=max(img[[n]]@.Data))))
