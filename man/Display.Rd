@@ -2,30 +2,36 @@
 % Please edit documentation in R/Display.R
 \name{Display}
 \alias{Display}
-\title{Display Images}
+\title{Display Images and Optionally Write Them to Disk}
 \usage{
-Display(img, write = FALSE)
+Display(img, write = FALSE, Rds = FALSE)
 }
 \arguments{
-\item{img}{A list of images. Each element of the list is expected to be an image of class "Image".}
+\item{img}{A list of EBImage objects. These are the images to display and optionally write to disk.}
 
-\item{write}{A logical, if TRUE, the function will also write each image to a file. Defaults to FALSE.}
+\item{write}{A boolean. Defaults to FALSE. If TRUE, the function writes the images to disk as PNG files.}
 }
 \value{
-No return value, this function is used for its side effect of displaying images or writing images to file.
+This function doesn't return anything. It displays images and optionally writes them to disk.
 }
 \description{
-This function displays images that are stored in a list. Each image is expected to be of the "Image" class. If write parameter is set to TRUE, it also saves each image as a PNG file.
+Displays a list of EBImage objects. If write is TRUE, it also writes them to the disk.
 }
 \details{
-Display Images
+Display Images and Optionally Write Them to Disk
+
+This function displays a list of EBImage objects, and optionally writes them to disk as PNG files.
 }
 \examples{
 \dontrun{
-# Assuming "images" is a list of Image objects
-Display(images)
-# To also save images to file
-Display(images, write = TRUE)
+# Load an image
+img <- list(EBImage::readImage(system.file("images", "sample-color.png", package="EBImage")))
+
+# Display the image
+Display(img)
+
+# Display and write the image to disk
+Display(img, write = TRUE)
 }
 }
 \author{

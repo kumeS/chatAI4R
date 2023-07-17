@@ -2,7 +2,7 @@
 % Please edit documentation in R/editImage4R.R
 \name{editImage4R}
 \alias{editImage4R}
-\title{Edit Images Using OpenAI API}
+\title{Edit or Extend Images with OpenAI API}
 \usage{
 editImage4R(
   image,
@@ -16,37 +16,47 @@ editImage4R(
 )
 }
 \arguments{
-\item{image}{A character string, the file path of the image to be edited. Must be a valid PNG file, less than 4MB, and square.}
+\item{image}{A string. The file path to the image to edit. Must be a valid PNG file.}
 
-\item{mask}{A character string, an additional image file path. If not provided, the transparency of the image will be used as the mask.}
+\item{mask}{An optional string. An additional image file path whose fully transparent areas indicate where image should be edited.}
 
-\item{prompt}{A character string, a text description of the desired images. The maximum length is 1000 characters.}
+\item{prompt}{A string. A text description of the desired images. The maximum length is 1000 characters.}
 
-\item{n}{An integer, the number of images to generate. Must be between 1 and 10. Defaults to 3.}
+\item{n}{An integer. Defaults to 3. The number of images to generate. Must be between 1 and 10.}
 
-\item{size}{A character string, the size of the generated images. Must be one of "256x256", "512x512", "1024x1024". Defaults to "256x256".}
+\item{size}{A string. Defaults to "256x256". The size of the generated images. Must be one of "256x256", "512x512", or "1024x1024".}
 
-\item{response_format}{A character string, the format in which the generated images are returned. Must be one of "url" or "b64_json". Defaults to "url".}
+\item{response_format}{A string. Defaults to "url". The format in which the generated images are returned. Must be one of "url" or "b64_json".}
 
-\item{Output_image}{A logical flag, whether to output the images.}
+\item{Output_image}{A boolean. Defaults to TRUE. If TRUE, the function returns the generated images. If FALSE, it returns the URLs of the images.}
 
-\item{api_key}{A character string, the API key for OpenAI.}
+\item{api_key}{A string. The OpenAI API key. Defaults to the value of the "OPENAI_API_KEY" environment variable.}
 }
 \value{
-If Output_image is TRUE, returns a list of images; if Output_image is FALSE, returns a character vector of URLs.
+If `Output_image` is TRUE, returns a list of EBImage objects representing the generated images.
+        If `Output_image` is FALSE, returns a vector of URLs pointing to the generated images.
 }
 \description{
-This function edits images using the OpenAI API. Given an original image and a prompt, it creates an edited or extended image.
+Generates new images by applying text prompts to original images, using OpenAI's API.
 }
 \details{
-Edit Images Using OpenAI API
+Edit or Extend Images with OpenAI API
+
+This function takes in an image file and a text prompt, and makes a request to OpenAI's API
+to create edited or extended images based on the prompt. It can return either URLs of the generated images
+or the images themselves, depending on the value of the `Output_image` argument.
 }
 \examples{
 \dontrun{
-# Edit images
-results <- editImage4R(image = "path_to_image.png", prompt = "A blue sky", n = 3, size = "256x256", response_format = "url", Output_image = TRUE, api_key = Sys.getenv("OPENAI_API_KEY"))
-# Display the edited images
-Display(results)
+# Make sure to set your API key first
+Sys.setenv("OPENAI_API_KEY" = "your_openai_api_key")
+
+# Define a file path and a prompt
+image <- "path_to_your_image.png"
+prompt <- "Make the image look like it's sunset."
+
+# Generate 3 images
+result <- editImage4R(image = image, prompt = prompt, n = 3)
 }
 }
 \author{

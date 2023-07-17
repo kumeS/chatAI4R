@@ -23,6 +23,7 @@ gpt_img <- generateImage4R(gpt)
 Display(gpt_img)
 
 #photorealisticプラグインでプロンプト生成 + GPT-4でDALL-E 2が理解しやすいに最適化
+#Midjourney用(Photorealistic画像)のプロンプト作成支援ツール
 
 #案1
 photo1 <- "Imagine a serene scene in Hokkaido in July. A white cat is happily lounging on an island surrounded by the vast ocean. In the distance, a bear is also enjoying the summer day. The scene is captured with a high-resolution 16k camera, using a raw style to highlight the natural beauty of the scene. The lighting is soft, illuminating the scene with the warm glow of a summer day. The color palette is dominated by the cool blues of the ocean and the warm whites of the cat and the sandy island. The composition is balanced, with the cat in the foreground and the bear in the distance, creating a sense of depth."
@@ -42,3 +43,23 @@ photo2_img <- generateImage4R(photo2)
 #結果表示
 Display(photo2_img)
 
+
+m1 <- "Imagine a unique perspective of Japan in July. A large, detailed map of Japan is laid out, with a special emphasis on the vastness of Hokkaido. A white cat playfully sits on the map, adding a touch of whimsy to the scene. The Japan Trench is depicted as a significant feature, its huge size clearly marked. The image is captured in a raw style with a high-resolution 16k camera, the lighting is natural, and the colors are vibrant, with the white of the cat contrasting against the colors of the map."
+m1_img <- generateImage4R(m1)
+Display(m1_img)
+
+m2 <- "Picture a large, detailed map of Japan during the summer month of July. The island of Hokkaido is prominently displayed, and the immense Japan Trench is clearly marked. A white cat is playfully positioned on the map, adding a touch of charm to the scene. The image is captured in a raw style with a high-resolution 16k camera. The lighting is soft, highlighting the details of the map and the cat, and the colors are bright and clear, with the white of the cat standing out against the map."
+m2_img <- generateImage4R(m2)
+Display(m2_img)
+
+m3 <- "A white cat lounging on a detailed map of Japan during the warm month of July. The map is unique, with the Japan Trench artistically represented as a dramatic cliff. The scene is captured in a raw style, with natural lighting and vibrant colors."
+m3_img <- generateImage4R(m3)
+Display(m3_img)
+
+m4 <- "Imagine a detailed and highly realistic map of Japan. The map is captured in a raw style with a high-resolution 16k camera, highlighting the intricate details of Japan's geography. The lighting is natural, illuminating the map's features, and the colors are vibrant, reflecting the diverse landscapes of Japan."
+m4_img <- generateImage4R(m4)
+Display(m4_img)
+
+m5 <- "Picture a large, detailed map of Japan. The map is rendered in a raw style with a high-resolution 16k camera, showcasing the complexity of Japan's geography. The lighting is soft, highlighting the details of the map, and the colors are bright and clear, representing the various regions of Japan."
+m5_img <- generateImage4R(m5)
+Display(m5_img)
