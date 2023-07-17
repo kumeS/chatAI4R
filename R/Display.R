@@ -7,11 +7,14 @@
 #'
 #' @param img A list of EBImage objects. These are the images to display and optionally write to disk.
 #' @param write A boolean. Defaults to FALSE. If TRUE, the function writes the images to disk as PNG files.
+#' @param Rds A boolean. Defaults to FALSE. If TRUE, the function saves the images as Rds files.
 #'
 #' @importFrom assertthat assert_that
 #' @importFrom EBImage display rotate
 #' @importFrom abind abind
 #' @importFrom png writePNG
+#' @importFrom grDevices as.raster
+#' @importFrom graphics par plot
 #'
 #' @return This function doesn't return anything. It displays images and optionally writes them to disk.
 #'
@@ -50,6 +53,7 @@ Display <- function(img, write = FALSE, Rds = FALSE){
     }
 
   # Iterate over the images in the list and display each one
+  img0 <- list()
   for(n in seq_along(img)){
     #n <- 3
     EBImage::display(img[[n]])
@@ -57,12 +61,31 @@ Display <- function(img, write = FALSE, Rds = FALSE){
     f <- paste0("Img_", formatC(length(dir(pattern = "[.]png"))+1, flag = "0", width = 3), ".png")
     if(write){
       if (dim(img[[n]])[3] != 4) {
-          img[[n]] <- EBImage::rotate(img[[n]], angle=-90)
-          alpha_channel <- matrix(0, nrow = dim(img[[n]])[1], ncol = dim(img[[n]])[2])
-          img[[n]] <- abind::abind(img[[n]], alpha_channel, along = 3)
+          img0[[n]] <- EBImage::rotate(img[[n]], angle=-90)
+          alpha_channel <- matrix(0, nrow = dim(img0[[n]])[1], ncol = dim(img0[[n]])[2])
+          img0[[n]] <- abind::abind(img0[[n]], alpha_channel, along = 3)
       }
       #save image
-      png::writePNG(img[[n]], target = f)
+      png::writePNG(img0[[n]], target = f)
     }
   }
+
+  # Depending on the length of img, different configurations are chosen for displaying
+  ans <- switch (length(img),
+  "1" = c(1,1),
+  "2" = c(1,2),
+  "3" = c(1,3),
+  "4" = c(1,4),
+  "5" = c(2,4),
+  "6" = c(2,4),
+  "7" = c(2,4),
+  "8" = c(2,4),
+  "9" = c(3,3),
+  "10" = c(3,4))
+
+  graphics::par(mfrow=ans, mar=rep(0, 4))
+  for(n in seq_len(length(img))){
+  #n <- 1
+  plot(t(grDevices::as.raster(img[[n]]@.Data, max=max(img[[n]]@.Data))))
+}
 }

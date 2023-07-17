@@ -10,6 +10,8 @@ Display(img, write = FALSE, Rds = FALSE)
 \item{img}{A list of EBImage objects. These are the images to display and optionally write to disk.}
 
 \item{write}{A boolean. Defaults to FALSE. If TRUE, the function writes the images to disk as PNG files.}
+
+\item{Rds}{A boolean. Defaults to FALSE. If TRUE, the function saves the images as Rds files.}
 }
 \value{
 This function doesn't return anything. It displays images and optionally writes them to disk.
