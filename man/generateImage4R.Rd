@@ -10,7 +10,7 @@ generateImage4R(
   size = "256x256",
   response_format = "url",
   Output_image = TRUE,
-  SaveImg = TRUE,
+  SaveImg = FALSE,
   api_key = Sys.getenv("OPENAI_API_KEY")
 )
 }

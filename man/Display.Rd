@@ -2,38 +2,43 @@
 % Please edit documentation in R/Display.R
 \name{Display}
 \alias{Display}
-\title{Display Images and Optionally Write Them to Disk}
+\title{Display Images and Optionally Write Them to File}
 \usage{
-Display(img, write = FALSE, Rds = FALSE)
+Display(img, write = FALSE, Rds = FALSE, mar = 0.05)
 }
 \arguments{
-\item{img}{A list of EBImage objects. These are the images to display and optionally write to disk.}
+\item{img}{A list. The list of images to display. Each image in the list should be of class "Image".}
 
-\item{write}{A boolean. Defaults to FALSE. If TRUE, the function writes the images to disk as PNG files.}
+\item{write}{A logical. Whether to write the images to .png files. Defaults to FALSE.}
 
-\item{Rds}{A boolean. Defaults to FALSE. If TRUE, the function saves the images as Rds files.}
+\item{Rds}{A logical. Whether to save the images as .Rds files. Defaults to FALSE.}
+
+\item{mar}{A numeric. The margin size for the plot. Defaults to 0.05.}
 }
 \value{
-This function doesn't return anything. It displays images and optionally writes them to disk.
+Invisible NULL. The function is called for its side effect of displaying images and optionally writing them to file.
 }
 \description{
-Displays a list of EBImage objects. If write is TRUE, it also writes them to the disk.
+This function takes in a list of images, displays each image, and optionally writes each image to a .Rds or .png file.
 }
 \details{
-Display Images and Optionally Write Them to Disk
+Display Images and Optionally Write Them to File
 
-This function displays a list of EBImage objects, and optionally writes them to disk as PNG files.
+This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.
 }
 \examples{
 \dontrun{
-# Load an image
-img <- list(EBImage::readImage(system.file("images", "sample-color.png", package="EBImage")))
+# Create a list of images
+img <- list(image1, image2, image3)
 
-# Display the image
+# Display the images
 Display(img)
 
-# Display and write the image to disk
+# Display the images and write them to .png files
 Display(img, write = TRUE)
+
+# Display the images and save them as .Rds files
+Display(img, Rds = TRUE)
 }
 }
 \author{
