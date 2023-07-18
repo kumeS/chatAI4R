@@ -1,0 +1,5 @@
+
+
+generageStableDiffusion4R <- function(){
+
+}

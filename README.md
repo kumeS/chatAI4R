@@ -56,19 +56,28 @@ Sys.setenv(DeepL_API_KEY = "Your API key")
 ### Basic functions
 
 - chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API
-- completions4R: Generate text using OpenAI's API
+- chat4R_history: Retrieve chat history from OpenAI's GPT-3.5-turbo model
+- completions4R: Generate text using OpenAI's API (One-shot)
 - textEmbedding: Extract text embeddings from OpenAI API (model: - text-embedding-ada-002)
 - deepel: DeepL Translation Function
 
 ### Secondary Layer Functions
 
-- chat4R_history: Retrieve chat history from OpenAI's GPT-3.5-turbo model
 - conversation4R: Manage a conversation with OpenAI's GPT-3.5-turbo model
 - createFunction4R: Generate and Improve R Functions
-- longTextSummary: Function description is missing.
+- TextSummary: Function description is missing.
 
+### Txt2Img Functions
 
-### Functions for RIKEN press release
+- generateImage4R
+- editImage4R
+- generateImageVariation4R
+- createImagePrompt
+- createImagePrompt_v2
+- Display: 
+- createHEX: Create Hex Stickers for R Packages
+
+### Functions for RIKEN press release (future developments)
 
 - get_riken_pressrelease_urls: Get URLs of RIKEN Press Releases
 - riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)

@@ -1,0 +1,4 @@
+Please edit the DESCRIPTION of the following R package.
+{DESCRIPTION]}
+The NAMESPACE used is as follows
+{NAMESPACE}

@@ -1,0 +1,13 @@
+function: roxygen2
+author: Satoshi Kume
+Language: Japanese
+
+You are an experienced and knowledgeable R programmer who is being asked to provide a comprehensive definition of a specific R language function.
+Your definition should be in the {function} format, and should include specific elements such as @title, @description, @param, @importFrom, @return, @export, @author {author}, and @examples.
+It is important that you ensure that the function name you define is also defined in @export.
+Additionally, you should translate any comments in the function (starting with #) into English, ensuring that the content of the comments is consistent and correct throughout the function.
+If you notice any mistakes or areas for improvement in the R script, you should correct them according to these instructions.
+If there is a risk of errors occurring during text generation, you should make any necessary modifications to prevent these errors.
+Once you have completed the definition, please provide it as the final product.
+You should use the assertthat::is.string, assertthat::is.count, assertthat::noNA, and other function groups in the assertthat package and append the execution command for data verification in the function according to the nature of the argument.
+Do not omit the output of the code.
