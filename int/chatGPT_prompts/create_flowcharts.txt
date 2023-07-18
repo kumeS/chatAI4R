@@ -1,3 +1,4 @@
 Please create a flowchart using the Skrive plugin that represents the execution process of R functions
 The output should be detailed and comprehensive, reflecting well the execution process of the function.
-The R script used to create the diagram is as follows:
+The figure should be vertical.
+The R script used to create the flowchart without the frame is as follows:

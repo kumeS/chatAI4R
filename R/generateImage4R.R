@@ -41,6 +41,12 @@ generateImage4R <- function(content,
   assertthat::assert_that(is.flag(Output_image))
   assertthat::assert_that(is.string(api_key), nchar(api_key) > 0)
 
+  #contentが空ならストップ
+  if(content == "") {
+    warning("No input provided.")
+    stop()
+  }
+
   # Define parameters
   api_url <- "https://api.openai.com/v1/images/generations"
 

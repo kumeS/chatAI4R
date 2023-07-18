@@ -31,44 +31,9 @@ BiocStyle::markdown()
 library(chatAI4R)
 ```
 
-# Get images via Google Image Search
+# 
 
-`chatAI4R` function provide a 4-dimensional array of images via google image search.
 
-```{r echo=TRUE, eval=TRUE}
-#Search by persian cat
-query <- "persian cat"
-CatImg <- GoogleImage2array(query)
-
-#show info
-str(CatImg)
-```
-
-Multi-byte characters (e.g. Japanese) can also be used.
-
-```{r echo=TRUE, eval=TRUE}
-#Search by ペルシャ猫
-query <- "ペルシャ猫"
-CatImgJpn <- GoogleImage2array(query)
-
-#show info
-str(CatImgJpn)
-```
-
-# Display images as a spiral image
-
-```{r echo=TRUE, eval=FALSE}
-#show images
-display.spiral(CatImg)
-```
-
-```{r Fig001, fig.cap = "display images as a spiral image", echo = FALSE, out.width="75%"}
-library(GoogleImage2Array)
-library(EBImage)
-options(EBImage.display = "raster")
-img <- system.file("images", "spiral.png", package="GoogleImage2Array")
-EBImage::display(EBImage::readImage(files = img))
-```
 
 # Session information {.unnumbered}
 ```{r sessionInfo, echo=FALSE}

@@ -11,6 +11,7 @@ chatAI4R is an experimental project that aims to build applications using its ba
 - AI API integration with R
   - OpenAI API (ChatGPT, txt2img, text embeddings)
   - DeepL API
+  - DreamStudio API (Stable Diffusion)
 - LLM-based techniques for bioinformatics (future developments)
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
   - Linguistic modeling of technical texts: natural language question answering
@@ -45,6 +46,9 @@ Sys.setenv(OPENAI_API_KEY = "Your API key")
 
 #Set your key for the DeepL API
 Sys.setenv(DeepL_API_KEY = "Your API key")
+
+#Set your key for the DreamStudio API
+Sys.setenv(DreamStudio_API_KEY = "Your API key")
 ```
 
 ## Tutorial
@@ -55,11 +59,14 @@ Sys.setenv(DeepL_API_KEY = "Your API key")
 
 ### Basic functions
 
-- chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API
+|Function|Description|Flowchart|
+|:---|:---|:---:|
+|chat4R|Interact with gpt-3.5-turbo-16k (default) using OpenAI API|Flowchart|
+
 - chat4R_history: Retrieve chat history from OpenAI's GPT-3.5-turbo model
 - completions4R: Generate text using OpenAI's API (One-shot)
 - textEmbedding: Extract text embeddings from OpenAI API (model: - text-embedding-ada-002)
-- deepel: DeepL Translation Function
+- [deepel](): DeepL Translation Function
 
 ### Secondary Layer Functions
 

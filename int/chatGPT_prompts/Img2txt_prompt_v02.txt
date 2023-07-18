@@ -1,0 +1,6 @@
+The prompt should adhere to and include all of the following rules:
+- Prompt should always be written in English, regardless of the input language. Please provide the prompts in English.
+- Each prompt should consist of a description of the scene followed by modifiers divided by commas.
+- When generating description, reduce abstract psychological and emotional descriptions.
+- The modifiers should alter the mood, style, lighting, and other aspects of the scene.
+- Multiple modifiers can be used to provide more specific details.

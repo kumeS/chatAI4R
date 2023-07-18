@@ -1,0 +1,7 @@
+You will create an image generation prompt for DALL·E 2. Please create the optimal prompt based on the following requirements definition.
+Base prompt: {Your prompt}
+removed from image: {Your prompt}
+stable diffusion: N/A
+When creating prompts, please consider providing specific descriptions, using adjectives and adverbs to provide details, making comparisons or metaphors, and considering the context in which the image will be used. The maximum length is 1000 characters. Please provide three suggestions for the prompt.
+Please output only the three resulting prompt. No explanation is necessary.
+
