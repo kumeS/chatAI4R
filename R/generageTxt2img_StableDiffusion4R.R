@@ -15,6 +15,9 @@
 #' @param steps An integer. The number of diffusion steps to run. Default is 15.
 #' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
 #' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
+#' @param style_preset A string. A style preset to guide the image model towards a particular style. Default is an empty string. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.
+#' @param engine_id A string. The engine id to be used in the API. Default is 'stable-diffusion-512-v2-1'.
+#'                  Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
 #' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.
 #' @param api_key A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.
 #' @importFrom assertthat assert_that is.string is.count noNA
@@ -27,10 +30,15 @@
 #' @export generageTxt2img_StableDiffusion4R
 #' @author Satoshi Kume
 #' @examples
+#' \dontrun{
 #' Sys.setenv(DreamStudio_API_KEY = "Your API key")
 #' text_prompts = "japanese castle"
 #' images = generageTxt2img_StableDiffusion4R(text_prompts)
-#' EBImage::display(images[[1]])
+#'
+#' Display(images)
+#' }
+
+
 generageTxt2img_StableDiffusion4R <- function(
   text_prompts = "",
   negative_prompts = "",
@@ -40,13 +48,21 @@ generageTxt2img_StableDiffusion4R <- function(
   steps = 15,
   cfg_scale = 7 ,
   clip_guidance_preset = "NONE",
+  style_preset = "photographic",
+  engine_id = "stable-diffusion-512-v2-1",
   api_host = "https://api.stability.ai",
   api_key = Sys.getenv("DreamStudio_API_KEY")
 ) {
+
+  # Verify if text_prompts is not empty or NULL
+  if (is.null(text_prompts) || text_prompts == "") {
+    stop("text_prompts must not be empty or NULL")
+  }
+
   assertthat::assert_that(
     assertthat::is.string(text_prompts),
     assertthat::is.string(negative_prompts),
-    assertthat::is.count(weight),
+    assertthat::is.number(weight),
     assertthat::noNA(weight),
     weight >= 0,
     weight <= 1,
@@ -67,11 +83,14 @@ generageTxt2img_StableDiffusion4R <- function(
     cfg_scale <= 35,
     assertthat::is.string(clip_guidance_preset),
     clip_guidance_preset %in% c("FAST_BLUE", "FAST_GREEN", "NONE", "SIMPLE", "SLOW", "SLOWER", "SLOWEST"),
+    assertthat::is.string(engine_id),
+    assertthat::is.string(style_preset),
+    style_preset %in% c("3d-model", "analog-film", "anime", "cinematic", "comic-book", "digital-art", "enhance", "fantasy-art", "isometric", "line-art", "low-poly", "modeling-compound", "neon-punk", "origami", "photographic", "pixel-art", "tile-texture"),
+    engine_id %in% c("stable-diffusion-512-v2-1", "stable-diffusion-v1-5", "stable-diffusion-xl-beta-v2-2-2", "stable-diffusion-768-v2-1"),
     assertthat::is.string(api_host),
     assertthat::is.string(api_key)
   )
 
-  engine_id <- "stable-diffusion-512-v2-1"
   uri <- paste0(api_host, "/v1/generation/", engine_id, "/text-to-image")
 
   headers <- httr::add_headers(
@@ -93,7 +112,8 @@ generageTxt2img_StableDiffusion4R <- function(
     "height" = height,
     "width" = width,
     "samples" = number_of_images,
-    "steps" = steps
+    "steps" = steps,
+    "style_preset" = style_preset
   )
 
   result <- list()

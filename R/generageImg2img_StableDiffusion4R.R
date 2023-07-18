@@ -1,35 +1,126 @@
+#' @param text_prompts A string. The text prompt to use for image generation. Should not be empty.
+#' @param negative_prompts A string. The negative prompts for image generation. Default is an empty string.
+#' @param weight A numeric value indicating the weight of the text prompt. Default is 0.5.
+#' @param height An integer. The height of the image in pixels. Default is 512.
+#' @param width An integer. The width of the image in pixels. Default is 512.
+#' @param number_of_images An integer. The number of images to generate. Default is 1.
+#' @param steps An integer. The number of diffusion steps to run. Default is 15.
+#' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
+#' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
+#' @param engine_id A string. The engine id to be used in the API. Default is 'stable-diffusion-512-v2-1'.
+#'                  Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
+#' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.
+#' @param api_key A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.
+#' @importFrom assertthat assert_that is.string is.count noNA
+#' @importFrom httr add_headers POST http_status content
+#' @importFrom jsonlite fromJSON
+#' @importFrom base64enc base64decode
+#' @importFrom png readPNG
+#' @importFrom EBImage rotate Image display
+#' @return A list of images generated from the text prompt.
+#' @export generageTxt2img_StableDiffusion4R
+#' @author Satoshi Kume
+#' @examples
+#' Sys.setenv(DreamStudio_API_KEY = "Your API key")
+#' text_prompts = "japanese castle"
+#' images = generageTxt2img_StableDiffusion4R(text_prompts)
+#' EBImage::display(images[[1]])
 
+#' @param init_image A string. This is the path to the image file to be used as the basis for the imege to image
+#' Must be a valid PNG file, less than 4MB, and square.
+string <binary> (InitImage)
+Image used to initialize the diffusion process, in lieu of random noise.
+
+init_image_mode
+string (InitImageMode)
+Default: IMAGE_STRENGTH
+Whether to use image_strength or step_schedule_* to control how much influence the init_image has on the result.
+
+image_strength
+number <float> (InitImageStrength) [ 0 .. 1 ]
+Default: 0.35
+How much influence the init_image has on the diffusion process. Values close to 1 will yield images very similar to the init_image while values close to 0 will yield images wildly different than the init_image. The behavior of this is meant to mirror DreamStudio's "Image Strength" slider.
+This parameter is just an alternate way to set step_schedule_start, which is done via the calculation 1 - image_strength. For example, passing in an Image Strength of 35% (0.35) would result in a step_schedule_start of 0.65.
+
+step_schedule_start
+number (StepScheduleStart) [ 0 .. 1 ]
+Default: 0.65
+Skips a proportion of the start of the diffusion steps, allowing the init_image to influence the final generated image. Lower values will result in more influence from the init_image, while higher values will result in more influence from the diffusion steps. (e.g. a value of 0 would simply return you the init_image, where a value of 1 would return you a completely different image.)
+
+step_schedule_end
+number (StepScheduleEnd) [ 0 .. 1 ]
+Skips a proportion of the end of the diffusion steps, allowing the init_image to influence the final generated image. Lower values will result in more influence from the init_image, while higher values will result in more influence from the diffusion steps.
+
+seed
+integer (Seed) [ 0 .. 4294967295 ]
+Default: 0
+Random noise seed (omit this option or use 0 for a random seed)
+
+style_preset
+string (StylePreset)
+Enum: 3d-model analog-film anime cinematic comic-book digital-art enhance fantasy-art isometric line-art low-poly modeling-compound neon-punk origami photographic pixel-art tile-texture
+Pass in a style preset to guide the image model towards a particular style. This list of style presets is subject to change.
 
 generageImg2img_StableDiffusion4R <- function(
-    text_prompts = "",
-    negative_prompts = "",
-    weight = 0.5,
-    height = 512, width = 512,
-    number_of_images = 1,
-    steps = 15,
-    cfg_scale = 7 ,
-    clip_guidance_preset = "NONE",
-    api_host = "https://api.stability.ai",
-    api_key = Sys.getenv("DreamStudio_API_KEY")) {
+  text_prompts,
+  negative_prompts = "",
+  init_image,
+  init_image_mode = "IMAGE_STRENGTH",
+  weight = 0.5,
+  number_of_images = 1,
+  steps = 15,
+  cfg_scale = 7 ,
+  seed = 0,
+  clip_guidance_preset = "NONE",
+  style_preset = "photographic",
+  engine_id = "stable-diffusion-512-v2-1",
+  api_host = "https://api.stability.ai",
+  api_key = Sys.getenv("DreamStudio_API_KEY")
+) {
 
-  #contentが空ならストップ
-  if(text_prompts == "") {
-    warning("No input provided.")
-    stop()
+  # Verify if text_prompts is not empty or NULL
+  if (is.null(text_prompts) || text_prompts == "") {
+    stop("text_prompts must not be empty or NULL")
   }
 
-  # APIのエンドポイントとヘッダーを設定
-  engine_id <- "stable-diffusion-512-v2-1"
+  assertthat::assert_that(
+    assertthat::is.string(text_prompts),
+    assertthat::is.string(negative_prompts),
+    assertthat::is.count(weight),
+    assertthat::noNA(weight),
+    weight >= 0,
+    weight <= 1,
+    assertthat::is.count(height),
+    height %% 64 == 0,
+    height >= 128,
+    assertthat::is.count(width),
+    width %% 64 == 0,
+    width >= 128,
+    assertthat::is.count(number_of_images),
+    number_of_images >= 1,
+    number_of_images <= 10,
+    assertthat::is.count(steps),
+    steps >= 10,
+    steps <= 150,
+    assertthat::is.count(cfg_scale),
+    cfg_scale >= 0,
+    cfg_scale <= 35,
+    assertthat::is.string(clip_guidance_preset),
+    clip_guidance_preset %in% c("FAST_BLUE", "FAST_GREEN", "NONE", "SIMPLE", "SLOW", "SLOWER", "SLOWEST"),
+    assertthat::is.string(engine_id),
+    engine_id %in% c("stable-diffusion-512-v2-1", "stable-diffusion-v1-5", "stable-diffusion-xl-beta-v2-2-2", "stable-diffusion-768-v2-1"),
+    assertthat::is.string(api_host),
+    assertthat::is.string(api_key)
+  )
+
   uri <- paste0(api_host, "/v1/generation/", engine_id, "/text-to-image")
 
-  #ヘッダーの作成
   headers <- httr::add_headers(
     "Content-Type" = "application/json",
     "Accept" = "application/json",
     "Authorization" = paste0("Bearer ", api_key)
   )
 
-  # 画像生成に必要なプロンプトやパラメータを設定
   payload <- list(
     "text_prompts" = list(
       list("text" = text_prompts,
@@ -46,39 +137,28 @@ generageImg2img_StableDiffusion4R <- function(
     "steps" = steps
   )
 
-  #空のlistの定義
   result <- list()
 
-  #stable diffusion modelで画像生成
   for (i in seq_len(number_of_images)) {
-
-    #実行状況
-    #i <- 1
     cat("Generate", i, "image\n")
 
-    # リクエストを送信する
     response <- httr::POST(uri,
                            body = payload,
                            encode = "json",
                            config = headers)
 
-    # レスポンスのステータスコードを確認
     if (httr::http_status(response)$category != "Success") {
       stop("Non-200 response: ", httr::content(response, "text"))
     }
 
-    #JSONをパース
     image_data <- jsonlite::fromJSON(httr::content(response, "text"))
 
-    # Base64エンコードされた文字列をバイナリデータにデコードし、そのバイナリデータをreadPNG関数でPNG画像として読み込む
     decode_image <- png::readPNG(base64enc::base64decode(image_data$artifacts$base64))
-    #str(decode_image)
 
-    #EBImageオブジェクトに変換する
     Img <- EBImage::rotate(EBImage::Image(decode_image, colormode = 'Color' ), angle=90)
-    #str(Img)
-    #range(Img)
+
     result[[i]] <- Img
   }
-}
 
+  return(result)
+}
