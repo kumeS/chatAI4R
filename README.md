@@ -106,7 +106,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 All runs using the chat4R function are One-Shot Chatting. Conversation history is not carried over to the next conversation.
 
-```{r}
+```r
 #Set your API key
 Sys.setenv(OPENAI_API_KEY = "Your API key")
 
@@ -122,7 +122,7 @@ completions4R("Hello")
 Executions using the conversation4R function will keep a history of conversations. The number of previous messages to keep in memory defaults to 2.
 
 
-```{r}
+```r
 #Set your API key
 Sys.setenv(OPENAI_API_KEY = "Your API key")
 
@@ -137,7 +137,7 @@ conversation4R("Hello")
 
 Converts input text to a numeric vector. The model text-embedding-ada-002 results in a vector of 1536 floats.
 
-```{r}
+```r
 #Set your API key
 Sys.setenv(OPENAI_API_KEY = "Your API key")
 
