@@ -53,7 +53,13 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 
 ## Tutorial
 
+### Basic usage
+
 - [How to use the chatAI4R's functions]()
+
+###  Applied usage of the chatAI4R package
+
+- Vignette: AI-based chatting loaded with professional documents (RIKEN Pressrelease text)
 
 ## R functions
 
@@ -88,7 +94,8 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 - generageTxt2img_StableDiffusion4R
 - generageImg2img_StableDiffusion4R
 
-### Image visualization 
+
+### Visualization functions
 
 - Display: Display Images and Optionally Write Them to File
 - createHEX: Create Hex Stickers for R Packages
@@ -145,11 +152,6 @@ Sys.setenv(OPENAI_API_KEY = "Your API key")
 textEmbedding("Hello, world!")
 ```
 
-## Applied use of the chatAI4R package
-
-- Vignette: AI-based chatting loaded with professional documents (RIKEN Pressrelease text)
-
-
 ## License
 
 Copyright (c) 2023 Satoshi Kume. Released under the [Artistic License 2.0](http://www.perlfoundation.org/artistic_license_2_0).
@@ -166,7 +168,6 @@ Kume S. (2023) chatAI4R: Chat-based Artificial Intelligence for R.
   publisher={GitHub}, note={R Package},
   howpublished={\url{https://github.com/kumeS/chatAI4R}},
 }
-
 ```
 
 ## Contributors
