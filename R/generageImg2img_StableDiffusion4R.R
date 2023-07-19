@@ -1,14 +1,21 @@
-#' @param text_prompts A string. The text prompt to use for image generation. Should not be empty.
-#' @param negative_prompts A string. The negative prompts for image generation. Default is an empty string.
-#' @param weight A numeric value indicating the weight of the text prompt. Default is 0.5.
-#' @param height An integer. The height of the image in pixels. Default is 512.
-#' @param width An integer. The width of the image in pixels. Default is 512.
+#' @title Stable Diffusion Image to Image Transformation
+#'
+#' @description This function uses the Stable Diffusion process to transform
+#' an initial image according to given prompts.
+#'
+#' @param text_prompts A string. The text prompt to guide image transformation. Should not be empty.
+#' @param init_image_path A string. This is the path to the image file to be used as the basis for the image to image transformation. Should be a valid PNG file.
+#' @param init_image_mode A string. Determines whether to use 'image_strength' or 'step_schedule_*' to control the influence of the initial image. Default is 'IMAGE_STRENGTH'.
+#' @param image_strength A numeric value. Specifies the influence of the initial image on the diffusion process. Default is 0.35.
+#' @param weight A numeric value. Indicates the weight of the text prompt. Default is 0.5.
 #' @param number_of_images An integer. The number of images to generate. Default is 1.
 #' @param steps An integer. The number of diffusion steps to run. Default is 15.
 #' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
+#' @param seed An integer. The seed for random noise generation. Default is 0.
 #' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
-#' @param engine_id A string. The engine id to be used in the API. Default is 'stable-diffusion-512-v2-1'.
-#'                  Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
+#' @param style_preset A string. Specifies the style preset to guide the image model towards a particular style. Default is 'photographic'.
+#' @param engine_id A string. The engine id to be used in the API. Default is 'stable-diffusion-v1-5'.
+#'                  Other possible values are 'stable-diffusion-512-v2-1', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
 #' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.
 #' @param api_key A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.
 #' @importFrom assertthat assert_that is.string is.count noNA
@@ -16,64 +23,31 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom base64enc base64decode
 #' @importFrom png readPNG
-#' @importFrom EBImage rotate Image display
-#' @return A list of images generated from the text prompt.
-#' @export generageTxt2img_StableDiffusion4R
+#' @importFrom EBImage rotate Image
+#' @return A list of images generated from the initial image and the text prompt.
+#' @export generageImg2img_StableDiffusion4R
 #' @author Satoshi Kume
 #' @examples
-#' Sys.setenv(DreamStudio_API_KEY = "Your API key")
-#' text_prompts = "japanese castle"
-#' images = generageTxt2img_StableDiffusion4R(text_prompts)
-#' EBImage::display(images[[1]])
-
-#' @param init_image A string. This is the path to the image file to be used as the basis for the imege to image
-#' Must be a valid PNG file, less than 4MB, and square.
-string <binary> (InitImage)
-Image used to initialize the diffusion process, in lieu of random noise.
-
-init_image_mode
-string (InitImageMode)
-Default: IMAGE_STRENGTH
-Whether to use image_strength or step_schedule_* to control how much influence the init_image has on the result.
-
-image_strength
-number <float> (InitImageStrength) [ 0 .. 1 ]
-Default: 0.35
-How much influence the init_image has on the diffusion process. Values close to 1 will yield images very similar to the init_image while values close to 0 will yield images wildly different than the init_image. The behavior of this is meant to mirror DreamStudio's "Image Strength" slider.
-This parameter is just an alternate way to set step_schedule_start, which is done via the calculation 1 - image_strength. For example, passing in an Image Strength of 35% (0.35) would result in a step_schedule_start of 0.65.
-
-step_schedule_start
-number (StepScheduleStart) [ 0 .. 1 ]
-Default: 0.65
-Skips a proportion of the start of the diffusion steps, allowing the init_image to influence the final generated image. Lower values will result in more influence from the init_image, while higher values will result in more influence from the diffusion steps. (e.g. a value of 0 would simply return you the init_image, where a value of 1 would return you a completely different image.)
-
-step_schedule_end
-number (StepScheduleEnd) [ 0 .. 1 ]
-Skips a proportion of the end of the diffusion steps, allowing the init_image to influence the final generated image. Lower values will result in more influence from the init_image, while higher values will result in more influence from the diffusion steps.
-
-seed
-integer (Seed) [ 0 .. 4294967295 ]
-Default: 0
-Random noise seed (omit this option or use 0 for a random seed)
-
-style_preset
-string (StylePreset)
-Enum: 3d-model analog-film anime cinematic comic-book digital-art enhance fantasy-art isometric line-art low-poly modeling-compound neon-punk origami photographic pixel-art tile-texture
-Pass in a style preset to guide the image model towards a particular style. This list of style presets is subject to change.
+#'
+#' text_prompts <- "cats"
+#' init_image_path <- system.file("img", "JP_castle.png", package = "chatAI4R")
+#' images = generageImg2img_StableDiffusion4R(text_prompts, init_image_path)
+#' Display(images)
+#'
 
 generageImg2img_StableDiffusion4R <- function(
   text_prompts,
-  negative_prompts = "",
-  init_image,
+  init_image_path,
   init_image_mode = "IMAGE_STRENGTH",
+  image_strength = 0.35,
   weight = 0.5,
   number_of_images = 1,
   steps = 15,
-  cfg_scale = 7 ,
+  cfg_scale = 7,
   seed = 0,
   clip_guidance_preset = "NONE",
   style_preset = "photographic",
-  engine_id = "stable-diffusion-512-v2-1",
+  engine_id = "stable-diffusion-v1-5",
   api_host = "https://api.stability.ai",
   api_key = Sys.getenv("DreamStudio_API_KEY")
 ) {
@@ -85,17 +59,10 @@ generageImg2img_StableDiffusion4R <- function(
 
   assertthat::assert_that(
     assertthat::is.string(text_prompts),
-    assertthat::is.string(negative_prompts),
-    assertthat::is.count(weight),
+    assertthat::is.number(weight),
     assertthat::noNA(weight),
     weight >= 0,
     weight <= 1,
-    assertthat::is.count(height),
-    height %% 64 == 0,
-    height >= 128,
-    assertthat::is.count(width),
-    width %% 64 == 0,
-    width >= 128,
     assertthat::is.count(number_of_images),
     number_of_images >= 1,
     number_of_images <= 10,
@@ -113,45 +80,46 @@ generageImg2img_StableDiffusion4R <- function(
     assertthat::is.string(api_key)
   )
 
-  uri <- paste0(api_host, "/v1/generation/", engine_id, "/text-to-image")
+  #URLの定義
+  uri <- paste0(api_host, "/v1/generation/", engine_id, "/image-to-image")
 
   headers <- httr::add_headers(
-    "Content-Type" = "application/json",
+    "Content-Type" = "multipart/form-data",
     "Accept" = "application/json",
     "Authorization" = paste0("Bearer ", api_key)
   )
 
   payload <- list(
-    "text_prompts" = list(
-      list("text" = text_prompts,
-           "weight" = weight)
-    ),
-    negative_prompts = list(
-      list("text" = negative_prompts)
-    ),
+    "text_prompts[0][text]" = text_prompts,
+    "text_prompts[0][weight]" = weight,
+    "init_image" = httr::upload_file(init_image_path),
+    "init_image_mode" = init_image_mode,
+    "image_strength" = image_strength,
     "cfg_scale" = cfg_scale,
     "clip_guidance_preset" = clip_guidance_preset,
-    "height" = height,
-    "width" = width,
     "samples" = number_of_images,
-    "steps" = steps
+    "steps" = steps,
+    "seed" = seed,
+    "style_preset" = style_preset
   )
 
+  #空変数の作成
   result <- list()
 
   for (i in seq_len(number_of_images)) {
+    #i <-1
     cat("Generate", i, "image\n")
 
     response <- httr::POST(uri,
                            body = payload,
-                           encode = "json",
+                           encode = "multipart",
                            config = headers)
 
     if (httr::http_status(response)$category != "Success") {
-      stop("Non-200 response: ", httr::content(response, "text"))
+      stop("Non-200 response: ", httr::content(response, "text", encoding = "UTF-8"))
     }
 
-    image_data <- jsonlite::fromJSON(httr::content(response, "text"))
+    image_data <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
 
     decode_image <- png::readPNG(base64enc::base64decode(image_data$artifacts$base64))
 
@@ -162,3 +130,4 @@ generageImg2img_StableDiffusion4R <- function(
 
   return(result)
 }
+

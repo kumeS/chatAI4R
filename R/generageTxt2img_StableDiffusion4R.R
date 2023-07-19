@@ -11,8 +11,8 @@
 #' @param weight A numeric value indicating the weight of the text prompt. Default is 0.5.
 #' @param height An integer. The height of the image in pixels. Default is 512.
 #' @param width An integer. The width of the image in pixels. Default is 512.
-#' @param number_of_images An integer. The number of images to generate. Default is 1.
-#' @param steps An integer. The number of diffusion steps to run. Default is 15.
+#' @param number_of_images An integer. The number of images to generate. Default is 2.
+#' @param steps An integer. The number of diffusion steps to run. Default is 10.
 #' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
 #' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
 #' @param style_preset A string. A style preset to guide the image model towards a particular style. Default is an empty string. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.
@@ -43,10 +43,11 @@ generageTxt2img_StableDiffusion4R <- function(
   text_prompts = "",
   negative_prompts = "",
   weight = 0.5,
-  height = 512, width = 512,
-  number_of_images = 1,
-  steps = 15,
-  cfg_scale = 7 ,
+  height = 512,
+  width = 512,
+  number_of_images = 3,
+  steps = 10,
+  cfg_scale = 7,
   clip_guidance_preset = "NONE",
   style_preset = "photographic",
   engine_id = "stable-diffusion-512-v2-1",
@@ -119,6 +120,7 @@ generageTxt2img_StableDiffusion4R <- function(
   result <- list()
 
   for (i in seq_len(number_of_images)) {
+    #i <- 1
     cat("Generate", i, "image\n")
 
     response <- httr::POST(uri,
@@ -127,10 +129,10 @@ generageTxt2img_StableDiffusion4R <- function(
                            config = headers)
 
     if (httr::http_status(response)$category != "Success") {
-      stop("Non-200 response: ", httr::content(response, "text"))
+      stop("Non-200 response: ", httr::content(response, "text", encoding = "UTF-8"))
     }
 
-    image_data <- jsonlite::fromJSON(httr::content(response, "text"))
+    image_data <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
 
     decode_image <- png::readPNG(base64enc::base64decode(image_data$artifacts$base64))
 
