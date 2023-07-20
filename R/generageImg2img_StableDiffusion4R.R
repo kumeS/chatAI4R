@@ -28,12 +28,13 @@
 #' @export generageImg2img_StableDiffusion4R
 #' @author Satoshi Kume
 #' @examples
-#'
-#' text_prompts <- "cats"
+#' \dontrun{
+#' text_prompts <- "Add a cat"
 #' init_image_path <- system.file("img", "JP_castle.png", package = "chatAI4R")
 #' images = generageImg2img_StableDiffusion4R(text_prompts, init_image_path)
 #' Display(images)
-#'
+#' }
+
 
 generageImg2img_StableDiffusion4R <- function(
   text_prompts,
@@ -80,7 +81,7 @@ generageImg2img_StableDiffusion4R <- function(
     assertthat::is.string(api_key)
   )
 
-  #URLの定義
+  # Defining the URL
   uri <- paste0(api_host, "/v1/generation/", engine_id, "/image-to-image")
 
   headers <- httr::add_headers(
@@ -103,12 +104,11 @@ generageImg2img_StableDiffusion4R <- function(
     "style_preset" = style_preset
   )
 
-  #空変数の作成
+  # Creating empty variable
   result <- list()
 
   for (i in seq_len(number_of_images)) {
-    #i <-1
-    cat("Generate", i, "image\n")
+    cat("Generating", i, "image\n")
 
     response <- httr::POST(uri,
                            body = payload,
@@ -130,4 +130,3 @@ generageImg2img_StableDiffusion4R <- function(
 
   return(result)
 }
-

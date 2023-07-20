@@ -6,23 +6,25 @@
 \usage{
 createFunction4R(
   Func_description,
-  api_key = Sys.getenv("OPENAI_API_KEY"),
   packages = "base",
   max_tokens = 250,
   View = TRUE,
-  roxygen = TRUE
+  roxygen = TRUE,
+  api_key = Sys.getenv("OPENAI_API_KEY")
 )
 }
 \arguments{
 \item{Func_description}{A character string that describes the function to be generated.}
 
-\item{api_key}{A character string that represents the API key for the AI model being used. Default is the "OPENAI_API_KEY" environment variable.}
-
 \item{packages}{A character string that specifies the packages to be used in the function. Default is "base".}
 
 \item{max_tokens}{An integer that specifies the maximum number of tokens to be returned by the AI model. Default is 250.}
 
+\item{View}{A logical}
+
 \item{roxygen}{A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.}
+
+\item{api_key}{A character string that represents the API key for the AI model being used. Default is the "OPENAI_API_KEY" environment variable.}
 }
 \value{
 The function returns a character string that represents the generated and improved R function.

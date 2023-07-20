@@ -2,7 +2,7 @@
 #'
 #' @description This function translates text using the DeepL API.
 #'
-#' @param sentence The text to be translated.
+#' @param input The text to be translated.
 #' @param target_lang The target language code for translation (e.g., 'EN' for English, 'JA' for Japanese).
 #' @param Auth_Key Your DeepL API authentication key.
 #' @param free_mode A boolean value; set to TRUE if using the free DeepL API, FALSE if using the paid version. Default is TRUE.
@@ -19,16 +19,16 @@
 #' @examples
 #' \dontrun{
 #' Auth_Key <- "your_deepl_api_key"
-#' sentence <- "Hello, how are you?"
+#' input <- "Hello, how are you?"
 #' target_lang <- "JA"
 #'
-#' translated_text <- deepel(sentence, target_lang, Auth_Key)
+#' translated_text <- deepel(input, target_lang, Auth_Key)
 #' print(translated_text)
 #' }
 #'
 
-deepel <- function(sentence,
-                   target_lang,
+deepel <- function(input,
+                   target_lang = 'EN',
                    Auth_Key = Sys.getenv("DeepL_API_KEY"),
                    free_mode=TRUE) {
 
@@ -42,7 +42,7 @@ deepel <- function(sentence,
   # English: EN, Japanese: JA
   params <- list(
     auth_key = Auth_Key,
-    text = sentence,
+    text = input,
     target_lang = target_lang
   )
 

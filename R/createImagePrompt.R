@@ -5,7 +5,6 @@
 #'  This is an experimental function.
 #' @param content A character string describing the image to be generated. If not provided, the function will throw a warning and stop.
 #' @param Model A character string specifying the AI model to be used for text generation.
-#' @param Text2Img A character string specifying the model to be used for text to image transformation.
 #' @param len Integer specifying the maximum length of the text input.
 #' @importFrom assertthat assert_that is.string
 #' @return A character string that serves as the prompt for generating an image.
@@ -17,7 +16,7 @@
 #' }
 #'
 
-createImagePrompt <- function(content = "",
+createImagePrompt <- function(content,
                                 Model = "gpt-3.5-turbo-16k",
                                 len = 200){
   # Asserting input types and values

@@ -20,7 +20,7 @@
 #' @examples
 #' \dontrun{
 #' # Generate images
-#' results <- generateImage4R(content = "Japanese gal girl", n = 3, size = "256x256", response_format = "url", Output_image = TRUE, SaveImg = TRUE, api_key = Sys.getenv("OPENAI_API_KEY"))
+#' results <- generateImage4R(content = "Japanese gal girl", n = 3)
 #' # Display the generated images
 #' Display(results)
 #' }

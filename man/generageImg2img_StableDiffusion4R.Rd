@@ -59,12 +59,12 @@ This function uses the Stable Diffusion process to transform
 an initial image according to given prompts.
 }
 \examples{
-
-text_prompts <- "cats"
+\dontrun{
+text_prompts <- "Add a cat"
 init_image_path <- system.file("img", "JP_castle.png", package = "chatAI4R")
 images = generageImg2img_StableDiffusion4R(text_prompts, init_image_path)
 Display(images)
-
+}
 }
 \author{
 Satoshi Kume

@@ -10,6 +10,7 @@
 #' @param packages A character string that specifies the packages to be used in the function. Default is "base".
 #' @param max_tokens An integer that specifies the maximum number of tokens to be returned by the AI model. Default is 250.
 #' @param roxygen A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.
+#' @param View A logical
 #' @importFrom magrittr %>%
 #' @importFrom crayon red
 #' @return The function returns a character string that represents the generated and improved R function.
@@ -24,11 +25,11 @@
 #library(magrittr)
 
 createFunction4R <- function(Func_description,
-                             api_key = Sys.getenv("OPENAI_API_KEY"),
                              packages = "base",
                              max_tokens = 250,
                              View = TRUE,
-                             roxygen = TRUE){
+                             roxygen = TRUE,
+                             api_key = Sys.getenv("OPENAI_API_KEY")){
 
 # Create a template
 template1 = "

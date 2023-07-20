@@ -5,14 +5,14 @@
 \title{DeepL Translation Function}
 \usage{
 deepel(
-  sentence,
-  target_lang,
+  input,
+  target_lang = "EN",
   Auth_Key = Sys.getenv("DeepL_API_KEY"),
   free_mode = TRUE
 )
 }
 \arguments{
-\item{sentence}{The text to be translated.}
+\item{input}{The text to be translated.}
 
 \item{target_lang}{The target language code for translation (e.g., 'EN' for English, 'JA' for Japanese).}
 
@@ -29,10 +29,10 @@ This function translates text using the DeepL API.
 \examples{
 \dontrun{
 Auth_Key <- "your_deepl_api_key"
-sentence <- "Hello, how are you?"
+input <- "Hello, how are you?"
 target_lang <- "JA"
 
-translated_text <- deepel(sentence, target_lang, Auth_Key)
+translated_text <- deepel(input, target_lang, Auth_Key)
 print(translated_text)
 }
 

@@ -57,7 +57,8 @@ len_w <- "Please create the optimal prompt based on the following requirements d
 Base prompt: %s
 removed from image: %s
 stable diffusion: %s
-When creating prompts, please consider providing specific descriptions, using adjectives and adverbs to provide details, making comparisons or metaphors, and considering the context in which the image will be used.
+When creating prompts, please consider providing specific descriptions,
+using adjectives and adverbs to provide details, making comparisons or metaphors, and considering the context in which the image will be used.
 The maximum length is %s characters. Please provide three suggestions for the prompt.
 Please output only the three resulting prompt. No explanation is necessary."
 
@@ -65,7 +66,7 @@ Please output only the three resulting prompt. No explanation is necessary."
 template <- sprintf(len_w, Base_prompt, removed_from_image, stable_diffusion, len)
 
 # Creating the list
-history <- list(list('role' = 'system', 'content' = paste0('You are a helpful assistant and prompt master for creating text to images. You will create an image generation prompt for DALL·E 2.')),
+history <- list(list('role' = 'system', 'content' = paste0('You are a helpful assistant and prompt master for creating text to images. You will create an image generation prompt for DALL-E 2.')),
                  list('role' = 'user', 'content' = template))
 
   # Executing chat4R_history
