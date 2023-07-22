@@ -55,13 +55,15 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 
 ### Basic usage
 
-- [How to use the chatAI4R's functions]()
+- [How to use the chatAI4R's functions](https://kumes.github.io/chatAI4R/vignettes/HowToUse.html)
 
 ###  Applied usage of the chatAI4R package
 
 - Vignette: AI-based chatting loaded with professional documents (RIKEN Pressrelease text)
 
 ## R functions
+
+Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 ### Basic functions
 
@@ -70,16 +72,16 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 |chat4R|Interact with gpt-3.5 (default) using OpenAI API (One-shot)|Script|Flowchart|
 |chat4R_history|Retrieve chat history from OpenAI's GPT-3.5 model|Script|Flowchart|
 |completions4R|Generate text using OpenAI's API (One-shot)|Script|Flowchart|
-|textEmbedding|Extract text embeddings from OpenAI API (model: - text-embedding-ada-002)|Script|Flowchart|
+|textEmbedding|Extract text embeddings from OpenAI API (model: text-embedding-ada-002)|Script|Flowchart|
 |deepel|DeepL Translation Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/deepel.png)|
-
-Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 ### Secondary Layer Functions
 
-- conversation4R: Manage a conversation with OpenAI's GPT-3.5-turbo model
-- createFunction4R: Generate and Improve R Functions
-- TextSummary: Function description is missing.
+|Function|Description|Script|Flowchart|
+|:---|:---|:---:|:---:|
+|conversation4R|Manage a conversation with OpenAI's GPT-3.5-turbo model|Script|Flowchart|
+|createFunction4R|Generate and Improve R Functions|Script|Flowchart|
+|TextSummary|Function description is missing.|Script|Flowchart|
 
 ### Image generation functions using DALL·E 2  
 
@@ -94,18 +96,20 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 - generageTxt2img_StableDiffusion4R
 - generageImg2img_StableDiffusion4R
 
-
 ### Visualization functions
 
-- Display: Display Images and Optionally Write Them to File
-- createHEX: Create Hex Stickers for R Packages
-
+|Function|Description|Script|Flowchart|
+|:---|:---|:---:|:---:|
+|Display|Display Images and Optionally Write Them to File|Script|Flowchart|
+|createHEX|Create Hex Stickers for R Packages|Script|Flowchart|
 
 ### Functions for RIKEN press release (future developments)
 
-- get_riken_pressrelease_urls: Get URLs of RIKEN Press Releases
-- riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)
-- riken_pressrelease_textEmbedding: Extract text and perform text embedding from RIKEN press-release
+|Function|Description|Script|Flowchart|
+|:---|:---|:---:|:---:|
+|get_riken_pressrelease_urls|Get URLs of RIKEN Press Releases|Script|Flowchart|
+|riken_pressrelease_text_jpn|Extract text from RIKEN press-release (Japanese)|Script|Flowchart|
+|riken_pressrelease_textEmbedding|Extract text and perform text embedding from RIKEN press-release|Script|Flowchart|
 
 ## Simple usage
 
