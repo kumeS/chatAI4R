@@ -105,11 +105,9 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 ### Functions for RIKEN press release (future developments)
 
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|get_riken_pressrelease_urls|Get URLs of RIKEN Press Releases|Script|Flowchart|
-|riken_pressrelease_text_jpn|Extract text from RIKEN press-release (Japanese)|Script|Flowchart|
-|riken_pressrelease_textEmbedding|Extract text and perform text embedding from RIKEN press-release|Script|Flowchart|
+get_riken_pressrelease_urls: Get URLs of RIKEN Press Releases
+riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)
+riken_pressrelease_textEmbedding: Extract text and perform text embedding from RIKEN press-release
 
 ## Simple usage
 
