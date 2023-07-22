@@ -1,4 +1,4 @@
-# chatAI4R: Chat-based Artificial Intelligence for R
+# chatAI4R: Chat-based Interactive Artificial Intelligence for R
 
 ## Description
 
@@ -9,9 +9,9 @@ chatAI4R is an experimental project that aims to build applications using its ba
 ## About this project and future developments
 
 - AI API integration with R
-  - OpenAI API (ChatGPT, txt2img, text embeddings, DALL·E 2)
+  - OpenAI API (ChatGPT, txt2img, text embeddings, DALL-E 2)
   - DeepL API
-  - DreamStudio API (Stable Diffusion)
+  - DreamStudio API (Stable Diffusion, txt2img, img2img)
 - LLM-based techniques for bioinformatics (future developments)
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
   - Linguistic modeling of technical texts: natural language question answering
@@ -130,7 +130,6 @@ completions4R("Hello")
 
 Executions using the conversation4R function will keep a history of conversations. The number of previous messages to keep in memory defaults to 2.
 
-
 ```r
 #Set your API key
 Sys.setenv(OPENAI_API_KEY = "Your API key")
@@ -160,12 +159,12 @@ Copyright (c) 2023 Satoshi Kume. Released under the [Artistic License 2.0](http:
 
 ## Cite
 
-Kume S. (2023) chatAI4R: Chat-based Artificial Intelligence for R.
+Kume S. (2023) chatAI4R: Chat-based Interactive Artificial Intelligence for R.
 
 ```
 #BibTeX
 @misc{Kume2023chatAI4R,
-  title={chatAI4R: Chat-based Artificial Intelligence for R},
+  title={chatAI4R: Chat-based Interactive Artificial Intelligence for R},
   author={Kume, Satoshi}, year={2023},
   publisher={GitHub}, note={R Package},
   howpublished={\url{https://github.com/kumeS/chatAI4R}},
