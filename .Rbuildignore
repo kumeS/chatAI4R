@@ -10,6 +10,7 @@ inst/examples/figure
 inst/examples/cache
 inst/script/*
 inst/vignettes/*
+inst/flowchart/*
 knitr-minimal.md
 knitr-spin.md
 png$

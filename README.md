@@ -75,7 +75,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |chat4R_history|Use chat history for OpenAI's GPT model|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R_history.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R_history.png)|
 |completions4R|Generate text using OpenAI completions API (One-shot)|Script|Flowchart|
 |textEmbedding|Extract text embeddings from OpenAI API (model: text-embedding-ada-002)|Script|Flowchart|
-|deepel|DeepL Translation Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/deepel.png)|
+|deepel|DeepL Translation Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/deepel_v2.png)|
 
 ### Secondary Layer Functions
 

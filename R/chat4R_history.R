@@ -10,7 +10,7 @@
 #' @param temperature The temperature to use for the chat completion. Default is 1.
 #' @importFrom httr add_headers POST content
 #' @importFrom jsonlite toJSON
-#' @return A data frame containing the parsed response from the server.
+#' @return A data frame containing the parsed response from the Web API server.
 #' @export chat4R_history
 #' @author Satoshi Kume
 #' @examples

@@ -1,27 +1,27 @@
-#' Generate text using OpenAI's API
 #'
-#' This function sends a request to OpenAI's API to generate text based on the provided prompt and parameters.
 #'
-#' @title completions4R
-#' @description Generate text using OpenAI's API
-#' @param prompt The initial text that the model responds to.
-#' @param api_key The API key for OpenAI. Defaults to the value of the environment variable "OPENAI_API_KEY".
-#' @param Model The ID of the model to use, such as "text-davinci-003".
-#' @param max_tokens The maximum number of tokens to generate.
-#' @param temperature Controls the randomness of the generated text. A value close to 0 produces more deterministic output, while a higher value (up to 2) produces more random output.
+#' @title completions4R: Generate text using OpenAI completions API (Legacy)
+#' @description This function sends a request to the OpenAI completions API (Legacy)
+#'   to generate text based on the provided prompt and parameters.
+#' @param prompt A string. The initial text that the model responds to.
+#' @param api_key A string. The API key for OpenAI. Defaults to the value of the environment variable "OPENAI_API_KEY".
+#' @param Model A string. The model ID to use, such as "text-davinci-003".
+#' @param max_tokens Integer. The maximum number of tokens to generate.
+#' @param temperature A numeric value to control the randomness of the generated text.
+#'   A value close to 0 produces more deterministic output, while a higher value (up to 2) produces more random output.
 #' @param simple If TRUE, returns the generated text without newline characters. If FALSE, returns the full response from the API.
 #' @importFrom httr POST add_headers content
 #' @importFrom jsonlite toJSON
 #' @return The generated text or the full response from the API, depending on the value of `simple`.
-#' @export
+#' @export completions4R
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
 #'   Sys.setenv(OPENAI_API_KEY = "Your API key")
 #'
-#'   prompt <- "Translate the following English text to French: '{}'"
+#'   prompt <- "Translate the following English text to French: 'Hello, world!'"
 #'
-#'   completions4R(prompt, api_key)
+#'   completions4R(prompt)
 #' }
 
 
