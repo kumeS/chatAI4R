@@ -39,6 +39,12 @@
 #' }
 
 
+sampler
+string (Sampler)
+Enum: DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
+Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you.
+
+
 generageTxt2img_StableDiffusion4R <- function(
   text_prompts = "",
   negative_prompts = "",
@@ -49,6 +55,7 @@ generageTxt2img_StableDiffusion4R <- function(
   steps = 10,
   cfg_scale = 7,
   clip_guidance_preset = "NONE",
+  sampler = NULL,
   style_preset = "photographic",
   engine_id = "stable-diffusion-512-v2-1",
   api_host = "https://api.stability.ai",
@@ -100,7 +107,8 @@ generageTxt2img_StableDiffusion4R <- function(
     "Authorization" = paste0("Bearer ", api_key)
   )
 
-  payload <- list(
+if(is.null(sampler)){
+payload <- list(
     "text_prompts" = list(
       list("text" = text_prompts,
            "weight" = weight)
@@ -116,6 +124,27 @@ generageTxt2img_StableDiffusion4R <- function(
     "steps" = steps,
     "style_preset" = style_preset
   )
+}else{
+payload <- list(
+    "text_prompts" = list(
+      list("text" = text_prompts,
+           "weight" = weight)
+    ),
+    negative_prompts = list(
+      list("text" = negative_prompts)
+    ),
+    "cfg_scale" = cfg_scale,
+    "clip_guidance_preset" = clip_guidance_preset,
+    "height" = height,
+    "width" = width,
+    "samples" = number_of_images,
+    "steps" = steps,
+    "sampler" = sampler,
+    "style_preset" = style_preset
+  )
+}
+
+
 
   result <- list()
 

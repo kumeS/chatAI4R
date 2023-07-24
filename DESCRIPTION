@@ -6,14 +6,13 @@ Date: 2023-07-20
 Authors@R: c(person("Satoshi", "Kume", 
              role = c("aut", "cre"),
              email = "satoshi.kume.1984@gmail.com"))
-Description: chatAI4R provides a seamless interface for integrating 
-    OpenAI and other APIs into R. It utilizes the OpenAI API 
-    (see <https://platform.openai.com/docs/api-reference>) for natural 
-    language processing using Large Language Models (LLM), making it ideal for 
-    efficient data analysis and knowledge discovery. Additionally, it includes 
-    functionalities for executing 
-    image generation such as txt2img and img2img and other techniques,
-    making it a versatile tool for a variety of research domains.
+Description: chatAI4R provides a seamless interface for integrating the 
+    OpenAI API (see <https://platform.openai.com/docs/api-reference>) and 
+    other APIs into R. This package leverages large language model (LLM)-based 
+    AI techniques, enabling efficient knowledge discovery and data analysis.
+    In addition, this package includes functionality for performing 
+    image generation such as txt2img and img2img using the DALL·E 2 and 
+    Stable Diffusion APIs.
 Depends: R (>= 4.2.0)
 Imports: httr, jsonlite, 
     magrittr, purrr, 
@@ -28,4 +27,3 @@ RoxygenNote: 7.2.3
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
-

@@ -1,17 +1,17 @@
 #' Chat4R Function
 #'
-#' @title Chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API
-#' @description This function uses the OpenAI API to interact with the GPT-3.5-turbo model (default)
-#' and generates responses based on user input.
+#' @title Chat4R: Interact with GPT-3.5 (default) using OpenAI API
+#' @description This function uses the OpenAI API to interact with the
+#'   GPT-3.5 model (default) and generates responses based on user input.
 #' @param content A string containing the user's input message.
 #' @param api_key A string containing the user's OpenAI API key.
-#' @param Model A string specifying the GPT model to use (default: "gpt-3.5-turbo").
+#' @param Model A string specifying the GPT model to use (default: "gpt-3.5-turbo-16k").
 #' @param temperature A numeric value controlling the randomness of the model's output (default: 1).
 #' @param simple Logical, if TRUE, only the content of the model's message will be returned.
 #' @param fromJSON_parsed Logical, if TRUE, content will be parsed from JSON.
 #' @importFrom httr POST add_headers content
 #' @importFrom jsonlite toJSON
-#' @return A data frame containing the response from the chatGPT model.
+#' @return A data frame containing the response from the GPT model.
 #' @export chat4R
 #' @author Satoshi Kume
 #' @examples

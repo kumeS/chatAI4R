@@ -1,0 +1,40 @@
+---
+title: "How to use the chatAI4R's functions"
+author: 
+- name: Satoshi Kume
+  email: satoshi.kume.1984@gmail.com
+date: "`r Sys.Date()`"
+graphics: no
+package: chatAI4R
+output:
+    BiocStyle::html_document:
+        toc_float: true
+vignette: >
+    %\VignetteIndexEntry{How to use the chatAI4R's functions}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r style, echo = FALSE, results = 'asis', message=FALSE}
+BiocStyle::markdown()
+```
+
+**Last modified:** `r file.info("HowToUse.Rmd")$mtime`<br />
+**Compiled**: `r date()`
+
+# Load packages
+
+```{r echo=TRUE, eval=TRUE}
+library(chatAI4R)
+```
+
+# 
+
+
+
+# Session information {.unnumbered}
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```

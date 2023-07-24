@@ -35,6 +35,11 @@
 #' Display(images)
 #' }
 
+sampler
+string (Sampler)
+Enum: DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
+Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you.
+
 
 generageImg2img_StableDiffusion4R <- function(
   text_prompts,
@@ -47,6 +52,7 @@ generageImg2img_StableDiffusion4R <- function(
   cfg_scale = 7,
   seed = 0,
   clip_guidance_preset = "NONE",
+  sampler = NULL,
   style_preset = "photographic",
   engine_id = "stable-diffusion-v1-5",
   api_host = "https://api.stability.ai",
@@ -89,7 +95,7 @@ generageImg2img_StableDiffusion4R <- function(
     "Accept" = "application/json",
     "Authorization" = paste0("Bearer ", api_key)
   )
-
+if(is.null(sampler)){
   payload <- list(
     "text_prompts[0][text]" = text_prompts,
     "text_prompts[0][weight]" = weight,
@@ -103,6 +109,23 @@ generageImg2img_StableDiffusion4R <- function(
     "seed" = seed,
     "style_preset" = style_preset
   )
+}else{
+  payload <- list(
+    "text_prompts[0][text]" = text_prompts,
+    "text_prompts[0][weight]" = weight,
+    "init_image" = httr::upload_file(init_image_path),
+    "init_image_mode" = init_image_mode,
+    "image_strength" = image_strength,
+    "cfg_scale" = cfg_scale,
+    "clip_guidance_preset" = clip_guidance_preset,
+    "samples" = number_of_images,
+    "steps" = steps,
+    "seed" = seed,
+    "sampler" = sampler,
+    "style_preset" = style_preset
+  )
+}
+
 
   # Creating empty variable
   result <- list()

@@ -7,11 +7,10 @@ date: "`r Sys.Date()`"
 graphics: no
 package: chatAI4R
 output:
-    BiocStyle::html_document:
-        toc_float: false
+    rmarkdown::html_vignette:
+        toc_float: true
 vignette: >
     %\VignetteIndexEntry{How to use the chatAI4R's functions}
-    %\VignetteIndexEntry{chatAI4R}
     %\VignetteEncoding{UTF-8}
     %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
