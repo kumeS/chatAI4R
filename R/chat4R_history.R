@@ -5,7 +5,7 @@
 #' @param history A list of message objects.
 #'   Each object should have a 'role' that can be 'system', 'user', or 'assistant',
 #'   and 'content' which is the content of the message from that role.
-#' @param api_key A string. Input your OpenAI API key.
+#' @param api_key A string. Input your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".
 #' @param Model A string. The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".
 #' @param temperature The temperature to use for the chat completion. Default is 1.
 #' @importFrom httr add_headers POST content

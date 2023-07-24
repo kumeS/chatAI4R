@@ -4,7 +4,7 @@
 #' @description This function uses the OpenAI API to interact with the
 #'   GPT-3.5 model (default) and generates responses based on user input.
 #' @param content A string containing the user's input message.
-#' @param api_key A string containing the user's OpenAI API key.
+#' @param api_key A string containing the user's OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".
 #' @param Model A string specifying the GPT model to use (default: "gpt-3.5-turbo-16k").
 #' @param temperature A numeric value controlling the randomness of the model's output (default: 1).
 #' @param simple Logical, if TRUE, only the content of the model's message will be returned.

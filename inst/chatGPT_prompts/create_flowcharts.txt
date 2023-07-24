@@ -3,6 +3,6 @@ The output should be detailed and comprehensive, reflecting well the execution p
 The figure should be vertical.
 If there are any branches, such as if or switch statements, please draw the branches in the flowchart as well.
 The node and edge settings are as follows.
-node: shape=box, style=rounded, color=lightblue
+node: shape=box, style=filled, color=lightblue
 edge: color=black
 The R script used to create the flowchart without the frame is as follows:

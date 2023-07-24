@@ -4,7 +4,7 @@
 #'
 #' @param input The text to be translated.
 #' @param target_lang The target language code for translation (e.g., 'EN' for English, 'JA' for Japanese).
-#' @param Auth_Key Your DeepL API authentication key.
+#' @param Auth_Key Your DeepL API authentication key. Defaults to the value of the environment variable "DeepL_API_KEY".
 #' @param free_mode A boolean value; set to TRUE if using the free DeepL API, FALSE if using the paid version. Default is TRUE.
 #'
 #' @importFrom httr GET content
