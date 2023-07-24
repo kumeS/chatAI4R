@@ -1,12 +1,12 @@
 #' Chat History for R
 #'
-#' This function retrieves the chat history from OpenAI's GPT-3.5-turbo model.
-#'
-#' @title Chat History for R
-#' @description This function uses the OpenAI API to retrieve the chat history from the specified model.
-#' @param history A list of message objects. Each object should have a 'role' that can be 'system', 'user', or 'assistant', and 'content' which is the content of the message from that role.
-#' @param api_key Your OpenAI API key.
-#' @param Model The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".
+#' @title chat4R_history: Use chat history for interacting with GPT.
+#' @description This function use the chat history with the the specified GPT model, and chat the AI model.
+#' @param history A list of message objects.
+#'   Each object should have a 'role' that can be 'system', 'user', or 'assistant',
+#'   and 'content' which is the content of the message from that role.
+#' @param api_key A string. Input your OpenAI API key.
+#' @param Model A string. The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".
 #' @param temperature The temperature to use for the chat completion. Default is 1.
 #' @importFrom httr add_headers POST content
 #' @importFrom jsonlite toJSON
@@ -27,8 +27,8 @@
 
 chat4R_history <- function(history,
                            api_key = Sys.getenv("OPENAI_API_KEY"),
-                   Model = "gpt-3.5-turbo-16k",
-                   temperature = 1) {
+                           Model = "gpt-3.5-turbo-16k",
+                           temperature = 1) {
 
   # Setting parameters
   # See detail: https://platform.openai.com/docs/guides/chat
