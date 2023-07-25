@@ -2,7 +2,7 @@
 % Please edit documentation in R/chat4R_history.R
 \name{chat4R_history}
 \alias{chat4R_history}
-\title{Chat History for R}
+\title{chat4R_history: Use chat history for interacting with GPT.}
 \usage{
 chat4R_history(
   history,
@@ -12,24 +12,24 @@ chat4R_history(
 )
 }
 \arguments{
-\item{history}{A list of message objects. Each object should have a 'role' that can be 'system', 'user', or 'assistant', and 'content' which is the content of the message from that role.}
+\item{history}{A list of message objects.
+Each object should have a 'role' that can be 'system', 'user', or 'assistant',
+and 'content' which is the content of the message from that role.}
 
-\item{api_key}{Your OpenAI API key.}
+\item{api_key}{A string. Input your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".}
 
-\item{Model}{The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".}
+\item{Model}{A string. The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".}
 
 \item{temperature}{The temperature to use for the chat completion. Default is 1.}
 }
 \value{
-A data frame containing the parsed response from the server.
+A data frame containing the parsed response from the Web API server.
 }
 \description{
-This function uses the OpenAI API to retrieve the chat history from the specified model.
+This function use the chat history with the the specified GPT model, and chat the AI model.
 }
 \details{
 Chat History for R
-
-This function retrieves the chat history from OpenAI's GPT-3.5-turbo model.
 }
 \examples{
 \dontrun{

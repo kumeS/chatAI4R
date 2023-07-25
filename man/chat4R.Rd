@@ -2,7 +2,7 @@
 % Please edit documentation in R/chat4R.R
 \name{chat4R}
 \alias{chat4R}
-\title{Chat4R: Interact with gpt-3.5-turbo-16k (default) using OpenAI API}
+\title{Chat4R: Interact with GPT-3.5 (default) using OpenAI API}
 \usage{
 chat4R(
   content,
@@ -16,7 +16,7 @@ chat4R(
 \arguments{
 \item{content}{A string containing the user's input message.}
 
-\item{Model}{A string specifying the GPT model to use (default: "gpt-3.5-turbo").}
+\item{Model}{A string specifying the GPT model to use (default: "gpt-3.5-turbo-16k").}
 
 \item{temperature}{A numeric value controlling the randomness of the model's output (default: 1).}
 
@@ -24,14 +24,14 @@ chat4R(
 
 \item{fromJSON_parsed}{Logical, if TRUE, content will be parsed from JSON.}
 
-\item{api_key}{A string containing the user's OpenAI API key.}
+\item{api_key}{A string containing the user's OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".}
 }
 \value{
-A data frame containing the response from the chatGPT model.
+A data frame containing the response from the GPT model.
 }
 \description{
-This function uses the OpenAI API to interact with the GPT-3.5-turbo model (default)
-and generates responses based on user input.
+This function uses the OpenAI API to interact with the
+  GPT-3.5 model (default) and generates responses based on user input.
 }
 \details{
 Chat4R Function

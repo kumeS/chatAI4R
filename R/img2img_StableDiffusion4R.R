@@ -25,23 +25,23 @@
 #' @importFrom png readPNG
 #' @importFrom EBImage rotate Image
 #' @return A list of images generated from the initial image and the text prompt.
-#' @export generageImg2img_StableDiffusion4R
+#' @export img2img_StableDiffusion4R
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
 #' text_prompts <- "Add a cat"
 #' init_image_path <- system.file("img", "JP_castle.png", package = "chatAI4R")
-#' images = generageImg2img_StableDiffusion4R(text_prompts, init_image_path)
+#' images = img2img_StableDiffusion4R(text_prompts, init_image_path)
 #' Display(images)
 #' }
 
-sampler
-string (Sampler)
-Enum: DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
-Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you.
+#sampler
+#string (Sampler)
+#Enum: DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
+#Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you.
 
 
-generageImg2img_StableDiffusion4R <- function(
+img2img_StableDiffusion4R <- function(
   text_prompts,
   init_image_path,
   init_image_mode = "IMAGE_STRENGTH",

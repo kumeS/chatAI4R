@@ -2,7 +2,7 @@
 #'
 #' This function generates an image from a text prompt via Stable Diffusion.
 #'
-#' @title generageTxt2img_StableDiffusion4R
+#' @title txt2img_StableDiffusion4R
 #' @description Generate an image from a text prompt using the Stable Diffusion API.
 #'              It sends the parameters to the API and receives a response that includes
 #'              the base64-encoded image data, which is then converted to a PNG image.
@@ -27,25 +27,25 @@
 #' @importFrom png readPNG
 #' @importFrom EBImage rotate Image display
 #' @return A list of images generated from the text prompt.
-#' @export generageTxt2img_StableDiffusion4R
+#' @export txt2img_StableDiffusion4R
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
 #' Sys.setenv(DreamStudio_API_KEY = "Your API key")
 #' text_prompts = "japanese castle"
-#' images = generageTxt2img_StableDiffusion4R(text_prompts)
+#' images = txt2img_StableDiffusion4R(text_prompts)
 #'
 #' Display(images)
 #' }
 
 
-sampler
-string (Sampler)
-Enum: DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
-Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you.
+#sampler
+#string (Sampler)
+#Enum: DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
+#Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you.
 
 
-generageTxt2img_StableDiffusion4R <- function(
+txt2img_StableDiffusion4R <- function(
   text_prompts = "",
   negative_prompts = "",
   weight = 0.5,

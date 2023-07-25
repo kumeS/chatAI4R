@@ -2,7 +2,7 @@
 % Please edit documentation in R/completions4R.R
 \name{completions4R}
 \alias{completions4R}
-\title{completions4R}
+\title{completions4R: Generate text using OpenAI completions API (Legacy)}
 \usage{
 completions4R(
   prompt,
@@ -14,15 +14,16 @@ completions4R(
 )
 }
 \arguments{
-\item{prompt}{The initial text that the model responds to.}
+\item{prompt}{A string. The initial text that the model responds to.}
 
-\item{api_key}{The API key for OpenAI. Defaults to the value of the environment variable "OPENAI_API_KEY".}
+\item{api_key}{A string. The API key for OpenAI. Defaults to the value of the environment variable "OPENAI_API_KEY".}
 
-\item{Model}{The ID of the model to use, such as "text-davinci-003".}
+\item{Model}{A string. The model ID to use, such as "text-davinci-003".}
 
-\item{max_tokens}{The maximum number of tokens to generate.}
+\item{max_tokens}{Integer. The maximum number of tokens to generate.}
 
-\item{temperature}{Controls the randomness of the generated text. A value close to 0 produces more deterministic output, while a higher value (up to 2) produces more random output.}
+\item{temperature}{A numeric value to control the randomness of the generated text.
+A value close to 0 produces more deterministic output, while a higher value (up to 2) produces more random output.}
 
 \item{simple}{If TRUE, returns the generated text without newline characters. If FALSE, returns the full response from the API.}
 }
@@ -30,20 +31,16 @@ completions4R(
 The generated text or the full response from the API, depending on the value of `simple`.
 }
 \description{
-Generate text using OpenAI's API
-}
-\details{
-Generate text using OpenAI's API
-
-This function sends a request to OpenAI's API to generate text based on the provided prompt and parameters.
+This function sends a request to the OpenAI completions API (Legacy)
+  to generate text based on the provided prompt and parameters.
 }
 \examples{
 \dontrun{
   Sys.setenv(OPENAI_API_KEY = "Your API key")
 
-  prompt <- "Translate the following English text to French: '{}'"
+  prompt <- "Translate the following English text to French: 'Hello, world!'"
 
-  completions4R(prompt, api_key)
+  completions4R(prompt)
 }
 }
 \author{
