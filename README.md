@@ -38,6 +38,10 @@ BiocManager::install("EBImage")
 
 devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
+
+#For MacOS X, installation from source 
+wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.4.tar.gz
+R CMD INSTALL chatAI4R-0.0.4.tar.gz
 ```
 
 3. Set the API key according to each Web API.
@@ -92,6 +96,8 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 - generateImageVariation4R
 - createImagePrompt
 - createImagePrompt_v2
+
+
 
 ### Image generation functions using Stable Diffusion
 
