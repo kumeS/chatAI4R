@@ -6,7 +6,7 @@
 #' @description This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.
 #'
 #' @param img A list. The list of images to display. Each image in the list should be of class "Image".
-#' @param write A logical. Whether to write the images to .png files. Defaults to FALSE.
+#' @param write_file A logical. Whether to write the images to .png files. Defaults to FALSE.
 #' @param Rds A logical. Whether to save the images as .Rds files. Defaults to FALSE.
 #' @param dim An integer. The dimension of the image data. Defaults to 3.
 #' @param mar A numeric. The margin size for the plot. Defaults to 0.05.
@@ -31,13 +31,13 @@
 #' Display(img)
 #'
 #' # Display the images and write them to .png files
-#' Display(img, write = TRUE)
+#' Display(img, write_file = TRUE)
 #'
 #' # Display the images and save them as .Rds files
 #' Display(img, Rds = TRUE)
 #' }
 
-Display <- function(img, write = FALSE, Rds = FALSE, dim = 3, mar = 0.05){
+Display <- function(img, write_file = FALSE, Rds = FALSE, dim = 3, mar = 0.05){
   # Store the current graphics parameters
   oldpar <- graphics::par(no.readonly = TRUE)
 
@@ -67,7 +67,7 @@ Display <- function(img, write = FALSE, Rds = FALSE, dim = 3, mar = 0.05){
     f <- paste0("Img_", formatC(length(dir(pattern = "[.]png"))+1, flag = "0", width = 3), ".png")
 
     # If the image is RGBA, rotate it and write it out
-    if(write){
+    if(write_file){
       if(dim(img[[n]])[3] == 4){
         img0[[n]] <- EBImage::rotate(img[[n]], angle=-90)
         alpha_channel <- matrix(0, nrow = dim(img0[[n]])[1], ncol = dim(img0[[n]])[2])
@@ -98,7 +98,8 @@ Display <- function(img, write = FALSE, Rds = FALSE, dim = 3, mar = 0.05){
   graphics::par(mfrow=ans, mar=rep(mar, 4))
 
   # Display the images
+  if(length(img) != 1){
   for(n in seq_len(length(img))){
-    plot(t(grDevices::as.raster(img0[[n]]@.Data, max=max(img[[n]]@.Data))))
-  }
+    plot(t(grDevices::as.raster(img[[n]]@.Data, max=max(img[[n]]@.Data))))
+  }}
 }

@@ -19,17 +19,14 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' init_image_path <- system.file("./inst/", "JP_castle.png", package = "chatAI4R")
-#' image <- img2img_upscale_StableDiffusion4R(init_image_path)
-#' Display(image)
+#' init_image_path <- system.file("images", "JP_castle.png", package = "chatAI4R")
+#' result <- img2img_upscale_StableDiffusion4R(init_image_path)
+#' Display(result, write_file = TRUE)
 #' }
-
-# system.file(package = "chatAI4R")
-# ?chatAI4R::chat4R
 
 img2img_upscale_StableDiffusion4R <- function(
   init_image_path,
-  width_height = 1024,
+  width = 1024,
   engine_id = "esrgan-v1-x2plus",
   api_host = "https://api.stability.ai",
   api_key = Sys.getenv("DreamStudio_API_KEY")
@@ -61,21 +58,20 @@ img2img_upscale_StableDiffusion4R <- function(
 
   payload <- list(
     "image" = httr::upload_file(init_image_path),
-    "width" = width_height,
-    "height" = width_height)
+    "width" = width)
 
   # Creating empty variable
   result <- list()
   cat("Generating an up-scaled image\n")
 
   response <- httr::POST(uri,
-                           body = payload,
-                           encode = "multipart",
-                           config = headers)
+                         body = payload,
+                         encode = "multipart",
+                         config = headers)
 
-    if (httr::http_status(response)$category != "Success") {
+  if (httr::http_status(response)$category != "Success") {
       stop("Non-200 response: ", httr::content(response, "text", encoding = "UTF-8"))
-    }
+  }
 
     image_data <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
 
@@ -83,7 +79,7 @@ img2img_upscale_StableDiffusion4R <- function(
 
     Img <- EBImage::rotate(EBImage::Image(decode_image, colormode = 'Color' ), angle=90)
 
-    result[[i]] <- Img
+    result[[1]] <- Img
 
   return(result)
 }

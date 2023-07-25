@@ -81,9 +81,9 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|conversation4R|Manage a conversation with OpenAI's GPT-3.5-turbo model|Script|Flowchart|
-|createFunction4R|Generate and Improve R Functions|Script|Flowchart|
-|TextSummary|Function description is missing.|Script|Flowchart|
+|conversation4R|Manage a conversation using a chatting history|Script|Flowchart|
+|createFunction4R|Generate and improve R functions (experimental)|Script|Flowchart|
+|TextSummary| Summarize a long text (experimental)|Script|Flowchart|
 
 ### Image generation functions using DALL·E 2  
 
@@ -95,15 +95,16 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 ### Image generation functions using Stable Diffusion
 
-- generageTxt2img_StableDiffusion4R
-- generageImg2img_StableDiffusion4R
+- txt2img_StableDiffusion4R
+- img2img_StableDiffusion4R
+- img2img_upscale_StableDiffusion4R
 
 ### Visualization functions
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
 |Display|Display Images and Optionally Write Them to File|Script|Flowchart|
-|createHEX|Create Hex Stickers for R Packages|Script|Flowchart|
+|createHEX|Create Hex Stickers for R Packages (experimental)|Script|Flowchart|
 
 ### Functions for RIKEN press release (future developments)
 
