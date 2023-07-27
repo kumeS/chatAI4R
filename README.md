@@ -1,3 +1,5 @@
+# chatAI4R <img src="inst/figures/chatAI4R_logo.png" align="right" height="139" />
+
 # chatAI4R: Chat-based Interactive Artificial Intelligence for R
 
 ## Description
@@ -40,8 +42,8 @@ devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
 
 #For MacOS X, installation from source 
-wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.4.tar.gz
-R CMD INSTALL chatAI4R-0.0.4.tar.gz
+system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.4.tar.gz")
+system("R CMD INSTALL chatAI4R-0.0.4.tar.gz")
 ```
 
 3. Set the API key according to each Web API.
@@ -97,8 +99,6 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 - createImagePrompt
 - createImagePrompt_v2
 
-
-
 ### Image generation functions using Stable Diffusion
 
 - txt2img_StableDiffusion4R
@@ -109,7 +109,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|Display|Display Images and Optionally Write Them to File|Script|Flowchart|
+|Display|Display images and optionally write them into image files|Script|Flowchart|
 |createHEX|Create Hex Stickers for R Packages (experimental)|Script|Flowchart|
 
 ### Functions for RIKEN press release (future developments)

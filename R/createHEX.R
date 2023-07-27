@@ -52,10 +52,12 @@ createHEX4R <- function(description, package_name,  n = 3){
   # Create the hex stickers
   img <- list()
   for(k in seq_len(n)){
+    suppressMessages(
     img[[k]] <-  hexSticker::sticker(res[k],
                                      package = package_name,
                                      p_y = 1.5, p_size=12,
                                      s_x=1, s_y=.8, s_width=.5)
+    )
   }
 
   # Return the result
