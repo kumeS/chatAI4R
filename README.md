@@ -1,11 +1,8 @@
-# chatAI4R <img src="inst/figures/chatAI4R_logo.png" align="right" height="139" />
+# chatAI4R: Chat-based Interactive Artificial Intelligence for R <img src="inst/figures/chatAI4R_logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 [![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 <!-- badges: end -->
-
-
-# chatAI4R: Chat-based Interactive Artificial Intelligence for R
 
 ## Description
 
