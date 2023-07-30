@@ -21,16 +21,16 @@ editor_options:
 BiocStyle::markdown()
 ```
 
-**Last modified:** `r file.info("HowToUse.Rmd")$mtime`<br />
+**Last modified:** `r file.info("HowToUse_BiocStyle.Rmd")$mtime`<br />
 **Compiled**: `r date()`
 
 # Load packages
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=FALSE, eval=FALSE}
 library(chatAI4R)
 ```
 
-# 
+
 
 
 

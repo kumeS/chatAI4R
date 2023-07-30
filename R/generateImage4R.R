@@ -26,6 +26,8 @@
 #' }
 
 
+
+
 generateImage4R <- function(content,
                             n = 3,
                             size = "256x256",
@@ -34,12 +36,12 @@ generateImage4R <- function(content,
                             SaveImg = FALSE,
                             api_key = Sys.getenv("OPENAI_API_KEY")){
   # Asserting input types and values
-  assertthat::assert_that(is.string(content))
-  assertthat::assert_that(is.count(n), n >= 1, n <= 10)
-  assertthat::assert_that(is.string(size), size %in% c("256x256", "512x512", "1024x1024"))
-  assertthat::assert_that(is.string(response_format), response_format %in% c("url", "b64_json"))
-  assertthat::assert_that(is.flag(Output_image))
-  assertthat::assert_that(is.string(api_key), nchar(api_key) > 0)
+  assertthat::assert_that(assertthat::is.string(content))
+  assertthat::assert_that(assertthat::is.count(n), n >= 1, n <= 10)
+  assertthat::assert_that(assertthat::is.string(size), size %in% c("256x256", "512x512", "1024x1024"))
+  assertthat::assert_that(assertthat::is.string(response_format), response_format %in% c("url", "b64_json"))
+  assertthat::assert_that(assertthat::is.flag(Output_image))
+  assertthat::assert_that(assertthat::is.string(api_key), nchar(api_key) > 0)
 
   #contentが空ならストップ
   if(content == "") {

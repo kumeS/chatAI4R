@@ -19,7 +19,8 @@ Imports: httr, jsonlite,
     assertthat, clipr, 
     crayon, EBImage, 
     grDevices, hexSticker, abind,
-    base64enc, png, knitr
+    base64enc, png, knitr,
+    animation
 Suggests: testthat
 License: Artistic-2.0
 URL: https://github.com/kumeS/chatAI4R

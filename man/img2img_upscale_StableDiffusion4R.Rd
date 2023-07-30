@@ -6,7 +6,7 @@
 \usage{
 img2img_upscale_StableDiffusion4R(
   init_image_path,
-  width_height = 1024,
+  width = 1024,
   engine_id = "esrgan-v1-x2plus",
   api_host = "https://api.stability.ai",
   api_key = Sys.getenv("DreamStudio_API_KEY")
@@ -30,9 +30,9 @@ This function create a higher resolution version of an input image via the Stabl
 }
 \examples{
 \dontrun{
-init_image_path <- system.file("./inst/", "JP_castle.png", package = "chatAI4R")
-image <- img2img_upscale_StableDiffusion4R(init_image_path)
-Display(image)
+init_image_path <- system.file("images", "JP_castle.png", package = "chatAI4R")
+result <- img2img_upscale_StableDiffusion4R(init_image_path)
+Display(result, write_file = TRUE)
 }
 }
 \author{

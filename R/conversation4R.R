@@ -1,18 +1,20 @@
 #' Conversation for R
 #'
-#' This function manages a conversation with OpenAI's GPT-3.5-turbo model.
+#' This function manages a conversation with OpenAI's GPT model.
 #'
 #' @title Conversation for R
 #' @description This function uses the OpenAI API to manage a conversation with the specified model.
-#' @param message The message to send to the model.
-#' @param template1 The initial template for the conversation.
+#' @param message The message to send to the model. Must be a string.
+#' @param api_key A string. Your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".
+#' @param template1 The initial template for the conversation. Must be a string. Default is an empty string.
 #' @param ConversationBufferWindowMemory_k The number of previous messages to keep in memory.
-#' @param api_key Your OpenAI API key.
-#' @param Model The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".
-#' @param initialization Whether to initialize the chat history.
-#' @param output Whether to return the output.
+#'    Must be a positive integer. Default is 2.
+#' @param Model The model to use for the chat completion. Must be a string. Default is "gpt-3.5-turbo-16k".
+#' @param initialization Whether to initialize the chat history. Must be a logical value. Default is FALSE.
+#' @param output Whether to return the output. Must be a logical value. Default is FALSE.
 #' @importFrom httr add_headers POST content
 #' @importFrom jsonlite toJSON
+#' @importFrom assertthat assert_that is.string is.count is.flag
 #' @return A string containing the conversation history.
 #' @export conversation4R
 #' @author Satoshi Kume
@@ -23,26 +25,32 @@
 #' conversation4R(message, api_key = api_key)
 #' }
 
-#test
-#message = "Hello"; template1=""; ConversationBufferWindowMemory_k = 2; Model="gpt-3.5-turbo-16k"; initialization = FALSE; output=FALSE
-
 conversation4R <- function(message,
                            api_key = Sys.getenv("OPENAI_API_KEY"),
-                           template1="",
+                           template1 = "",
                            ConversationBufferWindowMemory_k = 2,
-                           Model="gpt-3.5-turbo-16k",
+                           Model = "gpt-3.5-turbo-16k",
                            initialization = FALSE,
-                           output=FALSE){
+                           output = FALSE){
+
+# Assertions to verify the types of the input parameters
+assertthat::assert_that(assertthat::is.string(message))
+assertthat::assert_that(assertthat::is.string(api_key))
+assertthat::assert_that(assertthat::is.string(template1))
+assertthat::assert_that(assertthat::is.count(ConversationBufferWindowMemory_k))
+assertthat::assert_that(assertthat::is.string(Model))
+assertthat::assert_that(assertthat::is.flag(initialization))
+assertthat::assert_that(assertthat::is.flag(output))
 
 # Initialization
 if(!exists("chat_history")){
- chat_history <<- new.env()
- chat_history$history <- c()
-}else{
- if(initialization){
- chat_history <<- new.env()
- chat_history$history <- c()
- }
+  chat_history <<- new.env()
+  chat_history$history <- c()
+} else {
+  if(initialization){
+    chat_history <<- new.env()
+    chat_history$history <- c()
+  }
 }
 
 # Define
@@ -50,8 +58,7 @@ temperature = 1
 
 # Prompt Template
 if(template1 == ""){
-template1 = "You are an excellent assistant.
-Please reply in Japanese."
+  template1 = "You are an excellent assistant.\nPlease reply in Japanese."
 }
 
 template2 = "

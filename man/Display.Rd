@@ -4,12 +4,12 @@
 \alias{Display}
 \title{Display Images and Optionally Write Them to File}
 \usage{
-Display(img, write = FALSE, Rds = FALSE, dim = 3, mar = 0.05)
+Display(img, write_file = FALSE, Rds = FALSE, dim = 3, mar = 0.05)
 }
 \arguments{
 \item{img}{A list. The list of images to display. Each image in the list should be of class "Image".}
 
-\item{write}{A logical. Whether to write the images to .png files. Defaults to FALSE.}
+\item{write_file}{A logical. Whether to write the images to .png files. Defaults to FALSE.}
 
 \item{Rds}{A logical. Whether to save the images as .Rds files. Defaults to FALSE.}
 
@@ -37,7 +37,7 @@ img <- list(image1, image2, image3)
 Display(img)
 
 # Display the images and write them to .png files
-Display(img, write = TRUE)
+Display(img, write_file = TRUE)
 
 # Display the images and save them as .Rds files
 Display(img, Rds = TRUE)

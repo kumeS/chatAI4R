@@ -1,5 +1,3 @@
-#'
-#'
 #' @title completions4R: Generate text using OpenAI completions API (Legacy)
 #' @description This function sends a request to the OpenAI completions API (Legacy)
 #'   to generate text based on the provided prompt and parameters.

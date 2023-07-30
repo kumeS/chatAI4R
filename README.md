@@ -43,12 +43,14 @@ BiocManager::install("EBImage")
 devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
 
-#For MacOS X, installation from source 
+#For MacOS X, installation from source: Recommended
 system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.4.tar.gz")
 system("R CMD INSTALL chatAI4R-0.0.4.tar.gz")
 ```
 
 3. Set the API key according to each Web API.
+
+For example, to obtain an OpenAI API key, please register as a member on the OpenAI website (https://platform.openai.com/account/api-keys) and obtain your API key.
 
 ```r
 #Set your key for the OpenAI API
@@ -89,7 +91,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|conversation4R|Manage a conversation using a chatting history|Script|Flowchart|
+|conversation4R|Manage a conversation using a chatting history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
 |createFunction4R|Generate and improve R functions (experimental)|Script|Flowchart|
 |TextSummary| Summarize a long text (experimental)|Script|Flowchart|
 
@@ -112,7 +114,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
 |Display|Display images and optionally write them into image files|Script|Flowchart|
-|createHEX|Create Hex Stickers for R Packages (experimental)|Script|Flowchart|
+|createHEX|Create Hex Stickers for R Packages (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createHEX.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/createHEX.png)|
 
 ### Functions for RIKEN press release (future developments)
 
