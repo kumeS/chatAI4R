@@ -1,5 +1,5 @@
 ---
-title: "How to use the chatAI4R's functions"
+title: "Usage of functions in the chatAI4R package"
 author: 
 - name: Satoshi Kume
   email: satoshi.kume.1984@gmail.com
@@ -10,7 +10,7 @@ output:
     BiocStyle::html_document:
         toc_float: true
 vignette: >
-    %\VignetteIndexEntry{How to use the chatAI4R's functions}
+    %\VignetteIndexEntry{Usage of functions in the chatAI4R package}
     %\VignetteEncoding{UTF-8}
     %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
