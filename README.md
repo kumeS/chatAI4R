@@ -24,9 +24,9 @@ chatAI4R is an experimental project aimed at developing and implementing various
   
 ## Installation of the chatAI4R package
 
-1. Start R / RStudio console.
+### 1. Start R / RStudio console.
 
-2. Run the following commands in the R console:
+### 2. Run the following commands in the R console:
 
 ```r
 # CRAN-version installation (Not yet available)
@@ -48,7 +48,7 @@ system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.4.tar.gz")
 system("R CMD INSTALL chatAI4R-0.0.4.tar.gz")
 ```
 
-3. Set the API key according to each Web API.
+### 3. Set the API key according to each Web API.
 
 For example, to obtain an OpenAI API key, please register as a member on the OpenAI website (https://platform.openai.com/account/api-keys) and obtain your API key.
 
@@ -100,9 +100,9 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 ### Image generation functions using DALL·E 2  
 
 - generateImage4R
-- editImage4R:
-- generateImageVariation4R
-- createImagePrompt
+- editImage4R
+- imageVariation4R
+- createImagePrompt_v1
 - createImagePrompt_v2
 
 ### Image generation functions using Stable Diffusion

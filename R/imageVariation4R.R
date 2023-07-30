@@ -28,7 +28,7 @@
 #' @return A list. This list contains either URLs pointing to the generated images
 #' or the images themselves in base64 encoded JSON format, depending on the `Output_image` parameter.
 #'
-#' @export generateImageVariation4R
+#' @export imageVariation4R
 #' @author Satoshi Kume
 #'
 #' @examples
@@ -37,14 +37,14 @@
 #' image_path = "path_to_your_image.png"
 #'
 #' # Generate image variations
-#' res <- generateImageVariation4R(image = image_path, n = 3, size = "256x256",
+#' res <- imageVariation4R(image = image_path, n = 3, size = "256x256",
 #' response_format = "url", Output_image = TRUE)
 #'
 #' # Display the generated image variations
 #' Display(res)
 #' }
 
-generateImageVariation4R <- function(image,
+imageVariation4R <- function(image,
                         n = 3,
                         size = "256x256",
                         response_format = "url",
