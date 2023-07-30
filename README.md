@@ -67,7 +67,7 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 
 ### Basic usage
 
-- [Usage of functions in the chatAI4R package](https://kumes.github.io/chatAI4R/inst/vignettes/HowToUse_BiocStyle.html)
+- [Usage of functions in the chatAI4R package](https://kumes.github.io/chatAI4R/inst/vignettes/HowToUse.html)
 
 ###  Applied usage of the chatAI4R package
 
