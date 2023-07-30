@@ -15,19 +15,20 @@ conversation4R(
 )
 }
 \arguments{
-\item{message}{The message to send to the model.}
+\item{message}{The message to send to the model. Must be a string.}
 
-\item{api_key}{Your OpenAI API key.}
+\item{api_key}{A string. Your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".}
 
-\item{template1}{The initial template for the conversation.}
+\item{template1}{The initial template for the conversation. Must be a string. Default is an empty string.}
 
-\item{ConversationBufferWindowMemory_k}{The number of previous messages to keep in memory.}
+\item{ConversationBufferWindowMemory_k}{The number of previous messages to keep in memory.
+Must be a positive integer. Default is 2.}
 
-\item{Model}{The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".}
+\item{Model}{The model to use for the chat completion. Must be a string. Default is "gpt-3.5-turbo-16k".}
 
-\item{initialization}{Whether to initialize the chat history.}
+\item{initialization}{Whether to initialize the chat history. Must be a logical value. Default is FALSE.}
 
-\item{output}{Whether to return the output.}
+\item{output}{Whether to return the output. Must be a logical value. Default is FALSE.}
 }
 \value{
 A string containing the conversation history.
@@ -38,7 +39,7 @@ This function uses the OpenAI API to manage a conversation with the specified mo
 \details{
 Conversation for R
 
-This function manages a conversation with OpenAI's GPT-3.5-turbo model.
+This function manages a conversation with OpenAI's GPT model.
 }
 \examples{
 \dontrun{
