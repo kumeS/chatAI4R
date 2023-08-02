@@ -6,7 +6,6 @@
 #'
 #' @title Edit or Extend Images with OpenAI API
 #' @description Generates new images by applying text prompts to original images, using OpenAI's API.
-#'
 #' @param image A string. The file path to the image to edit. Must be a valid PNG file.
 #' @param mask An optional string. An additional image file path whose fully transparent areas indicate where image should be edited.
 #' @param prompt A string. A text description of the desired images. The maximum length is 1000 characters.
@@ -15,19 +14,15 @@
 #' @param response_format A string. Defaults to "url". The format in which the generated images are returned. Must be one of "url" or "b64_json".
 #' @param Output_image A boolean. Defaults to TRUE. If TRUE, the function returns the generated images. If FALSE, it returns the URLs of the images.
 #' @param api_key A string. The OpenAI API key. Defaults to the value of the "OPENAI_API_KEY" environment variable.
-#'
 #' @importFrom assertthat assert_that is.string is.count is.flag
 #' @importFrom httr POST add_headers content upload_file
 #' @importFrom jsonlite toJSON
 #' @importFrom purrr map
 #' @importFrom EBImage readImage
-#'
 #' @return If `Output_image` is TRUE, returns a list of EBImage objects representing the generated images.
 #'         If `Output_image` is FALSE, returns a vector of URLs pointing to the generated images.
-#'
-#' @export
+#' @export editImage4R
 #' @author Satoshi Kume
-#'
 #' @examples
 #' \dontrun{
 #' # Make sure to set your API key first
@@ -52,8 +47,8 @@ editImage4R <- function(image,
 
   # Asserting input types and values
   assertthat::assert_that(file.exists(image))
-  assertthat::assert_that(file.exists(mask))
-  assertthat::assert_that(assertthat::is.string(prompt))
+  if(mask != "") assertthat::assert_that(file.exists(mask))
+  assertthat::assert_that(assertthat::is.string(prompt), nchar(prompt) <= 1000)
   assertthat::assert_that(assertthat::is.count(n), n >= 1, n <= 10)
   assertthat::assert_that(assertthat::is.string(size), size %in% c("256x256", "512x512", "1024x1024"))
   assertthat::assert_that(assertthat::is.string(response_format), response_format %in% c("url", "b64_json"))

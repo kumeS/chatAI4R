@@ -3,7 +3,7 @@
 #' This function generates variations of a given image using OpenAI's image API.
 #' It uses OpenAI's image API to generate a specified number of variations for a provided image.
 #'
-#' @title Generate Image Variations using OpenAI
+#' @title Generate Image Variations using OpenAI API
 #' @description Generates variations of a given image using the OpenAI API.
 #' It generates n number of variations of a provided image.
 #' The output can either be a list of URLs pointing to the generated images or the images themselves in base64 encoded JSON format.

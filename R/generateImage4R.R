@@ -1,7 +1,7 @@
-#' Generate Images Using OpenAI API
+#' Generate Text to Images Using OpenAI API
 #'
-#' @title Generate Images Using OpenAI API
-#' @description This function generates images using OpenAI API.
+#' @title Generate Text to Images Using OpenAI API
+#' @description This function generates images from text input using OpenAI API.
 #' @param content A character string, the content to generate images.
 #' @param n A count, the number of images to generate. Must be between 1 and 10.
 #' @param size A character string, the size of the images. Must be one of "256x256", "512x512", "1024x1024".
@@ -26,8 +26,6 @@
 #' }
 
 
-
-
 generateImage4R <- function(content,
                             n = 3,
                             size = "256x256",
@@ -36,14 +34,15 @@ generateImage4R <- function(content,
                             SaveImg = FALSE,
                             api_key = Sys.getenv("OPENAI_API_KEY")){
   # Asserting input types and values
-  assertthat::assert_that(assertthat::is.string(content))
+  assertthat::assert_that(assertthat::is.string(content), nchar(content) > 0)
   assertthat::assert_that(assertthat::is.count(n), n >= 1, n <= 10)
   assertthat::assert_that(assertthat::is.string(size), size %in% c("256x256", "512x512", "1024x1024"))
   assertthat::assert_that(assertthat::is.string(response_format), response_format %in% c("url", "b64_json"))
   assertthat::assert_that(assertthat::is.flag(Output_image))
+  assertthat::assert_that(assertthat::is.flag(SaveImg))
   assertthat::assert_that(assertthat::is.string(api_key), nchar(api_key) > 0)
 
-  #contentが空ならストップ
+  # If content is empty, stop execution
   if(content == "") {
     warning("No input provided.")
     stop()

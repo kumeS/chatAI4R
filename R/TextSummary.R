@@ -7,9 +7,9 @@
 #' If not provided, the function will attempt to read from the clipboard.
 #' @param nch Integer specifying the number of characters at which to split the input text for processing.
 #' @param Summary_block Integer specifying the target number of characters for the summarized output.
-#' @param Model A character string specifying the AI model to be used for text summarization.
+#' @param Model A character string specifying the AI model to be used for text summarization. Default is "gpt-3.5-turbo".
 #' @param temperature Numeric specifying the randomness of the AI model's output.
-#' @param language A character string specifying the language in which the summary should be generated.
+#' @param language A character string specifying the language in which the summary should be generated. Default is "English".
 #' @importFrom magrittr %>%
 #' @importFrom purrr map
 #' @importFrom clipr read_clip
@@ -28,9 +28,9 @@
 TextSummary <- function(text = clipr::read_clip(),
                         nch=1000,
                         Summary_block = 200,
-                        Model = "gpt-3.5-turbo-16k",
+                        Model = "gpt-3.5-turbo",
                         temperature = 1,
-                        language = "Japanese"){
+                        language = "English"){ # Default language changed to English
   # Asserting input types and values
   assertthat::assert_that(assertthat::is.string(text[1]))
   assertthat::assert_that(assertthat::is.count(nch), nch > 0)
@@ -38,6 +38,7 @@ TextSummary <- function(text = clipr::read_clip(),
   assertthat::assert_that(assertthat::is.string(Model))
   assertthat::assert_that(assertthat::is.number(temperature), temperature >= 0, temperature <= 1)
   assertthat::assert_that(assertthat::is.string(language))
+
 
   # Preprocessing
   text0 <- paste0(text, collapse = " ") %>%

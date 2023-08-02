@@ -94,15 +94,15 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |:---|:---|:---:|:---:|
 |conversation4R|Manage a conversation using a chatting history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
 |createFunction4R|Generate and improve R functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createFunction4R.R)||
-|TextSummary| Summarize a long text (experimental)|Script|Flowchart|
+|TextSummary| Summarize a long text (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
 
 ### Image generation functions using DALL·E 2  
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|generateImage4R||[Script](https://github.com/kumeS/chatAI4R/blob/main/R/generateImage4R.R)||
-|editImage4R||[Script](https://github.com/kumeS/chatAI4R/blob/main/R/editImage4R.R)||
-|imageVariation4R||[Script](https://github.com/kumeS/chatAI4R/blob/main/R/imageVariation4R.R)||
+|generateImage4R|Generate Images Using OpenAI API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/generateImage4R.R)||
+|editImage4R|Edit or Extend Images with OpenAI API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/editImage4R.R)||
+|imageVariation4R|Generate Image Variations using OpenAI API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/imageVariation4R.R)||
 |createImagePrompt_v1|create a prompt for generating an image from text using an AI model|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v1.R)||
 |createImagePrompt_v2|create a more complex prompt by considering additional attributes|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v2.R)||
 
