@@ -1,6 +1,6 @@
 Package: chatAI4R
 Type: Package
-Title: Chat-based Interactive Artificial Intelligence for R
+Title: Chat-Based Interactive Artificial Intelligence for R
 Version: 0.0.7
 Date: 2023-08-03
 Authors@R: c(
@@ -10,22 +10,28 @@ Authors@R: c(
     comment = c(ORCID = "0000-0001-7481-2843"))
     )
 Maintainer: Satoshi Kume <satoshi.kume.1984@gmail.com>
-Description: chatAI4R provides a seamless interface for integrating the 
+Description: A seamless interface for integrating the 
     OpenAI API (see <https://platform.openai.com/docs/api-reference>) and 
-    other APIs into R. This package leverages large language model (LLM)-based 
+    other APIs into R is provided in this package. This package leverages large language model (LLM)-based 
     AI techniques, enabling efficient knowledge discovery and data analysis.
     In addition, this package includes functionality for performing 
     image generation such as txt2img and img2img using the DALL·E 2 and 
     Stable Diffusion APIs.
-Depends: R (>= 4.2.0)
-Imports: httr, jsonlite, 
-    magrittr, purrr, 
-    assertthat, clipr, 
-    crayon, EBImage, 
-    grDevices, hexSticker, abind,
-    base64enc, png, knitr,
+Depends: R (>= 4.2.0), EBImage
+Imports: httr, 
+    jsonlite, 
+    magrittr, 
+    purrr, 
+    assertthat, 
+    clipr, 
+    crayon, 
+    grDevices, 
+    hexSticker, 
+    abind,
+    base64enc, 
+    png,
     animation
-Suggests: testthat
+Suggests: testthat, knitr
 License: Artistic-2.0
 URL: https://github.com/kumeS/chatAI4R
 RoxygenNote: 7.2.3

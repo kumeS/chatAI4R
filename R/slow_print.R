@@ -14,6 +14,7 @@
 #' @param delay A numeric value representing the fixed delay between characters in seconds.
 #'    Default is 0.125. Must be a non-negative number.
 #' @importFrom assertthat is.string noNA is.number
+#' @importFrom stats runif
 #' @return Invisible NULL. The function prints the text to the console.
 #' @export slow_print
 #' @author Satoshi Kume
@@ -33,7 +34,7 @@ slow_print <- function(text, random = FALSE, delay = 0.125) {
   if (random) {
     for (i in seq_along(strsplit(text, "")[[1]])) {
       cat(strsplit(text, "")[[1]][i])
-      Sys.sleep(runif(1, min = 0.0001, max = 0.3))
+      Sys.sleep(stats::runif(1, min = 0.0001, max = 0.3))
     }
   } else {
     for (i in seq_along(strsplit(text, "")[[1]])) {
