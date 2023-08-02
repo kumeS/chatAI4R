@@ -2,7 +2,7 @@
 % Please edit documentation in R/createImagePrompt_v2.R
 \name{createImagePrompt_v2}
 \alias{createImagePrompt_v2}
-\title{Generate Image Prompts using OpenAI}
+\title{Generate Image Prompts version 2}
 \usage{
 createImagePrompt_v2(
   Base_prompt = "",
@@ -32,10 +32,7 @@ Given a base prompt, image attributes, and model parameters, it generates the op
 This is an experimental function.
 }
 \details{
-Generate Image Prompts using OpenAI
-
-This function generates prompts for creating images using OpenAI's API.
-It uses the provided base prompt, image attributes, and model parameters to generate the optimal prompts.
+Generate Image Prompts version 2
 }
 \examples{
 \dontrun{

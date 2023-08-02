@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateImage4R.R
 \name{generateImage4R}
 \alias{generateImage4R}
-\title{Generate Images Using OpenAI API}
+\title{Generate Text to Images Using OpenAI API}
 \usage{
 generateImage4R(
   content,
@@ -33,10 +33,10 @@ generateImage4R(
 If Output_image is TRUE, returns a list of images; if Output_image is FALSE, returns a character vector of URLs.
 }
 \description{
-This function generates images using OpenAI API.
+This function generates images from text input using OpenAI API.
 }
 \details{
-Generate Images Using OpenAI API
+Generate Text to Images Using OpenAI API
 }
 \examples{
 \dontrun{

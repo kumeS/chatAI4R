@@ -8,9 +8,9 @@ TextSummary(
   text = clipr::read_clip(),
   nch = 1000,
   Summary_block = 200,
-  Model = "gpt-3.5-turbo-16k",
+  Model = "gpt-3.5-turbo",
   temperature = 1,
-  language = "Japanese"
+  language = "English"
 )
 }
 \arguments{
@@ -21,11 +21,11 @@ If not provided, the function will attempt to read from the clipboard.}
 
 \item{Summary_block}{Integer specifying the target number of characters for the summarized output.}
 
-\item{Model}{A character string specifying the AI model to be used for text summarization.}
+\item{Model}{A character string specifying the AI model to be used for text summarization. Default is "gpt-3.5-turbo".}
 
 \item{temperature}{Numeric specifying the randomness of the AI model's output.}
 
-\item{language}{A character string specifying the language in which the summary should be generated.}
+\item{language}{A character string specifying the language in which the summary should be generated. Default is "English".}
 }
 \value{
 A list of character vectors where each vector is a part of the summarized text.

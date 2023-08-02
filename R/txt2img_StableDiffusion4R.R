@@ -1,9 +1,5 @@
-#' Text-to-image generator using Stable Diffusion
-#'
-#' This function generates an image from a text prompt via Stable Diffusion.
-#'
-#' @title txt2img_StableDiffusion4R
-#' @description Generate an image from a text prompt using the Stable Diffusion API.
+#' @title Text-to-image generator using Stable Diffusion
+#' @description This function Generate an image from a text prompt using the Stable Diffusion API.
 #'              It sends the parameters to the API and receives a response that includes
 #'              the base64-encoded image data, which is then converted to a PNG image.
 #' @param text_prompts A string. The text prompt to use for image generation. Should not be empty.
@@ -11,11 +7,12 @@
 #' @param weight A numeric value indicating the weight of the text prompt. Default is 0.5.
 #' @param height An integer. The height of the image in pixels. Default is 512.
 #' @param width An integer. The width of the image in pixels. Default is 512.
-#' @param number_of_images An integer. The number of images to generate. Default is 2.
+#' @param number_of_images An integer. The number of images to generate. Default is 3.
 #' @param steps An integer. The number of diffusion steps to run. Default is 10.
 #' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
 #' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
-#' @param style_preset A string. A style preset to guide the image model towards a particular style. Default is an empty string. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.
+#' @param sampler A string. Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you. Possible values are 'DDIM', 'DDPM', 'K_DPMPP_2M', 'K_DPMPP_2S_ANCESTRAL', 'K_DPM_2', 'K_DPM_2_ANCESTRAL', 'K_EULER', 'K_EULER_ANCESTRAL', 'K_HEUN', 'K_LMS'. Default is NULL.
+#' @param style_preset A string. A style preset to guide the image model towards a particular style. Default is 'photographic'. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.
 #' @param engine_id A string. The engine id to be used in the API. Default is 'stable-diffusion-512-v2-1'.
 #'                  Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
 #' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.
@@ -34,16 +31,8 @@
 #' Sys.setenv(DreamStudio_API_KEY = "Your API key")
 #' text_prompts = "japanese castle"
 #' images = txt2img_StableDiffusion4R(text_prompts)
-#'
 #' Display(images)
 #' }
-
-
-#sampler
-#string (Sampler)
-#Enum: DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
-#Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you.
-
 
 txt2img_StableDiffusion4R <- function(
   text_prompts = "",
@@ -61,7 +50,6 @@ txt2img_StableDiffusion4R <- function(
   api_host = "https://api.stability.ai",
   api_key = Sys.getenv("DreamStudio_API_KEY")
 ) {
-
   # Verify if text_prompts is not empty or NULL
   if (is.null(text_prompts) || text_prompts == "") {
     stop("text_prompts must not be empty or NULL")
@@ -91,6 +79,8 @@ txt2img_StableDiffusion4R <- function(
     cfg_scale <= 35,
     assertthat::is.string(clip_guidance_preset),
     clip_guidance_preset %in% c("FAST_BLUE", "FAST_GREEN", "NONE", "SIMPLE", "SLOW", "SLOWER", "SLOWEST"),
+    assertthat::is.string(sampler),
+    sampler %in% c('DDIM', 'DDPM', 'K_DPMPP_2M', 'K_DPMPP_2S_ANCESTRAL', 'K_DPM_2', 'K_DPM_2_ANCESTRAL', 'K_EULER', 'K_EULER_ANCESTRAL', 'K_HEUN', 'K_LMS'),
     assertthat::is.string(engine_id),
     assertthat::is.string(style_preset),
     style_preset %in% c("3d-model", "analog-film", "anime", "cinematic", "comic-book", "digital-art", "enhance", "fantasy-art", "isometric", "line-art", "low-poly", "modeling-compound", "neon-punk", "origami", "photographic", "pixel-art", "tile-texture"),

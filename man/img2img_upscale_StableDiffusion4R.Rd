@@ -15,6 +15,8 @@ img2img_upscale_StableDiffusion4R(
 \arguments{
 \item{init_image_path}{A string. This is the path to the image file to be used as the basis for the image to image transformation. Should be a valid PNG file.}
 
+\item{width}{An integer. The desired width of the up-scaled image. Default is 1024.}
+
 \item{engine_id}{A string. The engine id to be used in the API. Default is 'esrgan-v1-x2plus'.
 Other possible value is 'stable-diffusion-x4-latent-upscaler'.}
 
@@ -26,7 +28,7 @@ Other possible value is 'stable-diffusion-x4-latent-upscaler'.}
 A list of image up-scaled from the initial image.
 }
 \description{
-This function create a higher resolution version of an input image via the Stable Diffusion API.
+This function creates a higher resolution version of an input image via the Stable Diffusion API.
 }
 \examples{
 \dontrun{

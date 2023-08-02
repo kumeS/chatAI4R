@@ -20,7 +20,7 @@ createFunction4R(
 
 \item{max_tokens}{An integer that specifies the maximum number of tokens to be returned by the AI model. Default is 250.}
 
-\item{View}{A logical}
+\item{View}{A logical that indicates whether to view the intermediate steps. Default is TRUE.}
 
 \item{roxygen}{A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.}
 

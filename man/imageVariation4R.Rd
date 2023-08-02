@@ -2,7 +2,7 @@
 % Please edit documentation in R/imageVariation4R.R
 \name{imageVariation4R}
 \alias{imageVariation4R}
-\title{Generate Image Variations using OpenAI}
+\title{Generate Image Variations using OpenAI API}
 \usage{
 imageVariation4R(
   image,

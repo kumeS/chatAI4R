@@ -2,7 +2,7 @@
 % Please edit documentation in R/img2img_StableDiffusion4R.R
 \name{img2img_StableDiffusion4R}
 \alias{img2img_StableDiffusion4R}
-\title{Stable Diffusion Image to Image Transformation}
+\title{Image to Image Transformation using Stable Diffusion}
 \usage{
 img2img_StableDiffusion4R(
   text_prompts,
@@ -42,6 +42,8 @@ img2img_StableDiffusion4R(
 \item{seed}{An integer. The seed for random noise generation. Default is 0.}
 
 \item{clip_guidance_preset}{A string. A preset to guide the image model. Default is 'NONE'.}
+
+\item{sampler}{A string. Which sampler to use for the diffusion process. If this value is omitted, an appropriate sampler will be automatically selected.}
 
 \item{style_preset}{A string. Specifies the style preset to guide the image model towards a particular style. Default is 'photographic'.}
 

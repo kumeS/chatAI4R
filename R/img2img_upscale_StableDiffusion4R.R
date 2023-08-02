@@ -1,13 +1,11 @@
 #' @title Stable Diffusion Image to Image Up-scaling Transformation
-#'
-#' @description This function create a higher resolution version of an input image via the Stable Diffusion API.
-#'
+#' @description This function creates a higher resolution version of an input image via the Stable Diffusion API.
 #' @param init_image_path A string. This is the path to the image file to be used as the basis for the image to image transformation. Should be a valid PNG file.
+#' @param width An integer. The desired width of the up-scaled image. Default is 1024.
 #' @param engine_id A string. The engine id to be used in the API. Default is 'esrgan-v1-x2plus'.
 #'                  Other possible value is 'stable-diffusion-x4-latent-upscaler'.
 #' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.
 #' @param api_key A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.
-
 #' @importFrom assertthat assert_that is.string is.count noNA
 #' @importFrom httr add_headers POST http_status content
 #' @importFrom jsonlite fromJSON
@@ -31,16 +29,15 @@ img2img_upscale_StableDiffusion4R <- function(
   api_host = "https://api.stability.ai",
   api_key = Sys.getenv("DreamStudio_API_KEY")
 ) {
-
-  # Verify if text_prompts is not empty or NULL
+  # Verify if init_image_path is not empty or NULL
   if (is.null(init_image_path) || init_image_path == "") {
     stop("init_image_path must not be empty or NULL")
   }
 
   assertthat::assert_that(
     assertthat::is.string(init_image_path),
-    assertthat::is.number(width_height),
-    width_height >= 512,
+    assertthat::is.number(width),
+    width >= 512,
     assertthat::is.string(engine_id),
     engine_id %in% c("esrgan-v1-x2plus", "stable-diffusion-x4-latent-upscaler"),
     assertthat::is.string(api_host),
@@ -73,13 +70,13 @@ img2img_upscale_StableDiffusion4R <- function(
       stop("Non-200 response: ", httr::content(response, "text", encoding = "UTF-8"))
   }
 
-    image_data <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
+  image_data <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
 
-    decode_image <- png::readPNG(base64enc::base64decode(image_data$artifacts$base64))
+  decode_image <- png::readPNG(base64enc::base64decode(image_data$artifacts$base64))
 
-    Img <- EBImage::rotate(EBImage::Image(decode_image, colormode = 'Color' ), angle=90)
+  Img <- EBImage::rotate(EBImage::Image(decode_image, colormode = 'Color' ), angle=90)
 
-    result[[1]] <- Img
+  result[[1]] <- Img
 
   return(result)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/txt2img_StableDiffusion4R.R
 \name{txt2img_StableDiffusion4R}
 \alias{txt2img_StableDiffusion4R}
-\title{txt2img_StableDiffusion4R}
+\title{Text-to-image generator using Stable Diffusion}
 \usage{
 txt2img_StableDiffusion4R(
   text_prompts = "",
@@ -32,7 +32,7 @@ txt2img_StableDiffusion4R(
 
 \item{width}{An integer. The width of the image in pixels. Default is 512.}
 
-\item{number_of_images}{An integer. The number of images to generate. Default is 2.}
+\item{number_of_images}{An integer. The number of images to generate. Default is 3.}
 
 \item{steps}{An integer. The number of diffusion steps to run. Default is 10.}
 
@@ -40,7 +40,9 @@ txt2img_StableDiffusion4R(
 
 \item{clip_guidance_preset}{A string. A preset to guide the image model. Default is 'NONE'.}
 
-\item{style_preset}{A string. A style preset to guide the image model towards a particular style. Default is an empty string. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.}
+\item{sampler}{A string. Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you. Possible values are 'DDIM', 'DDPM', 'K_DPMPP_2M', 'K_DPMPP_2S_ANCESTRAL', 'K_DPM_2', 'K_DPM_2_ANCESTRAL', 'K_EULER', 'K_EULER_ANCESTRAL', 'K_HEUN', 'K_LMS'. Default is NULL.}
+
+\item{style_preset}{A string. A style preset to guide the image model towards a particular style. Default is 'photographic'. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.}
 
 \item{engine_id}{A string. The engine id to be used in the API. Default is 'stable-diffusion-512-v2-1'.
 Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.}
@@ -53,21 +55,15 @@ Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-
 A list of images generated from the text prompt.
 }
 \description{
-Generate an image from a text prompt using the Stable Diffusion API.
+This function Generate an image from a text prompt using the Stable Diffusion API.
              It sends the parameters to the API and receives a response that includes
              the base64-encoded image data, which is then converted to a PNG image.
-}
-\details{
-Text-to-image generator using Stable Diffusion
-
-This function generates an image from a text prompt via Stable Diffusion.
 }
 \examples{
 \dontrun{
 Sys.setenv(DreamStudio_API_KEY = "Your API key")
 text_prompts = "japanese castle"
 images = txt2img_StableDiffusion4R(text_prompts)
-
 Display(images)
 }
 }

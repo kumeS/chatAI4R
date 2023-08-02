@@ -25,8 +25,6 @@ This function displays images that are stored in a list. It also has options for
 }
 \details{
 Display Images and Optionally Write Them to File
-
-This function takes in a list of images, displays each image, and optionally writes each image to a .Rds or .png file.
 }
 \examples{
 \dontrun{
