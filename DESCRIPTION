@@ -1,11 +1,15 @@
 Package: chatAI4R
 Type: Package
 Title: Chat-based Interactive Artificial Intelligence for R
-Version: 0.0.6
-Date: 2023-07-31
-Authors@R: c(person("Satoshi", "Kume", 
-             role = c("aut", "cre"),
-             email = "satoshi.kume.1984@gmail.com"))
+Version: 0.0.7
+Date: 2023-08-03
+Authors@R: c(
+    person (given = "Satoshi", family = "Kume",
+    role = c("aut", "cre"), 
+    email = "satoshi.kume.1984@gmail.com",
+    comment = c(ORCID = "0000-0001-7481-2843"))
+    )
+Maintainer: Satoshi Kume <satoshi.kume.1984@gmail.com>
 Description: chatAI4R provides a seamless interface for integrating the 
     OpenAI API (see <https://platform.openai.com/docs/api-reference>) and 
     other APIs into R. This package leverages large language model (LLM)-based 
