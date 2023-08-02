@@ -1,7 +1,5 @@
 #' Display Images and Optionally Write Them to File
 #'
-#' This function takes in a list of images, displays each image, and optionally writes each image to a .Rds or .png file.
-#'
 #' @title Display Images and Optionally Write Them to File
 #' @description This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.
 #'
@@ -10,7 +8,6 @@
 #' @param Rds A logical. Whether to save the images as .Rds files. Defaults to FALSE.
 #' @param dim An integer. The dimension of the image data. Defaults to 3.
 #' @param mar A numeric. The margin size for the plot. Defaults to 0.05.
-#'
 #' @importFrom graphics par
 #' @importFrom assertthat assert_that
 #' @importFrom EBImage display

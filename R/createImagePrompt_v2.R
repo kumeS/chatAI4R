@@ -1,9 +1,6 @@
-#' Generate Image Prompts using OpenAI
+#' Generate Image Prompts version 2
 #'
-#' This function generates prompts for creating images using OpenAI's API.
-#' It uses the provided base prompt, image attributes, and model parameters to generate the optimal prompts.
-#'
-#' @title Generate Image Prompts using OpenAI
+#' @title Generate Image Prompts version 2
 #' @description Generates optimal prompts for creating images using the OpenAI API.
 #' Given a base prompt, image attributes, and model parameters, it generates the optimal prompts for image creation.
 #' This is an experimental function.
@@ -12,14 +9,10 @@
 #' @param stable_diffusion A string. This parameter is used to control the stability of the diffusion process.
 #' @param Model A string. This is the model used for generating the prompts. Default is "gpt-3.5-turbo-16k".
 #' @param len An integer. This is the maximum length of the generated prompts. Must be between 1 and 1000. Default is 1000.
-#'
 #' @importFrom assertthat assert_that is.count is.string
-#'
 #' @return A vector of strings. Each string in the vector is a generated prompt.
-#'
 #' @export createImagePrompt_v2
 #' @author Satoshi Kume
-#'
 #' @examples
 #' \dontrun{
 #' # Define the base prompt and image attributes

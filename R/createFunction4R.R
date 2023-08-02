@@ -10,9 +10,10 @@
 #' @param packages A character string that specifies the packages to be used in the function. Default is "base".
 #' @param max_tokens An integer that specifies the maximum number of tokens to be returned by the AI model. Default is 250.
 #' @param roxygen A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.
-#' @param View A logical
+#' @param View A logical that indicates whether to view the intermediate steps. Default is TRUE.
 #' @importFrom magrittr %>%
 #' @importFrom crayon red
+#' @importFrom assertthat assert_that is.string is.count noNA
 #' @return The function returns a character string that represents the generated and improved R function.
 #' @export createFunction4R
 #' @author Satoshi Kume
@@ -22,14 +23,22 @@
 #'   createFunction4R(Func_description = "2*n+3 sequence")
 #' }
 
-#library(magrittr)
-
 createFunction4R <- function(Func_description,
                              packages = "base",
                              max_tokens = 250,
                              View = TRUE,
                              roxygen = TRUE,
                              api_key = Sys.getenv("OPENAI_API_KEY")){
+
+# Validate inputs
+assertthat::assert_that(assertthat::is.string(Func_description))
+assertthat::assert_that(assertthat::is.string(packages))
+assertthat::assert_that(assertthat::is.count(max_tokens))
+assertthat::assert_that(assertthat::noNA(max_tokens))
+assertthat::assert_that(is.logical(View))
+assertthat::assert_that(is.logical(roxygen))
+assertthat::assert_that(assertthat::is.string(api_key))
+
 
 # Create a template
 template1 = "

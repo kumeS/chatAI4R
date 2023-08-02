@@ -88,22 +88,23 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |deepel|DeepL Translation Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/deepel_v2.png)|
 |slow_print|Slowly Print Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print.R)||
 
-
 ### Secondary Layer Functions
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
 |conversation4R|Manage a conversation using a chatting history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
-|createFunction4R|Generate and improve R functions (experimental)|Script|Flowchart|
+|createFunction4R|Generate and improve R functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createFunction4R.R)||
 |TextSummary| Summarize a long text (experimental)|Script|Flowchart|
 
 ### Image generation functions using DALL·E 2  
 
-- generateImage4R
-- editImage4R
-- imageVariation4R
-- createImagePrompt_v1
-- createImagePrompt_v2
+|Function|Description|Script|Flowchart|
+|:---|:---|:---:|:---:|
+|generateImage4R||[Script](https://github.com/kumeS/chatAI4R/blob/main/R/generateImage4R.R)||
+|editImage4R||[Script](https://github.com/kumeS/chatAI4R/blob/main/R/editImage4R.R)||
+|imageVariation4R||[Script](https://github.com/kumeS/chatAI4R/blob/main/R/imageVariation4R.R)||
+|createImagePrompt_v1|create a prompt for generating an image from text using an AI model|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v1.R)||
+|createImagePrompt_v2|create a more complex prompt by considering additional attributes|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v2.R)||
 
 ### Image generation functions using Stable Diffusion
 
@@ -115,9 +116,9 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|Display|Display images and optionally write them into image files|Script|Flowchart|
+|Display|Display images and optionally write them into image files|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/Display.R)||
 |createHEX|Create Hex Stickers for R Packages (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createHEX.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/createHEX.png)|
-|DisplayAsMovie|Display Images as a Movie|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/DisplayAsMovie.R)|Flowchart|
+|DisplayAsMovie|Display Images as a Movie|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/DisplayAsMovie.R)||
 
 ### Functions for RIKEN press release (future developments)
 

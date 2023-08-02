@@ -1,6 +1,6 @@
 function: roxygen2
 author: Satoshi Kume
-Language: Japanese
+Language: English
 
 As an experienced and knowledgeable R programmer, you have been tasked with providing a comprehensive definition of a specific R language function.
 Your definition should follow the {function} format and must include specific elements such as @title, @description, @param, @importFrom, @return, @export, @author {author}, and @examples.

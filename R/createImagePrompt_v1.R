@@ -1,6 +1,6 @@
-#' Create Image Prompt
+#' Create Image Prompt version 1
 #'
-#' @title Create Image Prompt
+#' @title Create Image Prompt version 1
 #' @description This function creates a prompt for generating an image from text using an AI model.
 #'  This is an experimental function.
 #' @param content A character string describing the image to be generated. If not provided, the function will throw a warning and stop.
@@ -8,15 +8,15 @@
 #' @param len Integer specifying the maximum length of the text input.
 #' @importFrom assertthat assert_that is.string
 #' @return A character string that serves as the prompt for generating an image.
-#' @export createImagePrompt
+#' @export createImagePrompt_v1
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' createImagePrompt(content = "A Japanese girl animation with blonde hair.")
+#' createImagePrompt_v1(content = "A Japanese girl animation with blonde hair.")
 #' }
 #'
 
-createImagePrompt <- function(content,
+createImagePrompt_v1 <- function(content,
                                 Model = "gpt-3.5-turbo-16k",
                                 len = 200){
   # Asserting input types and values
