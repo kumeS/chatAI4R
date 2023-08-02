@@ -10,8 +10,8 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' 　Sys.setenv(OPENAI_API_KEY = "Your API key")
-#'   textEmbedding("Hello, world!")
+#' Sys.setenv(OPENAI_API_KEY = "Your API key")
+#' textEmbedding("Hello, world!")
 #' }
 
 
