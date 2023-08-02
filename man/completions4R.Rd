@@ -36,11 +36,11 @@ This function sends a request to the OpenAI completions API (Legacy)
 }
 \examples{
 \dontrun{
-  Sys.setenv(OPENAI_API_KEY = "Your API key")
+Sys.setenv(OPENAI_API_KEY = "Your API key")
 
-  prompt <- "Translate the following English text to French: 'Hello, world!'"
+prompt <- "Translate the following English text to French: 'Hello, world!'"
 
-  completions4R(prompt)
+completions4R(prompt)
 }
 }
 \author{

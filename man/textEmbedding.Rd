@@ -20,8 +20,8 @@ This function calls the OpenAI Embeddings API to get the multidimensional vector
 }
 \examples{
 \dontrun{
-　Sys.setenv(OPENAI_API_KEY = "Your API key")
-  textEmbedding("Hello, world!")
+Sys.setenv(OPENAI_API_KEY = "Your API key")
+textEmbedding("Hello, world!")
 }
 }
 \author{
