@@ -110,10 +110,9 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|txt2img_StableDiffusion4R|Text-to-image generator using Stable Diffusion|Script||
-|img2img_StableDiffusion4R|Image to Image Transformation using Stable Diffusion|Script||
-|img2img_upscale_StableDiffusion4R|Stable Diffusion Image to Image Up-scaling Transformation|Script||
-
+|txt2img_StableDiffusion4R|Text-to-image generator using Stable Diffusion|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/txt2img_StableDiffusion4R.R)||
+|img2img_StableDiffusion4R|Image to Image Transformation using Stable Diffusion|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/img2img_StableDiffusion4R.R)||
+|img2img_upscale_StableDiffusion4R|Stable Diffusion Image to Image Up-scaling Transformation|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/img2img_upscale_StableDiffusion4R.R)||
 
 ### Visualization functions
 
