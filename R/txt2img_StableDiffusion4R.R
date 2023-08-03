@@ -50,6 +50,7 @@ txt2img_StableDiffusion4R <- function(
   api_host = "https://api.stability.ai",
   api_key = Sys.getenv("DreamStudio_API_KEY")
 ) {
+
   # Verify if text_prompts is not empty or NULL
   if (is.null(text_prompts) || text_prompts == "") {
     stop("text_prompts must not be empty or NULL")
@@ -79,8 +80,8 @@ txt2img_StableDiffusion4R <- function(
     cfg_scale <= 35,
     assertthat::is.string(clip_guidance_preset),
     clip_guidance_preset %in% c("FAST_BLUE", "FAST_GREEN", "NONE", "SIMPLE", "SLOW", "SLOWER", "SLOWEST"),
-    assertthat::is.string(sampler),
-    sampler %in% c('DDIM', 'DDPM', 'K_DPMPP_2M', 'K_DPMPP_2S_ANCESTRAL', 'K_DPM_2', 'K_DPM_2_ANCESTRAL', 'K_EULER', 'K_EULER_ANCESTRAL', 'K_HEUN', 'K_LMS'),
+    #assertthat::is.string(sampler),
+    #sampler %in% c('DDIM', 'DDPM', 'K_DPMPP_2M', 'K_DPMPP_2S_ANCESTRAL', 'K_DPM_2', 'K_DPM_2_ANCESTRAL', 'K_EULER', 'K_EULER_ANCESTRAL', 'K_HEUN', 'K_LMS'),
     assertthat::is.string(engine_id),
     assertthat::is.string(style_preset),
     style_preset %in% c("3d-model", "analog-film", "anime", "cinematic", "comic-book", "digital-art", "enhance", "fantasy-art", "isometric", "line-art", "low-poly", "modeling-compound", "neon-punk", "origami", "photographic", "pixel-art", "tile-texture"),
@@ -133,8 +134,6 @@ payload <- list(
     "style_preset" = style_preset
   )
 }
-
-
 
   result <- list()
 
