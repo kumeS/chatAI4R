@@ -6,6 +6,9 @@
 #'                  Other possible value is 'stable-diffusion-x4-latent-upscaler'.
 #' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.
 #' @param api_key A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.
+#' @param Original_Image A logical. If TRUE, the original image is included in the result. Default is TRUE.
+#' @param Flop A logical. If TRUE, the up-scaled image is flopped. Default is TRUE.
+#' @param Flip A logical. If FALSE, the up-scaled image is not flipped. Default is FALSE.
 #' @importFrom assertthat assert_that is.string is.count noNA
 #' @importFrom httr add_headers POST http_status content
 #' @importFrom jsonlite fromJSON
@@ -27,6 +30,9 @@ img2img_upscale_StableDiffusion4R <- function(
   width = 1024,
   engine_id = "esrgan-v1-x2plus",
   api_host = "https://api.stability.ai",
+  Original_Image = TRUE,
+  Flop = TRUE,
+  Flip = FALSE,
   api_key = Sys.getenv("DreamStudio_API_KEY")
 ) {
   # Verify if init_image_path is not empty or NULL
@@ -36,7 +42,7 @@ img2img_upscale_StableDiffusion4R <- function(
 
   assertthat::assert_that(
     assertthat::is.string(init_image_path),
-    assertthat::is.number(width),
+    assertthat::is.count(width),
     width >= 512,
     assertthat::is.string(engine_id),
     engine_id %in% c("esrgan-v1-x2plus", "stable-diffusion-x4-latent-upscaler"),
@@ -72,11 +78,19 @@ img2img_upscale_StableDiffusion4R <- function(
 
   image_data <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
 
+  #Convert to an image data
   decode_image <- png::readPNG(base64enc::base64decode(image_data$artifacts$base64))
-
   Img <- EBImage::rotate(EBImage::Image(decode_image, colormode = 'Color' ), angle=90)
 
+  #EBImage::display(EBImage::flop(Img))
+  if(Flop){Img <- EBImage::flop(Img)}
+  if(Flip){Img <- EBImage::flip(Img)}
+
   result[[1]] <- Img
+
+  if(Original_Image){
+  result[[2]] <-  EBImage::readImage(init_image_path)
+  }
 
   return(result)
 }
