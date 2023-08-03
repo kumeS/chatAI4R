@@ -8,7 +8,7 @@ inst/examples/child/knitr-.*.pdf
 inst/examples/child/knitr-.*\.md
 inst/examples/figure
 inst/examples/cache
-inst/script
+inst/Development_script
 inst/flowchart
 knitr-minimal.md
 knitr-spin.md
@@ -21,8 +21,9 @@ FAQ.md
 Makefile
 ^\.github$
 ^docs$
-^README.*\.md$
 ^codecov\.yml$
 ^NEWS\.md$
 README.html
 cran-comments.md
+^CRAN-SUBMISSION$
+^cran-comments\.md$
