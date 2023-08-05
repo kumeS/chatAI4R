@@ -15,7 +15,7 @@ chatAI4R is an experimental project aimed at developing and implementing various
 - AI integration with R
   - OpenAI API (ChatGPT, txt2img, text embeddings, DALL·E 2)
   - DeepL API
-  - DreamStudio API (Stable Diffusion, txt2img, img2img, up-scaling/Super-resolution)
+  - Stable Diffusion API / DreamStudio (txt2img, img2img, up-scaling/Super-resolution)
 
 - LLM-based data analysis
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
