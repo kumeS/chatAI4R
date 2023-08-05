@@ -1,6 +1,6 @@
 Package: chatAI4R
 Type: Package
-Title: Chat-Based Interactive Artificial Intelligence for R
+Title: Chat-Based Interactive Artificial Intelligence for R, Providing an Interface to the OpenAI, Stable Diffusion and other Web APIs
 Version: 0.0.8
 Date: 2023-08-03
 Authors@R: c(
@@ -10,12 +10,13 @@ Authors@R: c(
     comment = c(ORCID = "0000-0001-7481-2843"))
     )
 Maintainer: Satoshi Kume <satoshi.kume.1984@gmail.com>
-Description: A seamless interface for integrating the 
-    OpenAI API (see <https://platform.openai.com/docs/api-reference>) and 
-    other APIs into R is provided in this package. This package leverages large language model (LLM)-based 
+Description: The Large Language Model (LLM) allows us to extend the world of R. 
+    A seamless interface for integrating the OpenAI API 
+    (see <https://platform.openai.com/docs/api-reference>) and 
+    other APIs into R is provided in this package. This package leverages LLM-based 
     AI techniques, enabling efficient knowledge discovery and data analysis.
     In addition, this package includes functionality for performing 
-    image generation such as txt2img and img2img using the DALL-E 2 and 
+    image generation such as txt2img (t2i) and img2img (i2i) using the DALL-E 2 and 
     Stable Diffusion APIs.
 Depends: R (>= 4.2.0)
 Imports: httr, 

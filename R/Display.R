@@ -1,37 +1,34 @@
 #' Display Images and Optionally Write Them to File	#' Display Images and Optionally Write Them to File
-#'	#'
-#' @title Display Images and Optionally Write Them to File	#' @title Display Images and Optionally Write Them to File
-#' @description This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.	#' @description This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.
-#'	#'
-#' @param img A list. The list of images to display. Each image in the list should be of class "Image".	#' @param img A list. The list of images to display. Each image in the list should be of class "Image".
-#' @param write_file A logical. Whether to write the images to .png files. Defaults to FALSE.	#' @param write_file A logical. Whether to write the images to .png files. Defaults to FALSE.
-#' @param Rds A logical. Whether to save the images as .Rds files. Defaults to FALSE.	#' @param Rds A logical. Whether to save the images as .Rds files. Defaults to FALSE.
-#' @param mar A numeric. The margin size for the plot. Defaults to 0.05.	#' @param mar A numeric. The margin size for the plot. Defaults to 0.05.
-#' @param mfRow A logical. Whether to use row-wise layout for multiple images. Defaults to TRUE.	#' @importFrom graphics par
+#'
+#' @title Display Images and Optionally Write Them to File
+#' @description This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.
+#' @param img A list. The list of images to display. Each image in the list should be of class "Image".
+#' @param write_file A logical. Whether to write the images to .png files. Defaults to FALSE.
+#' @param Rds A logical. Whether to save the images as .Rds files. Defaults to FALSE.
+#' @param mar A numeric. The margin size for the plot. Defaults to 0.05.
+#' @param mfRow A logical. Whether to use row-wise layout for multiple images. Defaults to TRUE.
 #' @importFrom graphics par
-#' @importFrom assertthat assert_that	#' @importFrom assertthat assert_that
-#' @importFrom EBImage display	#' @importFrom EBImage display
-#' @importFrom png writePNG	#' @importFrom png writePNG
-#' @importFrom grDevices as.raster	#' @importFrom grDevices as.raster
-#'	#'
-#' @return Invisible NULL. The function is called for its side effect of displaying images and optionally writing them to file.	#' @return Invisible NULL. The function is called for its side effect of displaying images and optionally writing them to file.
-#'	#'
-#' @export Display	#' @export Display
-#' @author Satoshi Kume	#' @author Satoshi Kume
-#'	#'
-#' @examples	#' @examples
-#' \dontrun{	#' \dontrun{
-#' # Create a list of images	#' # Create a list of images
-#' img <- list(image1, image2, image3)	#' img <- list(image1, image2, image3)
-#'	#'
-#' # Display the images	#' # Display the images
-#' Display(img)	#' Display(img)
-#'	#'
-#' # Display the images and write them to .png files	#' # Display the images and write them to .png files
-#' Display(img, write_file = TRUE)	#' Display(img, write_file = TRUE)
-#'	#'
-#' # Display the images and save them as .Rds files	#' # Display the images and save them as .Rds files
-#' Display(img, Rds = TRUE)	#' Display(img, Rds = TRUE)
+#' @importFrom assertthat assert_that
+#' @importFrom EBImage display
+#' @importFrom png writePNG
+#' @importFrom grDevices as.raster
+#' @return Invisible NULL. The function is called for its side effect of displaying images and optionally writing them to file.
+#' @export Display
+#' @author Satoshi Kume
+#'
+#' @examples
+#' \dontrun{
+#' # Create a list of images
+#' img <- list(image1, image2, image3)
+#'
+#' # Display the images
+#' Display(img)
+#'
+#' # Display the images and write them to .png files
+#' Display(img, write_file = TRUE)
+#'
+#' # Display the images and save them as .Rds files
+#' Display(img, Rds = TRUE)
 #' }
 
 Display <- function(img, write_file = FALSE, Rds = FALSE, mar = 0.05, mfRow = TRUE){

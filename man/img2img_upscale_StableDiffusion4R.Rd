@@ -9,6 +9,9 @@ img2img_upscale_StableDiffusion4R(
   width = 1024,
   engine_id = "esrgan-v1-x2plus",
   api_host = "https://api.stability.ai",
+  Original_Image = TRUE,
+  Flop = TRUE,
+  Flip = FALSE,
   api_key = Sys.getenv("DreamStudio_API_KEY")
 )
 }
@@ -21,6 +24,12 @@ img2img_upscale_StableDiffusion4R(
 Other possible value is 'stable-diffusion-x4-latent-upscaler'.}
 
 \item{api_host}{A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.}
+
+\item{Original_Image}{A logical. If TRUE, the original image is included in the result. Default is TRUE.}
+
+\item{Flop}{A logical. If TRUE, the up-scaled image is flopped. Default is TRUE.}
+
+\item{Flip}{A logical. If FALSE, the up-scaled image is not flipped. Default is FALSE.}
 
 \item{api_key}{A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.}
 }

@@ -4,7 +4,7 @@
 \alias{Display}
 \title{Display Images and Optionally Write Them to File}
 \usage{
-Display(img, write_file = FALSE, Rds = FALSE, dim = 3, mar = 0.05)
+Display(img, write_file = FALSE, Rds = FALSE, mar = 0.05, mfRow = TRUE)
 }
 \arguments{
 \item{img}{A list. The list of images to display. Each image in the list should be of class "Image".}
@@ -13,9 +13,9 @@ Display(img, write_file = FALSE, Rds = FALSE, dim = 3, mar = 0.05)
 
 \item{Rds}{A logical. Whether to save the images as .Rds files. Defaults to FALSE.}
 
-\item{dim}{An integer. The dimension of the image data. Defaults to 3.}
-
 \item{mar}{A numeric. The margin size for the plot. Defaults to 0.05.}
+
+\item{mfRow}{A logical. Whether to use row-wise layout for multiple images. Defaults to TRUE.}
 }
 \value{
 Invisible NULL. The function is called for its side effect of displaying images and optionally writing them to file.
@@ -24,7 +24,7 @@ Invisible NULL. The function is called for its side effect of displaying images 
 This function displays images that are stored in a list. It also has options for saving the images to a .Rds or .png file.
 }
 \details{
-Display Images and Optionally Write Them to File
+Display Images and Optionally Write Them to File	#' Display Images and Optionally Write Them to File
 }
 \examples{
 \dontrun{
