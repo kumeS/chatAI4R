@@ -6,7 +6,7 @@
 \usage{
 txt2img_StableDiffusion4R(
   text_prompts = "",
-  negative_prompts = "",
+  negative_prompts = "text, low quality, noisy, blurry",
   weight = 0.5,
   height = 512,
   width = 512,
@@ -24,7 +24,7 @@ txt2img_StableDiffusion4R(
 \arguments{
 \item{text_prompts}{A string. The text prompt to use for image generation. Should not be empty.}
 
-\item{negative_prompts}{A string. The negative prompts for image generation. Default is an empty string.}
+\item{negative_prompts}{A string. The negative prompts for image generation.}
 
 \item{weight}{A numeric value indicating the weight of the text prompt. Default is 0.5.}
 
