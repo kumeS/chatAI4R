@@ -59,12 +59,15 @@ assertthat::assert_that(is.list(img), length(img) > 0, all(sapply(img, function(
 
     # Define the file name
     x <- length(dir(pattern = "^Img_"))
+    if(x == 0){
+    f <- paste0("Img_", formatC(x+1, flag = "0", width = 3), ".png")
+    }else{
     y <- max(as.numeric(sub("[.]png$", "", sub("^Img_", "", dir(pattern = "^Img_")))))
     if( x < y ){
     f <- paste0("Img_", formatC(y+1, flag = "0", width = 3), ".png")
     }else{
     f <- paste0("Img_", formatC(x+1, flag = "0", width = 3), ".png")
-    }
+    }}
 
     # If the image is RGBA, rotate it and write it out
     if(write_file){

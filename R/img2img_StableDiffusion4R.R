@@ -22,7 +22,7 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom base64enc base64decode
 #' @importFrom png readPNG
-#' @importFrom EBImage rotate Image
+#' @importFrom EBImage rotate Image readImage resize writeImage
 #' @return A list of images generated from the initial image and the text prompt.
 #' @export img2img_StableDiffusion4R
 #' @author Satoshi Kume
@@ -80,6 +80,23 @@ img2img_StableDiffusion4R <- function(
     assertthat::is.string(api_key)
   )
 
+  #check image
+  a <- EBImage::readImage(init_image_path)
+  if(!(dim(a)[1]%%64 == 0 && dim(a)[2]%%64 == 0)){
+  b <- EBImage::resize(a,
+                w = round(dim(a)[1]/64,0)*64,
+                h = round(dim(a)[2]/64,0)*64)
+
+  #save
+  tempD <- tempdir()
+  EBImage::writeImage(b,
+                      files = paste0(tempD, "/", sub(".png$", "R.png", basename(path))),
+                      type = "png")
+  image_path <- paste0(tempD, "/", sub(".png$", "R.png", basename(path)))
+  }else{
+  image_path <- init_image_path
+  }
+
   # Defining the URL
   uri <- paste0(api_host, "/v1/generation/", engine_id, "/image-to-image")
 
@@ -92,7 +109,7 @@ if(is.null(sampler)){
   payload <- list(
     "text_prompts[0][text]" = text_prompts,
     "text_prompts[0][weight]" = weight,
-    "init_image" = httr::upload_file(init_image_path),
+    "init_image" = httr::upload_file(image_path),
     "init_image_mode" = init_image_mode,
     "image_strength" = image_strength,
     "cfg_scale" = cfg_scale,
@@ -106,7 +123,7 @@ if(is.null(sampler)){
   payload <- list(
     "text_prompts[0][text]" = text_prompts,
     "text_prompts[0][weight]" = weight,
-    "init_image" = httr::upload_file(init_image_path),
+    "init_image" = httr::upload_file(image_path),
     "init_image_mode" = init_image_mode,
     "image_strength" = image_strength,
     "cfg_scale" = cfg_scale,

@@ -3,7 +3,7 @@
 #'              It sends the parameters to the API and receives a response that includes
 #'              the base64-encoded image data, which is then converted to a PNG image.
 #' @param text_prompts A string. The text prompt to use for image generation. Should not be empty.
-#' @param negative_prompts A string. The negative prompts for image generation. Default is an empty string.
+#' @param negative_prompts A string. The negative prompts for image generation.
 #' @param weight A numeric value indicating the weight of the text prompt. Default is 0.5.
 #' @param height An integer. The height of the image in pixels. Default is 512.
 #' @param width An integer. The width of the image in pixels. Default is 512.
@@ -36,7 +36,7 @@
 
 txt2img_StableDiffusion4R <- function(
   text_prompts = "",
-  negative_prompts = "",
+  negative_prompts = "text, low quality, noisy, blurry",
   weight = 0.5,
   height = 512,
   width = 512,
@@ -104,7 +104,7 @@ payload <- list(
       list("text" = text_prompts,
            "weight" = weight)
     ),
-    negative_prompts = list(
+    "negative_prompts" = list(
       list("text" = negative_prompts)
     ),
     "cfg_scale" = cfg_scale,
