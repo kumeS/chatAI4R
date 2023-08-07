@@ -12,7 +12,7 @@ Authors@R: c(
 Maintainer: Satoshi Kume <satoshi.kume.1984@gmail.com>
 Description: The Large Language Model (LLM) allows us to extend the world of R. 
     A seamless interface for integrating the OpenAI API 
-    (see <https://platform.openai.com/docs/api-reference>) and 
+    (see <https://openai.com/blog/openai-api>) and 
     other APIs into R is provided in this package. This package leverages LLM-based 
     AI techniques, enabling efficient knowledge discovery and data analysis.
     In addition, this package includes functionality for performing 
@@ -38,4 +38,3 @@ License: Artistic-2.0
 URL: https://kumes.github.io/chatAI4R/
 RoxygenNote: 7.2.3
 Encoding: UTF-8
-VignetteBuilder: knitr

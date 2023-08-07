@@ -90,9 +90,9 @@ img2img_StableDiffusion4R <- function(
   #save
   tempD <- tempdir()
   EBImage::writeImage(b,
-                      files = paste0(tempD, "/", sub(".png$", "R.png", basename(path))),
+                      files = paste0(tempD, "/", sub(".png$", "R.png", basename(init_image_path))),
                       type = "png")
-  image_path <- paste0(tempD, "/", sub(".png$", "R.png", basename(path)))
+  image_path <- paste0(tempD, "/", sub(".png$", "R.png", basename(init_image_path)))
   }else{
   image_path <- init_image_path
   }
