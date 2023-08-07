@@ -14,6 +14,7 @@
 #' @importFrom purrr map
 #' @importFrom clipr read_clip
 #' @importFrom assertthat assert_that is.string
+#' @importFrom utils globalVariables
 #' @return A list of character vectors where each vector is a part of the summarized text.
 #' @export TextSummary
 #' @author Satoshi Kume
@@ -42,9 +43,9 @@ TextSummary <- function(text = clipr::read_clip(),
 
   # Preprocessing
   text0 <- paste0(text, collapse = " ") %>%
-    gsub('\", \n\"', ' ', .) %>%
-    gsub('[(][0-9][0-9][:][0-9][0-9][)]', '', .) %>%
-    gsub('[(][0-9][:][0-9][0-9][:][0-9][0-9][)]', '', .)
+    gsub('\", \n\"', ' ', utils::globalVariables(".")) %>%
+    gsub('[(][0-9][0-9][:][0-9][0-9][)]', '', utils::globalVariables(".")) %>%
+    gsub('[(][0-9][:][0-9][0-9][:][0-9][0-9][)]', '', utils::globalVariables("."))
 
   # Splitting the text
   len <- nchar(text0)

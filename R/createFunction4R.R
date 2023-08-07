@@ -14,6 +14,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom crayon red
 #' @importFrom assertthat assert_that is.string is.count noNA
+#' @importFrom utils globalVariables
 #' @return The function returns a character string that represents the generated and improved R function.
 #' @export createFunction4R
 #' @author Satoshi Kume
@@ -65,8 +66,8 @@ f <- completions4R(prompt = template1s,
 #View
 if(View){
 cat(f %>%
-  gsub("   ", "\n", .) %>%
-  gsub("  ", "\n", .))}
+  gsub("   ", "\n", utils::globalVariables(".")) %>%
+  gsub("  ", "\n", utils::globalVariables(".")))}
 
 # Create a template
 template2 = paste0("
@@ -111,9 +112,9 @@ f2 <- completions4R(prompt = template3s,
 #View
 if(View){
   cat(f2 %>%
-  gsub("   ", "\n", .) %>%
-  gsub("  ", "\n", .) %>%
-  gsub("#' ", "\n#' ", .))
+  gsub("   ", "\n", utils::globalVariables(".")) %>%
+  gsub("  ", "\n", utils::globalVariables(".")) %>%
+  gsub("#' ", "\n#' ", utils::globalVariables(".")))
 }
 
 if(roxygen){
@@ -138,10 +139,10 @@ f3 <- completions4R(prompt = template4,
 f4 <- paste0(f3, "\n", f2)
 
 f4g <- f4 %>%
-  gsub("   ", "\n", .) %>%
-  gsub("  ", "\n", .) %>%
-  gsub("#' ", "\n#' ", .) %>%
-  gsub("#' @export", "#' @export\n", .)
+  gsub("   ", "\n", utils::globalVariables(".")) %>%
+  gsub("  ", "\n", utils::globalVariables(".")) %>%
+  gsub("#' ", "\n#' ", utils::globalVariables(".")) %>%
+  gsub("#' @export", "#' @export\n", utils::globalVariables("."))
 
 #View
 if(View){
