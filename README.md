@@ -4,6 +4,8 @@
 [![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 <!-- badges: end -->
 
+[GitHub/chatAI4R](https://github.com/kumeS/chatAI4R)
+
 ## Description
 
 **chatAI4R**, **Chat-based Interactive Artificial Intelligence for R**, is an R package designed to integrate the OpenAI API and other APIs for artificial intelligence (AI) applications. This package leverages large language model (LLM)-based AI techniques, enabling efficient knowledge discovery and data analysis. In addition, this package includes functionality for performing image generation such as txt2img (t2i) and img2img (i2i) using the DALL·E 2 and Stable Diffusion APIs. Indeed, chatAI4R provides basic R functions for using LLM and a set of R functions to support the creation of prompts for using LLM. Finally, the Large Language Model allows us to extend the world of R.
