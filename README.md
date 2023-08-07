@@ -185,7 +185,7 @@ Kume S. (2023) chatAI4R: Chat-based Interactive Artificial Intelligence for R.
 ```
 #BibTeX
 @misc{Kume2023chatAI4R,
-  title={chatAI4R: Chat-based Interactive Artificial Intelligence for R},
+  title={Chat-Based Interactive Artificial Intelligence for R},
   author={Kume, Satoshi}, year={2023},
   publisher={GitHub}, note={R Package},
   howpublished={\url{https://github.com/kumeS/chatAI4R}},
