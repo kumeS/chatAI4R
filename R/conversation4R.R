@@ -44,11 +44,11 @@ assertthat::assert_that(assertthat::is.flag(output))
 
 # Initialization
 if(!exists("chat_history")){
-  chat_history <<- new.env()
+  chat_history <- new.env()
   chat_history$history <- c()
 } else {
   if(initialization){
-    chat_history <<- new.env()
+    chat_history <- new.env()
     chat_history$history <- c()
   }
 }
@@ -58,7 +58,7 @@ temperature = 1
 
 # Prompt Template
 if(template1 == ""){
-  template1 = "You are an excellent assistant.\nPlease reply in Japanese."
+  template1 = "You are an excellent assistant.\nPlease reply in English."
 }
 
 template2 = "
@@ -78,12 +78,12 @@ res <- chatAI4R::chat4R(content=message,
               temperature = temperature)
 
 template3s <- sprintf(template3, message)
-template4s <- sprintf(template4, res$choices.message.content)
+template4s <- sprintf(template4, res)
 
 chat_history$history <- list(
   list(role = "system", content = template1),
   list(role = "user", content = message),
-  list(role = "assistant", content = res$choices.message.content)
+  list(role = "assistant", content = res)
 )
 
 out <- c(template1,
@@ -116,7 +116,7 @@ res <- chatAI4R::chat4R_history(history = chat_historyR,
                Model = Model,
                temperature = temperature)
 
-assistant_conversation<- list(list(role = "assistant", content = res$choices.message.content))
+assistant_conversation<- list(list(role = "assistant", content = res))
 chat_historyR <- c(chat_historyR, assistant_conversation)
 
 rr <- c()
