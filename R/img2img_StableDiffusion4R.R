@@ -17,6 +17,7 @@
 #'                  Other possible values are 'stable-diffusion-512-v2-1', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
 #' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.
 #' @param api_key A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.
+#' @param verbose A logical flag to print the message Default is TRUE.
 #' @importFrom assertthat assert_that is.string is.number is.count noNA
 #' @importFrom httr add_headers POST http_status content
 #' @importFrom jsonlite fromJSON
@@ -49,7 +50,8 @@ img2img_StableDiffusion4R <- function(
   style_preset = "photographic",
   engine_id = "stable-diffusion-v1-5",
   api_host = "https://api.stability.ai",
-  api_key = Sys.getenv("DreamStudio_API_KEY")
+  api_key = Sys.getenv("DreamStudio_API_KEY"),
+  verbose = TRUE
 ) {
 
   # Verify if text_prompts is not empty or NULL
@@ -141,7 +143,7 @@ if(is.null(sampler)){
   result <- list()
 
   for (i in seq_len(number_of_images)) {
-    cat("Generating", i, "image\n")
+    if(verbose){cat("Generating", i, "image\n")}
 
     response <- httr::POST(uri,
                            body = payload,

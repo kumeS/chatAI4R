@@ -9,6 +9,7 @@
 #' @param Original_Image A logical. If TRUE, the original image is included in the result. Default is TRUE.
 #' @param Flop A logical. If TRUE, the up-scaled image is flopped. Default is TRUE.
 #' @param Flip A logical. If FALSE, the up-scaled image is not flipped. Default is FALSE.
+#' @param verbose A logical flag to print the message Default is TRUE.
 #' @importFrom assertthat assert_that is.string is.count noNA
 #' @importFrom httr add_headers POST http_status content
 #' @importFrom jsonlite fromJSON
@@ -33,7 +34,8 @@ img2img_upscale_StableDiffusion4R <- function(
   Original_Image = TRUE,
   Flop = TRUE,
   Flip = FALSE,
-  api_key = Sys.getenv("DreamStudio_API_KEY")
+  api_key = Sys.getenv("DreamStudio_API_KEY"),
+  verbose = TRUE
 ) {
   # Verify if init_image_path is not empty or NULL
   if (is.null(init_image_path) || init_image_path == "") {
@@ -65,7 +67,7 @@ img2img_upscale_StableDiffusion4R <- function(
 
   # Creating empty variable
   result <- list()
-  cat("Generating an up-scaled image\n")
+  if(verbose){cat("Generating an up-scaled image\n")}
 
   response <- httr::POST(uri,
                          body = payload,

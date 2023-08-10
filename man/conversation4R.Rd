@@ -2,50 +2,53 @@
 % Please edit documentation in R/conversation4R.R
 \name{conversation4R}
 \alias{conversation4R}
-\title{Conversation for R}
+\title{Conversation Interface for R}
 \usage{
 conversation4R(
   message,
   api_key = Sys.getenv("OPENAI_API_KEY"),
-  template1 = "",
+  template = "",
   ConversationBufferWindowMemory_k = 2,
   Model = "gpt-3.5-turbo-16k",
+  language = "English",
   initialization = FALSE,
-  output = FALSE
+  verbose = TRUE
 )
 }
 \arguments{
-\item{message}{The message to send to the model. Must be a string.}
+\item{message}{A string containing the message to be sent to the model.}
 
-\item{api_key}{A string. Your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".}
+\item{api_key}{A string containing the OpenAI API key. Default is retrieved from the system environment variable "OPENAI_API_KEY".}
 
-\item{template1}{The initial template for the conversation. Must be a string. Default is an empty string.}
+\item{template}{A string containing the template for the conversation. Default is an empty string.}
 
-\item{ConversationBufferWindowMemory_k}{The number of previous messages to keep in memory.
-Must be a positive integer. Default is 2.}
+\item{ConversationBufferWindowMemory_k}{An integer representing the conversation buffer window memory. Default is 2.}
 
-\item{Model}{The model to use for the chat completion. Must be a string. Default is "gpt-3.5-turbo-16k".}
+\item{Model}{A string representing the model to be used. Default is "gpt-3.5-turbo-16k".}
 
-\item{initialization}{Whether to initialize the chat history. Must be a logical value. Default is FALSE.}
+\item{language}{A string representing the language to be used in the conversation. Default is "English".}
 
-\item{output}{Whether to return the output. Must be a logical value. Default is FALSE.}
+\item{initialization}{A logical flag to initialize a new conversation. Default is FALSE.}
+
+\item{verbose}{A logical flag to print the conversation. Default is TRUE.}
 }
 \value{
-A string containing the conversation history.
+Prints the conversation if verbose is TRUE. No return value.
 }
 \description{
-This function uses the OpenAI API to manage a conversation with the specified model.
+Interface to communicate with OpenAI's models using R, maintaining a conversation history and allowing for initialization of a new conversation.
 }
 \details{
-Conversation for R
+Conversation Interface for R with OpenAI
 
-This function manages a conversation with OpenAI's GPT model.
+This function provides an interface to communicate with OpenAI's models using R. It maintains a conversation history and allows for initialization of a new conversation.
 }
 \examples{
 \dontrun{
-message <- "Hello, how are you?"
-api_key <- "your_api_key"
-conversation4R(message, api_key = api_key)
+conversation4R(message = "Hello, OpenAI!",
+               api_key = "your_api_key_here",
+               language = "English",
+               initialization = TRUE)
 }
 }
 \author{

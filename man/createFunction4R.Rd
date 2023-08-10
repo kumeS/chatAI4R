@@ -10,7 +10,8 @@ createFunction4R(
   max_tokens = 250,
   View = TRUE,
   roxygen = TRUE,
-  api_key = Sys.getenv("OPENAI_API_KEY")
+  api_key = Sys.getenv("OPENAI_API_KEY"),
+  verbose = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ createFunction4R(
 \item{roxygen}{A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.}
 
 \item{api_key}{A character string that represents the API key for the AI model being used. Default is the "OPENAI_API_KEY" environment variable.}
+
+\item{verbose}{A logical flag to print the message Default is TRUE.}
 }
 \value{
 The function returns a character string that represents the generated and improved R function.

@@ -18,7 +18,8 @@ txt2img_StableDiffusion4R(
   style_preset = "photographic",
   engine_id = "stable-diffusion-512-v2-1",
   api_host = "https://api.stability.ai",
-  api_key = Sys.getenv("DreamStudio_API_KEY")
+  api_key = Sys.getenv("DreamStudio_API_KEY"),
+  verbose = TRUE
 )
 }
 \arguments{
@@ -50,6 +51,8 @@ Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-
 \item{api_host}{A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.}
 
 \item{api_key}{A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.}
+
+\item{verbose}{A logical flag to print the message Default is TRUE.}
 }
 \value{
 A list of images generated from the text prompt.

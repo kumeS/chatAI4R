@@ -1,102 +1,103 @@
-#' Conversation for R
+#' Conversation Interface for R with OpenAI
 #'
-#' This function manages a conversation with OpenAI's GPT model.
+#' This function provides an interface to communicate with OpenAI's models using R. It maintains a conversation history and allows for initialization of a new conversation.
 #'
-#' @title Conversation for R
-#' @description This function uses the OpenAI API to manage a conversation with the specified model.
-#' @param message The message to send to the model. Must be a string.
-#' @param api_key A string. Your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".
-#' @param template1 The initial template for the conversation. Must be a string. Default is an empty string.
-#' @param ConversationBufferWindowMemory_k The number of previous messages to keep in memory.
-#'    Must be a positive integer. Default is 2.
-#' @param Model The model to use for the chat completion. Must be a string. Default is "gpt-3.5-turbo-16k".
-#' @param initialization Whether to initialize the chat history. Must be a logical value. Default is FALSE.
-#' @param output Whether to return the output. Must be a logical value. Default is FALSE.
-#' @importFrom httr add_headers POST content
-#' @importFrom jsonlite toJSON
+#' @title Conversation Interface for R
+#' @description Interface to communicate with OpenAI's models using R, maintaining a conversation history and allowing for initialization of a new conversation.
+#' @param message A string containing the message to be sent to the model.
+#' @param api_key A string containing the OpenAI API key. Default is retrieved from the system environment variable "OPENAI_API_KEY".
+#' @param template A string containing the template for the conversation. Default is an empty string.
+#' @param ConversationBufferWindowMemory_k An integer representing the conversation buffer window memory. Default is 2.
+#' @param Model A string representing the model to be used. Default is "gpt-3.5-turbo-16k".
+#' @param language A string representing the language to be used in the conversation. Default is "English".
+#' @param initialization A logical flag to initialize a new conversation. Default is FALSE.
+#' @param verbose A logical flag to print the conversation. Default is TRUE.
 #' @importFrom assertthat assert_that is.string is.count is.flag
-#' @return A string containing the conversation history.
+#' @return Prints the conversation if verbose is TRUE. No return value.
 #' @export conversation4R
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' message <- "Hello, how are you?"
-#' api_key <- "your_api_key"
-#' conversation4R(message, api_key = api_key)
+#' conversation4R(message = "Hello, OpenAI!",
+#'                api_key = "your_api_key_here",
+#'                language = "English",
+#'                initialization = TRUE)
 #' }
 
 conversation4R <- function(message,
                            api_key = Sys.getenv("OPENAI_API_KEY"),
-                           template1 = "",
+                           template = "",
                            ConversationBufferWindowMemory_k = 2,
                            Model = "gpt-3.5-turbo-16k",
+                           language = "English",
                            initialization = FALSE,
-                           output = FALSE){
+                           verbose = TRUE){
 
 # Assertions to verify the types of the input parameters
 assertthat::assert_that(assertthat::is.string(message))
 assertthat::assert_that(assertthat::is.string(api_key))
-assertthat::assert_that(assertthat::is.string(template1))
+assertthat::assert_that(assertthat::is.string(template))
 assertthat::assert_that(assertthat::is.count(ConversationBufferWindowMemory_k))
-assertthat::assert_that(assertthat::is.string(Model))
 assertthat::assert_that(assertthat::is.flag(initialization))
-assertthat::assert_that(assertthat::is.flag(output))
 
 # Initialization
 if(!exists("chat_history")){
-  chat_history <- new.env()
-  chat_history$history <- c()
+chat_history <- new.env()
+chat_history$history <- c()
 } else {
-  if(initialization){
-    chat_history <- new.env()
-    chat_history$history <- c()
-  }
-}
+if(initialization){
+chat_history <- new.env()
+chat_history$history <- c()
+}}
 
 # Define
 temperature = 1
 
 # Prompt Template
-if(template1 == ""){
-  template1 = "You are an excellent assistant.\nPlease reply in English."
+if(template == ""){
+  template = paste0("You are an excellent assistant. Please reply in ", language, ".")
 }
 
 template2 = "
 History:%s"
 
 template3 = "
- Human: %s"
+Human: %s"
 
 template4 = "
- Assistant: %s"
+Assistant: %s"
 
 if(identical(as.character(chat_history$history), character(0))){
 
-res <- chatAI4R::chat4R(content=message,
-              api_key=api_key,
-              Model = Model,
-              temperature = temperature)
+chat_historyR <- list(
+  list(role = "system", content = template),
+  list(role = "user", content = message))
+
+# Run
+res <- chatAI4R::chat4R_history(history = chat_historyR,
+               api_key = api_key,
+               Model = Model,
+               temperature = temperature)
+
 
 template3s <- sprintf(template3, message)
 template4s <- sprintf(template4, res)
 
 chat_history$history <- list(
-  list(role = "system", content = template1),
+  list(role = "system", content = template),
   list(role = "user", content = message),
   list(role = "assistant", content = res)
 )
 
-out <- c(template1,
+out <- c(paste0("System: ", template),
          crayon::red(template3s),
          crayon::blue(template4s))
 
-if(output){
-  return(res)
-}else{
-  return(cat(out))
+if(verbose){
+  cat(out)
 }
 
-}
+}else{
 
 if(!identical(as.character(chat_history$history), character(0))){
 
@@ -130,19 +131,17 @@ rr <- c(rr, r)
 
 template2s <- sprintf(template2, paste0(rr, collapse = ""))
 
-out <- c(template1,
+out <- c(paste0("System: ", template),
          template2s,
          crayon::red(sprintf(template3, new_conversation[[1]]$content)),
          crayon::blue(sprintf(template4, assistant_conversation[[1]]$content)))
 
-chat_history$history <<- chat_historyR
+chat_history$history <- chat_historyR
 
-if(output){
-  return(res)
-}else{
-  return(cat(out))
+if(verbose){
+  cat(out)
 }
 
 }
 }
-
+}

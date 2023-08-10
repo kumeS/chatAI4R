@@ -10,7 +10,8 @@ TextSummary(
   Summary_block = 200,
   Model = "gpt-3.5-turbo",
   temperature = 1,
-  language = "English"
+  language = "English",
+  verbose = TRUE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ If not provided, the function will attempt to read from the clipboard.}
 \item{temperature}{Numeric specifying the randomness of the AI model's output.}
 
 \item{language}{A character string specifying the language in which the summary should be generated. Default is "English".}
+
+\item{verbose}{A logical flag to print the message Default is TRUE.}
 }
 \value{
 A list of character vectors where each vector is a part of the summarized text.

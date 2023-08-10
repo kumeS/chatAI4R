@@ -12,7 +12,8 @@ img2img_upscale_StableDiffusion4R(
   Original_Image = TRUE,
   Flop = TRUE,
   Flip = FALSE,
-  api_key = Sys.getenv("DreamStudio_API_KEY")
+  api_key = Sys.getenv("DreamStudio_API_KEY"),
+  verbose = TRUE
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ Other possible value is 'stable-diffusion-x4-latent-upscaler'.}
 \item{Flip}{A logical. If FALSE, the up-scaled image is not flipped. Default is FALSE.}
 
 \item{api_key}{A string. The API key for the Stable Diffusion API. It is read from the 'DreamStudio_API_KEY' environment variable by default.}
+
+\item{verbose}{A logical flag to print the message Default is TRUE.}
 }
 \value{
 A list of image up-scaled from the initial image.

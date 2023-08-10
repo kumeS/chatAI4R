@@ -10,6 +10,7 @@
 #' @param Model A character string specifying the AI model to be used for text summarization. Default is "gpt-3.5-turbo".
 #' @param temperature Numeric specifying the randomness of the AI model's output.
 #' @param language A character string specifying the language in which the summary should be generated. Default is "English".
+#' @param verbose A logical flag to print the message Default is TRUE.
 #' @importFrom magrittr %>%
 #' @importFrom purrr map
 #' @importFrom clipr read_clip
@@ -31,7 +32,8 @@ TextSummary <- function(text = clipr::read_clip(),
                         Summary_block = 200,
                         Model = "gpt-3.5-turbo",
                         temperature = 1,
-                        language = "English"){ # Default language changed to English
+                        language = "English",
+                        verbose = TRUE){ # Default language changed to English
   # Asserting input types and values
   assertthat::assert_that(assertthat::is.string(text[1]))
   assertthat::assert_that(assertthat::is.count(nch), nch > 0)
@@ -78,7 +80,7 @@ TextSummary <- function(text = clipr::read_clip(),
 
   # Execution
   for(n in seq_len(length(pr))){
-    cat(n, "\n")
+    if(verbose){cat(n, "\n")}
 
     retry_count <- 0
     while (retry_count < 5) {

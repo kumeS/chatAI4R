@@ -11,6 +11,7 @@
 #' @param max_tokens An integer that specifies the maximum number of tokens to be returned by the AI model. Default is 250.
 #' @param roxygen A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.
 #' @param View A logical that indicates whether to view the intermediate steps. Default is TRUE.
+#' @param verbose A logical flag to print the message Default is TRUE.
 #' @importFrom magrittr %>%
 #' @importFrom crayon red
 #' @importFrom assertthat assert_that is.string is.count noNA
@@ -29,7 +30,8 @@ createFunction4R <- function(Func_description,
                              max_tokens = 250,
                              View = TRUE,
                              roxygen = TRUE,
-                             api_key = Sys.getenv("OPENAI_API_KEY")){
+                             api_key = Sys.getenv("OPENAI_API_KEY"),
+                             verbose = TRUE){
 
 # Validate inputs
 assertthat::assert_that(assertthat::is.string(Func_description))
@@ -57,7 +59,7 @@ Please write the R code for this function without any example usage and note.
 template1s <- sprintf(template1, Func_description, packages)
 
 # 01 Run function creation
-cat(crayon::red("01 Run function creation \n"))
+if(verbose){cat(crayon::red("01 Run function creation \n"))}
 f <- completions4R(prompt = template1s,
        api_key = api_key,
        max_tokens =  max_tokens,
@@ -78,7 +80,7 @@ Please itemize and suggest improvements to this function.
 ", f)
 
 # 02 Propose improvements to the function
-cat(crayon::red("02 Propose improvements to the function \n"))
+if(verbose){cat(crayon::red("02 Propose improvements to the function \n"))}
 f1 <- completions4R(prompt = template2,
        api_key = api_key,
        max_tokens =  max_tokens,
@@ -103,7 +105,7 @@ R script: ", f)
 template3s <- sprintf(template3, Func_description, packages)
 
 # 03 Improve the function
-cat(crayon::red("03 Improve the function \n"))
+if(verbose){cat(crayon::red("03 Improve the function \n"))}
 f2 <- completions4R(prompt = template3s,
        api_key = api_key,
        max_tokens =  max_tokens,
@@ -129,7 +131,7 @@ Please write roxygen comments only for the following R code.
 Function: ", f2)
 
 # 04 Include roxygen comments
-cat(crayon::red("04 Include roxygen comments \n"))
+if(verbose){cat(crayon::red("04 Include roxygen comments \n"))}
 f3 <- completions4R(prompt = template4,
        api_key = api_key,
        max_tokens =  max_tokens,
@@ -150,14 +152,14 @@ if(View){
 }
 
 # View results
-cat(crayon::red("Finished!!"))
+if(verbose){cat(crayon::red("Finished!!"))}
 
 return(f4)
 
 }else{
 
 # View results
-cat(crayon::red("Finished!!"))
+if(verbose){cat(crayon::red("Finished!!"))}
 
 return(f2)
 }
