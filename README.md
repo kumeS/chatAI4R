@@ -19,16 +19,18 @@ chatAI4R is an experimental project aimed at developing and implementing various
   - DeepL API
   - Stable Diffusion API / DreamStudio (txt2img, img2img, up-scaling/Super-resolution)
 
-- LLM-based data analysis
+- LLM-based data analysis (future developments)
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
   - Highly-technical texts modeling and natural language question answering
-  - Bioinformatics analysis (future developments)
+  - Bioinformatics analysis
   
 ## Installation of the chatAI4R package
 
 ### 1. Start R / RStudio console.
 
 ### 2. Run the following commands in the R console:
+
+#### CRAN-version installation (Not yet available)
 
 ```r
 # CRAN-version installation (Not yet available)
@@ -37,17 +39,25 @@ BiocManager::install("EBImage")
 
 install.packages("chatAI4R")
 library(chatAI4R)
+```
 
+#### Dev-version installation
+
+```r
 # Dev-version installation
 install.packages(c("devtools", "BiocManager"), repos="http://cran.r-project.org")
 BiocManager::install("EBImage")
 
 devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
+```
 
+#### installation from source
+
+```r
 #For MacOS X, installation from source: Recommended
-system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.4.tar.gz")
-system("R CMD INSTALL chatAI4R-0.0.4.tar.gz")
+system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.11.tar.gz")
+system("R CMD INSTALL chatAI4R-0.0.11.tar.gz")
 ```
 
 ### 3. Set the API key according to each Web API.
