@@ -85,7 +85,7 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 
 - AI-based chatting loaded with highly-technical documents (RIKEN Pressrelease text)
 
-## Prompts for chatGPT4
+## Prompts for chatGPT / GPT-4
 
 |File|Description|Prompt|
 |:---|:---|:---:|
