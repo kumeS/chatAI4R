@@ -52,7 +52,7 @@ devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
 ```
 
-#### installation from source
+#### Installation from source
 
 ```r
 #For MacOS X, installation from source: Recommended

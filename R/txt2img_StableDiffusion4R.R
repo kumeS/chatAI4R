@@ -12,6 +12,7 @@
 #' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
 #' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
 #' @param sampler A string. Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you. Possible values are 'DDIM', 'DDPM', 'K_DPMPP_2M', 'K_DPMPP_2S_ANCESTRAL', 'K_DPM_2', 'K_DPM_2_ANCESTRAL', 'K_EULER', 'K_EULER_ANCESTRAL', 'K_HEUN', 'K_LMS'. Default is NULL.
+#' @param seed An integer. The seed for generating random noise. The range is 0 to 4294967295. The default is 0, which is the random noise seed.
 #' @param style_preset A string. A style preset to guide the image model towards a particular style. Default is 'photographic'. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.
 #' @param engine_id A string. The engine id to be used in the API. Default is 'stable-diffusion-512-v2-1'.
 #'                  Other possible values are 'stable-diffusion-v1-5', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
@@ -46,6 +47,7 @@ txt2img_StableDiffusion4R <- function(
   cfg_scale = 7,
   clip_guidance_preset = "NONE",
   sampler = NULL,
+  seed = 0,
   style_preset = "photographic",
   engine_id = "stable-diffusion-512-v2-1",
   api_host = "https://api.stability.ai",
@@ -115,6 +117,7 @@ payload <- list(
     "width" = width,
     "samples" = number_of_images,
     "steps" = steps,
+    "seed" = seed,
     "style_preset" = style_preset
   )
 }else{
@@ -132,6 +135,7 @@ payload <- list(
     "width" = width,
     "samples" = number_of_images,
     "steps" = steps,
+    "seed" = seed,
     "sampler" = sampler,
     "style_preset" = style_preset
   )

@@ -9,7 +9,7 @@
 #' @param number_of_images An integer. The number of images to generate. Default is 1.
 #' @param steps An integer. The number of diffusion steps to run. Default is 15.
 #' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
-#' @param seed An integer. The seed for random noise generation. Default is 0.
+#' @param seed An integer. The seed for generating random noise. The range is 0 to 4294967295. The default is 0, which is the random noise seed.
 #' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
 #' @param sampler A string. Which sampler to use for the diffusion process. If this value is omitted, an appropriate sampler will be automatically selected.
 #' @param style_preset A string. Specifies the style preset to guide the image model towards a particular style. Default is 'photographic'.

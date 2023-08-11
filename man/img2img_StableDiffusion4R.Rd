@@ -40,7 +40,7 @@ img2img_StableDiffusion4R(
 
 \item{cfg_scale}{A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.}
 
-\item{seed}{An integer. The seed for random noise generation. Default is 0.}
+\item{seed}{An integer. The seed for generating random noise. The range is 0 to 4294967295. The default is 0, which is the random noise seed.}
 
 \item{clip_guidance_preset}{A string. A preset to guide the image model. Default is 'NONE'.}
 
