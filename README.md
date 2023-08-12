@@ -1,7 +1,13 @@
 # chatAI4R <img src="inst/figures/chatAI4R_logo.png" align="right" height="139" />
 
 <!-- badges: start -->
-[![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN](https://www.r-pkg.org/badges/version/chatAI4R)](https://cran.r-project.org/web/packages/chatAI4R/index.html)
+[![CRAN_latest_release_date](https://www.r-pkg.org/badges/last-release/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
+[![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](http://www.datasciencemeta.com/rpackages)
+[![CRAN downloads last month](http://cranlogs.r-pkg.org/badges/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
+[![CRAN downloads last week](http://cranlogs.r-pkg.org/badges/last-week/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 <!-- badges: end -->
 
 [GitHub/chatAI4R](https://github.com/kumeS/chatAI4R)
