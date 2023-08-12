@@ -15,9 +15,9 @@ chatAI4R is an experimental project aimed at developing and implementing various
 ## About this project and future developments
 
 - AI integration with R
-  - OpenAI API (ChatGPT, txt2img, text embeddings, DALL·E 2)
+  - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, txt2img, text embeddings, DALL·E 2)
   - DeepL API
-  - Stable Diffusion API / DreamStudio (txt2img, img2img, up-scaling/Super-resolution)
+  - [Stable Diffusion API](https://platform.stability.ai/docs/api-reference#tag/v1generation) / DreamStudio (txt2img, img2img, up-scaling/Super-resolution)
 
 - LLM-based data analysis (future developments)
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
@@ -30,10 +30,10 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ### 2. Run the following commands in the R console:
 
-#### CRAN-version installation (Not yet available)
+#### CRAN-version installation
 
 ```r
-# CRAN-version installation (Not yet available)
+# CRAN-version installation
 install.packages("BiocManager", repos="http://cran.r-project.org")
 BiocManager::install("EBImage")
 
