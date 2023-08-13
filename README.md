@@ -8,8 +8,8 @@ maturing](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https
 [![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](http://www.datasciencemeta.com/rpackages)
 [![CRAN downloads last month](http://cranlogs.r-pkg.org/badges/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 [![CRAN downloads last week](http://cranlogs.r-pkg.org/badges/last-week/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
-[![:total status badge](https://skume.r-universe.dev/badges/:total)](https://skume.r-universe.dev)
-[![chatAI4R status badge](https://skume.r-universe.dev/badges/chatAI4R)](https://skume.r-universe.dev)
+[![:total status badge](https://kumes.r-universe.dev/badges/:total)](https://kumes.r-universe.dev)
+[![chatAI4R status badge](https://kumes.r-universe.dev/badges/chatAI4R)](https://kumes.r-universe.dev)
 
 <!-- badges: end -->
 
