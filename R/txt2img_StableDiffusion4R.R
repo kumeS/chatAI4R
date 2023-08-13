@@ -60,6 +60,11 @@ txt2img_StableDiffusion4R <- function(
     stop("text_prompts must not be empty or NULL")
   }
 
+  # Verify if api_key is not empty or NULL
+  if (is.null(api_key) || api_key == "") {
+    stop("api_key must not be empty or NULL")
+  }
+
   assertthat::assert_that(
     assertthat::is.string(text_prompts),
     assertthat::is.string(negative_prompts),

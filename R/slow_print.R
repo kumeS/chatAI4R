@@ -39,8 +39,10 @@ slow_print <- function(text, random = FALSE, delay = 0.125) {
   } else {
     for (i in seq_along(strsplit(text, "")[[1]])) {
       cat(strsplit(text, "")[[1]][i])
-      Sys.sleep(delay)
+      Sys.sleep(delay*stats::runif(1, min = 0.95, max = 1.05))
     }
   }
   cat("\n")  # Move to the next line after printing the text
 }
+
+

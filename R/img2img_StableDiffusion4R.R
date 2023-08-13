@@ -11,8 +11,8 @@
 #' @param cfg_scale A numeric value. How strictly the diffusion process adheres to the prompt text. Default is 7.
 #' @param seed An integer. The seed for generating random noise. The range is 0 to 4294967295. The default is 0, which is the random noise seed.
 #' @param clip_guidance_preset A string. A preset to guide the image model. Default is 'NONE'.
-#' @param sampler A string. Which sampler to use for the diffusion process. If this value is omitted, an appropriate sampler will be automatically selected.
-#' @param style_preset A string. Specifies the style preset to guide the image model towards a particular style. Default is 'photographic'.
+#' @param sampler A string. Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you. Possible values are 'DDIM', 'DDPM', 'K_DPMPP_2M', 'K_DPMPP_2S_ANCESTRAL', 'K_DPM_2', 'K_DPM_2_ANCESTRAL', 'K_EULER', 'K_EULER_ANCESTRAL', 'K_HEUN', 'K_LMS'. Default is NULL.
+#' @param style_preset A string. A style preset to guide the image model towards a particular style. Default is 'photographic'. Some possible values are: '3d-model', 'analog-film', 'anime', 'cinematic', 'comic-book', 'digital-art', 'enhance', 'fantasy-art', 'isometric', 'line-art', 'low-poly', 'modeling-compound', 'neon-punk', 'origami', 'photographic', 'pixel-art', 'tile-texture'.
 #' @param engine_id A string. The engine id to be used in the API. Default is 'stable-diffusion-v1-5'.
 #'                  Other possible values are 'stable-diffusion-512-v2-1', 'stable-diffusion-xl-beta-v2-2-2', 'stable-diffusion-768-v2-1'.
 #' @param api_host A string. The host of the Stable Diffusion API. Default is 'https://api.stability.ai'.

@@ -12,6 +12,7 @@
 #' @param verbose A logical value to control the verbosity of the output, default is TRUE.
 #' @param SlowTone A logical value to control the printing speed of the output, default is FALSE.
 #' @importFrom clipr read_clip
+#' @importFrom stats runif
 #' @return The function prints the guidance on how to fix the error message.
 #' @export checkErrorDet
 #' @author Satoshi Kume
@@ -62,10 +63,10 @@ checkErrorDet <- function(input = clipr::read_clip(),
 
   if(verbose) {
     if(SlowTone) {
-      d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)
+      d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)*stats::runif(1, min = 0.95, max = 1.05)
       slow_print(res, delay = d)
     } else {
-      d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)
+      d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)*stats::runif(1, min = 0.95, max = 1.05)
       slow_print(res, delay = d)
     }
   }
