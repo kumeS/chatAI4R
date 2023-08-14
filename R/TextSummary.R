@@ -34,6 +34,7 @@ TextSummary <- function(text = clipr::read_clip(),
                         temperature = 1,
                         language = "English",
                         verbose = TRUE){ # Default language changed to English
+
   # Asserting input types and values
   assertthat::assert_that(assertthat::is.string(text[1]))
   assertthat::assert_that(assertthat::is.count(nch), nch > 0)

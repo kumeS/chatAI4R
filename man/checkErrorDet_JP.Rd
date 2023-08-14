@@ -5,7 +5,6 @@
 \title{Check Error Details in Japanese}
 \usage{
 checkErrorDet_JP(
-  input = clipr::read_clip(),
   Summary_nch = 100,
   Model = "gpt-4-0314",
   verbose = TRUE,
@@ -13,8 +12,6 @@ checkErrorDet_JP(
 )
 }
 \arguments{
-\item{input}{A string containing the error message to be analyzed, read from the clipboard by default.}
-
 \item{Summary_nch}{An integer specifying the maximum number of characters for the summary.}
 
 \item{Model}{A string specifying the model to be used, default is "gpt-4-0314".}
@@ -24,7 +21,7 @@ checkErrorDet_JP(
 \item{SlowTone}{A logical value to control the printing speed of the output, default is FALSE.}
 }
 \value{
-The function prints the guidance on how to fix the error message.
+The function prints the guidance on how to fix the error message in Japanese. If verbose is FALSE, it returns the guidance as a string.
 }
 \description{
 A function to analyze and provide guidance on how to fix an error message copied from the R console.
@@ -32,14 +29,13 @@ A function to analyze and provide guidance on how to fix an error message copied
 \details{
 Check Error Details in Japanese
 
-This function provides a way to check error details in R. It takes an error message from the R console,
+This function provides a way to check error details in R. It reads the error message from the clipboard,
 executes the function, and shows how to fix the error in Japanese.
 }
 \examples{
 \dontrun{
-  # Copy the error message that you want to fix.
-  checkErrorDet_JP()
-  checkErrorDet_JP(language = "Japanese")
+  # Analyzing error message from the clipboard
+  checkErrorDet_JP(Summary_nch = 100, Model = "gpt-4-0314", verbose = TRUE, SlowTone = FALSE)
 }
 }
 \author{

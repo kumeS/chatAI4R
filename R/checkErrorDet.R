@@ -30,10 +30,13 @@ checkErrorDet <- function(input = clipr::read_clip(),
                           verbose = TRUE,
                           SlowTone = FALSE) {
   # Assertions
-  assertthat::is.string(input)
-  assertthat::noNA(input)
-  assertthat::is.count(Summary_nch)
-  assertthat::is.string(language)
+  assertthat::assert_that(
+  assertthat::is.string(input),
+  assertthat::noNA(input),
+  assertthat::is.count(Summary_nch),
+  assertthat::is.string(language),
+  Sys.getenv("OPENAI_API_KEY") != ""
+  )
   temperature = 1
 
   # Template creation
