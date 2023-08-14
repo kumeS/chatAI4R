@@ -1,4 +1,4 @@
-#' Check Error Details in Japanese
+#' Check Error Details in Japanese via RStudio API
 #'
 #' This function provides a way to check error details in R. It reads the error message from the clipboard,
 #' executes the function, and shows how to fix the error in Japanese.

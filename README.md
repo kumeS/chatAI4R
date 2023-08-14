@@ -129,6 +129,14 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |createFunction4R|Generate and improve R functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createFunction4R.R)||
 |TextSummary| Summarize a long text (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
 
+### Functions for R package developments
+
+|Function|Description|Script|Flowchart|
+|:---|:---|:---:|:---:|
+|proofreadEnglishText|Proofread English Text During R Package Development via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadEnglishText.R)||
+|checkErrorDet|Check Error Details|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)||
+|checkErrorDet_JP|Check Error Details in Japanese via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet_JP.R)||
+
 ### Image generation functions using DALL·E 2  
 
 |Function|Description|Script|Flowchart|

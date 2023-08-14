@@ -1,4 +1,4 @@
-#' Proofread English Text During R Package Development
+#' Proofread English Text During R Package Development via RStudio API
 #'
 #' This function provides a feature to proofread English text during the development of an R package.
 #' It can either take the selected text from the RStudio editor or read from the clipboard, executes the proofreading, and returns the result to the user's clipboard or replaces the selected text.
