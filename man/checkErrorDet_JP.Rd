@@ -14,7 +14,7 @@ checkErrorDet_JP(
 \arguments{
 \item{Summary_nch}{An integer specifying the maximum number of characters for the summary.}
 
-\item{Model}{A string specifying the model to be used, default is "gpt-4-0314".}
+\item{Model}{A string specifying the model to be used, default is "gpt-4-0314". Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.}
 
 \item{verbose}{A logical value to control the verbosity of the output, default is TRUE.}
 
@@ -27,7 +27,7 @@ The function prints the guidance on how to fix the error message in Japanese. If
 A function to analyze and provide guidance on how to fix an error message copied from the R console.
 }
 \details{
-Check Error Details in Japanese
+Check Error Details in Japanese via RStudio API
 
 This function provides a way to check error details in R. It reads the error message from the clipboard,
 executes the function, and shows how to fix the error in Japanese.

@@ -18,7 +18,7 @@ checkErrorDet(
 
 \item{Summary_nch}{An integer specifying the maximum number of characters for the summary.}
 
-\item{Model}{A string specifying the model to be used, default is "gpt-4-0314".}
+\item{Model}{A string specifying the model to be used, default is "gpt-4-0314". Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.}
 
 \item{language}{A string specifying the output language, default is "English".}
 

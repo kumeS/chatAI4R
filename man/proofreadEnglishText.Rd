@@ -7,7 +7,7 @@
 proofreadEnglishText(Model = "gpt-4-0314", SelectedCode = TRUE)
 }
 \arguments{
-\item{Model}{A string specifying the model to be used for proofreading, defaulting to "gpt-4-0314".}
+\item{Model}{A string specifying the model to be used for proofreading, defaulting to "gpt-4-0314". Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.}
 
 \item{SelectedCode}{A logical value indicating whether to read the selected text from the RStudio editor (TRUE) or from the clipboard (FALSE). Defaults to TRUE.}
 }
@@ -19,7 +19,7 @@ A function to proofread English text or text in different languages during R pac
 It translates the input into English if necessary and returns meticulously checked English text.
 }
 \details{
-Proofread English Text During R Package Development
+Proofread English Text During R Package Development via RStudio API
 
 This function provides a feature to proofread English text during the development of an R package.
 It can either take the selected text from the RStudio editor or read from the clipboard, executes the proofreading, and returns the result to the user's clipboard or replaces the selected text.
