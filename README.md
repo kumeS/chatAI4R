@@ -98,6 +98,12 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VJaltAS9Ef8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<video src="https://youtu.be/VJaltAS9Ef8" data-canonical-src="https://youtu.be/VJaltAS9Ef8" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
+</video>
+
+
+
+
 ## Prompts for chatGPT / GPT-4
 
 |File|Description|Prompt|
