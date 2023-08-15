@@ -90,19 +90,11 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 
 - [Usage of functions in the chatAI4R package](https://kumes.github.io/chatAI4R/inst/vignettes/HowToUse.html)
 
+- [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
+
 ###  Applied usage of the chatAI4R package
 
 - AI-based chatting loaded with highly-technical documents (RIKEN Pressrelease text)
-
-### Some examples of use via Video tutorial.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VJaltAS9Ef8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<video src="https://youtu.be/VJaltAS9Ef8" data-canonical-src="https://youtu.be/VJaltAS9Ef8" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
-</video>
-
-
-
 
 ## Prompts for chatGPT / GPT-4
 
