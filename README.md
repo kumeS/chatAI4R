@@ -169,6 +169,11 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 - riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)
 - riken_pressrelease_textEmbedding: Extract text and perform text embedding from RIKEN press-release
 
+## Some examples of use via Video tutorial.
+
+<video src="https://github.com/kumeS/Blog/blob/main/R_chatAI4R/chatAI4R_demo2.mov" data-canonical-src="https://github.com/kumeS/Blog/blob/main/R_chatAI4R/chatAI4R_demo2.mov" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
+</video>
+
 ## Simple usage
 
 ### One-Shot Chatting
