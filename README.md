@@ -50,7 +50,7 @@ install.packages("chatAI4R")
 library(chatAI4R)
 ```
 
-#### Dev-version installation
+#### Dev-version installation (Recommended)
 
 ```r
 # Dev-version installation
@@ -64,7 +64,7 @@ library(chatAI4R)
 #### Installation from source
 
 ```r
-#For MacOS X, installation from source: Recommended
+#For MacOS X, installation from source
 system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.11.tar.gz")
 system("R CMD INSTALL chatAI4R-0.0.11.tar.gz")
 ```
