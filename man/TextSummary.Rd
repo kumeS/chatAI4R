@@ -8,7 +8,7 @@ TextSummary(
   text = clipr::read_clip(),
   nch = 1000,
   Summary_block = 200,
-  Model = "gpt-3.5-turbo",
+  Model = "gpt-4-0613",
   temperature = 1,
   language = "English",
   verbose = TRUE
@@ -22,8 +22,9 @@ If not provided, the function will attempt to read from the clipboard.}
 
 \item{Summary_block}{Integer specifying the target number of characters for the summarized output.}
 
-\item{Model}{A character string specifying the AI model to be used for text summarization. Default is "gpt-3.5-turbo".
-Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.}
+\item{Model}{A character string specifying the AI model to be used for text summarization. Default is "gpt-4-0613".
+Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
+Execution with GPT-4 is recommended.}
 
 \item{temperature}{Numeric specifying the randomness of the AI model's output.}
 
