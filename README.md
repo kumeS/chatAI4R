@@ -94,6 +94,11 @@ Sys.setenv(DreamStudio_API_KEY = "Your API key")
 
 - AI-based chatting loaded with highly-technical documents (RIKEN Pressrelease text)
 
+### Some examples of use via Video tutorial.
+
+<video src="https://youtu.be/VJaltAS9Ef8" data-canonical-src="https://youtu.be/VJaltAS9Ef8" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
+</video>
+
 ## Prompts for chatGPT / GPT-4
 
 |File|Description|Prompt|
@@ -168,12 +173,6 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 - get_riken_pressrelease_urls: Get URLs of RIKEN Press Releases
 - riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)
 - riken_pressrelease_textEmbedding: Extract text and perform text embedding from RIKEN press-release
-
-## Some examples of use via Video tutorial.
-
-<video src="https://github.com/kumeS/Blog/raw/main/R_chatAI4R/chatAI4R_demo3.mov" data-canonical-src="https://github.com/kumeS/Blog/raw/main/R_chatAI4R/chatAI4R_demo3.mov" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
-</video>
-
 
 ## Simple usage
 
