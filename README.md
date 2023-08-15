@@ -171,8 +171,9 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 
 ## Some examples of use via Video tutorial.
 
-<video src="https://github.com/kumeS/Blog/blob/main/R_chatAI4R/chatAI4R_demo3.mov" data-canonical-src="https://github.com/kumeS/Blog/blob/main/R_chatAI4R/chatAI4R_demo3.mov" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
+<video src="https://github.com/kumeS/Blog/raw/main/R_chatAI4R/chatAI4R_demo3.mov" data-canonical-src="https://github.com/kumeS/Blog/raw/main/R_chatAI4R/chatAI4R_demo3.mov" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
 </video>
+
 
 ## Simple usage
 
