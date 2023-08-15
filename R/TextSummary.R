@@ -7,8 +7,9 @@
 #' If not provided, the function will attempt to read from the clipboard.
 #' @param nch Integer specifying the number of characters at which to split the input text for processing.
 #' @param Summary_block Integer specifying the target number of characters for the summarized output.
-#' @param Model A character string specifying the AI model to be used for text summarization. Default is "gpt-3.5-turbo".
+#' @param Model A character string specifying the AI model to be used for text summarization. Default is "gpt-4-0613".
 #'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
+#'    Execution with GPT-4 is recommended.
 #' @param temperature Numeric specifying the randomness of the AI model's output.
 #' @param language A character string specifying the language in which the summary should be generated. Default is "English".
 #' @param verbose A logical flag to print the message Default is TRUE.
@@ -31,7 +32,7 @@
 TextSummary <- function(text = clipr::read_clip(),
                         nch=1000,
                         Summary_block = 200,
-                        Model = "gpt-3.5-turbo",
+                        Model = "gpt-4-0613",
                         temperature = 1,
                         language = "English",
                         verbose = TRUE){ # Default language changed to English
