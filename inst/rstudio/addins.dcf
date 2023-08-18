@@ -12,3 +12,10 @@ Name: DeepL Translation into English : chatAI4R
 Description: Translate into English via DeepL
 Binding: deepel_rstudioapi_JP2EN
 Interactive: true
+
+Name: Create R Code from Clipboard : chatAI4R
+Description: This function reads text from the clipboard, interprets it as a prompt, and generates R code based on the given input.
+Binding: createRcode
+Interactive: true
+
+

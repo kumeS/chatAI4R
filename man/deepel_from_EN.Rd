@@ -26,9 +26,9 @@ deepel_from_EN(
    TR - Turkish, UK - Ukrainian, ZH - Chinese (simplified).
 \code{assertthat::is.string(target_lang)}}
 
-\item{Auth_Key}{The authentication key for the DeepL API. \code{assertthat::is.string(Auth_Key)}}
+\item{Auth_Key}{The authentication key for the DeepL API.}
 
-\item{free_mode}{A logical value indicating whether to use the free or paid DeepL API. Default is TRUE. \code{assertthat::is.count(free_mode)}}
+\item{free_mode}{A logical value indicating whether to use the free or paid DeepL API. Default is TRUE.}
 }
 \value{
 The translated text is placed into the clipboard and the function returns the result of \code{clipr::write_clip}.

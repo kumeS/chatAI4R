@@ -17,8 +17,8 @@
 #'    RO - Romanian, RU - Russian, SK - Slovak, SL - Slovenian, SV - Swedish,
 #'    TR - Turkish, UK - Ukrainian, ZH - Chinese (simplified).
 #' \code{assertthat::is.string(target_lang)}
-#' @param Auth_Key The authentication key for the DeepL API. \code{assertthat::is.string(Auth_Key)}
-#' @param free_mode A logical value indicating whether to use the free or paid DeepL API. Default is TRUE. \code{assertthat::is.count(free_mode)}
+#' @param Auth_Key The authentication key for the DeepL API.
+#' @param free_mode A logical value indicating whether to use the free or paid DeepL API. Default is TRUE.
 #' @importFrom httr GET content
 #' @importFrom jsonlite fromJSON
 #' @importFrom clipr read_clip write_clip
