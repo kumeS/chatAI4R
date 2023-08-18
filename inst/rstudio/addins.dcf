@@ -8,4 +8,7 @@ Description: Check Error Details in Japanese
 Binding: checkErrorDet_JP
 Interactive: true
 
-
+Name: DeepL Translation into English
+Description: Translate into English via DeepL
+Binding: deepel_rstudioapi_JP2EN
+Interactive: true

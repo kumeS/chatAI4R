@@ -31,7 +31,7 @@ proofreadEnglishText <- function(Model = "gpt-4-0613",
 
   if(SelectedCode){
   assertthat::assert_that(rstudioapi::isAvailable())
-  input = getActiveDocumentContext()$selection[[1]]$text
+  input = rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   }else{
   input = paste0(clipr::read_clip(), collapse = " \n")
   }
