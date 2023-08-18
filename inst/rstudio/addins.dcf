@@ -10,7 +10,7 @@ Interactive: true
 
 Name: DeepL Translation into English : chatAI4R
 Description: Translate into English via DeepL
-Binding: deepel_rstudioapi_JP2EN
+Binding: deepel_rstudioapi_2EN
 Interactive: true
 
 Name: Create R Code from Clipboard : chatAI4R

@@ -10,7 +10,6 @@
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext insertText
 #' @importFrom assertthat assert_that
 #' @return A message indicating the completion of the translation. No value is returned.
-#' @export deepel_rstudioapi_JP2EN
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
@@ -20,7 +19,7 @@
 #'
 #' }
 
-deepel_rstudioapi_JP2EN <- function(){
+deepel_rstudioapi_2EN <- function(){
 
   assertthat::assert_that(rstudioapi::isAvailable())
 
