@@ -5,7 +5,6 @@
 #'
 #' @title Translate English Text to Other Languages via DeepL API
 #' @description Translate English text from the clipboard into the specified target language using the DeepL API.
-#' @param input The text to be translated, default is the content of the clipboard. \code{assertthat::is.string(input)}
 #' @param target_lang The language into which the text should be translated. Options are:
 #'    BG - Bulgarian, CS - Czech, DA - Danish, DE - German, EL - Greek,
 #'    EN - English (unspecified variant for backward compatibility; please select EN-GB or EN-US instead),
@@ -33,12 +32,11 @@
 #'
 #' }
 
-deepel_from_EN <- function(input = clipr::read_clip(),
-                           target_lang = 'JA',
+deepel_from_EN <- function(target_lang = 'JA',
                            Auth_Key = Sys.getenv("DeepL_API_KEY"),
                            free_mode = TRUE){
 
-  input = paste0(input, collapse = " \n")
+  input = paste0(clipr::read_clip(), collapse = " \n")
 
   assertthat::assert_that(assertthat::is.string(input))
   assertthat::assert_that(assertthat::is.string(target_lang))

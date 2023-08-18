@@ -5,15 +5,12 @@
 \title{Translate English Text to Other Languages via DeepL API}
 \usage{
 deepel_from_EN(
-  input = clipr::read_clip(),
   target_lang = "JA",
   Auth_Key = Sys.getenv("DeepL_API_KEY"),
   free_mode = TRUE
 )
 }
 \arguments{
-\item{input}{The text to be translated, default is the content of the clipboard. \code{assertthat::is.string(input)}}
-
 \item{target_lang}{The language into which the text should be translated. Options are:
    BG - Bulgarian, CS - Czech, DA - Danish, DE - German, EL - Greek,
    EN - English (unspecified variant for backward compatibility; please select EN-GB or EN-US instead),
