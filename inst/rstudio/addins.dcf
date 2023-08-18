@@ -1,14 +1,14 @@
-Name: Proofread English Text
+Name: Proofread English Text : chatAI4R
 Description: Proofread English text using chatGPT
 Binding: proofreadEnglishText
 Interactive: true
 
-Name: Check Error Details in Japanese
+Name: Check Error Details in Japanese : chatAI4R
 Description: Check Error Details in Japanese
 Binding: checkErrorDet_JP
 Interactive: true
 
-Name: DeepL Translation into English
+Name: DeepL Translation into English : chatAI4R
 Description: Translate into English via DeepL
 Binding: deepel_rstudioapi_JP2EN
 Interactive: true
