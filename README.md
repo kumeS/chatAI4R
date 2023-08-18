@@ -127,7 +127,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
 |deepel|DeepL Translation Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/deepel_v2.png)|
-|deepel_from_EN|Translate English Text to Other Languages via DeepL API (as RStudio Addins)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel_from_EN.R)||
+|deepel_from_EN|Translate English Text to Other Languages via DeepL API in your clipboard|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel_from_EN.R)||
 |deepel_rstudioapi_2EN|Translate Selected Text to English via DeepL API (as RStudio Addins)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel_rstudioapi_2EN.R)||
 
 ### Secondary Layer Functions
@@ -137,6 +137,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |conversation4R|Manage a conversation using a chatting history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
 |createFunction4R|Generate and improve R functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createFunction4R.R)||
 |TextSummary| Summarize a long text (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
+|createRcode|Create R Code from Clipboard Content and Output into the R Console|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRcode.R)||
 
 ### Functions for R package developments
 
