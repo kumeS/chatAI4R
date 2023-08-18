@@ -38,6 +38,8 @@ deepel_from_EN <- function(input = clipr::read_clip(),
                            Auth_Key = Sys.getenv("DeepL_API_KEY"),
                            free_mode = TRUE){
 
+  input = paste0(input, collapse = " \n")
+
   assertthat::assert_that(assertthat::is.string(input))
   assertthat::assert_that(assertthat::is.string(target_lang))
   assertthat::assert_that(assertthat::is.string(Auth_Key))
