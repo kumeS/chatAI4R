@@ -25,7 +25,6 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 - AI integration with R
   - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, txt2img, text embeddings, DALL·E 2)
-  - DeepL API
   - [Stable Diffusion API](https://platform.stability.ai/docs/api-reference#tag/v1generation) / DreamStudio (txt2img, img2img, up-scaling/Super-resolution)
 
 - LLM-based data analysis (future developments)
@@ -77,9 +76,6 @@ For example, to obtain an OpenAI API key, please register as a member on the Ope
 #Set your key for the OpenAI API
 Sys.setenv(OPENAI_API_KEY = "Your API key")
 
-#Set your key for the DeepL API
-Sys.setenv(DeepL_API_KEY = "Your API key")
-
 #Set your key for the DreamStudio API
 Sys.setenv(DreamStudio_API_KEY = "Your API key")
 ```
@@ -122,13 +118,6 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |textEmbedding|Text Embedding from OpenAI Embeddings API (model: text-embedding-ada-002)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textEmbedding.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/textEmbedding.png)|
 |slow_print|Slowly Print Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print.R)||
 
-### Functions for DeepL API
-
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|deepel|DeepL Translation Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/deepel_v2.png)|
-|deepel_from_EN|Translate English Text to Other Languages via DeepL API in your clipboard|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel_from_EN.R)||
-|deepel_rstudioapi_2EN|Translate Selected Text to English via DeepL API (as RStudio Addins)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/deepel_rstudioapi_2EN.R)||
 
 ### Secondary Layer Functions
 
