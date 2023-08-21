@@ -158,9 +158,6 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 All runs using the chat4R function are One-Shot Chatting. Conversation history is not carried over to the next conversation.
 
 ```r
-#Set your API key
-Sys.setenv(OPENAI_API_KEY = "Your API key")
-
 #API: "https://api.openai.com/v1/chat/completions"
 chat4R("Hello")
 
@@ -173,9 +170,6 @@ completions4R("Hello")
 Executions using the conversation4R function will keep a history of conversations. The number of previous messages to keep in memory defaults to 2.
 
 ```r
-#Set your API key
-Sys.setenv(OPENAI_API_KEY = "Your API key")
-
 #First shot
 conversation4R("Hello")
 
