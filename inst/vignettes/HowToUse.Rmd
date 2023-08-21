@@ -73,9 +73,9 @@ conversation4R("Hello")
 conversation4R("Hello")
 ```
 
-# Text to Image Generation
+# Text to Image Generation (Legacy)
 
-## DALL·E 2
+## DALL·E 2 (Legacy)
 
 Create an image generation prompt and generate an image using the DALL·E 2 model.
 
@@ -96,7 +96,7 @@ img <- system.file("images", "Fig01.png", package="chatAI4R")
 EBImage::display(EBImage::readImage(files = img))
 ```
 
-## Stable Diffusion
+## Stable Diffusion (Legacy)
 
 Create an image generation prompt and generate an image using the Stable Diffusion model.
 

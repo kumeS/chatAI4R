@@ -17,15 +17,14 @@ maturing](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https
 
 ## Description
 
-**chatAI4R**, **Chat-based Interactive Artificial Intelligence for R**, is an R package designed to integrate the OpenAI API and other APIs for artificial intelligence (AI) applications. This package leverages large language model (LLM)-based AI techniques, enabling efficient knowledge discovery and data analysis. In addition, this package includes functionality for performing image generation such as txt2img (t2i) and img2img (i2i) using the DALL·E 2 and Stable Diffusion APIs. chatAI4R provides basic R functions for using LLM and a set of R functions to support the creation of prompts for using LLM. The LLMs allow us to extend the world of R. Additionally, I strongly believe that the LLM is becoming so generalized that "Are you searching Google?" is likely to evolve into "Are you LLMing?".
+**chatAI4R**, **Chat-based Interactive Artificial Intelligence for R**, is an R package designed to integrate the OpenAI API and other APIs for artificial intelligence (AI) applications. This package leverages large language model (LLM)-based AI techniques, enabling efficient knowledge discovery and data analysis. chatAI4R provides basic R functions for using LLM and a set of R functions to support the creation of prompts for using LLM. The LLMs allow us to extend the world of R. Additionally, I strongly believe that the LLM is becoming so generalized that "Are you searching Google?" is likely to evolve into "Are you LLMing?".
 
 chatAI4R is an experimental project aimed at developing and implementing various LLM applications in R. Furthermore, the package is under continuous development with a focus on extending its capabilities for bioinformatics analysis.
 
 ## About this project and future developments
 
 - AI integration with R
-  - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, txt2img, text embeddings, DALL·E 2)
-  - [Stable Diffusion API](https://platform.stability.ai/docs/api-reference#tag/v1generation) / DreamStudio (txt2img, img2img, up-scaling/Super-resolution)
+  - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, GPT-3.5, GPT-4, text embeddings)
 
 - LLM-based data analysis (future developments)
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
@@ -75,10 +74,19 @@ For example, to obtain an OpenAI API key, please register as a member on the Ope
 ```r
 #Set your key for the OpenAI API
 Sys.setenv(OPENAI_API_KEY = "Your API key")
-
-#Set your key for the DreamStudio API
-Sys.setenv(DreamStudio_API_KEY = "Your API key")
 ```
+
+Create an .Rprofile file in your home directory and add your API key (using the code above) into it.
+
+```{r}
+# Create a file
+file.create("~/.Rprofile") 
+
+# [MacOS X] Open the file and edit it
+system(paste("open ~/.Rprofile"))
+```
+
+Note: Please be aware of newline character inconsistencies across different operating systems.
 
 ## Tutorial
 
@@ -136,31 +144,12 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |checkErrorDet|Check Error Details|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)||
 |checkErrorDet_JP|Check Error Details in Japanese via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet_JP.R)||
 
-### Image generation functions using DALL·E 2  
+### Interactions and Flow Control Between LLM-based Bots (LLBs)
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|generateImage4R|Generate Images Using OpenAI API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/generateImage4R.R)||
-|editImage4R|Edit or Extend Images with OpenAI API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/editImage4R.R)||
-|imageVariation4R|Generate Image Variations using OpenAI API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/imageVariation4R.R)||
-|createImagePrompt_v1|create a prompt for generating an image from text using an AI model|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v1.R)||
-|createImagePrompt_v2|create a more complex prompt by considering additional attributes|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v2.R)||
+|discussion_flow_v1|Simulates interactions and flow control between three different roles of LLM-based bots (LLBs)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/discussion_flow_v1.R)||
 
-### Image generation functions using Stable Diffusion
-
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|txt2img_StableDiffusion4R|Text-to-image generator using Stable Diffusion|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/txt2img_StableDiffusion4R.R)||
-|img2img_StableDiffusion4R|Image to Image Transformation using Stable Diffusion|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/img2img_StableDiffusion4R.R)||
-|img2img_upscale_StableDiffusion4R|Stable Diffusion Image to Image Up-scaling Transformation|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/img2img_upscale_StableDiffusion4R.R)||
-
-### Visualization functions
-
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|Display|Display images and optionally write them into image files|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/Display.R)||
-|createHEX|Create Hex Stickers for R Packages (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createHEX.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/createHEX.png)|
-|DisplayAsMovie|Display Images as a Movie|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/DisplayAsMovie.R)||
 
 ### Functions for RIKEN press release (future developments)
 
@@ -205,9 +194,6 @@ conversation4R("Hello")
 Converts input text to a numeric vector. The model text-embedding-ada-002 results in a vector of 1536 floats.
 
 ```r
-#Set your API key
-Sys.setenv(OPENAI_API_KEY = "Your API key")
-
 #Embedding
 textEmbedding("Hello, world!")
 ```

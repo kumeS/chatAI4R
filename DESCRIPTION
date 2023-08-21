@@ -1,8 +1,8 @@
 Package: chatAI4R
 Type: Package
 Title: Chat-Based Interactive Artificial Intelligence for R
-Version: 0.2.1
-Date: 2023-08-19
+Version: 0.2.3
+Date: 2023-08-20
 Authors@R: c(
     person (given = "Satoshi", family = "Kume",
     role = c("aut", "cre"), 
@@ -12,29 +12,20 @@ Authors@R: c(
 Maintainer: Satoshi Kume <satoshi.kume.1984@gmail.com>
 Description: The Large Language Model (LLM) represents a groundbreaking advancement 
     in data science and programming, and also allows us to extend the world of R. 
-    A seamless interface for integrating the 'OpenAI' API 
-    (see <https://openai.com/blog/openai-api>), 'Stable Diffusion' and 
-    other Web APIs into R is provided in this package. This package leverages LLM-based 
-    AI techniques, enabling efficient knowledge discovery and data analysis.
-    In addition, this package includes functionality for performing 
-    image generation such as txt2img (t2i) and img2img (i2i) using the 'DALL-E 2' and 
-    'Stable Diffusion' APIs.
+    A seamless interface for integrating the 'OpenAI' Web APIs 
+    (see <https://openai.com/blog/openai-api>), and other Web APIs into R is provided in this package. 
+    This package leverages LLM-based AI techniques, enabling efficient knowledge discovery and data analysis.
 Depends: R (>= 4.2.0)
 Imports: httr, 
-    jsonlite, 
-    EBImage,
+    jsonlite,
     magrittr, 
     purrr, 
     assertthat, 
     clipr, 
     crayon, 
-    grDevices, 
-    hexSticker, 
-    abind,
-    base64enc, 
-    png,
-    animation,
-    rstudioapi
+    rstudioapi,
+    future,
+    igraph
 Suggests: testthat, knitr
 License: Artistic-2.0
 URL: https://kumes.github.io/chatAI4R/, https://github.com/kumeS/chatAI4R

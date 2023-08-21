@@ -7,15 +7,3 @@ Name: Check Error Details in Japanese : chatAI4R
 Description: Check Error Details in Japanese
 Binding: checkErrorDet_JP
 Interactive: true
-
-Name: DeepL Translation into English : chatAI4R
-Description: Translate into English via DeepL
-Binding: deepel_rstudioapi_2EN
-Interactive: true
-
-Name: Create R Code from Clipboard : chatAI4R
-Description: This function reads text from the clipboard, interprets it as a prompt, and generates R code based on the given input.
-Binding: createRcode
-Interactive: true
-
-
