@@ -41,9 +41,6 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ```r
 # CRAN-version installation
-install.packages("BiocManager", repos="http://cran.r-project.org")
-BiocManager::install("EBImage")
-
 install.packages("chatAI4R")
 library(chatAI4R)
 ```
@@ -52,9 +49,6 @@ library(chatAI4R)
 
 ```r
 # Dev-version installation
-install.packages(c("devtools", "BiocManager"), repos="http://cran.r-project.org")
-BiocManager::install("EBImage")
-
 devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
 ```
