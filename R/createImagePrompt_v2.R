@@ -35,8 +35,8 @@ createImagePrompt_v2 <- function(Base_prompt = "",
                                 len = 1000){
   # Asserting input types and values
   assertthat::assert_that(assertthat::is.string(Base_prompt))
-    assertthat::assert_that(assertthat::is.string(removed_from_image))
-      assertthat::assert_that(assertthat::is.string(stable_diffusion))
+  assertthat::assert_that(assertthat::is.string(removed_from_image))
+  assertthat::assert_that(assertthat::is.string(stable_diffusion))
   assertthat::assert_that(assertthat::is.string(Model))
   assertthat::assert_that(assertthat::is.count(len), len > 0, len < 1001)
 

@@ -24,6 +24,7 @@
 #' @param sayENorJA Logical, whether to say in English or Japanese, default is TRUE.
 #' @importFrom future plan future multisession
 #' @importFrom igraph graph add_vertices layout_nicely add_edges
+#' @importFrom deepRstudio is_mac
 #' @return A summary of the conversation between the bots.
 #' @export discussion_flow_v1
 #' @author Satoshi Kume
@@ -69,7 +70,7 @@ edges_to_add <- c("H", "A",
                   "A", "H")
 
 # Decide voices on MacOS
-if(is_mac()){
+if(deepRstudio::is_mac()){
   voices <- system("say -v \\?", intern = TRUE)
   a <- strsplit(voices, split="       |#")
   b <- data.frame(matrix(NA, nrow = length(a), ncol = 3))

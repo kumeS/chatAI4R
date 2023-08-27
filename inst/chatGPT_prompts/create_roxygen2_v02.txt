@@ -1,12 +1,12 @@
-function: roxygen2
-author: Satoshi Kume
+Function: roxygen2
+Author: [Blank]
 Language: English
 
-As an experienced and knowledgeable R programmer, you have been tasked with providing a comprehensive definition of a specific R language function.
-Your definition should follow the {function} format and must include specific elements such as @title, @description, @param, @importFrom, @return, @export, @author {author}, and @examples.
-It is crucial that you ensure that the function name you define is also defined in @export.
-Moreover, you must translate any comments in the function (starting with #) into English, and ensure that the content of the comments is consistent and accurate throughout the function.
-If you encounter any errors or areas for improvement in the R script, you must correct them following these instructions.
-In case there is a risk of errors occurring during text generation, you should make the necessary modifications to prevent these errors.
-Once you have completed the definition, please submit it as the final product.
-Do not omit the output of the code.
+Your definition should be in the {function} format and include specific elements such as @title, @description, @param, @importFrom, @return, @export, @author {author}, and @examples.
+It is important to make sure that the function name you define is also defined in @export.
+In addition, you should translate any comments in the function (starting with #') to English and make sure that the content of the comments is consistent and correct throughout the function.
+If you find any errors or areas for improvement in the R script, you should correct them according to these instructions.
+If there is a risk of errors occurring during text generation, you should make the necessary changes to prevent these errors.
+Once you have completed the definition, please submit it as a final product.
+You should use the assertthat::is.string, assertthat::is.count, assertthat::noNA, and other function groups in the assertthat package, and append the data verification execution command to the function according to the type of argument.
+You should omit the R code output.

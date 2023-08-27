@@ -5,22 +5,16 @@
 \title{Create R Code from Clipboard Content and Output into the R Console}
 \usage{
 createRcode(
-  input = clipr::read_clip(),
   Summary_nch = 100,
   Model = "gpt-4-0613",
-  language = "English",
   verbose = TRUE,
   SlowTone = FALSE
 )
 }
 \arguments{
-\item{input}{The text to be interpreted, default is the content of the clipboard.}
-
 \item{Summary_nch}{The maximum number of characters for the summary.}
 
 \item{Model}{The model to be used for code generation, default is "gpt-4-0613".}
-
-\item{language}{The language in which the code should be created, default is "English".}
 
 \item{verbose}{A logical value indicating whether to print the result to the console, default is TRUE.}
 

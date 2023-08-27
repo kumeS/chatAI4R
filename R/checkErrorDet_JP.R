@@ -28,7 +28,7 @@ checkErrorDet_JP <- function(Summary_nch = 100,
                              verbose = TRUE,
                              SlowTone = FALSE) {
 
-  input = paste0(clipr::read_clip(), collapse = " \n")
+  input = paste0(clipr::read_clip(), collapse = " ")
 
   # Assertions
   assertthat::assert_that(

@@ -6,12 +6,12 @@
 \usage{
 TextSummary(
   text = clipr::read_clip(),
-  nch = 1000,
-  Summary_block = 200,
-  Model = "gpt-4-0613",
+  nch = 1500,
+  Summary_block = 150,
+  Model = "gpt-3.5-turbo",
   temperature = 1,
-  language = "English",
-  verbose = TRUE
+  verbose = TRUE,
+  SpeakJA = FALSE
 )
 }
 \arguments{
@@ -22,22 +22,21 @@ If not provided, the function will attempt to read from the clipboard.}
 
 \item{Summary_block}{Integer specifying the target number of characters for the summarized output.}
 
-\item{Model}{A character string specifying the AI model to be used for text summarization. Default is "gpt-4-0613".
-Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
+\item{Model}{A character string specifying the AI model to be used for text summarization. Default is "gpt-3.5-turbo".
 Execution with GPT-4 is recommended.}
 
 \item{temperature}{Numeric specifying the randomness of the AI model's output.}
 
-\item{language}{A character string specifying the language in which the summary should be generated. Default is "English".}
+\item{verbose}{A logical flag to print the message. Default is TRUE.}
 
-\item{verbose}{A logical flag to print the message Default is TRUE.}
+\item{SpeakJA}{A logical flag to enable Japanese voice output. Default is FALSE.}
 }
 \value{
-A list of character vectors where each vector is a part of the summarized text.
+The summarized text is placed into the clipboard and the function returns the result of \code{clipr::write_clip}.
 }
 \description{
-This function summarizes a long text using an AI model.
-This is an experimental function.
+This function summarizes a long text using AI models like GPT-4.
+   It is recommended to execute this function with GPT-4. This is an experimental function.
 }
 \details{
 Summarize Long Text
@@ -47,7 +46,7 @@ Summarize Long Text
 TextSummary(text = c("This is a long text to be summarized.",
                      "It spans multiple sentences and goes into much detail."),
             nch = 1000, Summary_block = 100,
-            Model = "gpt-3.5-turbo", temperature = 1, language = "English")
+            Model = "gpt-3.5-turbo", temperature = 1)
 }
 }
 \author{

@@ -43,8 +43,8 @@ proofreadEnglishText <- function(Model = "gpt-4-0613",
   assertthat::is.string(Model),
   Sys.getenv("OPENAI_API_KEY") != ""
   )
-  temperature = 1
 
+  temperature = 1
 
   # Template creation
   template = "

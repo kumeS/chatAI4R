@@ -5,7 +5,6 @@
 \title{Check Error Details}
 \usage{
 checkErrorDet(
-  input = clipr::read_clip(),
   Summary_nch = 100,
   Model = "gpt-4-0613",
   language = "English",
@@ -14,8 +13,6 @@ checkErrorDet(
 )
 }
 \arguments{
-\item{input}{A string containing the error message to be analyzed, read from the clipboard by default.}
-
 \item{Summary_nch}{An integer specifying the maximum number of characters for the summary.}
 
 \item{Model}{A string specifying the model to be used, default is "gpt-4-0314".

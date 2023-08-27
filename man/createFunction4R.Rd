@@ -2,7 +2,7 @@
 % Please edit documentation in R/createFunction4R.R
 \name{createFunction4R}
 \alias{createFunction4R}
-\title{createFunction4R}
+\title{createFunction4R (Legacy)}
 \usage{
 createFunction4R(
   Func_description,

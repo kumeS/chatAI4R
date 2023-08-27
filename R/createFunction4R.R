@@ -1,6 +1,6 @@
 #' Generate and Improve R Functions
 #'
-#' @title createFunction4R
+#' @title createFunction4R (Legacy)
 #' @description This function generates an R function based on a given description,
 #' proposes improvements, and then generates an improved version of the function.
 #' It is expected to use an AI model (possibly GPT-3 or similar) to perform these tasks.
@@ -45,7 +45,7 @@ assertthat::assert_that(assertthat::is.string(api_key))
 
 # Create a template
 template1 = "
-You are a great assistant.
+You are a great assistant and a highly skilled R copilot.
 I will give you the function overview to create in this project.
 Please complete the following required fields
 Function description: a R function to perform %s

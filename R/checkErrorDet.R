@@ -5,7 +5,6 @@
 #'
 #' @title Check Error Details
 #' @description A function to analyze and provide guidance on how to fix an error message copied from the R console.
-#' @param input A string containing the error message to be analyzed, read from the clipboard by default.
 #' @param Summary_nch An integer specifying the maximum number of characters for the summary.
 #' @param Model A string specifying the model to be used, default is "gpt-4-0314".
 #'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
@@ -25,12 +24,14 @@
 #'   checkErrorDet(language = "Japanese")
 #' }
 
-checkErrorDet <- function(input = clipr::read_clip(),
-                          Summary_nch = 100,
+checkErrorDet <- function(Summary_nch = 100,
                           Model = "gpt-4-0613",
                           language = "English",
                           verbose = TRUE,
                           SlowTone = FALSE) {
+
+  input = paste0(clipr::read_clip(), collapse = " ")
+
   # Assertions
   assertthat::assert_that(
   assertthat::is.string(input),
@@ -39,6 +40,7 @@ checkErrorDet <- function(input = clipr::read_clip(),
   assertthat::is.string(language),
   Sys.getenv("OPENAI_API_KEY") != ""
   )
+
   temperature = 1
 
   # Template creation
@@ -55,7 +57,7 @@ checkErrorDet <- function(input = clipr::read_clip(),
   "
 
   # Substituting arguments into the prompt
-  template1s <- paste0(sprintf(template1, language, Summary_nch), paste0(input, collapse = " "), sep=" ")
+  template1s <- paste0(sprintf(template1, language, Summary_nch), input, sep=" ")
 
   # Prompt creation
   history <- list(list('role' = 'system', 'content' = template),

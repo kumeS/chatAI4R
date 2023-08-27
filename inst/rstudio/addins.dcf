@@ -1,9 +1,68 @@
-Name: Proofread English Text : chatAI4R
-Description: Proofread English text using chatGPT
-Binding: proofreadEnglishText
-Interactive: true
+Name: Enrich Selected Text Content
+Description: Doubles the amount of text without changing its meaning.
+Binding: enrichTextContent
+Interactive: false
 
-Name: Check Error Details in Japanese : chatAI4R
-Description: Check Error Details in Japanese
+Name: Proofread Selected English Text
+Description: Proofread input text in English from your selected text.
+Binding: proofreadEnglishText
+Interactive: false
+
+Name: Create Specifications from Clipboard
+Description: Generates specifications for an R function from your clipboard and output into the R console.
+Binding: createSpecifications4R
+Interactive: false
+
+Name: Create R Code from Clipboard
+Description: Create R code from clipboard content using LLM and output into the R console.
+Binding: createRcode
+Interactive: false
+
+Name: Suggest Improvements for R Code
+Description: This function uses LLM to analyze the R code from the clipboard and suggests improvements.
+Binding: RcodeImprovements
+Interactive: false
+
+Name: Add Comments to R Code
+Description: This function adds comments to R code without modifying the input R code.
+Binding: addCommentCode
+Interactive: false
+
+Name: Optimize and Complete R Code
+Description: Optimizes and completes the R code from the selected code
+Binding: OptimizeRcode
+Interactive: false
+
+Name: Add Roxygen Description for Selected R Function
+Description:Select R Function and add Roxygen description to the R function
+Binding: addRoxygenDescription
+Interactive: false
+
+Name: Check Error Details in English from Clipboard
+Description: Check error details in English from your clipboard.
+Binding: checkErrorDet
+Interactive: false
+
+Name: Check Error Details in Japanese from Clipboard
+Description: Check error details in Japanese from your clipboard.
 Binding: checkErrorDet_JP
-Interactive: true
+Interactive: false
+
+Name: Summarize Long Text from Clipboard
+Description: Summarizes a long text from your clipboard.
+Binding: TextSummary
+Interactive: false
+
+Name: Speak Clipboard in Japanese
+Description: Speak Clipboard in Japanese on MacOS System.
+Binding: speakInJA_v2
+Interactive: false
+
+Name: Speak Selected Text in Japanese
+Description: Speak Selected Text in Japanese on MacOS System.
+Binding: speakInJA
+Interactive: false
+
+
+
+

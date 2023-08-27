@@ -10,7 +10,6 @@ maturing](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https
 [![CRAN downloads last week](http://cranlogs.r-pkg.org/badges/last-week/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 [![:total status badge](https://kumes.r-universe.dev/badges/:total)](https://kumes.r-universe.dev)
 [![chatAI4R status badge](https://kumes.r-universe.dev/badges/chatAI4R)](https://kumes.r-universe.dev)
-
 <!-- badges: end -->
 
 [GitHub/chatAI4R](https://github.com/kumeS/chatAI4R)
@@ -31,6 +30,10 @@ chatAI4R is an experimental project aimed at developing and implementing various
   - Highly-technical texts modeling and natural language question answering
   - Bioinformatics analysis
   
+**The functionality for interlanguage translation using DeepL has been separated as the 'deepRstudio' package.**
+
+**Functions related to text-to-image generation were separated as the 'stableDiffusion4R' package.**
+
 ## Installation of the chatAI4R package
 
 ### 1. Start R / RStudio console.

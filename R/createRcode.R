@@ -7,12 +7,11 @@
 #' @title Create R Code from Clipboard Content and Output into the R Console
 #' @description Reads text from the clipboard and generates R code based on the given input, printing the result to the R console.
 #' @section RStudio Addins: This function can be added to RStudio's Addins menu for easy access.
-#' @param input The text to be interpreted, default is the content of the clipboard.
 #' @param Summary_nch The maximum number of characters for the summary.
 #' @param Model The model to be used for code generation, default is "gpt-4-0613".
-#' @param language The language in which the code should be created, default is "English".
 #' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
 #' @param SlowTone A logical value indicating whether to print the result slowly, default is FALSE.
+#' @importFrom clipr read_clip
 #' @return Prints the generated R code to the R console.
 #' @export createRcode
 #' @author Satoshi Kume
@@ -24,19 +23,18 @@
 #' }
 
 
-createRcode <- function(input = clipr::read_clip(),
-                        Summary_nch = 100,
+createRcode <- function(Summary_nch = 100,
                         Model = "gpt-4-0613",
-                        language = "English",
                         verbose = TRUE,
                         SlowTone = FALSE){
+
+  input = paste0(clipr::read_clip(), collapse = " \n")
 
   # Assertions
   assertthat::assert_that(
     assertthat::is.string(input),
     assertthat::noNA(input),
     assertthat::is.count(Summary_nch),
-    assertthat::is.string(language),
     Sys.getenv("OPENAI_API_KEY") != ""
   )
 
@@ -44,19 +42,19 @@ createRcode <- function(input = clipr::read_clip(),
 
   # Template creation
   template = "
-  For R language, you should always be a great assistant supporter,
-  always be a very good software engineer of R programming, always respond
-  to deliverables and related explanations in a very professional and accurate manner,
-  always try to give the best answer to the questioner, and always be comprehensive and
-  detailed in your responses.
+  For R language, you should always be a great, highly skilled assistant copilot,
+  always be a very good software engineer of R programming,
+  always respond to deliverables and related explanations in a very professional and accurate manner,
+  always try to give the best answer to the questioner, and always be comprehensive and detailed in your answers.
+  The language used is always the same as the input text.
   "
 
   template1 = "
-  Please create the R script based on the following input in %s within %s words.:
+  Please create the R script based on the following input within %s words.:
   "
 
   # Substituting arguments into the prompt
-  template1s <- paste0(sprintf(template1, language, Summary_nch), paste0(input, collapse = " "), sep=" ")
+  template1s <- paste0(sprintf(template1, Summary_nch), paste0(input, collapse = " "), sep=" ")
 
   # Prompt creation
   history <- list(list('role' = 'system', 'content' = template),
