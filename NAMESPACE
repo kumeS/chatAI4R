@@ -3,6 +3,7 @@
 export(OptimizeRcode)
 export(RcodeImprovements)
 export(TextSummary)
+export(TextSummaryAsBullet)
 export(addCommentCode)
 export(addRoxygenDescription)
 export(chat4R)

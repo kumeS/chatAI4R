@@ -16,6 +16,11 @@
 #' createSpecifications4R(input = "Your R function specification")
 #' }
 
+
+
+
+
+
 createSpecifications4R <- function(Model = "gpt-4-0613",
                                    verbose = TRUE,
                                    SlowTone = FALSE) {
@@ -35,7 +40,9 @@ createSpecifications4R <- function(Model = "gpt-4-0613",
   # Create template for the prompt
   template = "
   You are an excellent assistant and a highly skilled R programmer.
-  You output only the summary and line item text of the deliverable.
+  You will need to prepare an R function requirements definition for project overview, main functions,
+  technical specifications, inputs, outputs, usage, limitations, and additional functionality.
+  You will output only the summary and line item text of the deliverable.
   The language used is the same as the input text.
   "
 

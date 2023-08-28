@@ -53,6 +53,11 @@ Description: Summarizes a long text from your clipboard.
 Binding: TextSummary
 Interactive: false
 
+Name: Summarize Text into Bullet Points from Clipboard
+Description: This function takes a text input and summarizes it into a specified number of bullet points.
+Binding: TextSummaryAsBullet
+Interactive: false
+
 Name: Speak Clipboard in Japanese
 Description: Speak Clipboard in Japanese on MacOS System.
 Binding: speakInJA_v2
