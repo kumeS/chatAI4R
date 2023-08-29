@@ -25,10 +25,10 @@ chatAI4R is an experimental project aimed at developing and implementing various
 - AI integration with R
   - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, GPT-3.5, GPT-4, text embeddings)
 
-- AI-assisted package development
+- LLM-assisted R Package Development
   - Package design, create R function, proofread English text, etc.
 
-- LLM-based data analysis (future developments)
+- LLM-Based Data Analysis and Integration (future developments)
   - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
   - Highly-technical texts modeling and natural language question answering
   - Bioinformatics analysis
