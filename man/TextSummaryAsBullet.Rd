@@ -8,7 +8,7 @@ TextSummaryAsBullet(
   BulletPoints = 4,
   Model = "gpt-4-0613",
   temperature = 1,
-  verbose = FALSE,
+  verbose = TRUE,
   SpeakJA = FALSE,
   SelectedCode = TRUE
 )

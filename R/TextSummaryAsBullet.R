@@ -23,7 +23,7 @@
 TextSummaryAsBullet <- function(BulletPoints = 4,
                                 Model = "gpt-4-0613",
                                 temperature = 1,
-                                verbose = FALSE,
+                                verbose = TRUE,
                                 SpeakJA = FALSE,
                                 SelectedCode = TRUE){
 
@@ -58,7 +58,7 @@ TextSummaryAsBullet <- function(BulletPoints = 4,
 
   # Template for text generation
   template0 = "
-  You are a great assistant and a highly skilled R copilot.
+  You are a great assistant and a highly skilled copilot.
   You have to summarize some input text into bullet points.
   Your output is just the summarized and bulleted form text.
   You must strictly reproduce and reconsider every detail without being overly concise in your writing.
@@ -84,8 +84,8 @@ TextSummaryAsBullet <- function(BulletPoints = 4,
                         temperature = temperature)
 
   # Output the summarized text
-  if(verbose){cat(res, "\n")}
   if(all(verbose, SpeakJA)){
+    cat(res, "\n")
     system(paste0("say -r 200 -v Kyoko '", res, "'"))
   }
 

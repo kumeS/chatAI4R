@@ -68,10 +68,10 @@ createRcode <- function(Summary_nch = 100,
   if(verbose) {
     if(SlowTone) {
       d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)*stats::runif(1, min = 0.95, max = 1.05)
-      slow_print(res, delay = d)
+      slow_print_v2(res, delay = d)
     } else {
       d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)*stats::runif(1, min = 0.95, max = 1.05)
-      slow_print(res, delay = d)
+      slow_print_v2(res, delay = d)
     }
   }
 }

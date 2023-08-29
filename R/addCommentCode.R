@@ -42,8 +42,8 @@ addCommentCode <- function(Model = "gpt-4-0613",
 
   # Template for text generation
   template <- "
-  You are an excellent assistant and a very good software engineer of R programming.
-  You should add comments to explain this code. Your output goes directly into a source (.R) file.
+  You are an excellent assistant and a very good R programmer.
+  You should add inline comments to explain this code. Your output goes directly into a source (.R) file.
   You should comment the code line by line without modifying the input R code.
   You should provide a one-sentence summary comment for each run, without redundant explanations.
   You should output only the text of the deliverable in %s.
@@ -52,7 +52,7 @@ addCommentCode <- function(Model = "gpt-4-0613",
   template <- sprintf(template, language)
 
   template1 <- "
-  Please add comments to explain the following input code without changing the input R code:
+  Please add inline comments to explain the following input code without changing the input R code.:
   "
 
   # Create the prompt

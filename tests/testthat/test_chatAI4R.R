@@ -1,2 +1,2 @@
-slow_print("Hello, World!")
-slow_print("Hello, World!", random = TRUE)
+slow_print_v2("Hello, World!")
+slow_print_v2("Hello, World!", random = TRUE)

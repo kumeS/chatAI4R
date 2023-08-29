@@ -16,16 +16,16 @@
 #' @importFrom assertthat is.string noNA is.number
 #' @importFrom stats runif
 #' @return Invisible NULL. The function prints the text to the console.
-#' @export slow_print
+#' @export slow_print_v2
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' slow_print("Hello, World!")
-#' slow_print("Hello, World!", random = TRUE)
-#' slow_print("Hello, World!", delay = 0.1)
+#' slow_print_v2("Hello, World!")
+#' slow_print_v2("Hello, World!", random = TRUE)
+#' slow_print_v2("Hello, World!", delay = 0.1)
 #' }
 
-slow_print <- function(text, random = FALSE, delay = 0.125) {
+slow_print_v2 <- function(text, random = FALSE, delay = 0.125) {
   assertthat::is.string(text)
   assertthat::noNA(text)
   assertthat::is.number(delay)
@@ -34,12 +34,12 @@ slow_print <- function(text, random = FALSE, delay = 0.125) {
   if (random) {
     for (i in seq_along(strsplit(text, "")[[1]])) {
       cat(strsplit(text, "")[[1]][i])
-      Sys.sleep(stats::runif(1, min = 0.0001, max = 0.3))
+      Sys.sleep(stats::runif(1, min = 0.0001, max = 0.4))
     }
   } else {
     for (i in seq_along(strsplit(text, "")[[1]])) {
       cat(strsplit(text, "")[[1]][i])
-      Sys.sleep(delay*stats::runif(1, min = 0.95, max = 1.05))
+      Sys.sleep(delay*stats::runif(1, min = 0.9, max = 1.1))
     }
   }
   cat("\n")  # Move to the next line after printing the text

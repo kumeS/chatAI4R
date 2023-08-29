@@ -153,7 +153,7 @@ if(sayENorJA){
 #Task 2':
 #Printing
 if(sayENorJA){
-slow_print(issue, delay = 5/nchar(issue))
+slow_print_v2(issue, delay = 5/nchar(issue))
 }else{
   #deepRstudio::deepel()
 }
@@ -201,7 +201,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[2], "'", res1, "'"))
 
 #Printing
 message(crayon::cyan("LLB A: Question"))
-slow_print(res1, delay = 60/(rate*5))
+slow_print_v2(res1, delay = 60/(rate*5))
 
 #re-input
 res2 <- future::value(fut3)[[1]]
@@ -238,7 +238,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[3], "'", res2, "'"))
 
 #Task 4' Printing
 message(crayon::blue("LLB B: Answer"))
-slow_print(res2, delay = 60/(rate*5))
+slow_print_v2(res2, delay = 60/(rate*5))
 
 #re-input
 res3 <- future::value(fut4)[[1]]
@@ -276,7 +276,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[2], "'", res3, "'"))
 
 #Task 5' Printing
 message(crayon::cyan("LLB A: Question"))
-slow_print(res3, delay = 60/(rate*5))
+slow_print_v2(res3, delay = 60/(rate*5))
 
 #re-input
 res4 <- future::value(fut5)[[1]]
@@ -322,7 +322,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[3], "'", res4, "'"))
 
 #Printing
 message(crayon::blue("LLB B: Answer"))
-slow_print(res4, delay = 60/(rate*5))
+slow_print_v2(res4, delay = 60/(rate*5))
 
 #re-input
 res5 <- future::value(fut6)[[1]]
@@ -364,7 +364,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[2], "'", res5, "'"))
 
 #Printing
 message(crayon::cyan("LLB A: 1st Summary"))
-slow_print(res5, delay = 60/(rate*5))
+slow_print_v2(res5, delay = 60/(rate*5))
 
 #re-input
 res6 <- future::value(fut7)
@@ -400,7 +400,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[4], "'", res6, "'"))
 
 #Printing
 message(crayon::green("LLB C: Review"))
-slow_print(res6, delay = 60/(rate*5))
+slow_print_v2(res6, delay = 60/(rate*5))
 
 #re-input
 res7 <- future::value(fut8)[[1]]
@@ -439,7 +439,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[2], "'", res7, "'"))
 
 #Printing
 message(crayon::cyan("LLB A ask: Question"))
-slow_print(res7, delay = 60/(rate*5))
+slow_print_v2(res7, delay = 60/(rate*5))
 
 #re-input
 res8 <- future::value(fut9)[[1]]
@@ -478,7 +478,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[3], "'", res8, "'"))
 
 #Printing
 message(crayon::blue("LLB B: Answer"))
-slow_print(res8, delay = 60/(rate*5))
+slow_print_v2(res8, delay = 60/(rate*5))
 
 #re-input
 res9 <- future::value(res9)
@@ -503,7 +503,7 @@ system(paste("say -r", rate, "-v", H_AI_voices[2], "'", res9, "'"))
 }
 })
 
-slow_print(res9, delay = 60/(rate*5))
+slow_print_v2(res9, delay = 60/(rate*5))
 
 }
 

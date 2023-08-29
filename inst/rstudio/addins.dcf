@@ -1,3 +1,13 @@
+Name: Support Idea Generation from Clipboard
+Description: This feature helps you generate ideas or concepts based on input from your clipboard.
+Binding: supportIdeaGeneration
+Interactive: false
+
+Name: Design Package from Clipboard
+Description: This function assists in proposing the overall design and architecture of an R package.
+Binding: designPackage
+Interactive: false
+
 Name: Enrich Selected Text Content
 Description: Doubles the amount of text without changing its meaning.
 Binding: enrichTextContent
@@ -61,6 +71,11 @@ Interactive: false
 Name: Summarize Selected Text into Bullet Points
 Description: This function takes a text input and summarizes it into a specified number of bullet points.
 Binding: TextSummaryAsBullet
+Interactive: false
+
+Name: Convert Selected Bullet Points to Sentences
+Description: This function takes bullet points of selected text as input and converts them into sentences.
+Binding: convertBullet2Sentence
 Interactive: false
 
 Name: Speak Clipboard in Japanese

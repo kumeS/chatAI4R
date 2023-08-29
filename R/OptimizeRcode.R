@@ -91,10 +91,10 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
 
       if(SlowTone) {
         d <- ifelse(20/nchar(res1) < 0.3, 20/nchar(res1), 0.3) * stats::runif(1, min = 0.95, max = 1.05)
-        slow_print(res1, delay = d)
+        slow_print_v2(res1, delay = d)
       } else {
         d <- ifelse(10/nchar(res1) < 0.15, 10/nchar(res1), 0.15) * stats::runif(1, min = 0.95, max = 1.05)
-        slow_print(res1, delay = d)
+        slow_print_v2(res1, delay = d)
       }
     }
     return(message("Finished!!"))

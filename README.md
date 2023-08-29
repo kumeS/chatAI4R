@@ -6,8 +6,6 @@ maturing](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https
 [![CRAN](https://www.r-pkg.org/badges/version/chatAI4R)](https://cran.r-project.org/web/packages/chatAI4R/index.html)
 [![CRAN_latest_release_date](https://www.r-pkg.org/badges/last-release/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 [![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](http://www.datasciencemeta.com/rpackages)
-[![CRAN downloads last month](http://cranlogs.r-pkg.org/badges/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
-[![CRAN downloads last week](http://cranlogs.r-pkg.org/badges/last-week/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 [![:total status badge](https://kumes.r-universe.dev/badges/:total)](https://kumes.r-universe.dev)
 [![chatAI4R status badge](https://kumes.r-universe.dev/badges/chatAI4R)](https://kumes.r-universe.dev)
 <!-- badges: end -->
@@ -57,14 +55,19 @@ library(chatAI4R)
 # Dev-version installation
 devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
+
+# Release v0.2.3
+devtools::install_github("kumeS/chatAI4R", ref = "v0.2.3")
+library(chatAI4R)
 ```
 
 #### Installation from source
 
 ```r
 #For MacOS X, installation from source
-system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.0.11.tar.gz")
-system("R CMD INSTALL chatAI4R-0.0.11.tar.gz")
+system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.2.3.tar.gz")
+#or system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.2.3.tar.gz --no-check-certificate")
+system("R CMD INSTALL v0.2.3.tar.gz")
 ```
 
 ### 3. Set the API key according to each Web API.
@@ -124,7 +127,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |chat4R_history|Use chat history for OpenAI's GPT model|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R_history.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R_history.png)|
 |completions4R|Generate text using OpenAI completions API (One-shot)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/completions4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/completions4R.png)|
 |textEmbedding|Text Embedding from OpenAI Embeddings API (model: text-embedding-ada-002)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textEmbedding.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/textEmbedding.png)|
-|slow_print|Slowly Print Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print.R)||
+|slow_print_v2|Slowly Print Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print_v2.R)||
 
 
 ### Secondary Layer Functions

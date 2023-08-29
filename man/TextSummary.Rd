@@ -35,8 +35,11 @@ Execution with GPT-4 is recommended.}
 The summarized text is placed into the clipboard and the function returns the result of \code{clipr::write_clip}.
 }
 \description{
-This function summarizes a long text using AI models like GPT-4.
-   It is recommended to execute this function with GPT-4. This is an experimental function.
+This function summarizes a long text using LLM.
+   The development of this function started with the idea that it might be interesting
+   to perform a copy-and-paste, sentence summarization and aims to be an evangelist for
+   copy-and-paste LLM execution. It is recommended to run this function with GPT-4.
+   This is still an experimental feature.
 }
 \details{
 Summarize Long Text
