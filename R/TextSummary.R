@@ -1,8 +1,11 @@
 #' Summarize Long Text
 #'
 #' @title Summarize Long Text
-#' @description This function summarizes a long text using AI models like GPT-4.
-#'    It is recommended to execute this function with GPT-4. This is an experimental function.
+#' @description This function summarizes a long text using LLM.
+#'    The development of this function started with the idea that it might be interesting
+#'    to perform a copy-and-paste, sentence summarization and aims to be an evangelist for
+#'    copy-and-paste LLM execution. It is recommended to run this function with GPT-4.
+#'    This is still an experimental feature.
 #' @param text A character vector containing the text to be summarized.
 #' If not provided, the function will attempt to read from the clipboard.
 #' @param nch Integer specifying the number of characters at which to split the input text for processing.
@@ -24,6 +27,8 @@
 #'             nch = 1000, Summary_block = 100,
 #'             Model = "gpt-3.5-turbo", temperature = 1)
 #' }
+
+
 
 TextSummary <- function(text = clipr::read_clip(),
                         nch = 2000,
