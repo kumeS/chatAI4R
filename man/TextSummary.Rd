@@ -6,7 +6,7 @@
 \usage{
 TextSummary(
   text = clipr::read_clip(),
-  nch = 1500,
+  nch = 2000,
   Summary_block = 150,
   Model = "gpt-3.5-turbo",
   temperature = 1,

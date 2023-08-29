@@ -54,7 +54,7 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
   You should understand the input R code carefully, line by line.
   You should consider the use of vectorization and vector manipulation, selection of appropriate data structures,
   efforts to minimize memory usage, parallel processing, latency evaluation, use of external libraries (such as Rcpp),
-  selecting appropriate functions, optimizing loop processing, function reuse, code readability and maintainability,
+  selecting appropriate functions, optimizing loop processing, function reuse, code readability and maintainability
   and package selection to code by considering the following
   You must provide only the core R code as a deliverable in English, without code blocks and any explanations.
   "
@@ -63,6 +63,7 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
   template1 = "
   Without explanations, please optimize the following R code input in English.:
   "
+
   template1s <- paste0(template1, input, sep=" ")
 
   # Initialize history for chat

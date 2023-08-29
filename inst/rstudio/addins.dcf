@@ -18,6 +18,11 @@ Description: Create R code from clipboard content using LLM and output into the 
 Binding: createRcode
 Interactive: false
 
+Name: Convert Selected R Script to R Function
+Description: Convert selected R script to an R function using LLM.
+Binding: convertRscript2Function
+Interactive: false
+
 Name: Suggest Improvements for R Code
 Description: This function uses LLM to analyze the R code from the clipboard and suggests improvements.
 Binding: RcodeImprovements
@@ -53,7 +58,7 @@ Description: Summarizes a long text from your clipboard.
 Binding: TextSummary
 Interactive: false
 
-Name: Summarize Text into Bullet Points from Clipboard
+Name: Summarize Selected Text into Bullet Points
 Description: This function takes a text input and summarizes it into a specified number of bullet points.
 Binding: TextSummaryAsBullet
 Interactive: false

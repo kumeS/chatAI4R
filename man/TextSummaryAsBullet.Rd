@@ -2,20 +2,18 @@
 % Please edit documentation in R/TextSummaryAsBullet.R
 \name{TextSummaryAsBullet}
 \alias{TextSummaryAsBullet}
-\title{Summarize Text into Bullet Points from Clipboard}
+\title{Summarize Text into Bullet Points}
 \usage{
 TextSummaryAsBullet(
-  text = clipr::read_clip(),
   BulletPoints = 4,
   Model = "gpt-4-0613",
   temperature = 1,
   verbose = FALSE,
-  SpeakJA = FALSE
+  SpeakJA = FALSE,
+  SelectedCode = TRUE
 )
 }
 \arguments{
-\item{text}{A character vector containing the text to be summarized. Default is text from the clipboard.}
-
 \item{BulletPoints}{An integer specifying the number of bullet points for the summary. Default is 4.}
 
 \item{Model}{A string specifying the machine learning model to use for text summarization. Default is "gpt-4-0613".}
@@ -25,15 +23,18 @@ TextSummaryAsBullet(
 \item{verbose}{A logical value indicating whether to print the summary. Default is FALSE.}
 
 \item{SpeakJA}{A logical value indicating whether to speak the summary in Japanese. Default is FALSE.}
+
+\item{SelectedCode}{A logical value indicating whether to use the selected code in RStudio. Default is TRUE.}
 }
 \value{
-The summarized text in bullet points is returned and also copied to the clipboard.
+The summarized text in bullet points is returned.
 }
 \description{
 This function takes a text input and summarizes it into a specified number of bullet points.
+   It can either take the selected code from RStudio or read from the clipboard.
 }
 \details{
-Summarize Text into Bullet Points
+Summarize Selected Text into Bullet Points
 }
 \examples{
 \dontrun{

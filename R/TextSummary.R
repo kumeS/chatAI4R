@@ -26,7 +26,7 @@
 #' }
 
 TextSummary <- function(text = clipr::read_clip(),
-                        nch = 1500,
+                        nch = 2000,
                         Summary_block = 150,
                         Model = "gpt-3.5-turbo",
                         temperature = 1,
@@ -53,8 +53,9 @@ TextSummary <- function(text = clipr::read_clip(),
   text1 <- sapply(seq(1, floor(len/nch)*nch, by=nch), function(i) substr(text0, i, min(i+nch-1, len)))
 
   template0 = "
-  You are a great assistant. You summarize and itemize the user's input.
-  Your output is just the summarized text.
+  You are a great assistant and an excellent co-pilot.
+  You summarize and itemize the user's input. Your output is only the summarized text.
+  You must strictly reproduce and reconsider every detail without being overly concise in your writing.
   The language used in the summary is the same as the input text.
   "
 
@@ -74,6 +75,7 @@ TextSummary <- function(text = clipr::read_clip(),
   history <- list(list('role' = 'system', 'content' = template0))
 
   # Execution
+  if(verbose){cat("\n")}
   for(n in seq_len(length(pr))){
     #n <- 1
     if(verbose){cat("Text: ", n, "\n")}
