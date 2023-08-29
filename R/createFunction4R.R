@@ -12,10 +12,8 @@
 #' @param roxygen A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.
 #' @param View A logical that indicates whether to view the intermediate steps. Default is TRUE.
 #' @param verbose A logical flag to print the message Default is TRUE.
-#' @importFrom magrittr %>%
 #' @importFrom crayon red
 #' @importFrom assertthat assert_that is.string is.count noNA
-#' @importFrom utils globalVariables
 #' @return The function returns a character string that represents the generated and improved R function.
 #' @export createFunction4R
 #' @author Satoshi Kume
@@ -67,9 +65,10 @@ f <- completions4R(prompt = template1s,
 
 #View
 if(View){
-cat(f %>%
-  gsub("   ", "\n", utils::globalVariables(".")) %>%
-  gsub("  ", "\n", utils::globalVariables(".")))}
+f1 <- gsub("   ", "\n", f)
+f1 <- gsub("  ", "\n", f1)
+cat(f1)
+}
 
 # Create a template
 template2 = paste0("
@@ -113,10 +112,10 @@ f2 <- completions4R(prompt = template3s,
 
 #View
 if(View){
-  cat(f2 %>%
-  gsub("   ", "\n", utils::globalVariables(".")) %>%
-  gsub("  ", "\n", utils::globalVariables(".")) %>%
-  gsub("#' ", "\n#' ", utils::globalVariables(".")))
+f2s <- gsub("   ", "\n", f2)
+f2s <- gsub("  ", "\n", f2s)
+f2s <- gsub("#' ", "\n#' ", f2s)
+cat(f2s)
 }
 
 if(roxygen){
@@ -139,12 +138,10 @@ f3 <- completions4R(prompt = template4,
        simple = TRUE)
 
 f4 <- paste0(f3, "\n", f2)
-
-f4g <- f4 %>%
-  gsub("   ", "\n", utils::globalVariables(".")) %>%
-  gsub("  ", "\n", utils::globalVariables(".")) %>%
-  gsub("#' ", "\n#' ", utils::globalVariables(".")) %>%
-  gsub("#' @export", "#' @export\n", utils::globalVariables("."))
+f4g <- gsub("   ", "\n", f4)
+f4g <- gsub("  ", "\n", f4)
+f4g <- gsub("#' ", "\n#' ", f4)
+f4g <- gsub("#' @export", "#' @export\n", f4)
 
 #View
 if(View){

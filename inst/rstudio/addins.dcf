@@ -78,6 +78,16 @@ Description: This function takes bullet points of selected text as input and con
 Binding: convertBullet2Sentence
 Interactive: false
 
+Name: Extract Keywords from Clipboard
+Description: Extract keywords from input text and output them in a comma-separated format.
+Binding: extractKeywords
+Interactive: false
+
+Name: Convert to Scientific Literature
+Description: Convert selected input text into scientific literature.
+Binding: convertScientificLiterature
+Interactive: false
+
 Name: Speak Clipboard in Japanese
 Description: Speak Clipboard in Japanese on MacOS System.
 Binding: speakInJA_v2

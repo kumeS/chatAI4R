@@ -14,11 +14,11 @@ Description: The Large Language Model (LLM) represents a groundbreaking advancem
     in data science and programming, and also allows us to extend the world of R. 
     A seamless interface for integrating the 'OpenAI' Web APIs 
     (see <https://openai.com/blog/openai-api>), and other Web APIs into R is provided in this package. 
-    This package leverages LLM-based AI techniques, enabling efficient knowledge discovery and data analysis.
+    This package leverages LLM-based AI techniques, enabling efficient knowledge 
+    discovery and data analysis.
 Depends: R (>= 4.2.0)
 Imports: httr, 
-    jsonlite,
-    magrittr, 
+    jsonlite, 
     assertthat, 
     clipr, 
     crayon, 

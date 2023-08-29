@@ -73,7 +73,7 @@ proofreadEnglishText <- function(Model = "gpt-4-0613",
 
   if(SelectedCode){
   rstudioapi::insertText(text = as.character(res))
-  return(message("Finished!!"))
+  #return(message("Finished!!"))
   }else{
   # Put into the clipboard
   return(clipr::write_clip(res))
