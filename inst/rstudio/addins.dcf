@@ -18,6 +18,11 @@ Description: Proofread input text in English from your selected text.
 Binding: proofreadEnglishText
 Interactive: false
 
+Name: Proofread Selected Text
+Description: Proofread input text from your selected text in the same language.
+Binding: proofreadText
+Interactive: false
+
 Name: Create Specifications from Clipboard
 Description: Generates specifications for an R function from your clipboard and output into the R console.
 Binding: createSpecifications4R

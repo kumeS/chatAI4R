@@ -6,12 +6,13 @@
 \usage{
 TextSummary(
   text = clipr::read_clip(),
-  nch = 2000,
+  nch = 1000,
   Summary_block = 150,
   Model = "gpt-3.5-turbo",
   temperature = 1,
   verbose = TRUE,
-  SpeakJA = FALSE
+  SpeakJA = FALSE,
+  returnText = FALSE
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ Execution with GPT-4 is recommended.}
 \item{verbose}{A logical flag to print the message. Default is TRUE.}
 
 \item{SpeakJA}{A logical flag to enable Japanese voice output. Default is FALSE.}
+
+\item{returnText}{A logical flag to return summarized text results. Default is FALSE.}
 }
 \value{
 The summarized text is placed into the clipboard and the function returns the result of \code{clipr::write_clip}.

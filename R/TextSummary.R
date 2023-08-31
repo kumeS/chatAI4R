@@ -15,6 +15,7 @@
 #' @param temperature Numeric specifying the randomness of the AI model's output.
 #' @param verbose A logical flag to print the message. Default is TRUE.
 #' @param SpeakJA A logical flag to enable Japanese voice output. Default is FALSE.
+#' @param returnText A logical flag to return summarized text results. Default is FALSE.
 #' @importFrom clipr read_clip write_clip
 #' @importFrom assertthat assert_that is.string is.count
 #' @return The summarized text is placed into the clipboard and the function returns the result of \code{clipr::write_clip}.
@@ -28,15 +29,14 @@
 #'             Model = "gpt-3.5-turbo", temperature = 1)
 #' }
 
-
-
 TextSummary <- function(text = clipr::read_clip(),
-                        nch = 2000,
+                        nch = 1000,
                         Summary_block = 150,
                         Model = "gpt-3.5-turbo",
                         temperature = 1,
                         verbose = TRUE,
-                        SpeakJA = FALSE){
+                        SpeakJA = FALSE,
+                        returnText = FALSE){
 
   # Validate input types and values
   assertthat::assert_that(assertthat::is.string(text[1]))
@@ -54,8 +54,21 @@ TextSummary <- function(text = clipr::read_clip(),
 
   # Splitting the text
   len <- nchar(text0)
-  if(len < nch){nch <- len}
-  text1 <- sapply(seq(1, floor(len/nch)*nch, by=nch), function(i) substr(text0, i, min(i+nch-1, len)))
+  if(len <= nch){
+    #nch <- len
+    text1 <- text0
+  }else{
+    val <- round(seq(1, len, length.out = ceiling(len/nch)), 0)
+
+    # Define the start and end indices for substr
+    start_indices <- val[1:(length(val)-1)]
+    end_indices <- val[2:(length(val))]
+
+    # Use sapply to apply substr function
+    text1 <- sapply(seq_len(length(start_indices)),
+                    function(i) substr(text0, start_indices[i], end_indices[i]))
+    #sum(nchar(unlist(text1)))
+  }
 
   template0 = "
   You are a great assistant and an excellent co-pilot.
@@ -79,6 +92,11 @@ TextSummary <- function(text = clipr::read_clip(),
   result <- list()
   history <- list(list('role' = 'system', 'content' = template0))
 
+  if(returnText){cat("\n")
+  cat("TextSummary ( nchar:", nchar(text0), "): ", "\n")
+  pb <- utils::txtProgressBar(min = 0, max = length(pr), style = 3)
+  }
+
   # Execution
   if(verbose){cat("\n")}
   for(n in seq_len(length(pr))){
@@ -87,7 +105,7 @@ TextSummary <- function(text = clipr::read_clip(),
     history[[length(history) + 1]] <- list('role' = 'user', 'content' = pr[n])
 
     retry_count <- 0
-    while (retry_count < 5) {
+    while (retry_count <= 2) {
       res <- chat4R_history(history = history,
                             Model = Model,
                             temperature = temperature)
@@ -105,6 +123,7 @@ TextSummary <- function(text = clipr::read_clip(),
 
     #output
     result[[n]] <- res
+    if(returnText){utils::setTxtProgressBar(pb, n)}
 
   }
 
@@ -139,7 +158,11 @@ TextSummary <- function(text = clipr::read_clip(),
   }
 
   # Put into the clipboard
-  return(clipr::write_clip(txt2))
-
+  if(returnText){
+    return(unlist(result))
+  }else{
+    message("Finished!!")
+    return(clipr::write_clip(txt2))
+  }
 }
 

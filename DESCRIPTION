@@ -12,10 +12,10 @@ Authors@R: c(
 Maintainer: Satoshi Kume <satoshi.kume.1984@gmail.com>
 Description: The Large Language Model (LLM) represents a groundbreaking advancement 
     in data science and programming, and also allows us to extend the world of R. 
-    A seamless interface for integrating the 'OpenAI' Web APIs 
-    (see <https://openai.com/blog/openai-api>), and other Web APIs into R is provided in this package. 
-    This package leverages LLM-based AI techniques, enabling efficient knowledge 
-    discovery and data analysis.
+    A seamless interface for integrating the 'OpenAI' Web APIs, and other Web APIs 
+    into R is provided in this package. This package leverages LLM-based AI techniques, 
+    enabling efficient knowledge discovery and data analysis 
+    (see 'OpenAI' Web APIs details <https://openai.com/blog/openai-api>).
 Depends: R (>= 4.2.0)
 Imports: httr, 
     jsonlite, 
@@ -25,7 +25,8 @@ Imports: httr,
     rstudioapi,
     future,
     igraph,
-    deepRstudio
+    deepRstudio,
+    pdftools
 Suggests: testthat, knitr
 License: Artistic-2.0
 URL: https://kumes.github.io/chatAI4R/, https://github.com/kumeS/chatAI4R
