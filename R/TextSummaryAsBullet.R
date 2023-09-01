@@ -3,10 +3,10 @@
 #' @title Summarize Text into Bullet Points
 #' @description This function takes a text input and summarizes it into a specified number of bullet points.
 #'    It can either take the selected code from RStudio or read from the clipboard.
+#'    The results are output to your clipboard.
 #' @param Model A string specifying the machine learning model to use for text summarization. Default is "gpt-4-0613".
 #' @param temperature A numeric value between 0 and 1 indicating the randomness of the text generation. Default is 1.
 #' @param verbose A logical value indicating whether to print the summary. Default is FALSE.
-#' @param SpeakJA A logical value indicating whether to speak the summary in Japanese. Default is FALSE.
 #' @param SelectedCode A logical value indicating whether to use the selected code in RStudio. Default is TRUE.
 #' @importFrom assertthat assert_that is.string is.number
 #' @importFrom clipr read_clip write_clip
@@ -22,9 +22,21 @@
 TextSummaryAsBullet <- function(Model = "gpt-4-0613",
                                 temperature = 1,
                                 verbose = TRUE,
-                                SpeakJA = FALSE,
                                 SelectedCode = TRUE){
 
+  # Get input either from RStudio or clipboard
+  if(SelectedCode){
+    assertthat::assert_that(rstudioapi::isAvailable())
+    input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
+  } else {
+    input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+  cat("\n", "TextSummaryAsBullet: ", "\n")
+  pb <- utils::txtProgressBar(min = 0, max = 4, style = 3)}
+
+  #selection
   choices1 <- c(" 3 bullet points", " 6 bullet points",
                 "10 bullet points", "15 bullet points",
                 "20 bullet points")
@@ -44,24 +56,11 @@ TextSummaryAsBullet <- function(Model = "gpt-4-0613",
     return(message("No valid selection made."))
   }
 
-  if(verbose){
-  cat("\n", "TextSummaryAsBullet: ", "\n")
-  pb <- utils::txtProgressBar(min = 0, max = 4, style = 3)}
-
-  # Get input either from RStudio or clipboard
-  if(SelectedCode){
-    assertthat::assert_that(rstudioapi::isAvailable())
-    input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
-  } else {
-    input <- paste0(clipr::read_clip(), collapse = " \n")
-  }
-
   # Validate input types and values
   assertthat::assert_that(assertthat::is.string(input))
   assertthat::assert_that(assertthat::is.string(Model))
   assertthat::assert_that(assertthat::is.number(BulletPoints))
   assertthat::assert_that(assertthat::is.number(temperature), temperature >= 0, temperature <= 1)
-  assertthat::assert_that(is.logical(SpeakJA))
   assertthat::assert_that(is.logical(verbose))
   assertthat::assert_that(is.logical(SelectedCode))
 
@@ -100,18 +99,12 @@ TextSummaryAsBullet <- function(Model = "gpt-4-0613",
                         Model = Model,
                         temperature = temperature)
 
-  # Output the summarized text
-  if(all(verbose, SpeakJA)){
-    cat(res, "\n")
-    system(paste0("say -r 200 -v Kyoko '", res, "'"))
-  }
-
   if(verbose){utils::setTxtProgressBar(pb, 4)}
 
-  # Output the enriched text
-  if(SelectedCode){
-    rstudioapi::insertText(text = as.character(res))
-  } else {
-    return(clipr::write_clip(res))
+  # Output into your clipboard
+  if(verbose){
+    cat("\n")
+    message("Finished!!")
   }
+  return(clipr::write_clip(res))
 }

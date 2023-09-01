@@ -26,6 +26,10 @@ extractKeywords <- function(Model = "gpt-4-0613",
   # Read input from clipboard
   input = paste0(clipr::read_clip(), collapse = " \n")
 
+  if(verbose){
+  cat("\n", "extractKeywords: ", "\n")
+  pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)}
+
   # Assertions for input validation
   assertthat::assert_that(
     assertthat::is.string(input),
@@ -44,11 +48,13 @@ extractKeywords <- function(Model = "gpt-4-0613",
   The language used is the same as the input text.
   "
 
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
   template <- ngsub(template)
 
   template1 = "
   Please extract keywords from the following input text and provide keywords in comma-separated format.:
   "
+
 
   # Substitute arguments into the prompt
   template1s <- paste0(template1, paste0(input), sep=" ")
@@ -57,13 +63,16 @@ extractKeywords <- function(Model = "gpt-4-0613",
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
   # Execute the chat model
   res <- chat4R_history(history=history,
                         Model = Model,
                         temperature = temperature)
 
+  if(verbose){utils::setTxtProgressBar(pb, 3)}
   # Print the result based on verbosity and tone speed
   if(verbose) {
+    cat("\n\n")
     cat("Result from extractKeywords :\n")
     if(SlowTone) {
       d <- ifelse(5/nchar(res) < 0.3, 5/nchar(res), 0.3) * stats::runif(1, min = 0.95, max = 1.05)
@@ -73,4 +82,13 @@ extractKeywords <- function(Model = "gpt-4-0613",
       slow_print_v2(res, delay = d)
     }
   }
+
+  # Output into your clipboard
+  if(verbose){
+    cat("\n")
+    message("Finished!!")
+  }
+
+  return(clipr::write_clip(res))
+
 }

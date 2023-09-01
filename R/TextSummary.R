@@ -10,7 +10,6 @@
 #'    If not provided, the function will attempt to read from the clipboard.
 #' @param nch Integer specifying the number of characters at which to split the input text for processing.
 #' @param verbose A logical flag to print the message. Default is TRUE.
-#' @param SpeakJA A logical flag to enable Japanese voice output. Default is FALSE.
 #' @param returnText A logical flag to return summarized text results. Default is FALSE.
 #' @importFrom clipr read_clip write_clip
 #' @importFrom utils menu
@@ -28,7 +27,6 @@
 TextSummary <- function(text = clipr::read_clip(),
                         nch = 2000,
                         verbose = TRUE,
-                        SpeakJA = FALSE,
                         returnText = FALSE){
 
   choices1 <- c("GPT-3.5", "GPT-4 (0613)", "Another LLM")
@@ -66,7 +64,6 @@ TextSummary <- function(text = clipr::read_clip(),
   assertthat::assert_that(assertthat::is.count(Summary_block), Summary_block > 0)
   assertthat::assert_that(assertthat::is.string(Model))
   assertthat::assert_that(assertthat::is.number(temperature), temperature >= 0, temperature <= 1)
-  assertthat::assert_that(is.logical(SpeakJA))
 
   # Preprocessing
   text0 <- paste0(text, collapse = " ")
@@ -147,51 +144,17 @@ TextSummary <- function(text = clipr::read_clip(),
     history[[length(history) + 1]] <- list('role' = 'assistant', 'content' = res)
     history <- history[sapply(history[1:length(history)], function(x) x$role) != "user"]
 
-    if(all(verbose, SpeakJA)){
-    system(paste0("say -r 200 -v Kyoko '", res, "'"))
-    }
-
     #output
     result[[n]] <- res
     if(returnText){utils::setTxtProgressBar(pb, n)}
 
   }
 
-  if(verbose){
-  #Re-summarize
-  txt2 <- paste0(result, collapse = " ")
-  #nchar(txt2)
-
-  # Substituting arguments into the prompt
-  Summary_block1 <- 300
-  template1ss <- sprintf(template1, Summary_block1)
-  pr1 <- paste0(template1ss, txt2, sep=" ")
-
-  history <- list(list('role' = 'system', 'content' = template0),
-                  list('role' = 'user', 'content' = pr1))
-
-  retry_count <- 0
-  while (retry_count < 5) {
-  res1 <- chat4R_history(history = history,
-                         Model = Model,
-                         temperature = temperature)
-  if(nchar(res1) < Summary_block1 + 100){ break }
-  retry_count <- retry_count + 1
-  }
-
-  cat("Summary ( nchar:",  nchar(res1), "): \n")
-  cat(res1, "\n")
-
-  if(all(verbose, SpeakJA)){
-  system(paste0("say -r 200 -v Kyoko '", res, "'"))
-  }
-  }
-
   # Put into the clipboard
   if(returnText){
-    return(unlist(result))
+  return(unlist(result))
   }else{
-
+  txt2 <- paste0(result, collapse = " ")
   if(verbose){
   cat("\n")
   cat("Summarized text nchar:", nchar(txt2), "\n")

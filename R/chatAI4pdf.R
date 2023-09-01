@@ -14,19 +14,35 @@
 #' @examples
 #' \dontrun{
 #'
-#' #Read GPT-4 Technical Report
-#' pdf_txt <- pdftools::pdf_text("https://cdn.openai.com/papers/gpt-4.pdf")
-#'
-#' #Extract some text
-#' pdf_txt <- pdf_txt[1:3]
+#' #Baktash et al: GPT-4: A REVIEW ON ADVANCEMENTS AND OPPORTUNITIES IN NATURAL LANGUAGE PROCESSING
+#' pdf_file_path <- "https://arxiv.org/pdf/2305.03195.pdf"
 #'
 #' #Execute
-#' summary_text <- chatAI4pdf("1403.2805.pdf", Model, nch, Summary_block)
+#' summary_text <- chatAI4pdf(pdf_file_path)
 #' }
 
 chatAI4pdf <- function(pdf_file_path,
                        nch = 2000,
                        verbose = TRUE) {
+
+  #selection
+  choices1 <- c("All text",  "First Quarter Text",  "Second Quarter Text",
+                "Third Quarter Text", "Fourth Quarter Text")
+  selection1 <- utils::menu(choices1, title = "Where would you summarize the text?")
+
+  if (selection1 == 1) {
+    pds <- c(0, 1)
+  } else if (selection1 == 2) {
+    pds <- c(0, 0.25)
+  } else if (selection1 == 3) {
+    pds <- c(0.25, 0.5)
+  } else if (selection1 == 4) {
+    pds <- c(0.5, 0.75)
+  } else if (selection1 == 5) {
+    pds <- c(0.75, 1)
+  } else {
+    return(message("No valid selection made."))
+  }
 
   # Read PDF text
   pdf_txt <- pdftools::pdf_text(pdf_file_path)
@@ -35,7 +51,7 @@ chatAI4pdf <- function(pdf_file_path,
   assertthat::assert_that(
     assertthat::is.string(pdf_file_path),
     assertthat::is.count(nch),
-    assertthat::noNA(pdf_file_path),
+    assertthat::noNA(pdf_file_path)
   )
 
   # Pre-processing
@@ -46,14 +62,21 @@ chatAI4pdf <- function(pdf_file_path,
   # Combine all text
   pdf_txt_all <- paste0(pdf_txt, collapse = " ")
 
+  #number of characters
+  N <- nchar(pdf_txt_all)
+  N2 <- round(pds*N, 0)
+  if (selection1 == 1){N2[1] <- 1}
+  pdf_txt_sub <- substr(pdf_txt_all, N2[1], N2[2])
+
   # Execute summarization
-  res <- TextSummary(text = pdf_txt_all,
+  res <- TextSummary(text = pdf_txt_sub,
                      nch = nch,
                      verbose = FALSE,
                      returnText = TRUE)
 
   # Show the summary text if verbose is TRUE
   if(verbose) {
+    cat("\nSummarized text:\n")
     cat(res)
   }
 

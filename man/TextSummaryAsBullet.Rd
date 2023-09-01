@@ -8,7 +8,6 @@ TextSummaryAsBullet(
   Model = "gpt-4-0613",
   temperature = 1,
   verbose = TRUE,
-  SpeakJA = FALSE,
   SelectedCode = TRUE
 )
 }
@@ -19,8 +18,6 @@ TextSummaryAsBullet(
 
 \item{verbose}{A logical value indicating whether to print the summary. Default is FALSE.}
 
-\item{SpeakJA}{A logical value indicating whether to speak the summary in Japanese. Default is FALSE.}
-
 \item{SelectedCode}{A logical value indicating whether to use the selected code in RStudio. Default is TRUE.}
 }
 \value{
@@ -29,6 +26,7 @@ The summarized text in bullet points is returned.
 \description{
 This function takes a text input and summarizes it into a specified number of bullet points.
    It can either take the selected code from RStudio or read from the clipboard.
+   The results are output to your clipboard.
 }
 \details{
 Summarize Selected Text into Bullet Points

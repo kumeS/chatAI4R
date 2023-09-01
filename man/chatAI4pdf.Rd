@@ -27,14 +27,11 @@ This function reads a PDF file and summarizes its content using a specified Larg
 \examples{
 \dontrun{
 
-#Read GPT-4 Technical Report
-pdf_txt <- pdftools::pdf_text("https://cdn.openai.com/papers/gpt-4.pdf")
-
-#Extract some text
-pdf_txt <- pdf_txt[1:3]
+#Baktash et al: GPT-4: A REVIEW ON ADVANCEMENTS AND OPPORTUNITIES IN NATURAL LANGUAGE PROCESSING
+pdf_file_path <- "https://arxiv.org/pdf/2305.03195.pdf"
 
 #Execute
-summary_text <- chatAI4pdf("1403.2805.pdf", Model, nch, Summary_block)
+summary_text <- chatAI4pdf(pdf_file_path)
 }
 }
 \author{

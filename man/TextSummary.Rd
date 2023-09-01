@@ -8,7 +8,6 @@ TextSummary(
   text = clipr::read_clip(),
   nch = 2000,
   verbose = TRUE,
-  SpeakJA = FALSE,
   returnText = FALSE
 )
 }
@@ -19,8 +18,6 @@ If not provided, the function will attempt to read from the clipboard.}
 \item{nch}{Integer specifying the number of characters at which to split the input text for processing.}
 
 \item{verbose}{A logical flag to print the message. Default is TRUE.}
-
-\item{SpeakJA}{A logical flag to enable Japanese voice output. Default is FALSE.}
 
 \item{returnText}{A logical flag to return summarized text results. Default is FALSE.}
 }
