@@ -40,7 +40,8 @@ addRoxygenDescription <- function(Model = "gpt-4-0613",
 
   # Template for text generation
   template <- "
-  You are an excellent assistant and a highly skilled R copilot.
+  You are an excellent assistant and a highly skilled genius copilot of the R language.
+  You always have great answers about the R language.
   You should understand the input R code carefully, line by line.
   You create a Roxygen skeleton in English from the R function input.
   You should output only the roxygen format strictly according to roxygen policy in English, without using code blocks.

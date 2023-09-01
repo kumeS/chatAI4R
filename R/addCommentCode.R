@@ -42,7 +42,8 @@ addCommentCode <- function(Model = "gpt-4-0613",
 
   # Template for text generation
   template <- "
-  You are an excellent assistant and a very good R programmer.
+  You are an excellent assistant and a highly skilled genius R programmer.
+  You always give great answers about the R language.
   You should add inline comments to explain this code. Your output goes directly into a source (.R) file.
   You should comment the code line by line without modifying the input R code.
   You should provide a one-sentence summary comment for each run, without redundant explanations.

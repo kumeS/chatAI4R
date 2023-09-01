@@ -39,7 +39,8 @@ designPackage <- function(Model = "gpt-4-0613",
 
   # Create template for the prompt
   template = "
-  You are an excellent assistant and a highly skilled R programmer.
+  You are an excellent assistant and a highly skilled genius R programmer.
+  You always give great answers about the R language.
   You must strictly propose the overall design and architecture of the package based on the inputs.
   You will output only the summary and line item text of the deliverable.
   The language used will always be the same as the language of the input text.

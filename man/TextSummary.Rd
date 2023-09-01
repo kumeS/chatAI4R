@@ -6,10 +6,7 @@
 \usage{
 TextSummary(
   text = clipr::read_clip(),
-  nch = 1000,
-  Summary_block = 150,
-  Model = "gpt-3.5-turbo",
-  temperature = 1,
+  nch = 2000,
   verbose = TRUE,
   SpeakJA = FALSE,
   returnText = FALSE
@@ -20,13 +17,6 @@ TextSummary(
 If not provided, the function will attempt to read from the clipboard.}
 
 \item{nch}{Integer specifying the number of characters at which to split the input text for processing.}
-
-\item{Summary_block}{Integer specifying the target number of characters for the summarized output.}
-
-\item{Model}{A character string specifying the AI model to be used for text summarization. Default is "gpt-3.5-turbo".
-Execution with GPT-4 is recommended.}
-
-\item{temperature}{Numeric specifying the randomness of the AI model's output.}
 
 \item{verbose}{A logical flag to print the message. Default is TRUE.}
 
@@ -41,7 +31,7 @@ The summarized text is placed into the clipboard and the function returns the re
 This function summarizes a long text using LLM.
    The development of this function started with the idea that it might be interesting
    to perform a copy-and-paste, sentence summarization and aims to be an evangelist for
-   copy-and-paste LLM execution. It is recommended to run this function with GPT-4.
+   copy-and-paste LLM execution. It is recommended to run this function with GPT-4, but it is not cost effective and slow.
    This is still an experimental feature.
 }
 \details{
@@ -51,8 +41,7 @@ Summarize Long Text
 \dontrun{
 TextSummary(text = c("This is a long text to be summarized.",
                      "It spans multiple sentences and goes into much detail."),
-            nch = 1000, Summary_block = 100,
-            Model = "gpt-3.5-turbo", temperature = 1)
+            nch = 10)
 }
 }
 \author{

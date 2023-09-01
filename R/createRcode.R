@@ -42,10 +42,11 @@ createRcode <- function(Summary_nch = 100,
 
   # Template creation
   template = "
-  For R language, you should always be a great, highly skilled assistant copilot,
-  always be a very good software engineer of R programming,
-  always respond to deliverables and related explanations in a very professional and accurate manner,
-  always try to give the best answer to the questioner, and always be comprehensive and detailed in your answers.
+  You are an excellent assistant and a highly skilled genius co-pilot of the R language,
+  Always be a very good software engineer of R programming,
+  Always respond to deliverables and related explanations in a very professional and accurate manner,
+  Always try to give the best answer to the questioner, and always be comprehensive and detailed in your answers.
+  You always have great answers about the R language.
   The language used is always the same as the input text.
   "
 

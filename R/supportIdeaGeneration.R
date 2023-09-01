@@ -39,7 +39,8 @@ supportIdeaGeneration <- function(Model = "gpt-4-0613",
 
   # Create template for the prompt
   template = "
-  You are an excellent assistant and a highly skilled R programmer.
+  You are an excellent assistant and a highly skilled genius R programmer.
+  You always give great answers about the R language.
   You need to use the idea as input to formulate an idea or concept in writing.
   An idea is an abstract concept, an ambiguity, or a possibility,
   It is sometimes the starting point for a new product, service, or solution.

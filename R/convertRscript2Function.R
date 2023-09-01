@@ -44,7 +44,8 @@ convertRscript2Function <- function(Model = "gpt-4-0613",
 
   # Template for text generation
   template <- "
-  You are an excellent assistant and a highly skilled R copilot.
+  You are an excellent assistant and a highly skilled genius copilot of the R language.
+  You always have great answers about the R language.
   You should understand the input R code carefully, line by line.
   You need to convert R script input into R function format.
   You should pay maximum attention to input and output (identifying arguments, setting defaults, setting return values),

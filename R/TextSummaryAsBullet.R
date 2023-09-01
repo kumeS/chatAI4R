@@ -3,7 +3,6 @@
 #' @title Summarize Text into Bullet Points
 #' @description This function takes a text input and summarizes it into a specified number of bullet points.
 #'    It can either take the selected code from RStudio or read from the clipboard.
-#' @param BulletPoints An integer specifying the number of bullet points for the summary. Default is 4.
 #' @param Model A string specifying the machine learning model to use for text summarization. Default is "gpt-4-0613".
 #' @param temperature A numeric value between 0 and 1 indicating the randomness of the text generation. Default is 1.
 #' @param verbose A logical value indicating whether to print the summary. Default is FALSE.
@@ -17,15 +16,33 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' TextSummaryAsBullet(text = "This is a sample text.", BulletPoints = 3)
+#' TextSummaryAsBullet(text = "This is a sample text.")
 #' }
 
-TextSummaryAsBullet <- function(BulletPoints = 4,
-                                Model = "gpt-4-0613",
+TextSummaryAsBullet <- function(Model = "gpt-4-0613",
                                 temperature = 1,
                                 verbose = TRUE,
                                 SpeakJA = FALSE,
                                 SelectedCode = TRUE){
+
+  choices1 <- c(" 3 bullet points", " 6 bullet points",
+                "10 bullet points", "15 bullet points",
+                "20 bullet points")
+  selection1 <- utils::menu(choices1, title = "How many bullet points would you summarize?")
+
+  if (selection1 == 1) {
+    BulletPoints = 3
+  } else if (selection1 == 2) {
+    BulletPoints = 6
+  } else if (selection1 == 3) {
+    BulletPoints = 10
+  } else if (selection1 == 4) {
+    BulletPoints = 15
+  } else if (selection1 == 5) {
+    BulletPoints = 20
+  } else {
+    return(message("No valid selection made."))
+  }
 
   if(verbose){
   cat("\n", "TextSummaryAsBullet: ", "\n")

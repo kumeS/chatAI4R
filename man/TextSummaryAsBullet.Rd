@@ -5,7 +5,6 @@
 \title{Summarize Text into Bullet Points}
 \usage{
 TextSummaryAsBullet(
-  BulletPoints = 4,
   Model = "gpt-4-0613",
   temperature = 1,
   verbose = TRUE,
@@ -14,8 +13,6 @@ TextSummaryAsBullet(
 )
 }
 \arguments{
-\item{BulletPoints}{An integer specifying the number of bullet points for the summary. Default is 4.}
-
 \item{Model}{A string specifying the machine learning model to use for text summarization. Default is "gpt-4-0613".}
 
 \item{temperature}{A numeric value between 0 and 1 indicating the randomness of the text generation. Default is 1.}
@@ -38,7 +35,7 @@ Summarize Selected Text into Bullet Points
 }
 \examples{
 \dontrun{
-TextSummaryAsBullet(text = "This is a sample text.", BulletPoints = 3)
+TextSummaryAsBullet(text = "This is a sample text.")
 }
 }
 \author{

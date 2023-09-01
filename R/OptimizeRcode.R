@@ -50,7 +50,8 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
 
   # Template for text generation
   template <- "
-  You are an excellent assistant and a highly skilled R copilot.
+  You are an excellent assistant and a highly skilled genius R programmer.
+  You always give great answers about the R language.
   You should understand the input R code carefully, line by line.
   You should consider the use of vectorization and vector manipulation, selection of appropriate data structures,
   efforts to minimize memory usage, parallel processing, latency evaluation, use of external libraries (such as Rcpp),

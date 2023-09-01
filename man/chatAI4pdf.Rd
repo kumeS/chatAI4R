@@ -4,22 +4,12 @@
 \alias{chatAI4pdf}
 \title{chatAI4pdf}
 \usage{
-chatAI4pdf(
-  pdf_file_path,
-  Model = "gpt-3.5-turbo",
-  nch = 2000,
-  Summary_block = 150,
-  verbose = TRUE
-)
+chatAI4pdf(pdf_file_path, nch = 2000, verbose = TRUE)
 }
 \arguments{
 \item{pdf_file_path}{The path to the PDF file to be summarized. Must be a string.}
 
-\item{Model}{The Large Language Model to be used for summarization. Default is "gpt-3.5-turbo".}
-
 \item{nch}{The maximum number of characters for the summary. Default is 2000.}
-
-\item{Summary_block}{The block size for summarization. Default is 150.}
 
 \item{verbose}{Logical flag to print the summary. Default is TRUE.}
 }
@@ -36,8 +26,9 @@ This function reads a PDF file and summarizes its content using a specified Larg
 }
 \examples{
 \dontrun{
-download.file("http://arxiv.org/pdf/1403.2805.pdf", "1403.2805.pdf", mode = "wget")
-pdf_txt <- pdftools::pdf_text("1403.2805.pdf")
+
+#Read GPT-4 Technical Report
+pdf_txt <- pdftools::pdf_text("https://cdn.openai.com/papers/gpt-4.pdf")
 
 #Extract some text
 pdf_txt <- pdf_txt[1:3]
