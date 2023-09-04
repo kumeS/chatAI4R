@@ -7,7 +7,8 @@
 createRcode(
   Summary_nch = 100,
   Model = "gpt-4-0613",
-  verbose = TRUE,
+  SelectedCode = TRUE,
+  verbose = FALSE,
   SlowTone = FALSE
 )
 }
@@ -15,6 +16,8 @@ createRcode(
 \item{Summary_nch}{The maximum number of characters for the summary.}
 
 \item{Model}{The model to be used for code generation, default is "gpt-4-0613".}
+
+\item{SelectedCode}{A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.}
 
 \item{verbose}{A logical value indicating whether to print the result to the console, default is TRUE.}
 
@@ -29,7 +32,7 @@ Reads text from the clipboard and generates R code based on the given input, pri
 \details{
 Create R Code from Clipboard Content and Output into the R Console
 
-This function reads text from the clipboard, interprets it as a prompt, and generates R code based on the given input.
+This function reads text from your selected text or clipboard, interprets it as a prompt, and generates R code based on the given input.
 The generated R code is then printed to the R console with optional slow printing.
 This function can be executed from RStudio's Addins menu.
 }

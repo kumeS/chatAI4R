@@ -4,10 +4,17 @@
 \alias{createSpecifications4R}
 \title{Create Specifications for R Function}
 \usage{
-createSpecifications4R(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+createSpecifications4R(
+  Model = "gpt-4-0613",
+  SelectedCode = TRUE,
+  verbose = FALSE,
+  SlowTone = FALSE
+)
 }
 \arguments{
 \item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4-0613".}
+
+\item{SelectedCode}{A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.}
 
 \item{verbose}{A logical value indicating whether to print the output. Default is TRUE.}
 
@@ -17,7 +24,7 @@ createSpecifications4R(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
 The function prints the generated specifications to the console.
 }
 \description{
-This function generates specifications for an R function from your clipboard.
+This function generates specifications for an R function from your selected text or clipboard.
    It takes in a text input, model name, verbosity, and tone speed to generate the specifications.
 }
 \details{

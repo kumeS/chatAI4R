@@ -1,6 +1,6 @@
 #' Create R Code from Clipboard Content and Output into the R Console
 #'
-#' This function reads text from the clipboard, interprets it as a prompt, and generates R code based on the given input.
+#' This function reads text from your selected text or clipboard, interprets it as a prompt, and generates R code based on the given input.
 #' The generated R code is then printed to the R console with optional slow printing.
 #' This function can be executed from RStudio's Addins menu.
 #'
@@ -9,9 +9,11 @@
 #' @section RStudio Addins: This function can be added to RStudio's Addins menu for easy access.
 #' @param Summary_nch The maximum number of characters for the summary.
 #' @param Model The model to be used for code generation, default is "gpt-4-0613".
+#' @param SelectedCode A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.
 #' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
 #' @param SlowTone A logical value indicating whether to print the result slowly, default is FALSE.
-#' @importFrom clipr read_clip
+#' @importFrom rstudioapi isAvailable getActiveDocumentContext
+#' @importFrom clipr read_clip write_clip
 #' @return Prints the generated R code to the R console.
 #' @export createRcode
 #' @author Satoshi Kume
@@ -22,13 +24,19 @@
 #'
 #' }
 
-
 createRcode <- function(Summary_nch = 100,
                         Model = "gpt-4-0613",
-                        verbose = TRUE,
+                        SelectedCode = TRUE,
+                        verbose = FALSE,
                         SlowTone = FALSE){
 
-  input = paste0(clipr::read_clip(), collapse = " \n")
+  # Get input either from RStudio or clipboard
+  if(SelectedCode){
+    assertthat::assert_that(rstudioapi::isAvailable())
+    input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
+  } else {
+    input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
 
   # Assertions
   assertthat::assert_that(
@@ -51,7 +59,7 @@ createRcode <- function(Summary_nch = 100,
   "
 
   template1 = "
-  Please create the R script based on the following input within %s words.:
+  Please create the R script based on the following input around %s words.:
   "
 
   # Substituting arguments into the prompt
@@ -66,6 +74,11 @@ createRcode <- function(Summary_nch = 100,
                         Model = Model,
                         temperature = temperature)
 
+  # Output
+  if(SelectedCode){
+    rstudioapi::insertText(text = as.character(res))
+    return(message("Finished!!"))
+  } else {
   if(verbose) {
     if(SlowTone) {
       d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)*stats::runif(1, min = 0.95, max = 1.05)
@@ -74,6 +87,10 @@ createRcode <- function(Summary_nch = 100,
       d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)*stats::runif(1, min = 0.95, max = 1.05)
       slow_print_v2(res, delay = d)
     }
+  }
+
+  return(clipr::write_clip(res))
+
   }
 }
 

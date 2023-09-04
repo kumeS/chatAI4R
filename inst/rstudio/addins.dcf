@@ -8,8 +8,13 @@ Description: This function assists in proposing the overall design and architect
 Binding: designPackage
 Interactive: false
 
-Name: Enrich Selected Text Content
-Description: Doubles the amount of text without changing its meaning.
+Name: Search the R function from Selected Content
+Description: searchFunction: Search the R function based on the provided text
+Binding: searchFunction
+Interactive: false
+
+Name: Enrich Selected Text
+Description: enrichTextContent: Doubles the amount of text without changing its meaning.
 Binding: enrichTextContent
 Interactive: false
 
@@ -23,13 +28,13 @@ Description: Proofread input text from your selected text in the same language.
 Binding: proofreadText
 Interactive: false
 
-Name: Create Specifications from Clipboard
-Description: Generates specifications for an R function from your clipboard and output into the R console.
+Name: Create Specifications from Selected Text
+Description: createSpecifications4R: Generates specifications for an R function from your selected text and output into the source file.
 Binding: createSpecifications4R
 Interactive: false
 
-Name: Create R Code from Clipboard
-Description: Create R code from clipboard content using LLM and output into the R console.
+Name: Create R Code from Selected Text
+Description: createRcode: Create R code from your selected text and output into the source file.
 Binding: createRcode
 Interactive: false
 
@@ -84,7 +89,7 @@ Binding: convertBullet2Sentence
 Interactive: false
 
 Name: Extract Keywords from Clipboard
-Description: Extract keywords from input text and output them in a comma-separated format.
+Description: extractKeywords: Extract keywords from input text and output them in a comma-separated format.
 Binding: extractKeywords
 Interactive: false
 
