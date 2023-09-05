@@ -8,6 +8,7 @@
 #' @description Convert selected R script to an R function using LLM.
 #' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".
 #' @param SelectedCode Logical flag to indicate whether to use selected code in RStudio. Default is TRUE.
+#' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext
 #' @importFrom clipr read_clip write_clip
 #' @importFrom assertthat assert_that is.string noNA is.flag
@@ -20,7 +21,8 @@
 #' }
 
 convertRscript2Function <- function(Model = "gpt-4-0613",
-                                    SelectedCode = TRUE) {
+                                    SelectedCode = TRUE,
+                                    verbose = TRUE) {
 
   # Validate that RStudio API is available if SelectedCode is TRUE
   if(SelectedCode){
@@ -28,6 +30,11 @@ convertRscript2Function <- function(Model = "gpt-4-0613",
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   } else {
     input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+    cat("\n", "convertRscript2Function: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
   }
 
   # Validate input parameters
@@ -41,13 +48,14 @@ convertRscript2Function <- function(Model = "gpt-4-0613",
 
   # Initialize temperature for text generation
   temperature <- 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template for text generation
   template <- "
   You are an excellent assistant and a highly skilled genius copilot of the R language.
   You always have great answers about the R language.
   You should understand the input R code carefully, line by line.
-  You need to convert R script input into R function format.
+  You need to convert R script input into One R function format.
   You should pay maximum attention to input and output (identifying arguments, setting defaults, setting return values),
   Scope and variables (using local variables, avoiding global variables), code organization (splitting code appropriately, adding comments)
   error handling (implementing input validation, providing error messages), performance (reevaluating efficiency, considering vectorization).
@@ -65,10 +73,16 @@ convertRscript2Function <- function(Model = "gpt-4-0613",
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execute text generation
   res <- chat4R_history(history = history,
                         Model = Model,
                         temperature = temperature)
+
+  if(verbose){
+    utils::setTxtProgressBar(pb, 3)
+    cat("\n")}
 
   # Output the optimized code
   if(SelectedCode){

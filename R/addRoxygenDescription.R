@@ -5,6 +5,7 @@
 #'    It can either take the selected code from RStudio or read from the clipboard.
 #' @param Model A character string specifying the GPT model to be used. Default is "gpt-4-0613".
 #' @param SelectedCode A logical value indicating whether to use the selected code in RStudio. Default is TRUE.
+#' @param verbose Logical flag to indicate whether to display the generated text. Default is TRUE.
 #' @importFrom assertthat assert_that is.string noNA
 #' @importFrom clipr read_clip write_clip
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext insertText
@@ -17,7 +18,8 @@
 #' }
 
 addRoxygenDescription <- function(Model = "gpt-4-0613",
-                                 SelectedCode = TRUE) {
+                                 SelectedCode = TRUE,
+                                 verbose = TRUE) {
 
   # Get input either from RStudio or clipboard
   if(SelectedCode){
@@ -25,6 +27,11 @@ addRoxygenDescription <- function(Model = "gpt-4-0613",
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   } else {
     input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+    cat("\n", "addRoxygenDescription: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
   }
 
   # Assertions for input validation
@@ -37,6 +44,7 @@ addRoxygenDescription <- function(Model = "gpt-4-0613",
 
   # Initialize temperature for text generation
   temperature <- 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template for text generation
   template <- "
@@ -56,10 +64,16 @@ addRoxygenDescription <- function(Model = "gpt-4-0613",
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execute text generation
   res <- chat4R_history(history = history,
                         Model = Model,
                         temperature = temperature)
+
+  if(verbose){
+    utils::setTxtProgressBar(pb, 3)
+    cat("\n")}
 
   # Combine Roxygen comments with original code
   result <- paste0(res, "\n", input)
@@ -67,7 +81,6 @@ addRoxygenDescription <- function(Model = "gpt-4-0613",
   # Output the enriched text
   if(SelectedCode){
     rstudioapi::insertText(text = as.character(result))
-    return(message("Finished!!"))
   } else {
     return(clipr::write_clip(result))
   }

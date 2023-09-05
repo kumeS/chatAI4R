@@ -1,5 +1,5 @@
-Name: Support Idea Generation from Clipboard
-Description: This feature helps you generate ideas or concepts based on input from your clipboard.
+Name: Support Idea Generation from Selected Text
+Description: supportIdeaGeneration: Help you generate ideas or concepts based on input from your selected text.
 Binding: supportIdeaGeneration
 Interactive: false
 
@@ -8,29 +8,29 @@ Description: This function assists in proposing the overall design and architect
 Binding: designPackage
 Interactive: false
 
-Name: Search the R function from Selected Content
-Description: searchFunction: Search the R function based on the provided text
-Binding: searchFunction
-Interactive: false
-
 Name: Enrich Selected Text
-Description: enrichTextContent: Doubles the amount of text without changing its meaning.
+Description: enrichTextContent: Double the amount of text without changing its meaning.
 Binding: enrichTextContent
 Interactive: false
 
 Name: Proofread Selected English Text
-Description: Proofread input text in English from your selected text.
+Description: proofreadEnglishText: Proofread input text in English from your selected text.
 Binding: proofreadEnglishText
 Interactive: false
 
 Name: Proofread Selected Text
-Description: Proofread input text from your selected text in the same language.
+Description: proofreadText: Proofread input text from your selected text in the same language.
 Binding: proofreadText
 Interactive: false
 
 Name: Create Specifications from Selected Text
 Description: createSpecifications4R: Generates specifications for an R function from your selected text and output into the source file.
 Binding: createSpecifications4R
+Interactive: false
+
+Name: Create R function from Selected Text
+Description: createRfunction: Create R function from your selected text and output into the source file.
+Binding: createRfunction
 Interactive: false
 
 Name: Create R Code from Selected Text
@@ -63,13 +63,18 @@ Description:Select R Function and add Roxygen description to the R function
 Binding: addRoxygenDescription
 Interactive: false
 
+Name: Search the R function from Selected Content
+Description: searchFunction: Search the R function based on the provided text
+Binding: searchFunction
+Interactive: false
+
 Name: Check Error Details in English from Clipboard
 Description: Check error details in English from your clipboard.
 Binding: checkErrorDet
 Interactive: false
 
 Name: Check Error Details in Japanese from Clipboard
-Description: Check error details in Japanese from your clipboard.
+Description: checkErrorDet_JP: Check error details in Japanese from your clipboard.
 Binding: checkErrorDet_JP
 Interactive: false
 

@@ -7,7 +7,8 @@
 #' @description Optimizes and completes the R code from the selected code or clipboard.
 #' @param Model A string specifying the machine learning model to use for code optimization. Default is "gpt-4-0613".
 #' @param SelectedCode A boolean indicating whether to get the code from RStudio or the clipboard. Default is TRUE.
-#' @param verbose_Reasons4change A boolean indicating whether to provide detailed reasons for the changes made. Default is TRUE.
+#' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
+#' @param verbose_Reasons4change A boolean indicating whether to provide detailed reasons for the changes made. Default is FALSE
 #' @param SlowTone A boolean indicating whether to print the output slowly. Default is FALSE.
 #' @importFrom assertthat assert_that is.string noNA is.count is.flag
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext insertText
@@ -23,7 +24,8 @@
 
 OptimizeRcode <- function(Model = "gpt-4-0613",
                           SelectedCode = TRUE,
-                          verbose_Reasons4change = TRUE,
+                          verbose = TRUE,
+                          verbose_Reasons4change = FALSE,
                           SlowTone = FALSE) {
 
   # Validate that RStudio API is available if SelectedCode is TRUE
@@ -32,6 +34,11 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   } else {
     input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+    cat("\n", "OptimizeRcode: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
   }
 
   # Validate input parameters
@@ -47,22 +54,20 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
 
   # Initialize temperature for text generation
   temperature <- 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template for text generation
   template <- "
   You are an excellent assistant and a highly skilled genius R programmer.
-  You always give great answers about the R language.
   You should understand the input R code carefully, line by line.
-  You should consider the use of vectorization and vector manipulation, selection of appropriate data structures,
-  efforts to minimize memory usage, parallel processing, latency evaluation, use of external libraries (such as Rcpp),
-  selecting appropriate functions, optimizing loop processing, function reuse, code readability and maintainability
-  and package selection to code by considering the following
-  You must provide only the core R code as a deliverable in English, without code blocks and any explanations.
+  You should consider the use of vectorization and vector manipulation, the selection of appropriate data structures, and the readability and maintainability of the code.
+  You must provide only the core R code as a deliverable in English, without code blocks and other explanations.
+  Uncommented text and other R grammars that are not appropriate for the R file format of the R package with roxygen2 should be handled appropriately.
   "
 
   # Create the prompt
   template1 = "
-  Without explanations, please optimize the following R code input in English.:
+  Please optimize the following R code input as R file format in English.:
   "
 
   template1s <- paste0(template1, input, sep=" ")
@@ -71,13 +76,20 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execute text generation
   res <- chat4R_history(history = history,
                         Model = Model,
                         temperature = temperature)
 
+  if(verbose){
+    utils::setTxtProgressBar(pb, 3)
+    cat("\n")}
+
   # Output the optimized code
   if(SelectedCode){
+
     rstudioapi::insertText(text = as.character(res))
 
     if(verbose_Reasons4change){
@@ -98,7 +110,6 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
         slow_print_v2(res1, delay = d)
       }
     }
-    return(message("Finished!!"))
   } else {
     return(clipr::write_clip(res))
   }

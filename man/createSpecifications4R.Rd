@@ -7,7 +7,7 @@
 createSpecifications4R(
   Model = "gpt-4-0613",
   SelectedCode = TRUE,
-  verbose = FALSE,
+  verbose = TRUE,
   SlowTone = FALSE
 )
 }

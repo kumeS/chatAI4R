@@ -2,12 +2,19 @@
 % Please edit documentation in R/supportIdeaGeneration.R
 \name{supportIdeaGeneration}
 \alias{supportIdeaGeneration}
-\title{supportIdeaGeneration: Support Idea Generation from Clipboard.}
+\title{supportIdeaGeneration: Support Idea Generation from Selected Text or Clipboard.}
 \usage{
-supportIdeaGeneration(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+supportIdeaGeneration(
+  Model = "gpt-4-0613",
+  SelectedCode = TRUE,
+  verbose = TRUE,
+  SlowTone = FALSE
+)
 }
 \arguments{
 \item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".}
+
+\item{SelectedCode}{Logical flag to indicate whether to use the selected text in RStudio editor. Default is TRUE.}
 
 \item{verbose}{Logical flag to indicate whether to display the generated text. Default is TRUE.}
 
@@ -20,9 +27,9 @@ Prints the generated ideas or concepts based on the verbosity and tone speed set
 Assist in generating ideas or concepts.
 }
 \details{
-Support Idea Generation from Clipboard.
+Support Idea Generation from Selected Text or Clipboard Input
 
-This feature helps you generate ideas or concepts based on input from your clipboard.
+This feature helps you generate ideas or concepts based on input from your selected text or clipboard.
 It uses the OpenAI GPT model for text generation to assist in the idea generation process.
 The function reads the input from the clipboard.
 }

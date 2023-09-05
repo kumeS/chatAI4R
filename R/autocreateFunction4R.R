@@ -1,6 +1,6 @@
 #' Generate and Improve R Functions
 #'
-#' @title createFunction4R (Legacy)
+#' @title autocreateFunction4R (development / experimental)
 #' @description This function generates an R function based on a given description,
 #' proposes improvements, and then generates an improved version of the function.
 #' It is expected to use an AI model (possibly GPT-3 or similar) to perform these tasks.
@@ -15,15 +15,15 @@
 #' @importFrom crayon red
 #' @importFrom assertthat assert_that is.string is.count noNA
 #' @return The function returns a character string that represents the generated and improved R function.
-#' @export createFunction4R
+#' @export autocreateFunction4R
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
 #'   Sys.setenv(OPENAI_API_KEY = "<APIKEY>")
-#'   createFunction4R(Func_description = "2*n+3 sequence")
+#'   autocreateFunction4R(Func_description = "2*n+3 sequence")
 #' }
 
-createFunction4R <- function(Func_description,
+autocreateFunction4R <- function(Func_description,
                              packages = "base",
                              max_tokens = 250,
                              View = TRUE,

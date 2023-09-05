@@ -12,6 +12,7 @@
 #'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
 #'    Execution with GPT-4 is recommended.
 #' @param SelectedCode A logical value indicating whether to read the selected text from the RStudio editor (TRUE) or from the clipboard (FALSE). Defaults to TRUE.
+#' @param verbose Logical flag to print the progress. Default is TRUE.
 #' @importFrom assertthat assert_that is.string noNA
 #' @importFrom clipr read_clip write_clip
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext insertText
@@ -27,13 +28,19 @@
 #' }
 
 proofreadEnglishText <- function(Model = "gpt-4-0613",
-                                 SelectedCode = TRUE) {
+                                 SelectedCode = TRUE,
+                                 verbose = TRUE) {
 
   if(SelectedCode){
   assertthat::assert_that(rstudioapi::isAvailable())
   input = rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   }else{
   input = paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+    cat("\n", "proofreadEnglishText: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
   }
 
   # Assertions
@@ -45,6 +52,7 @@ proofreadEnglishText <- function(Model = "gpt-4-0613",
   )
 
   temperature = 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template creation
   template = "
@@ -65,11 +73,14 @@ proofreadEnglishText <- function(Model = "gpt-4-0613",
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execution
   res <- chat4R_history(history=history,
                         Model = Model,
                         temperature = temperature)
   #str(res)
+  if(verbose){utils::setTxtProgressBar(pb, 3)}
 
   if(SelectedCode){
   rstudioapi::insertText(text = as.character(res))

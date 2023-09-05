@@ -1,4 +1,4 @@
-#' Create R Code from Clipboard Content and Output into the R Console
+#' Create R Code from Selected Text or Clipboard Content and Output into the R Console
 #'
 #' This function reads text from your selected text or clipboard, interprets it as a prompt, and generates R code based on the given input.
 #' The generated R code is then printed to the R console with optional slow printing.
@@ -12,7 +12,7 @@
 #' @param SelectedCode A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.
 #' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
 #' @param SlowTone A logical value indicating whether to print the result slowly, default is FALSE.
-#' @importFrom rstudioapi isAvailable getActiveDocumentContext
+#' @importFrom rstudioapi isAvailable getActiveDocumentContext insertText
 #' @importFrom clipr read_clip write_clip
 #' @return Prints the generated R code to the R console.
 #' @export createRcode
@@ -27,7 +27,7 @@
 createRcode <- function(Summary_nch = 100,
                         Model = "gpt-4-0613",
                         SelectedCode = TRUE,
-                        verbose = FALSE,
+                        verbose = TRUE,
                         SlowTone = FALSE){
 
   # Get input either from RStudio or clipboard
@@ -36,6 +36,11 @@ createRcode <- function(Summary_nch = 100,
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   } else {
     input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+    cat("\n", "createRcode: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
   }
 
   # Assertions
@@ -47,6 +52,7 @@ createRcode <- function(Summary_nch = 100,
   )
 
   temperature = 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template creation
   template = "
@@ -54,8 +60,9 @@ createRcode <- function(Summary_nch = 100,
   Always be a very good software engineer of R programming,
   Always respond to deliverables and related explanations in a very professional and accurate manner,
   Always try to give the best answer to the questioner, and always be comprehensive and detailed in your answers.
-  You always have great answers about the R language.
-  The language used is always the same as the input text.
+  Always have great answers about the R language.
+  Always provide only R code as a deliverable.
+  The language used is always the same as the input.
   "
 
   template1 = "
@@ -69,15 +76,19 @@ createRcode <- function(Summary_nch = 100,
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execution
   res <- chat4R_history(history=history,
                         Model = Model,
                         temperature = temperature)
+  if(verbose){
+    utils::setTxtProgressBar(pb, 3)
+    cat("\n")}
 
   # Output
   if(SelectedCode){
     rstudioapi::insertText(text = as.character(res))
-    return(message("Finished!!"))
   } else {
   if(verbose) {
     if(SlowTone) {

@@ -7,7 +7,8 @@
 OptimizeRcode(
   Model = "gpt-4-0613",
   SelectedCode = TRUE,
-  verbose_Reasons4change = TRUE,
+  verbose = TRUE,
+  verbose_Reasons4change = FALSE,
   SlowTone = FALSE
 )
 }
@@ -16,7 +17,9 @@ OptimizeRcode(
 
 \item{SelectedCode}{A boolean indicating whether to get the code from RStudio or the clipboard. Default is TRUE.}
 
-\item{verbose_Reasons4change}{A boolean indicating whether to provide detailed reasons for the changes made. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print the result to the console, default is TRUE.}
+
+\item{verbose_Reasons4change}{A boolean indicating whether to provide detailed reasons for the changes made. Default is FALSE}
 
 \item{SlowTone}{A boolean indicating whether to print the output slowly. Default is FALSE.}
 }

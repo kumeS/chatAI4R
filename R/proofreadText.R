@@ -26,11 +26,6 @@ proofreadText <- function(Model = "gpt-4-0613",
                           SelectedCode = TRUE,
                           verbose = TRUE) {
 
-  if(verbose){
-    cat("\n", "proofreadText: ", "\n")
-    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
-  }
-
   if(SelectedCode){
     assertthat::assert_that(rstudioapi::isAvailable())
     input = rstudioapi::getActiveDocumentContext()$selection[[1]]$text
@@ -38,7 +33,10 @@ proofreadText <- function(Model = "gpt-4-0613",
     input = paste0(clipr::read_clip(), collapse = " \n")
   }
 
-  if(verbose){utils::setTxtProgressBar(pb, 1)}
+  if(verbose){
+    cat("\n", "proofreadText: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
+  }
 
   # Assertions for input validation
   assertthat::assert_that(
@@ -49,6 +47,7 @@ proofreadText <- function(Model = "gpt-4-0613",
   )
 
   temperature = 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template creation for the prompt
   template = "

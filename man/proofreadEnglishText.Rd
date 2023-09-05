@@ -4,7 +4,7 @@
 \alias{proofreadEnglishText}
 \title{Proofread English Text}
 \usage{
-proofreadEnglishText(Model = "gpt-4-0613", SelectedCode = TRUE)
+proofreadEnglishText(Model = "gpt-4-0613", SelectedCode = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{Model}{A string specifying the model to be used for proofreading, defaulting to "gpt-4-0314".
@@ -12,6 +12,8 @@ Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 model
 Execution with GPT-4 is recommended.}
 
 \item{SelectedCode}{A logical value indicating whether to read the selected text from the RStudio editor (TRUE) or from the clipboard (FALSE). Defaults to TRUE.}
+
+\item{verbose}{Logical flag to print the progress. Default is TRUE.}
 }
 \value{
 The proofread text, which is also written to the clipboard if SelectedCode is FALSE, or replaces the selected text if SelectedCode is TRUE.

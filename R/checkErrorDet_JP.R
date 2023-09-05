@@ -30,6 +30,10 @@ checkErrorDet_JP <- function(Summary_nch = 100,
 
   input = paste0(clipr::read_clip(), collapse = " ")
 
+  if(verbose){
+  cat("\n", "checkErrorDet_JP: ", "\n")
+  pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)}
+
   # Assertions
   assertthat::assert_that(
   assertthat::is.string(input),
@@ -37,7 +41,10 @@ checkErrorDet_JP <- function(Summary_nch = 100,
   assertthat::is.count(Summary_nch),
   Sys.getenv("OPENAI_API_KEY") != ""
   )
+
   temperature = 1
+
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template creation
   template = "
@@ -59,10 +66,17 @@ checkErrorDet_JP <- function(Summary_nch = 100,
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execution
   res <- chat4R_history(history=history,
                         Model = Model,
                         temperature = temperature)
+
+  if(verbose){
+    utils::setTxtProgressBar(pb, 3)
+    cat("\n\n")
+    }
 
   if(verbose) {
     if(SlowTone) {

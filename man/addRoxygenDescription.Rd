@@ -4,12 +4,18 @@
 \alias{addRoxygenDescription}
 \title{Add Roxygen Description to R Function}
 \usage{
-addRoxygenDescription(Model = "gpt-4-0613", SelectedCode = TRUE)
+addRoxygenDescription(
+  Model = "gpt-4-0613",
+  SelectedCode = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4-0613".}
 
 \item{SelectedCode}{A logical value indicating whether to use the selected code in RStudio. Default is TRUE.}
+
+\item{verbose}{Logical flag to indicate whether to display the generated text. Default is TRUE.}
 }
 \value{
 A message indicating completion if `SelectedCode` is TRUE, otherwise the Roxygen-annotated code is copied to the clipboard.

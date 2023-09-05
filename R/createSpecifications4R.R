@@ -20,7 +20,7 @@
 
 createSpecifications4R <- function(Model = "gpt-4-0613",
                                    SelectedCode = TRUE,
-                                   verbose = FALSE,
+                                   verbose = TRUE,
                                    SlowTone = FALSE) {
 
   # Get input either from RStudio or clipboard
@@ -29,6 +29,11 @@ createSpecifications4R <- function(Model = "gpt-4-0613",
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   } else {
     input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+    cat("\n", "createSpecifications4R: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
   }
 
   # Assertions for input validation
@@ -40,20 +45,24 @@ createSpecifications4R <- function(Model = "gpt-4-0613",
 
   # Initialize temperature
   temperature = 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Create template for the prompt
   template = "
-  You are an excellent assistant and a highly skilled genius R programmer.
-  You always give great answers about the R language.
-  You will need to prepare an R function requirements definition for project overview, main functions,
-  technical specifications, inputs, outputs, usage, limitations, and additional functionality.
-  You will output only the summary and line item text of the deliverable.
-  The language used is the same as the input text.
+  You are an excellent assistant and a highly skilled genius R programmer to build specifications of R function.
+  You should always carefully understand the intent of the ideas and concepts you are given,
+  and be prepared to be specific in your specifications in an appropriate and comprehensive manner.
+  You need to prepare an R function requirements specification for project overview, main functions,
+  technical specifications, input parameters, output parameters, use cases or applications, and constraints.
+  Finally, you need to make proposals for items missing from the above requirements definition.
+  You are sure to output only the deliverables in the requirements definition.
+  The language used in the output deliverables must be the same as the language of the following input.
   "
 
   template1 = "
-  Using the following information, please provide an overview of the architecture of an R package and describe the functionality and use of the R function.:
+  Please provide an overview of the requirements definition for an R function based on the following input.:
   "
+
 
   # Substitute arguments into the prompt
   template1s <- paste0(template1, paste0(input, collapse = " "), sep=" ")
@@ -62,15 +71,20 @@ createSpecifications4R <- function(Model = "gpt-4-0613",
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execute the chat model
   res <- chat4R_history(history=history,
                         Model = Model,
                         temperature = temperature)
 
+  if(verbose){
+    utils::setTxtProgressBar(pb, 3)
+    cat("\n")}
+
   # Output
   if(SelectedCode){
     rstudioapi::insertText(text = as.character(res))
-    return(message("Finished!!"))
   } else {
   if(verbose) {
     if(SlowTone) {

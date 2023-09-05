@@ -5,6 +5,7 @@
 #'    The GPT-4 model is currently recommended for text generation. It can either read from the RStudio selection or the clipboard.
 #' @param Model A character string specifying the AI model to be used for text enrichment. Default is "gpt-4-0613".
 #' @param SelectedCode A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.
+#' @param verbose Logical flag to indicate whether to display the generated text. Default is TRUE.
 #' @importFrom assertthat assert_that is.string noNA
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext
 #' @importFrom clipr read_clip write_clip
@@ -18,7 +19,8 @@
 #' }
 
 enrichTextContent <- function(Model = "gpt-4-0613",
-                              SelectedCode = TRUE) {
+                              SelectedCode = TRUE,
+                              verbose = TRUE) {
 
   # Get input either from RStudio or clipboard
   if(SelectedCode){
@@ -26,6 +28,11 @@ enrichTextContent <- function(Model = "gpt-4-0613",
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   } else {
     input <- paste0(clipr::read_clip(), collapse = " \n")
+  }
+
+  if(verbose){
+    cat("\n", "enrichTextContent: ", "\n")
+    pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
   }
 
   # Assertions for input validation
@@ -37,6 +44,7 @@ enrichTextContent <- function(Model = "gpt-4-0613",
   )
 
   temperature <- 1
+  if(verbose){utils::setTxtProgressBar(pb, 1)}
 
   # Template for text generation
   template <- "
@@ -57,15 +65,19 @@ enrichTextContent <- function(Model = "gpt-4-0613",
   history <- list(list('role' = 'system', 'content' = template),
                   list('role' = 'user', 'content' = template1s))
 
+  if(verbose){utils::setTxtProgressBar(pb, 2)}
+
   # Execute text generation
   retry_count <- 0
-  while (retry_count < 5) {
+  while (retry_count <= 3) {
     res <- chat4R_history(history = history,
                           Model = Model,
                           temperature = temperature)
     if(nchar(res) >= nchar(input) * 2){ break }
     retry_count <- retry_count + 1
   }
+
+  if(verbose){utils::setTxtProgressBar(pb, 3)}
 
   # Output the enriched text
   if(SelectedCode){

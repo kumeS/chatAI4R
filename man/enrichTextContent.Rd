@@ -4,12 +4,14 @@
 \alias{enrichTextContent}
 \title{Enrich Text Content}
 \usage{
-enrichTextContent(Model = "gpt-4-0613", SelectedCode = TRUE)
+enrichTextContent(Model = "gpt-4-0613", SelectedCode = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{Model}{A character string specifying the AI model to be used for text enrichment. Default is "gpt-4-0613".}
 
 \item{SelectedCode}{A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.}
+
+\item{verbose}{Logical flag to indicate whether to display the generated text. Default is TRUE.}
 }
 \value{
 If SelectedCode is TRUE, the enriched text is inserted into the RStudio editor and a message "Finished!!" is returned.

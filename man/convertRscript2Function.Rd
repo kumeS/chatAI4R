@@ -4,12 +4,18 @@
 \alias{convertRscript2Function}
 \title{convertRscript2Function}
 \usage{
-convertRscript2Function(Model = "gpt-4-0613", SelectedCode = TRUE)
+convertRscript2Function(
+  Model = "gpt-4-0613",
+  SelectedCode = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".}
 
 \item{SelectedCode}{Logical flag to indicate whether to use selected code in RStudio. Default is TRUE.}
+
+\item{verbose}{A logical value indicating whether to print the result to the console, default is TRUE.}
 }
 \value{
 Inserts the converted function into the RStudio editor if `SelectedCode` is TRUE, otherwise writes to clipboard.
