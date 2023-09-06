@@ -63,7 +63,7 @@ supportIdeaGeneration <- function(Model = "gpt-4-0613",
   "
 
   template1 = "
-  Please be open to ideas and concepts for further discussion with the following input.:
+  Please provide ideas and concepts concisely and comprehensively for further discussion using the following input.:
   "
 
   # Substitute arguments into the prompt

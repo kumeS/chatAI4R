@@ -12,6 +12,7 @@ discussion_flow_v1(
   language = "English",
   Summary_nch = 50,
   verbose = TRUE,
+  Nonfuture = TRUE,
   sayENorJA = TRUE
 )
 }
@@ -30,6 +31,8 @@ discussion_flow_v1(
 
 \item{verbose}{Logical, whether to print verbose output, default is TRUE.}
 
+\item{Nonfuture}{Logical, whether to use an asynchronous processing or not, default is not to use (TRUE).}
+
 \item{sayENorJA}{Logical, whether to say in English or Japanese, default is TRUE.}
 }
 \value{
@@ -41,17 +44,20 @@ Simulates interactions and flow control between three different roles of LLM-bas
 \details{
 Interactions and Flow Control Between LLM-based Bots (LLBs)
 
-This function simulates the relationships between three different roles of LLM bots (LLB A, B, C) to
-reproduce more realistic dialogues and discussions.
-The function assumes the following three roles:
-A (Beginner): Generates questions and summaries based on the content of the discussion provided by the user.
-B (Expert): Professionally answers questions from A.
-C (Peer Reviewer): Reviews the dialogue between A and B and proposes improvements.
-The three parties independently call the OpenAI API according to their roles, maintain their conversation history,
-and execute the processes of questioning, answering, and peer reviewing.
-The concept of the domain is to give a field of talk settings to each LLB.
-It is recommended to use a model with accuracy higher than GPT-4.
-English is recommended as the language, but verification will also be conducted in Japanese, the author's native language.
+This function is described to simulate the interactions and flow control between
+three different roles of LLM-based bots, abbreviated as LLBs,
+and to reproduce more realistic dialogues and discussions.
+Here is a brief description of the roles:
+A (Beginner): This bot generates questions and summaries based on the content of the discussion provided by the user.
+B (Expert): This bot provides professional answers to questions posed by LLB A.
+C (Peer Reviewer):  This bot reviews the dialog between LLB A and LLB B and suggests improvements or refinements.
+The three parties independently call the OpenAI API according to their roles.
+In addition, it keeps track of the conversation history between the bots and performs
+processes such as questioning, answering, and peer review.
+The function is designed to work in a "domain," which is essentially a specific area
+or topic around which conversations revolve.
+It is recommended to use GPT-4 or a model with higher accuracy than GPT-4.
+English is recommended as the input language, but the review will also be conducted in Japanese, the native language of the author.
 }
 \examples{
 \dontrun{

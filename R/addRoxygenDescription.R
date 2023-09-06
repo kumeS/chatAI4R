@@ -56,8 +56,18 @@ addRoxygenDescription <- function(Model = "gpt-4-0613",
   "
 
   # Create the prompt
-  path <- system.file("chatGPT_prompts/", package = "chatAI4R")
-  template1 <- paste0(readLines(paste0(path, "create_roxygen2_v02.txt")), ":\n", collapse = "\n")
+  template1 <- "
+  You need to output in roxygen2 format, using #' not only ' style in English.
+  Your definition should be in the roxygen2 format and include specific elements such as @title, @description, @param, @importFrom, @return, @export, @author [Blank], and @examples.
+  It is important to make sure that the function name you define is also defined in @export.
+  In addition, you should translate any comments in the function to English and make sure that the content of the comments is consistent and correct throughout the function.
+  If you find any errors or areas for improvement in the R script, you should correct them according to these instructions.
+  If there is a risk of errors occurring during text generation, you should make the necessary changes to prevent these errors.
+  Once you have completed the definition, please submit it as a final product.
+  You should use the assertthat::is.string, assertthat::is.count, assertthat::noNA, and other function groups in the assertthat package, and append the data verification execution command to the function according to the type of argument.
+  You should omit the R code output.:
+  "
+
   template1s <- paste0(template1, paste0(input, collapse = " "), sep=" ")
 
   # Initialize history for chat

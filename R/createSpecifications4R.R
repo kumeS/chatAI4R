@@ -52,8 +52,8 @@ createSpecifications4R <- function(Model = "gpt-4-0613",
   You are an excellent assistant and a highly skilled genius R programmer to build specifications of R function.
   You should always carefully understand the intent of the ideas and concepts you are given,
   and be prepared to be specific in your specifications in an appropriate and comprehensive manner.
-  You need to prepare an R function requirements specification for project overview, main functions,
-  technical specifications, input parameters, output parameters, use cases or applications, and constraints.
+  You need to prepare an R function requirements specification for project and technical overview, main functions,
+  input parameters, output parameters, use cases or applications, and constraints.
   Finally, you need to make proposals for items missing from the above requirements definition.
   You are sure to output only the deliverables in the requirements definition.
   The language used in the output deliverables must be the same as the language of the following input.
@@ -62,7 +62,6 @@ createSpecifications4R <- function(Model = "gpt-4-0613",
   template1 = "
   Please provide an overview of the requirements definition for an R function based on the following input.:
   "
-
 
   # Substitute arguments into the prompt
   template1s <- paste0(template1, paste0(input, collapse = " "), sep=" ")

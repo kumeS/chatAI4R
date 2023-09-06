@@ -6,7 +6,7 @@
 #' @param SelectedCode A logical value indicating if the selected text should be used as input. Default is TRUE.
 #' @param verbose A logical value indicating if progress should be printed. Default is TRUE.
 #' @param SlowTone A logical value indicating if slow printing should be used. Default is FALSE.
-#' @importFrom assertthat assert_that is.string noNA is.count
+#' @importFrom assertthat assert_that is.string noNA is.flag
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext
 #' @importFrom clipr read_clip write_clip
 #' @importFrom utils txtProgressBar setTxtProgressBar
@@ -27,7 +27,9 @@ createRfunction <- function(Model = "gpt-4-0613",
                             SlowTone = FALSE){
 
   # Get input either from RStudio or clipboard
+  # Get input either from RStudio or clipboard
   if(SelectedCode){
+    assertthat::assert_that(rstudioapi::isAvailable())
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   } else {
     input <- paste0(clipr::read_clip(), collapse = " \n")
@@ -36,9 +38,9 @@ createRfunction <- function(Model = "gpt-4-0613",
   # Assertions for function input
   assertthat::assert_that(
     assertthat::is.string(Model),
-    assertthat::is.count(SelectedCode),
-    assertthat::is.count(verbose),
-    assertthat::is.count(SlowTone),
+    assertthat::is.flag(SelectedCode),
+    assertthat::is.flag(verbose),
+    assertthat::is.flag(SlowTone),
     rstudioapi::isAvailable() || !SelectedCode,
     Sys.getenv("OPENAI_API_KEY") != ""
   )
@@ -59,16 +61,17 @@ createRfunction <- function(Model = "gpt-4-0613",
 
   # Template creation
   template = "
-  You are an excellent assistant and a highly skilled genius co-pilot of the R language, always be a very good software engineer of R programming,
-  Always respond to deliverables and related explanations in a very professional and accurate manner.
+  You are an excellent assistant and a highly skilled genius co-pilot of R programming.
+  You always respond to deliverables and related explanations in a very professional and accurate manner.
   According to the input idea for the R function, you only need to provide the R function as a deliverable in a comprehensive and detailed manner.
   For example, descriptions of loading R packages through library functions, test descriptions, and descriptions outside of R functions are not required.
   Be sure to comment out the description of each execution in the R function.
+  You should not use code blocks (```r, etc.) and create tests or examples.
   The language used in the output deliverables must be the same as the language of the following input.
   "
 
   template1 = "
-  Please create the R program as an R function based on the following input.:
+  Without creating any code blocks or tests, create the R program as an R function based on the following input.:
   "
 
   # Substituting arguments into the prompt
