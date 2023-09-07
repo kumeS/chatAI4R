@@ -112,7 +112,7 @@ if(deepRstudio::is_mac()){
 
 #LLB Settings
 Setting_A <- "You are a beginner of %s. You can come up with lots of questions about a given %s topic, and you can ask great and pertinent questions. "
-Setting_B <- "You are an expert of %s, an expert in Python and the R language. You are very knowledgeable in %s and can answer any related question."
+Setting_B <- "You are an expert of %s, an expert in the R language. You are very knowledgeable in %s and can answer any related question."
 Setting_C <- "You are a peer reviewer of %s. You have heard the summary stories of %s and can comment on improvements and shortcomings comprehensively and accurately.
 Please explain in an easy-to-understand way for a first-time student. Please also suggest additional content that is missing from the discussion."
 #opt <- "Please return your answers as if you were having a conversation."
