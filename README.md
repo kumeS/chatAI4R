@@ -31,9 +31,7 @@ chatAI4R is an experimental project aimed at developing and implementing various
   - Highly-technical texts modeling and natural language question answering
   - Bioinformatics analysis
   
-**The functionality for interlanguage translation using DeepL has been separated as the 'deepRstudio' package.**
-
-**Functions related to text-to-image generation were separated as the 'stableDiffusion4R' package.**
+*The functionality for interlanguage translation using DeepL has been separated as the 'deepRstudio' package. Functions related to text-to-image generation were separated as the 'stableDiffusion4R' package.*
 
 ## Installation of the chatAI4R package
 
