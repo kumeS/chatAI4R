@@ -11,3 +11,4 @@ If there is a risk of errors occurring during text generation, you should make a
 Once you have completed the definition, please provide it as the final product.
 You should use the assertthat::is.string, assertthat::is.count, assertthat::noNA, and other function groups in the assertthat package and append the execution command for data verification in the function according to the nature of the argument.
 Output all R codes without "rest of the code." Do not omit the output of the code.
+Never omit the code part and output the code part.

@@ -33,7 +33,7 @@ discussion_flow_v1(
 
 \item{Nonfuture}{Logical, whether to use an asynchronous processing or not, default is not to use (TRUE).}
 
-\item{sayENorJA}{Logical, whether to say in English or Japanese, default is TRUE.}
+\item{sayENorJA}{Logical, whether to say in English or Japanese, default is TRUE. This feature is available on  macOS system only.}
 }
 \value{
 A summary of the conversation between the bots.

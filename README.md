@@ -99,6 +99,8 @@ Note: Please be aware of newline character inconsistencies across different oper
 
 - [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
 
+- [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
+
 ###  Applied usage of the chatAI4R package
 
 - AI-based chatting loaded with highly-technical documents (RIKEN Pressrelease text)
@@ -128,24 +130,46 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |completions4R|Generate text using OpenAI completions API (One-shot)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/completions4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/completions4R.png)|
 |textEmbedding|Text Embedding from OpenAI Embeddings API (model: text-embedding-ada-002)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textEmbedding.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/textEmbedding.png)|
 |slow_print_v2|Slowly Print Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print_v2.R)||
+|ngsub|Remove Extra Spaces and Newline Characters|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/ngsub.R)||
+|removeQuotations|Remove All Types of Quotations from Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/removeQuotations.R)||
 
-
-### Secondary Layer Functions
+### Basic Secondary Layer Functions
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
 |conversation4R|Manage a conversation using a chatting history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
-|createFunction4R|Generate and improve R functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createFunction4R.R)||
-|TextSummary| Summarize a long text (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
-|createRcode|Create R Code from Clipboard Content and Output into the R Console|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRcode.R)||
+|autocreateFunction4R|Generate and Improve R Functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/autocreateFunction4R.R)||
 
 ### Functions for R package developments
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
+|designPackage|Design Package for R|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/designPackage.R)||
+|supportIdeaGeneration|Support Idea Generation from Selected Text or Clipboard Input|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/supportIdeaGeneration.R)||
+|enrichTextContent|Enrich Text Content|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/enrichTextContent.R)||
+|createSpecifications4R|Create Specifications for R Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createSpecifications4R.R)||
+|createRcode|Create R Code from Clipboard Content and Output into the R Console|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRcode.R)||
+|createRfunction|Create R Function from Selected Text or Clipboard Content |[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRfunction.R)||
+|convertRscript2Function|Convert Selected R Script to R Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertRscript2Function.R)||
+|OptimizeRcode|Optimize and Complete R Code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/OptimizeRcode.R)||
+|addCommentCode|Add Comments to R Code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)||
+|addRoxygenDescription|Add Roxygen Description to R Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addRoxygenDescription.R)||
 |proofreadEnglishText|Proofread English Text During R Package Development via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadEnglishText.R)||
 |checkErrorDet|Check Error Details|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)||
 |checkErrorDet_JP|Check Error Details in Japanese via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet_JP.R)||
+|convertScientificLiterature|Convert to Scientific Literature|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertScientificLiterature.R)||
+|searchFunction|Search the R function based on the provided text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/searchFunction.R)||
+
+### Functions for Text Summary
+
+|Function|Description|Script|Flowchart|
+|:---|:---|:---:|:---:|
+|TextSummary| Summarize a long text (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
+|summaryWebScrapingText|Summarize Text via Web Scraping of Google Search|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/summaryWebScrapingText.R)||
+|TextSummaryAsBullet|Summarize Selected Text into Bullet Points|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummaryAsBullet.R)||
+|convertBullet2Sentence|Convert Bullet Points to Sentences|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertBullet2Sentence.R)||
+|chatAI4pdf|Summarize PDF Text via LLM|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chatAI4pdf.R)||
+|extractKeywords|Extract Keywords from Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/extractKeywords.R)||
 
 ### Interactions and Flow Control Between LLM-based Bots (LLBs)
 

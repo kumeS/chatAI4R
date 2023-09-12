@@ -164,3 +164,104 @@ TextSummary <- function(text = clipr::read_clip(),
   }
 }
 
+
+.TextSummary_v1 <- function(text,
+                            nch = 2000,
+                            verbose = TRUE){
+
+  Model = "gpt-3.5-turbo"
+  Summary_block = nch*0.1
+  temperature = 1
+
+  # Validate input types and values
+  assertthat::assert_that(assertthat::is.string(text[1]))
+  assertthat::assert_that(assertthat::is.count(nch), nch > 0)
+  assertthat::assert_that(assertthat::is.count(Summary_block), Summary_block > 0)
+  assertthat::assert_that(assertthat::is.string(Model))
+  assertthat::assert_that(assertthat::is.number(temperature), temperature >= 0, temperature <= 1)
+
+  # Preprocessing
+  text0 <- paste0(text, collapse = " ")
+  text0 <- gsub('\", \n\"', ' ', text0)
+  text0 <- gsub('[(][0-9][0-9][:][0-9][0-9][)]', '', text0)
+  text0 <- gsub('[(][0-9][:][0-9][0-9][:][0-9][0-9][)]', '', text0)
+
+  # Splitting the text
+  len <- nchar(text0)
+  if(len <= nch){
+    #nch <- len
+    text1 <- text0
+  }else{
+    val <- round(seq(1, len, length.out = ceiling(len/nch)), 0)
+
+    # Define the start and end indices for substr
+    start_indices <- val[1:(length(val)-1)]
+    end_indices <- val[2:(length(val))]
+
+    # Use sapply to apply substr function
+    text1 <- sapply(seq_len(length(start_indices)),
+                    function(i) substr(text0, start_indices[i], end_indices[i]))
+    #sum(nchar(unlist(text1)))
+  }
+
+  if(verbose){
+  cat("\n\n")
+  cat("Text nchar:", len, "\n")
+  cat("Text block:", length(text1), "\n")
+  }
+
+  template0 = "
+  You are a great assistant and an excellent co-pilot.
+  Your response should always be both response speed and accuracy.
+  You summarize and itemize the user's input. Your output is only the summarized text.
+  You must strictly reproduce and reconsider every detail without being overly concise in your writing.
+  The language used in the summary is the same as the input text.
+  "
+
+  # Template creation
+  template1 = "
+  Please summarize the following text within %s characters.:
+  "
+
+  # Substituting arguments into the prompt
+  template1s <- sprintf(template1, Summary_block)
+
+  # Prompt creation
+  pr <- paste0(template1s, text1, sep=" ")
+
+  # Variable creation
+  result <- list()
+  history <- list(list('role' = 'system', 'content' = template0))
+
+  # Execution
+
+  for(n in seq_len(length(pr))){
+    #n <- 1
+    if(verbose){cat("\n")}
+    if(verbose){cat("Text: ", n, "\n")}
+    history[[length(history) + 1]] <- list('role' = 'user', 'content' = pr[n])
+
+    retry_count <- 0
+    while (retry_count <= 2) {
+      res <- chat4R_history(history = history,
+                            Model = Model,
+                            temperature = temperature)
+      if(nchar(res) < Summary_block + 100){ break }
+      retry_count <- retry_count + 1
+    }
+
+    if(verbose){cat(res, "\n")}
+    history[[length(history) + 1]] <- list('role' = 'assistant', 'content' = res)
+    history <- history[sapply(history[1:length(history)], function(x) x$role) != "user"]
+
+    #output
+    result[[n]] <- res
+
+  }
+
+  # Put into the clipboard
+  #if(verbose)(message("Finished!!"))
+  return(paste0(unlist(result), collapse = " "))
+}
+
+

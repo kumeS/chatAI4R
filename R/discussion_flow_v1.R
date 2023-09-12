@@ -25,7 +25,7 @@
 #' @param Summary_nch The number of characters for the summary, default is 50.
 #' @param verbose Logical, whether to print verbose output, default is TRUE.
 #' @param Nonfuture Logical, whether to use an asynchronous processing or not, default is not to use (TRUE).
-#' @param sayENorJA Logical, whether to say in English or Japanese, default is TRUE.
+#' @param sayENorJA Logical, whether to say in English or Japanese, default is TRUE. This feature is available on  macOS system only.
 #' @importFrom future plan future multisession resolved
 #' @importFrom igraph graph add_vertices layout_nicely add_edges layout_with_fr
 #' @importFrom deepRstudio is_mac deepel
@@ -770,8 +770,4 @@ Sys.sleep(0.5)
 return(message("Finished!!"))
 
 }
-
-
-
-
 

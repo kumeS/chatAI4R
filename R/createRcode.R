@@ -1,4 +1,4 @@
-#' Create R Code from Selected Text or Clipboard Content and Output into the R Console
+#' Create R Code from Selected Text or Clipboard Content
 #'
 #' This function reads text from your selected text or clipboard, interprets it as a prompt, and generates R code based on the given input.
 #' The generated R code is then printed to the R console with optional slow printing.

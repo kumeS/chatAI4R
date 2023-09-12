@@ -1,4 +1,4 @@
-#' Summarize PDF Text Using a Large Language Model
+#' Summarize PDF Text via LLM
 #'
 #' This function reads a PDF file and summarizes its content using a specified Large Language Model (LLM).
 #'
