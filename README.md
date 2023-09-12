@@ -145,6 +145,7 @@ Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
 |:---|:---|:---:|:---:|
 |conversation4R|Manage a conversation using a chatting history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
 |autocreateFunction4R|Generate and Improve R Functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/autocreateFunction4R.R)||
+|revisedText|Revision for a scientific text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/revisedText.R)||
 
 ### Functions for R package developments
 
