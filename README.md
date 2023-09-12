@@ -99,7 +99,13 @@ Note: Please be aware of newline character inconsistencies across different oper
 
 - [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
 
-- [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
+- [Roxygen2 (GPT-4 UI)](https://youtu.be/wTMZfLMXYH0?si=50aV1V_yv8_t-1zZ)
+
+- [R / LLM demo (1) search R function and error message](https://youtu.be/O9QLMv1DJuY?si=3zcQPZmWzDkJedym) 
+
+- [R / LLM demo (2) create R function](https://youtu.be/dIUkCqCS0Tw?si=xApdb9vJ9ILudqU7) 
+
+- [R / LLM demo (3) Discussion among LLM Bots](https://youtu.be/qJTblkU0dI4?si=HyK_-LIUhzn-vFqu) 
 
 ###  Applied usage of the chatAI4R package
 
