@@ -27,7 +27,7 @@ This function returns the generated R code as a clipboard content if SelectedCod
 This function reads text either from your selected text in RStudio or from the clipboard, interprets it as a prompt, and generates an R function based on the given input. The generated R code is then printed into the source file or the R console with optional slow printing.
 }
 \details{
-Create R Function from Selected Text or Clipboard Content and Output into the R Console
+Create R Function from Selected Text or Clipboard Content
 }
 \examples{
 \dontrun{

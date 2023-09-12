@@ -12,10 +12,11 @@ Authors@R: c(
 Maintainer: Satoshi Kume <satoshi.kume.1984@gmail.com>
 Description: The Large Language Model (LLM) represents a groundbreaking advancement 
     in data science and programming, and also allows us to extend the world of R. 
-    A seamless interface for integrating the 'OpenAI' Web APIs, and other Web APIs 
-    into R is provided in this package. This package leverages LLM-based AI techniques, 
-    enabling efficient knowledge discovery and data analysis 
+    A seamless interface for integrating the 'OpenAI' Web APIs into R is provided in this package. 
+    This package leverages LLM-based AI techniques, enabling efficient knowledge discovery and data analysis 
     (see 'OpenAI' Web APIs details <https://openai.com/blog/openai-api>).
+    The previous functions such as seamless translation and image generation have been moved 
+    to other packages 'deepRstudio' and 'stableDiffusion4R'.
 Depends: R (>= 4.2.0)
 Imports: httr, 
     jsonlite, 
