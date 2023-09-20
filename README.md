@@ -1,4 +1,4 @@
-# chatAI4R <img src="inst/figures/chatAI4R_logo.png" align="right" height="139" />
+# chatAI4R: Chat-Based Interactive Artificial Intelligence for R <img src="inst/figures/chatAI4R_logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 [![Lifecycle:
