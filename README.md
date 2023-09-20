@@ -5,7 +5,7 @@
 maturing](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN](https://www.r-pkg.org/badges/version/chatAI4R)](https://cran.r-project.org/web/packages/chatAI4R/index.html)
 [![CRAN_latest_release_date](https://www.r-pkg.org/badges/last-release/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
-[![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](http://www.datasciencemeta.com/rpackages)
+[![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](https://www.datasciencemeta.com/rpackages)
 [![:total status badge](https://kumes.r-universe.dev/badges/:total)](https://kumes.r-universe.dev)
 [![chatAI4R status badge](https://kumes.r-universe.dev/badges/chatAI4R)](https://kumes.r-universe.dev)
 <!-- badges: end -->
