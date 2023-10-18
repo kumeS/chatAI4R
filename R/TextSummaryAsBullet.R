@@ -16,7 +16,11 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' TextSummaryAsBullet(text = "This is a sample text.")
+#' # Option 1
+#' # Select some text in RStudio and then run the rstudio addins
+#' # Option 2
+#' # Copy the text into your clipboard then execute
+#' TextSummaryAsBullet()
 #' }
 
 TextSummaryAsBullet <- function(Model = "gpt-4-0613",

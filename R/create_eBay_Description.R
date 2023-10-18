@@ -17,6 +17,10 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
+#' # Option 1
+#' # Select some text in RStudio and then run the rstudio addins
+#' # Option 2
+#' # Copy the text into your clipboard then execute
 #' createEBAYdes(Model = "gpt-4-0613", SelectedCode = FALSE, verbose = TRUE)
 #' }
 
