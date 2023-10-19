@@ -29,6 +29,7 @@ TextSummaryAsBullet <- function(Model = "gpt-4-0613",
                                 SelectedCode = TRUE){
 
   # Get input either from RStudio or clipboard
+  assertthat::assert_that(is.logical(SelectedCode))
   if(SelectedCode){
     assertthat::assert_that(rstudioapi::isAvailable())
     input <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
@@ -38,7 +39,9 @@ TextSummaryAsBullet <- function(Model = "gpt-4-0613",
 
   if(verbose){
   cat("\n", "TextSummaryAsBullet: ", "\n")
-  pb <- utils::txtProgressBar(min = 0, max = 4, style = 3)}
+  pb <- utils::txtProgressBar(min = 0, max = 4, style = 3)
+  #cat("\n")
+  }
 
   #selection
   choices1 <- c(" 3 bullet points", " 6 bullet points",
@@ -66,7 +69,6 @@ TextSummaryAsBullet <- function(Model = "gpt-4-0613",
   assertthat::assert_that(assertthat::is.number(BulletPoints))
   assertthat::assert_that(assertthat::is.number(temperature), temperature >= 0, temperature <= 1)
   assertthat::assert_that(is.logical(verbose))
-  assertthat::assert_that(is.logical(SelectedCode))
 
   if(verbose){utils::setTxtProgressBar(pb, 1)}
 
@@ -86,6 +88,9 @@ TextSummaryAsBullet <- function(Model = "gpt-4-0613",
   "
 
   if(verbose){utils::setTxtProgressBar(pb, 2)}
+  if(nchar(text0) > 10000){
+    return(message("\nToo long text input: nchar >10000"))
+  }
 
   # Create the prompt
   template1 = "Please summarize the following text in %s bullet points.:"
