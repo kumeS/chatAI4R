@@ -40,9 +40,11 @@ textEmbedding <- function(text,
 
   # Parse response
   content <- httr::content(response, "parsed")
+  #str(content$data[[1]])
 
   #convert to vector
   v <- unlist(content$data[[1]]$embedding)
+  #str(v)
 
   # Return vector
   return(v)
