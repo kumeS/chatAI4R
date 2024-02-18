@@ -28,6 +28,10 @@ from the clipboard and outputs the extracted keywords in a comma-separated forma
 }
 \examples{
 \dontrun{
+# Option 1
+# Select some text in RStudio and then run the rstudio addins
+# Option 2
+# Copy the text into your clipboard then execute
 extractKeywords(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
 }
 }

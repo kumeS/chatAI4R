@@ -4,7 +4,7 @@
 \alias{proofreadEnglishText}
 \title{Proofread English Text}
 \usage{
-proofreadEnglishText(Model = "gpt-4-0613", SelectedCode = TRUE, verbose = TRUE)
+proofreadEnglishText(Model = "gpt-4", SelectedCode = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{Model}{A string specifying the model to be used for proofreading, defaulting to "gpt-4-0314".

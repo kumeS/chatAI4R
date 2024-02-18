@@ -26,7 +26,11 @@ Enrich Text Content
 }
 \examples{
 \dontrun{
-  enrichTextContent(Model = "gpt-4-0613", SelectedCode = TRUE)
+# Option 1
+# Select some text in RStudio and then run the rstudio addins
+# Option 2
+# Copy the text into your clipboard then execute
+enrichTextContent(Model = "gpt-4-0613", SelectedCode = TRUE)
 }
 }
 \author{

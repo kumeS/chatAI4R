@@ -26,6 +26,10 @@ The function reads the input either from the RStudio active document or the clip
 }
 \examples{
 \dontrun{
+# Option 1
+# Select some text in RStudio and then run the rstudio addins
+# Option 2
+# Copy the text into your clipboard then execute
 convertScientificLiterature(SelectedCode = FALSE)
 }
 }

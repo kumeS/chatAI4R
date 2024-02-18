@@ -28,6 +28,7 @@ The function reads the input from the clipboard.
 }
 \examples{
 \dontrun{
+# Copy the text into your clipboard then execute
 designPackage(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
 }
 }

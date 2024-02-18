@@ -7,7 +7,7 @@
 completions4R(
   prompt,
   api_key = Sys.getenv("OPENAI_API_KEY"),
-  Model = "text-davinci-003",
+  Model = "davinci-002",
   max_tokens = 50,
   temperature = 1,
   simple = TRUE
@@ -18,7 +18,7 @@ completions4R(
 
 \item{api_key}{A string. The API key for OpenAI. Defaults to the value of the environment variable "OPENAI_API_KEY".}
 
-\item{Model}{A string. The model ID to use, such as "text-davinci-003".}
+\item{Model}{A string. The model ID to use, such as "davinci-002".}
 
 \item{max_tokens}{Integer. The maximum number of tokens to generate.}
 
@@ -36,6 +36,7 @@ This function sends a request to the OpenAI completions API (Legacy)
 }
 \examples{
 \dontrun{
+#This is a legacy function
 Sys.setenv(OPENAI_API_KEY = "Your API key")
 
 prompt <- "Translate the following English text to French: 'Hello, world!'"

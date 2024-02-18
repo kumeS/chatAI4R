@@ -35,6 +35,10 @@ The function reads the input from the clipboard.
 }
 \examples{
 \dontrun{
+# Option 1
+# Select some text in RStudio and then run the rstudio addins
+# Option 2
+# Copy the text into your clipboard then execute
 supportIdeaGeneration()
 }
 }

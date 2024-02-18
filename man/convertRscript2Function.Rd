@@ -32,6 +32,10 @@ The function can either take the selected code from the RStudio environment or f
 }
 \examples{
 \dontrun{
+# Option 1
+# Select some text in RStudio and then run the rstudio addins
+# Option 2
+# Copy the text into your clipboard then execute
 convertRscript2Function(Model = "gpt-4-0613", SelectedCode = F)
 }
 }

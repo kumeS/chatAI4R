@@ -32,6 +32,10 @@ Create Specifications for R Function
 }
 \examples{
 \dontrun{
+# Option 1
+# Select some text in RStudio and then run the rstudio addins
+# Option 2
+# Copy the text into your clipboard then execute
 createSpecifications4R(input = "Your R function specification")
 }
 }

@@ -39,7 +39,7 @@ Chat4R Function
 \examples{
 \dontrun{
 Sys.setenv(OPENAI_API_KEY = "Your API key")
-response <- chat4R("What is the capital of France?")
+response <- chat4R(content = "What is the capital of France?")
 response
 }
 }
