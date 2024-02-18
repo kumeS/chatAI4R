@@ -2,12 +2,12 @@
 % Please edit documentation in R/enrichTextContent.R
 \name{enrichTextContent}
 \alias{enrichTextContent}
-\title{Enrich Text Content}
+\title{Enrich Text Content v2}
 \usage{
-enrichTextContent(Model = "gpt-4-0613", SelectedCode = TRUE, verbose = TRUE)
+enrichTextContent(Model = "gpt-4", SelectedCode = TRUE, verbose = TRUE)
 }
 \arguments{
-\item{Model}{A character string specifying the AI model to be used for text enrichment. Default is "gpt-4-0613".}
+\item{Model}{A character string specifying the AI model to be used for text enrichment. Default is "gpt-4".}
 
 \item{SelectedCode}{A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.}
 
@@ -30,7 +30,7 @@ Enrich Text Content
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-enrichTextContent(Model = "gpt-4-0613", SelectedCode = TRUE)
+enrichTextContent(Model = "gpt-4", SelectedCode = TRUE)
 }
 }
 \author{

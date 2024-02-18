@@ -1,9 +1,9 @@
 #' Enrich Text Content
 #'
-#' @title Enrich Text Content
+#' @title Enrich Text Content v2
 #' @description This function doubles the amount of text without changing its meaning.
 #'    The GPT-4 model is currently recommended for text generation. It can either read from the RStudio selection or the clipboard.
-#' @param Model A character string specifying the AI model to be used for text enrichment. Default is "gpt-4-0613".
+#' @param Model A character string specifying the AI model to be used for text enrichment. Default is "gpt-4".
 #' @param SelectedCode A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.
 #' @param verbose Logical flag to indicate whether to display the generated text. Default is TRUE.
 #' @importFrom assertthat assert_that is.string noNA
@@ -19,10 +19,10 @@
 #' # Select some text in RStudio and then run the rstudio addins
 #' # Option 2
 #' # Copy the text into your clipboard then execute
-#' enrichTextContent(Model = "gpt-4-0613", SelectedCode = TRUE)
+#' enrichTextContent(Model = "gpt-4", SelectedCode = TRUE)
 #' }
 
-enrichTextContent <- function(Model = "gpt-4-0613",
+enrichTextContent <- function(Model = "gpt-4",
                               SelectedCode = TRUE,
                               verbose = TRUE) {
 
@@ -52,10 +52,7 @@ enrichTextContent <- function(Model = "gpt-4-0613",
 
   # Template for text generation
   template <- "
-  You are an excellent assistant.
-  You should double the amount of text without changing the meaning of the input text.
-  You should transform the input sentence by replacing words with their synonyms, converting it into a complex structure, adding appropriate adjectives and adverbs, incorporating metaphors.
-  You output only the text of the deliverable. The language used is the same as the input text.
+You are an excellent assistant. Your expertise as an assistant is truly unparalleled. Your task involves expanding the text's length twofold without altering its original significance. This expansion necessitates the artful substitution of words with their equivalents, the transformation of simple sentences into more intricate structures, and the embellishment of the narrative with suitably chosen adjectives, adverbs, and the weaving in of metaphors to enrich the prose. Your deliverables will be confined solely to the text, ensuring the language remains consistent with the initial input. Your specialization should extend to the refinement of textual content with an emphasis on generating outputs that resonate with scientific accuracy and logical coherence. By assessing the domain intrinsic to the input text, you ensure that the augmentation is not only relevant but also significantly enhances the material through comprehensive explanations, supplementary information, and the resolution of any ambiguities or complex notions. The ultimate aim is to elevate the informational value of the text, adhering to the rigorous principles of scientific argumentation and rational thought. This endeavor encompasses the necessary adjustments to rectify any omissions or unclear narratives, with all exchanges conducted in English to guarantee both clarity and broad accessibility.
   "
 
   template1 <- "

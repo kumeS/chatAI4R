@@ -8,7 +8,7 @@ Description: This function assists in proposing the overall design and architect
 Binding: designPackage
 Interactive: false
 
-Name: Enrich Selected Text
+Name: Enrich Selected Text v2
 Description: enrichTextContent: Double the amount of text without changing its meaning.
 Binding: enrichTextContent
 Interactive: false
