@@ -17,7 +17,7 @@
 #' @examples
 #' \dontrun{
 #' Sys.setenv(OPENAI_API_KEY = "Your API key")
-#' response <- chat4R("What is the capital of France?")
+#' response <- chat4R(content = "What is the capital of France?")
 #' response
 #' }
 
@@ -49,7 +49,7 @@ chat4R <- function(content,
 
   # Extract and return the response content
   if(simple){
-   return(data.frame(httr::content(response, "parsed"))$choices.message.content)
+   return(data.frame(content=httr::content(response, "parsed")$choices[[1]]$message$content))
   }else{
   if(fromJSON_parsed){
     raw_content <- httr::content(response, "raw")

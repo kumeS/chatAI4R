@@ -30,7 +30,7 @@ textEmbedding <- function(text,
   # Request body (set text data)
   body <- list(
     "input" = text,
-    "model" = "text-embedding-ada-002"
+    "model" = "text-embedding-ada-002" # text-embedding-3-large or text-embedding-3-small
   )
 
   # Send POST request to the server

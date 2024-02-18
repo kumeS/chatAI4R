@@ -27,7 +27,7 @@
 #'   proofreadEnglishText(Model = "gpt-4-0613", SelectedCode = FALSE)
 #' }
 
-proofreadEnglishText <- function(Model = "gpt-4-0613",
+proofreadEnglishText <- function(Model = "gpt-4",
                                  SelectedCode = TRUE,
                                  verbose = TRUE) {
 

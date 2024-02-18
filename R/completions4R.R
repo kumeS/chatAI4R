@@ -3,7 +3,7 @@
 #'   to generate text based on the provided prompt and parameters.
 #' @param prompt A string. The initial text that the model responds to.
 #' @param api_key A string. The API key for OpenAI. Defaults to the value of the environment variable "OPENAI_API_KEY".
-#' @param Model A string. The model ID to use, such as "text-davinci-003".
+#' @param Model A string. The model ID to use, such as "davinci-002".
 #' @param max_tokens Integer. The maximum number of tokens to generate.
 #' @param temperature A numeric value to control the randomness of the generated text.
 #'   A value close to 0 produces more deterministic output, while a higher value (up to 2) produces more random output.
@@ -15,6 +15,7 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
+#' #This is a legacy function
 #' Sys.setenv(OPENAI_API_KEY = "Your API key")
 #'
 #' prompt <- "Translate the following English text to French: 'Hello, world!'"
@@ -25,10 +26,10 @@
 
 completions4R <- function(prompt,
                           api_key = Sys.getenv("OPENAI_API_KEY"),
-                          Model = "text-davinci-003",
+                          Model = "davinci-002",
                           max_tokens =  50,
                           temperature = 1,
-                          simple=TRUE){
+                          simple = TRUE){
 
   # Define parameters
   api_url <- "https://api.openai.com/v1/completions"

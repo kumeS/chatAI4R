@@ -53,7 +53,8 @@ chat4R_history <- function(history,
                          encode = "json", config = headers)
 
   # Parsing the result
-  return(data.frame(httr::content(response, "parsed"))$choices.message.content)
+  return(data.frame(content=httr::content(response, "parsed")$choices[[1]]$message$content))
 }
+
 
 
