@@ -1,8 +1,8 @@
 Package: chatAI4R
 Type: Package
 Title: Chat-Based Interactive Artificial Intelligence for R
-Version: 0.3.1
-Date: 2024-02-18
+Version: 0.3.2
+Date: 2024-05-10
 Authors@R: c(
     person (given = "Satoshi", family = "Kume",
     role = c("aut", "cre"), 

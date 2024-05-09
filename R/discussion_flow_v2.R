@@ -66,7 +66,7 @@ DEEPL <- any(names(Sys.getenv()) == "DeepL_API_KEY")
 
 #Create graph nodes
 set.seed(123)
-g <- igraph::graph(c(), directed = TRUE)
+g <- igraph::make_graph(c(), directed = TRUE)
 g <- igraph::add_vertices(g, 4, name = c("H", "A", "B", "C"))
 layout <- igraph::layout_nicely(g)*10
 #layout <- igraph::layout_with_fr(g, area = vcount(g)^3)

@@ -1,21 +1,14 @@
-R Function for Deepinfra APIs
+#R Function for Deepinfra APIs
 
-この関数は、Deepinfra APIsを使った実行をサポートします。
-Llama-2、CodeLlama、PhindなどをDeepinfraのAPIを使って実行します。
+#この関数は、Deepinfra APIsを使った実行をサポートします。
+#Llama-2、CodeLlama、PhindなどをDeepinfraのAPIを使って実行します。
+#使用前に、`Sys.setenv(DEEPINFRA_API_KEY = "Your API key")`を定義してください。
+#prompt: string, text to generate from
 
-使用前に、`Sys.setenv(DEEPINFRA_API_KEY = "Your API key")`を定義してください。
-prompt: string, text to generate from
-
-
-Parameter_Setting
-max_new_tokens: integer, default value is 512, maximum length of the newly generated generated text.
-temperature: number, default value is 0.7, temperature to use for sampling
-
-top_p: number, default value is 0.9, Sample from the set of tokens with highest probability such that sum of probabilies is higher than p.
-
-
-
-
+#Parameter_Setting
+#max_new_tokens: integer, default value is 512, maximum length of the newly generated generated text.
+#temperature: number, default value is 0.7, temperature to use for sampling
+#top_p: number, default value is 0.9, Sample from the set of tokens with highest probability such that sum of probabilies is higher than p.
 
 
 deepinfra4R <- function(prompt,
