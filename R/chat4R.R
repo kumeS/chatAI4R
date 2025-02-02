@@ -1,11 +1,14 @@
 #' Chat4R Function
 #'
-#' @title Chat4R: Interact with GPT-3.5 (default) using OpenAI API
+#' @title Chat4R: Interact with gpt-4o-mini (default) using OpenAI API
 #' @description This function uses the OpenAI API to interact with the
-#'   GPT-3.5 model (default) and generates responses based on user input.
+#'    gpt-4o-mini model (default) and generates responses based on user input.
+#'    In this function, currently, "gpt-4o-mini", "gpt-4o", "gpt-4", "gpt-4-turbo" and "gpt-3.5-turbo"
+#'    can be selected as OpenAI's LLM model.
 #' @param content A string containing the user's input message.
-#' @param api_key A string containing the user's OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".
-#' @param Model A string specifying the GPT model to use (default: "gpt-3.5-turbo-16k").
+#' @param api_key A string containing the user's OpenAI API key.
+#'    Defaults to the value of the environment variable "OPENAI_API_KEY".
+#' @param Model A string specifying the GPT model to use (default: "gpt-4o-mini").
 #' @param temperature A numeric value controlling the randomness of the model's output (default: 1).
 #' @param simple Logical, if TRUE, only the content of the model's message will be returned.
 #' @param fromJSON_parsed Logical, if TRUE, content will be parsed from JSON.
@@ -22,7 +25,7 @@
 #' }
 
 chat4R <- function(content,
-                   Model = "gpt-3.5-turbo-16k",
+                   Model = "gpt-4o-mini",
                    temperature = 1,
                    simple=TRUE,
                    fromJSON_parsed=FALSE,

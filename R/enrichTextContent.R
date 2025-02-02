@@ -85,6 +85,6 @@ You are an excellent assistant. Your expertise as an assistant is truly unparall
     rstudioapi::insertText(text = as.character(res))
     return(message("Finished!!"))
   } else {
-    return(clipr::write_clip(res))
+    return(clipr::write_clip(as.character(res)))
   }
 }

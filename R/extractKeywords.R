@@ -69,9 +69,9 @@ extractKeywords <- function(Model = "gpt-4-0613",
 
   if(verbose){utils::setTxtProgressBar(pb, 2)}
   # Execute the chat model
-  res <- chat4R_history(history=history,
+  res <- as.character(chat4R_history(history=history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   if(verbose){utils::setTxtProgressBar(pb, 3)}
   # Print the result based on verbosity and tone speed

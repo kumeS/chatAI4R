@@ -76,9 +76,9 @@ proofreadEnglishText <- function(Model = "gpt-4",
   if(verbose){utils::setTxtProgressBar(pb, 2)}
 
   # Execution
-  res <- chat4R_history(history=history,
+  res <- as.character(chat4R_history(history=history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
   #str(res)
   if(verbose){utils::setTxtProgressBar(pb, 3)}
 

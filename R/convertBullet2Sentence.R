@@ -81,9 +81,9 @@ convertBullet2Sentence <- function(Model = "gpt-4-0613",
   if(verbose){utils::setTxtProgressBar(pb, 3)}
 
   # Execute text generation
-  res <- chat4R_history(history = history,
+  res <- as.character(chat4R_history(history = history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   # Output the summarized text
   if(all(verbose, SpeakJA)){
@@ -97,6 +97,6 @@ convertBullet2Sentence <- function(Model = "gpt-4-0613",
   if(SelectedCode){
     rstudioapi::insertText(text = as.character(res))
   } else {
-    return(clipr::write_clip(res))
+    return(clipr::write_clip(as.character(res)))
   }
 }

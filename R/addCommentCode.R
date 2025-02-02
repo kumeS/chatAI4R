@@ -68,9 +68,9 @@ addCommentCode <- function(Model = "gpt-4-0613",
                   list('role' = 'user', 'content' = template1s))
 
   # Execute text generation
-  res <- chat4R_history(history = history,
+  res <- as.character(chat4R_history(history = history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   # Output the enriched text
   if(SelectedCode){

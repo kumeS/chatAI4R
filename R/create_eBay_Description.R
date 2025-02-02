@@ -118,7 +118,7 @@ if(verbose) {
   }
 }
 
-return(clipr::write_clip(res))
+return(clipr::write_clip(as.character(res)))
 
 }
 }

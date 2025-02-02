@@ -69,9 +69,9 @@ checkErrorDet_JP <- function(Summary_nch = 100,
   if(verbose){utils::setTxtProgressBar(pb, 2)}
 
   # Execution
-  res <- chat4R_history(history=history,
+  res <- as.character(chat4R_history(history=history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   if(verbose){
     utils::setTxtProgressBar(pb, 3)

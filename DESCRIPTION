@@ -1,7 +1,7 @@
 Package: chatAI4R
 Type: Package
 Title: Chat-Based Interactive Artificial Intelligence for R
-Version: 0.3.2
+Version: 0.3.3
 Date: 2024-05-10
 Authors@R: c(
     person (given = "Satoshi", family = "Kume",
@@ -29,10 +29,11 @@ Imports: httr,
     deepRstudio,
     pdftools,
     xml2,
-    rvest
+    rvest,
+    curl
 Suggests: testthat, knitr
 License: Artistic-2.0
 URL: https://kumes.github.io/chatAI4R/, https://github.com/kumeS/chatAI4R
 BugReports: https://github.com/kumeS/chatAI4R/issues
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Encoding: UTF-8

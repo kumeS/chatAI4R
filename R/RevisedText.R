@@ -119,9 +119,9 @@ history <- list(list('role' = 'system', 'content' = template0s),
                 list('role' = 'user', 'content' = template1s))
 
 # Execute the chat model
-res <- chat4R_history(history=history,
+res <- as.character(chat4R_history(history=history,
                       Model = Model,
-                      temperature = 1)
+                      temperature = 1))
 
 # Output final result or relevant messages
 if(verbose) {

@@ -6,8 +6,8 @@
 #' @title Check Error Details
 #' @description A function to analyze and provide guidance on how to fix an error message copied from the R console.
 #' @param Summary_nch An integer specifying the maximum number of characters for the summary.
-#' @param Model A string specifying the model to be used, default is "gpt-4-0314".
-#'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
+#' @param Model A string specifying the model to be used, default is "gpt-4o-mini".
+#'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4o-mini" can be selected as gpt-4 models.
 #'    Execution with GPT-4 is recommended.
 #' @param language A string specifying the output language, default is "English".
 #' @param verbose A logical value to control the verbosity of the output, default is TRUE.
@@ -25,7 +25,7 @@
 #' }
 
 checkErrorDet <- function(Summary_nch = 100,
-                          Model = "gpt-4-0613",
+                          Model = "gpt-4o-mini",
                           language = "English",
                           verbose = TRUE,
                           SlowTone = FALSE) {
@@ -64,9 +64,9 @@ checkErrorDet <- function(Summary_nch = 100,
                   list('role' = 'user', 'content' = template1s))
 
   # Execution
-  res <- chat4R_history(history=history,
+  res <- as.character(chat4R_history(history=history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   if(verbose) {
     if(SlowTone) {

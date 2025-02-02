@@ -98,9 +98,9 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
       template2 = "Please describe in detail the changes you previously made to the R code without apology."
       history[[4]] <- list('role' = 'user', 'content' = template2)
 
-      res1 <- chat4R_history(history = history,
+      res1 <- as.character(chat4R_history(history = history,
                              Model = Model,
-                             temperature = temperature)
+                             temperature = temperature))
 
       if(SlowTone) {
         d <- ifelse(20/nchar(res1) < 0.3, 20/nchar(res1), 0.3) * stats::runif(1, min = 0.95, max = 1.05)
@@ -111,6 +111,6 @@ OptimizeRcode <- function(Model = "gpt-4-0613",
       }
     }
   } else {
-    return(clipr::write_clip(res))
+    return(clipr::write_clip(as.character(res)))
   }
 }

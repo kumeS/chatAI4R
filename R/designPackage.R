@@ -59,9 +59,9 @@ designPackage <- function(Model = "gpt-4-0613",
                   list('role' = 'user', 'content' = template1s))
 
   # Execute the chat model
-  res <- chat4R_history(history=history,
+  res <- as.character(chat4R_history(history=history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   # Print the result based on verbosity and tone speed
   if(verbose) {

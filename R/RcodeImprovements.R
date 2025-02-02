@@ -64,9 +64,9 @@ RcodeImprovements <- function(Summary_nch = 100,
                   list('role' = 'user', 'content' = template1s))
 
   # Generate the suggestions using the GPT model
-  res <- chat4R_history(history=history,
+  res <- as.character(chat4R_history(history=history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   # Print the suggestions based on the verbosity and speed settings
   if(verbose){

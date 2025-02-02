@@ -81,9 +81,9 @@ addRoxygenDescription <- function(Model = "gpt-4-0613",
   if(verbose){utils::setTxtProgressBar(pb, 2)}
 
   # Execute text generation
-  res <- chat4R_history(history = history,
+  res <- as.character(chat4R_history(history = history,
                         Model = Model,
-                        temperature = temperature)
+                        temperature = temperature))
 
   if(verbose){
     utils::setTxtProgressBar(pb, 3)

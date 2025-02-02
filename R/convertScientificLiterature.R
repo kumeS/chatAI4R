@@ -74,6 +74,6 @@ convertScientificLiterature <- function(Model = "gpt-4-0613",
     rstudioapi::insertText(text = as.character(res))
   } else {
     # Write to the clipboard
-    return(clipr::write_clip(res))
+    return(clipr::write_clip(as.character(res)))
   }
 }

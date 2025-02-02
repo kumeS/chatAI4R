@@ -100,7 +100,7 @@ createRcode <- function(Summary_nch = 100,
     }
   }
 
-  return(clipr::write_clip(res))
+  return(clipr::write_clip(as.character(res)))
 
   }
 }

@@ -92,6 +92,6 @@ convertRscript2Function <- function(Model = "gpt-4-0613",
   if(SelectedCode){
     rstudioapi::insertText(text = as.character(res))
   } else {
-    return(clipr::write_clip(res))
+    return(clipr::write_clip(as.character(res)))
   }
 }

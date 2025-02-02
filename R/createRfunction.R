@@ -105,7 +105,7 @@ createRfunction <- function(Model = "gpt-4-0613",
     }
   }
 
-  return(clipr::write_clip(res))
+  return(clipr::write_clip(as.character(res)))
 
   }
 }

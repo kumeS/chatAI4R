@@ -7,9 +7,9 @@
 conversation4R(
   message,
   api_key = Sys.getenv("OPENAI_API_KEY"),
-  template = "",
+  system_set = "",
   ConversationBufferWindowMemory_k = 2,
-  Model = "gpt-3.5-turbo-16k",
+  Model = "gpt-4o-mini",
   language = "English",
   initialization = FALSE,
   verbose = TRUE
@@ -20,11 +20,11 @@ conversation4R(
 
 \item{api_key}{A string containing the OpenAI API key. Default is retrieved from the system environment variable "OPENAI_API_KEY".}
 
-\item{template}{A string containing the template for the conversation. Default is an empty string.}
+\item{system_set}{A string containing the system_set for the conversation. Default is an empty string.}
 
 \item{ConversationBufferWindowMemory_k}{An integer representing the conversation buffer window memory. Default is 2.}
 
-\item{Model}{A string representing the model to be used. Default is "gpt-3.5-turbo-16k".}
+\item{Model}{A string representing the model to be used. Default is "gpt-4o-mini".}
 
 \item{language}{A string representing the language to be used in the conversation. Default is "English".}
 

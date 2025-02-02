@@ -6,9 +6,9 @@
 #' @description Interface to communicate with OpenAI's models using R, maintaining a conversation history and allowing for initialization of a new conversation.
 #' @param message A string containing the message to be sent to the model.
 #' @param api_key A string containing the OpenAI API key. Default is retrieved from the system environment variable "OPENAI_API_KEY".
-#' @param template A string containing the template for the conversation. Default is an empty string.
+#' @param system_set A string containing the system_set for the conversation. Default is an empty string.
 #' @param ConversationBufferWindowMemory_k An integer representing the conversation buffer window memory. Default is 2.
-#' @param Model A string representing the model to be used. Default is "gpt-3.5-turbo-16k".
+#' @param Model A string representing the model to be used. Default is "gpt-4o-mini".
 #' @param language A string representing the language to be used in the conversation. Default is "English".
 #' @param initialization A logical flag to initialize a new conversation. Default is FALSE.
 #' @param verbose A logical flag to print the conversation. Default is TRUE.
@@ -26,9 +26,9 @@
 
 conversation4R <- function(message,
                            api_key = Sys.getenv("OPENAI_API_KEY"),
-                           template = "",
+                           system_set = "",
                            ConversationBufferWindowMemory_k = 2,
-                           Model = "gpt-3.5-turbo-16k",
+                           Model = "gpt-4o-mini",
                            language = "English",
                            initialization = FALSE,
                            verbose = TRUE){
@@ -36,7 +36,7 @@ conversation4R <- function(message,
 # Assertions to verify the types of the input parameters
 assertthat::assert_that(assertthat::is.string(message))
 assertthat::assert_that(assertthat::is.string(api_key))
-assertthat::assert_that(assertthat::is.string(template))
+assertthat::assert_that(assertthat::is.string(system_set))
 assertthat::assert_that(assertthat::is.count(ConversationBufferWindowMemory_k))
 assertthat::assert_that(assertthat::is.flag(initialization))
 
@@ -53,24 +53,24 @@ chat_history$history <- c()
 # Define
 temperature = 1
 
-# Prompt Template
-if(template == ""){
-  template = paste0("You are an excellent assistant. Please reply in ", language, ".")
+# Prompt system_set
+if(system_set == ""){
+  system_set = paste0("You are an excellent assistant. Please reply in ", language, ".")
 }
 
-template2 = "
+system_set2 = "
 History:%s"
 
-template3 = "
+system_set3 = "
 Human: %s"
 
-template4 = "
+system_set4 = "
 Assistant: %s"
 
 if(identical(as.character(chat_history$history), character(0))){
 
 chat_historyR <- list(
-  list(role = "system", content = template),
+  list(role = "system", content = system_set),
   list(role = "user", content = message))
 
 # Run
@@ -80,18 +80,18 @@ res <- chatAI4R::chat4R_history(history = chat_historyR,
                temperature = temperature)
 
 
-template3s <- sprintf(template3, message)
-template4s <- sprintf(template4, res)
+system_set3s <- sprintf(system_set3, message)
+system_set4s <- sprintf(system_set4, res)
 
 chat_history$history <- list(
-  list(role = "system", content = template),
+  list(role = "system", content = system_set),
   list(role = "user", content = message),
   list(role = "assistant", content = res)
 )
 
-out <- c(paste0("System: ", template),
-         crayon::red(template3s),
-         crayon::blue(template4s))
+out <- c(paste0("System: ", system_set),
+         crayon::red(system_set3s),
+         crayon::blue(system_set4s))
 
 if(verbose){
   cat(out)
@@ -129,12 +129,12 @@ r <- switch(chat_history$history[[n]]$role,
 rr <- c(rr, r)
 }
 
-template2s <- sprintf(template2, paste0(rr, collapse = ""))
+system_set2s <- sprintf(system_set2, paste0(rr, collapse = ""))
 
-out <- c(paste0("System: ", template),
-         template2s,
-         crayon::red(sprintf(template3, new_conversation[[1]]$content)),
-         crayon::blue(sprintf(template4, assistant_conversation[[1]]$content)))
+out <- c(paste0("System: ", system_set),
+         system_set2s,
+         crayon::red(sprintf(system_set3, new_conversation[[1]]$content)),
+         crayon::blue(sprintf(system_set4, assistant_conversation[[1]]$content)))
 
 chat_history$history <- chat_historyR
 
