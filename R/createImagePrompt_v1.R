@@ -17,7 +17,7 @@
 #'
 
 createImagePrompt_v1 <- function(content,
-                                Model = "gpt-3.5-turbo-16k",
+                                Model = "gpt-4o-mini",
                                 len = 200){
   # Asserting input types and values
   assertthat::assert_that(assertthat::is.string(content))

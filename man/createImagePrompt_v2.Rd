@@ -8,7 +8,7 @@ createImagePrompt_v2(
   Base_prompt = "",
   removed_from_image = "",
   stable_diffusion = "N/A",
-  Model = "gpt-3.5-turbo-16k",
+  Model = "gpt-4o-mini",
   len = 1000
 )
 }
@@ -19,7 +19,7 @@ createImagePrompt_v2(
 
 \item{stable_diffusion}{A string. This parameter is used to control the stability of the diffusion process.}
 
-\item{Model}{A string. This is the model used for generating the prompts. Default is "gpt-3.5-turbo-16k".}
+\item{Model}{A string. This is the model used for generating the prompts. Default is "gpt-4o-mini".}
 
 \item{len}{An integer. This is the maximum length of the generated prompts. Must be between 1 and 1000. Default is 1000.}
 }

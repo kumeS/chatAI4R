@@ -7,7 +7,7 @@
 #' @param Base_prompt A string. This is the base prompt that forms the basis for the generated prompts.
 #' @param removed_from_image A string. This is an attribute that should be removed from the image.
 #' @param stable_diffusion A string. This parameter is used to control the stability of the diffusion process.
-#' @param Model A string. This is the model used for generating the prompts. Default is "gpt-3.5-turbo-16k".
+#' @param Model A string. This is the model used for generating the prompts. Default is "gpt-4o-mini".
 #' @param len An integer. This is the maximum length of the generated prompts. Must be between 1 and 1000. Default is 1000.
 #' @importFrom assertthat assert_that is.count is.string
 #' @return A vector of strings. Each string in the vector is a generated prompt.
@@ -31,7 +31,7 @@
 createImagePrompt_v2 <- function(Base_prompt = "",
                                  removed_from_image = "",
                                  stable_diffusion = "N/A",
-                                Model = "gpt-3.5-turbo-16k",
+                                Model = "gpt-4o-mini",
                                 len = 1000){
   # Asserting input types and values
   assertthat::assert_that(assertthat::is.string(Base_prompt))

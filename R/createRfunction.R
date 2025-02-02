@@ -2,7 +2,7 @@
 #'
 #' @title Create R Function from Selected Text or Clipboard Content and Output into the R Console
 #' @description This function reads text either from your selected text in RStudio or from the clipboard, interprets it as a prompt, and generates an R function based on the given input. The generated R code is then printed into the source file or the R console with optional slow printing.
-#' @param Model A character string representing the model to be used. Default is "gpt-4-0613".
+#' @param Model A character string representing the model to be used. Default is "gpt-4o-mini".
 #' @param SelectedCode A logical value indicating if the selected text should be used as input. Default is TRUE.
 #' @param verbose A logical value indicating if progress should be printed. Default is TRUE.
 #' @param SlowTone A logical value indicating if slow printing should be used. Default is FALSE.
@@ -21,7 +21,7 @@
 #' createRfunction(SelectedCode = FALSE)
 #' }
 
-createRfunction <- function(Model = "gpt-4-0613",
+createRfunction <- function(Model = "gpt-4o-mini",
                             SelectedCode = TRUE,
                             verbose = TRUE,
                             SlowTone = FALSE){

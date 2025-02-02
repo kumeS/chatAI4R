@@ -5,13 +5,13 @@
 \title{convertRscript2Function}
 \usage{
 convertRscript2Function(
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   SelectedCode = TRUE,
   verbose = TRUE
 )
 }
 \arguments{
-\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".}
+\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".}
 
 \item{SelectedCode}{Logical flag to indicate whether to use selected code in RStudio. Default is TRUE.}
 
@@ -36,7 +36,7 @@ The function can either take the selected code from the RStudio environment or f
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-convertRscript2Function(Model = "gpt-4-0613", SelectedCode = F)
+convertRscript2Function(Model = "gpt-4o-mini", SelectedCode = F)
 }
 }
 \author{

@@ -6,7 +6,7 @@
 #'
 #' @title supportIdeaGeneration: Support Idea Generation from Selected Text or Clipboard.
 #' @description Assist in generating ideas or concepts.
-#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".
+#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".
 #' @param SelectedCode Logical flag to indicate whether to use the selected text in RStudio editor. Default is TRUE.
 #' @param verbose Logical flag to indicate whether to display the generated text. Default is TRUE.
 #' @param SlowTone Logical flag to indicate whether to print the text slowly. Default is FALSE.
@@ -26,7 +26,7 @@
 #' supportIdeaGeneration()
 #' }
 
-supportIdeaGeneration <- function(Model = "gpt-4-0613",
+supportIdeaGeneration <- function(Model = "gpt-4o-mini",
                                   SelectedCode = TRUE,
                                   verbose = TRUE,
                                   SlowTone = FALSE) {

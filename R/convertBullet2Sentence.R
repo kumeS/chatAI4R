@@ -6,7 +6,7 @@
 #'
 #' @title convertBullet2Sentence
 #' @description Convert bullet points to sentences using OpenAI GPT model.
-#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".
+#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".
 #' @param temperature The temperature parameter for text generation. Default is 1.
 #' @param verbose Logical flag to indicate whether to display progress. Default is TRUE.
 #' @param SpeakJA Logical flag to indicate whether to use Japanese speech output. Default is FALSE.
@@ -24,10 +24,10 @@
 #' # Select some text in RStudio and then run the rstudio addins
 #' # Option 2
 #' # Copy the text into your clipboard then execute
-#' convertBullet2Sentence(Model = "gpt-4-0613", SelectedCode = FALSE)
+#' convertBullet2Sentence(Model = "gpt-4o-mini", SelectedCode = FALSE)
 #' }
 
-convertBullet2Sentence <- function(Model = "gpt-4-0613",
+convertBullet2Sentence <- function(Model = "gpt-4o-mini",
                                    temperature = 1,
                                    verbose = TRUE,
                                    SpeakJA = FALSE,

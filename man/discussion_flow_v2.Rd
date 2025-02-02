@@ -7,7 +7,7 @@
 discussion_flow_v2(
   issue,
   Domain = "bioinformatics",
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   api_key = Sys.getenv("OPENAI_API_KEY"),
   language = "English",
   Summary_nch = 50,
@@ -23,7 +23,7 @@ discussion_flow_v2(
 
 \item{Domain}{The domain of the discussion, default is "bioinformatics".}
 
-\item{Model}{The LLM model to be used, default is "gpt-4-0613".}
+\item{Model}{The LLM model to be used, default is "gpt-4o-mini".}
 
 \item{api_key}{The API key for OpenAI, default is retrieved from the system environment variable "OPENAI_API_KEY".}
 

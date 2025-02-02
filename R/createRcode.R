@@ -8,7 +8,7 @@
 #' @description Reads text from the clipboard and generates R code based on the given input, printing the result to the R console.
 #' @section RStudio Addins: This function can be added to RStudio's Addins menu for easy access.
 #' @param Summary_nch The maximum number of characters for the summary.
-#' @param Model The model to be used for code generation, default is "gpt-4-0613".
+#' @param Model The model to be used for code generation, default is "gpt-4o-mini".
 #' @param SelectedCode A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.
 #' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
 #' @param SlowTone A logical value indicating whether to print the result slowly, default is FALSE.
@@ -25,7 +25,7 @@
 #' }
 
 createRcode <- function(Summary_nch = 100,
-                        Model = "gpt-4-0613",
+                        Model = "gpt-4o-mini",
                         SelectedCode = TRUE,
                         verbose = TRUE,
                         SlowTone = FALSE){

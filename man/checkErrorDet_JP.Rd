@@ -6,7 +6,7 @@
 \usage{
 checkErrorDet_JP(
   Summary_nch = 100,
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   verbose = TRUE,
   SlowTone = FALSE
 )
@@ -15,7 +15,7 @@ checkErrorDet_JP(
 \item{Summary_nch}{An integer specifying the maximum number of characters for the summary.}
 
 \item{Model}{A string specifying the model to be used, default is "gpt-4-0314".
-Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
+Currently, "gpt-4", "gpt-4-0314" and "gpt-4o-mini" can be selected as gpt-4 models.
 Execution with GPT-4 is recommended.}
 
 \item{verbose}{A logical value to control the verbosity of the output, default is TRUE.}
@@ -37,7 +37,7 @@ executes the function, and shows how to fix the error in Japanese.
 \examples{
 \dontrun{
   # Analyzing error message from the clipboard
-  checkErrorDet_JP(Summary_nch = 100, Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+  checkErrorDet_JP(Summary_nch = 100, Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 }
 }
 \author{

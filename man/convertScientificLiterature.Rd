@@ -4,10 +4,10 @@
 \alias{convertScientificLiterature}
 \title{convertScientificLiterature}
 \usage{
-convertScientificLiterature(Model = "gpt-4-0613", SelectedCode = TRUE)
+convertScientificLiterature(Model = "gpt-4o-mini", SelectedCode = TRUE)
 }
 \arguments{
-\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".}
+\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".}
 
 \item{SelectedCode}{Logical flag to indicate whether to read the input from RStudio's active document. Default is TRUE.}
 }

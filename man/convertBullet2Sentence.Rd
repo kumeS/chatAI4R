@@ -5,7 +5,7 @@
 \title{convertBullet2Sentence}
 \usage{
 convertBullet2Sentence(
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   temperature = 1,
   verbose = TRUE,
   SpeakJA = FALSE,
@@ -13,7 +13,7 @@ convertBullet2Sentence(
 )
 }
 \arguments{
-\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".}
+\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".}
 
 \item{temperature}{The temperature parameter for text generation. Default is 1.}
 
@@ -42,7 +42,7 @@ The function can either take the selected text from the RStudio environment or f
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-convertBullet2Sentence(Model = "gpt-4-0613", SelectedCode = FALSE)
+convertBullet2Sentence(Model = "gpt-4o-mini", SelectedCode = FALSE)
 }
 }
 \author{

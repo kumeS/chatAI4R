@@ -4,10 +4,14 @@
 \alias{addCommentCode}
 \title{Add Comments to R Code}
 \usage{
-addCommentCode(Model = "gpt-4-0613", language = "English", SelectedCode = TRUE)
+addCommentCode(
+  Model = "gpt-4o-mini",
+  language = "English",
+  SelectedCode = TRUE
+)
 }
 \arguments{
-\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4-0613".}
+\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4o-mini".}
 
 \item{language}{A character string specifying the language for the comments. Default is "English".}
 
@@ -29,7 +33,7 @@ Add Comments to R Code
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-addCommentCode(Model = "gpt-4-0613", language = "English", SelectedCode = TRUE)
+addCommentCode(Model = "gpt-4o-mini", language = "English", SelectedCode = TRUE)
 }
 }
 \author{

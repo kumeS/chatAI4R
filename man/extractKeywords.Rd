@@ -4,10 +4,10 @@
 \alias{extractKeywords}
 \title{extractKeywords}
 \usage{
-extractKeywords(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+extractKeywords(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 }
 \arguments{
-\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".}
+\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".}
 
 \item{verbose}{Logical flag to indicate whether to print the result. Default is TRUE.}
 
@@ -32,7 +32,7 @@ from the clipboard and outputs the extracted keywords in a comma-separated forma
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-extractKeywords(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+extractKeywords(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 }
 }
 \author{

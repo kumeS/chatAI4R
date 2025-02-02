@@ -8,8 +8,8 @@
 #' @title Proofread English Text
 #' @description A function to proofread English text or text in different languages during R package development.
 #' It translates the input into English if necessary and returns meticulously checked English text.
-#' @param Model A string specifying the model to be used for proofreading, defaulting to "gpt-4-0314".
-#'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
+#' @param Model A string specifying the model to be used for proofreading, defaulting to "gpt-4o-mini".
+#'    Currently, "gpt-4", "gpt-4o-mini" and "gpt-4-0613" can be selected as gpt-4 models.
 #'    Execution with GPT-4 is recommended.
 #' @param SelectedCode A logical value indicating whether to read the selected text from the RStudio editor (TRUE) or from the clipboard (FALSE). Defaults to TRUE.
 #' @param verbose Logical flag to print the progress. Default is TRUE.
@@ -22,12 +22,12 @@
 #' @examples
 #' \dontrun{
 #'   # Proofreading selected text in RStudio
-#'   proofreadEnglishText(Model = "gpt-4-0613", SelectedCode = TRUE)
+#'   proofreadEnglishText(Model = "gpt-4o-mini", SelectedCode = TRUE)
 #'   # Proofreading text from the clipboard
-#'   proofreadEnglishText(Model = "gpt-4-0613", SelectedCode = FALSE)
+#'   proofreadEnglishText(Model = "gpt-4o-mini", SelectedCode = FALSE)
 #' }
 
-proofreadEnglishText <- function(Model = "gpt-4",
+proofreadEnglishText <- function(Model = "gpt-4o-mini",
                                  SelectedCode = TRUE,
                                  verbose = TRUE) {
 

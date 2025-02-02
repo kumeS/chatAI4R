@@ -3,7 +3,7 @@
 #' @title Enrich Text Content v2
 #' @description This function doubles the amount of text without changing its meaning.
 #'    The GPT-4 model is currently recommended for text generation. It can either read from the RStudio selection or the clipboard.
-#' @param Model A character string specifying the AI model to be used for text enrichment. Default is "gpt-4".
+#' @param Model A character string specifying the AI model to be used for text enrichment. Default is "gpt-4o-mini".
 #' @param SelectedCode A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.
 #' @param verbose Logical flag to indicate whether to display the generated text. Default is TRUE.
 #' @importFrom assertthat assert_that is.string noNA
@@ -19,10 +19,10 @@
 #' # Select some text in RStudio and then run the rstudio addins
 #' # Option 2
 #' # Copy the text into your clipboard then execute
-#' enrichTextContent(Model = "gpt-4", SelectedCode = TRUE)
+#' enrichTextContent(Model = "gpt-4o-mini", SelectedCode = TRUE)
 #' }
 
-enrichTextContent <- function(Model = "gpt-4",
+enrichTextContent <- function(Model = "gpt-4o-mini",
                               SelectedCode = TRUE,
                               verbose = TRUE) {
 

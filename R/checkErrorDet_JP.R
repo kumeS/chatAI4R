@@ -7,7 +7,7 @@
 #' @description A function to analyze and provide guidance on how to fix an error message copied from the R console.
 #' @param Summary_nch An integer specifying the maximum number of characters for the summary.
 #' @param Model A string specifying the model to be used, default is "gpt-4-0314".
-#'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4-0613" can be selected as gpt-4 models.
+#'    Currently, "gpt-4", "gpt-4-0314" and "gpt-4o-mini" can be selected as gpt-4 models.
 #'    Execution with GPT-4 is recommended.
 #' @param verbose A logical value to control the verbosity of the output, default is TRUE.
 #' @param SlowTone A logical value to control the printing speed of the output, default is FALSE.
@@ -20,11 +20,11 @@
 #' @examples
 #' \dontrun{
 #'   # Analyzing error message from the clipboard
-#'   checkErrorDet_JP(Summary_nch = 100, Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+#'   checkErrorDet_JP(Summary_nch = 100, Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 #' }
 
 checkErrorDet_JP <- function(Summary_nch = 100,
-                             Model = "gpt-4-0613",
+                             Model = "gpt-4o-mini",
                              verbose = TRUE,
                              SlowTone = FALSE) {
 

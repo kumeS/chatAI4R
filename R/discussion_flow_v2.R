@@ -21,7 +21,7 @@
 #' @description Simulates interactions and flow control between three different roles of LLM-based bots (LLBs).
 #' @param issue The issue to be discussed. Example: "I want to solve linear programming and create a timetable."
 #' @param Domain The domain of the discussion, default is "bioinformatics".
-#' @param Model The LLM model to be used, default is "gpt-4-0613".
+#' @param Model The LLM model to be used, default is "gpt-4o-mini".
 #' @param api_key The API key for OpenAI, default is retrieved from the system environment variable "OPENAI_API_KEY".
 #' @param language The language for the discussion, default is "English".
 #' @param Summary_nch The number of characters for the summary, default is 50.
@@ -45,12 +45,12 @@
 #' discussion_flow_v2(issue)
 #' }
 
-#issue = "I want to solve linear programming and create a timetable.";Domain = "bioinformatics";Model = "gpt-4-0613";api_key = Sys.getenv("OPENAI_API_KEY");language = "English";Summary_nch = 50; verbose = TRUE; sayENorJA = FALSE; Sentence_difficulty = 2; R_expert_setting = TRUE; rep_x = 3
+#issue = "I want to solve linear programming and create a timetable.";Domain = "bioinformatics";Model = "gpt-4o-mini";api_key = Sys.getenv("OPENAI_API_KEY");language = "English";Summary_nch = 50; verbose = TRUE; sayENorJA = FALSE; Sentence_difficulty = 2; R_expert_setting = TRUE; rep_x = 3
 #discussion_flow_v2(issue, sayENorJA = FALSE)
 
 discussion_flow_v2 <- function(issue,
                                Domain = "bioinformatics",
-                               Model = "gpt-4-0613",
+                               Model = "gpt-4o-mini",
                                api_key = Sys.getenv("OPENAI_API_KEY"),
                                language = "English",
                                Summary_nch = 50,

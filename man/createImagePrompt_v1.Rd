@@ -4,7 +4,7 @@
 \alias{createImagePrompt_v1}
 \title{Create Image Prompt version 1}
 \usage{
-createImagePrompt_v1(content, Model = "gpt-3.5-turbo-16k", len = 200)
+createImagePrompt_v1(content, Model = "gpt-4o-mini", len = 200)
 }
 \arguments{
 \item{content}{A character string describing the image to be generated. If not provided, the function will throw a warning and stop.}

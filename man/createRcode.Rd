@@ -6,7 +6,7 @@
 \usage{
 createRcode(
   Summary_nch = 100,
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   SelectedCode = TRUE,
   verbose = TRUE,
   SlowTone = FALSE
@@ -15,7 +15,7 @@ createRcode(
 \arguments{
 \item{Summary_nch}{The maximum number of characters for the summary.}
 
-\item{Model}{The model to be used for code generation, default is "gpt-4-0613".}
+\item{Model}{The model to be used for code generation, default is "gpt-4o-mini".}
 
 \item{SelectedCode}{A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.}
 

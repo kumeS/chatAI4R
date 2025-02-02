@@ -5,14 +5,14 @@
 \title{Create eBay Product Description}
 \usage{
 createEBAYdes(
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   SelectedCode = TRUE,
   verbose = TRUE,
   SlowTone = FALSE
 )
 }
 \arguments{
-\item{Model}{The GPT-4 model to use for text generation. Default is "gpt-4-0613".}
+\item{Model}{The GPT-4 model to use for text generation. Default is "gpt-4o-mini".}
 
 \item{SelectedCode}{Whether to get the input from the selected code in RStudio. Default is TRUE.}
 
@@ -36,7 +36,7 @@ Create eBay Product Description
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-createEBAYdes(Model = "gpt-4-0613", SelectedCode = FALSE, verbose = TRUE)
+createEBAYdes(Model = "gpt-4o-mini", SelectedCode = FALSE, verbose = TRUE)
 }
 }
 \author{

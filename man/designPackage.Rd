@@ -4,10 +4,10 @@
 \alias{designPackage}
 \title{designPackage}
 \usage{
-designPackage(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+designPackage(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 }
 \arguments{
-\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".}
+\item{Model}{The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".}
 
 \item{verbose}{Logical flag to indicate whether to display the generated text. Default is TRUE.}
 
@@ -29,7 +29,7 @@ The function reads the input from the clipboard.
 \examples{
 \dontrun{
 # Copy the text into your clipboard then execute
-designPackage(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+designPackage(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 }
 }
 \author{

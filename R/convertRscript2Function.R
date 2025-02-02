@@ -6,7 +6,7 @@
 #'
 #' @title convertRscript2Function
 #' @description Convert selected R script to an R function using LLM.
-#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".
+#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".
 #' @param SelectedCode Logical flag to indicate whether to use selected code in RStudio. Default is TRUE.
 #' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext
@@ -21,10 +21,10 @@
 #' # Select some text in RStudio and then run the rstudio addins
 #' # Option 2
 #' # Copy the text into your clipboard then execute
-#' convertRscript2Function(Model = "gpt-4-0613", SelectedCode = F)
+#' convertRscript2Function(Model = "gpt-4o-mini", SelectedCode = F)
 #' }
 
-convertRscript2Function <- function(Model = "gpt-4-0613",
+convertRscript2Function <- function(Model = "gpt-4o-mini",
                                     SelectedCode = TRUE,
                                     verbose = TRUE) {
 

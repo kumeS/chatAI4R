@@ -4,7 +4,7 @@
 #' @description This function takes a text input and summarizes it into a specified number of bullet points.
 #'    It can either take the selected code from RStudio or read from the clipboard.
 #'    The results are output to your clipboard.
-#' @param Model A string specifying the machine learning model to use for text summarization. Default is "gpt-4-0613".
+#' @param Model A string specifying the machine learning model to use for text summarization. Default is "gpt-4o-mini".
 #' @param temperature A numeric value between 0 and 1 indicating the randomness of the text generation. Default is 1.
 #' @param verbose A logical value indicating whether to print the summary. Default is FALSE.
 #' @param SelectedCode A logical value indicating whether to use the selected code in RStudio. Default is TRUE.
@@ -23,7 +23,7 @@
 #' TextSummaryAsBullet()
 #' }
 
-TextSummaryAsBullet <- function(Model = "gpt-4-0613",
+TextSummaryAsBullet <- function(Model = "gpt-4o-mini",
                                 temperature = 1,
                                 verbose = TRUE,
                                 SelectedCode = TRUE){

@@ -6,7 +6,7 @@
 #'
 #' @title extractKeywords
 #' @description Extract keywords from input text and output them in a comma-separated format.
-#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".
+#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".
 #' @param verbose Logical flag to indicate whether to print the result. Default is TRUE.
 #' @param SlowTone Logical flag to indicate the speed of the output. Default is FALSE.
 #' @importFrom clipr read_clip
@@ -20,10 +20,10 @@
 #' # Select some text in RStudio and then run the rstudio addins
 #' # Option 2
 #' # Copy the text into your clipboard then execute
-#' extractKeywords(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+#' extractKeywords(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 #' }
 
-extractKeywords <- function(Model = "gpt-4-0613",
+extractKeywords <- function(Model = "gpt-4o-mini",
                             verbose = TRUE,
                             SlowTone = FALSE) {
 

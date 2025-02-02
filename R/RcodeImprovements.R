@@ -4,7 +4,7 @@
 #' @description This function uses LLM to analyze the R code from the clipboard and suggests improvements.
 #'    The function can also control the verbosity and speed of the output.
 #' @param Summary_nch An integer specifying the maximum number of characters for the summary. Default is 100.
-#' @param Model A character string specifying the GPT model to be used. Default is "gpt-4-0613".
+#' @param Model A character string specifying the GPT model to be used. Default is "gpt-4o-mini".
 #' @param verbose A logical value indicating whether to print the result. Default is TRUE.
 #' @param SlowTone A logical value indicating whether to print the result slowly. Default is FALSE.
 #' @importFrom assertthat assert_that is.string noNA is.count
@@ -16,11 +16,11 @@
 #' @examples
 #' \dontrun{
 #' #Copy your function to your clipboard
-#' RcodeImprovements(Summary_nch = 100, Model = "gpt-4-0613")
+#' RcodeImprovements(Summary_nch = 100, Model = "gpt-4o-mini")
 #' }
 
 RcodeImprovements <- function(Summary_nch = 100,
-                              Model = "gpt-4-0613",
+                              Model = "gpt-4o-mini",
                               verbose = TRUE,
                               SlowTone = FALSE){
 

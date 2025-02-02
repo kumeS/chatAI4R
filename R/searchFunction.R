@@ -9,7 +9,7 @@
 #' @description Searches for an R function related to the provided text
 #'   either through the RStudio editor selection or clipboard.
 #' @param Summary_nch Numeric, number of characters to limit the function description (default = 100).
-#' @param Model String, the model used for the search, default is "gpt-4-0613".
+#' @param Model String, the model used for the search, default is "gpt-4o-mini".
 #' @param SelectedCode Logical, whether to get text from RStudio selection (default = TRUE).
 #' @param verbose Logical, whether to print the results verbosely (default = TRUE).
 #' @param SlowTone Logical, whether to slow down the print speed for readability (default = FALSE).
@@ -27,7 +27,7 @@
 #'
 
 searchFunction <- function(Summary_nch = 100,
-                           Model = "gpt-4-0613",
+                           Model = "gpt-4o-mini",
                            SelectedCode = TRUE,
                            verbose = TRUE,
                            SlowTone = FALSE){

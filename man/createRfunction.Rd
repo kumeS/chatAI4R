@@ -5,14 +5,14 @@
 \title{Create R Function from Selected Text or Clipboard Content and Output into the R Console}
 \usage{
 createRfunction(
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   SelectedCode = TRUE,
   verbose = TRUE,
   SlowTone = FALSE
 )
 }
 \arguments{
-\item{Model}{A character string representing the model to be used. Default is "gpt-4-0613".}
+\item{Model}{A character string representing the model to be used. Default is "gpt-4o-mini".}
 
 \item{SelectedCode}{A logical value indicating if the selected text should be used as input. Default is TRUE.}
 

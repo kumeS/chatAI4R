@@ -6,7 +6,7 @@
 #'   Each object should have a 'role' that can be 'system', 'user', or 'assistant',
 #'   and 'content' which is the content of the message from that role.
 #' @param api_key A string. Input your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".
-#' @param Model A string. The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".
+#' @param Model A string. The model to use for the chat completion. Default is "gpt-4o-mini".
 #' @param temperature The temperature to use for the chat completion. Default is 1.
 #' @importFrom httr add_headers POST content
 #' @importFrom jsonlite toJSON
@@ -27,7 +27,7 @@
 
 chat4R_history <- function(history,
                            api_key = Sys.getenv("OPENAI_API_KEY"),
-                           Model = "gpt-3.5-turbo-16k",
+                           Model = "gpt-4o-mini",
                            temperature = 1) {
 
   # Setting parameters

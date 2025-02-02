@@ -4,10 +4,10 @@
 \alias{proofreadText}
 \title{proofreadText}
 \usage{
-proofreadText(Model = "gpt-4-0613", SelectedCode = TRUE, verbose = TRUE)
+proofreadText(Model = "gpt-4o-mini", SelectedCode = TRUE, verbose = TRUE)
 }
 \arguments{
-\item{Model}{The Large Language Model to be used for proofreading. Default is "gpt-4-0613".}
+\item{Model}{The Large Language Model to be used for proofreading. Default is "gpt-4o-mini".}
 
 \item{SelectedCode}{Logical flag to indicate whether to use the selected text in RStudio editor. Default is TRUE.}
 

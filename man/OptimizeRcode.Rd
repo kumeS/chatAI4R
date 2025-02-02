@@ -5,7 +5,7 @@
 \title{Optimize and Complete R Code}
 \usage{
 OptimizeRcode(
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   SelectedCode = TRUE,
   verbose = TRUE,
   verbose_Reasons4change = FALSE,
@@ -13,7 +13,7 @@ OptimizeRcode(
 )
 }
 \arguments{
-\item{Model}{A string specifying the machine learning model to use for code optimization. Default is "gpt-4-0613".}
+\item{Model}{A string specifying the machine learning model to use for code optimization. Default is "gpt-4o-mini".}
 
 \item{SelectedCode}{A boolean indicating whether to get the code from RStudio or the clipboard. Default is TRUE.}
 

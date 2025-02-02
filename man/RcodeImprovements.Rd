@@ -6,7 +6,7 @@
 \usage{
 RcodeImprovements(
   Summary_nch = 100,
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   verbose = TRUE,
   SlowTone = FALSE
 )
@@ -14,7 +14,7 @@ RcodeImprovements(
 \arguments{
 \item{Summary_nch}{An integer specifying the maximum number of characters for the summary. Default is 100.}
 
-\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4-0613".}
+\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4o-mini".}
 
 \item{verbose}{A logical value indicating whether to print the result. Default is TRUE.}
 
@@ -33,7 +33,7 @@ Suggest Improvements for R Code
 \examples{
 \dontrun{
 #Copy your function to your clipboard
-RcodeImprovements(Summary_nch = 100, Model = "gpt-4-0613")
+RcodeImprovements(Summary_nch = 100, Model = "gpt-4o-mini")
 }
 }
 \author{

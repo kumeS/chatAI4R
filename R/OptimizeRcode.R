@@ -5,7 +5,7 @@
 #'
 #' @title Optimize and Complete R Code
 #' @description Optimizes and completes the R code from the selected code or clipboard.
-#' @param Model A string specifying the machine learning model to use for code optimization. Default is "gpt-4-0613".
+#' @param Model A string specifying the machine learning model to use for code optimization. Default is "gpt-4o-mini".
 #' @param SelectedCode A boolean indicating whether to get the code from RStudio or the clipboard. Default is TRUE.
 #' @param verbose A logical value indicating whether to print the result to the console, default is TRUE.
 #' @param verbose_Reasons4change A boolean indicating whether to provide detailed reasons for the changes made. Default is FALSE
@@ -22,7 +22,7 @@
 #' OptimizeRcode(SelectedCode = FALSE)
 #' }
 
-OptimizeRcode <- function(Model = "gpt-4-0613",
+OptimizeRcode <- function(Model = "gpt-4o-mini",
                           SelectedCode = TRUE,
                           verbose = TRUE,
                           verbose_Reasons4change = FALSE,

@@ -76,13 +76,13 @@ if(Ans3){
 }
 
 #LLMモデルを選択する
-choices1 <- c("GPT-3.5", "GPT-4 (0613)", "Another LLM")
+choices1 <- c("GPT-3.5", "gpt-4o-mini", "Another LLM")
 selection1 <- utils::menu(choices1, title = "Which language model do you prefer?")
 
 if (selection1 == 1) {
     Model = "gpt-3.5-turbo"
 } else if (selection1 == 2) {
-    Model = "gpt-4-0613"
+    Model = "gpt-4o-mini"
 } else if (selection1 == 3) {
     return(message("No valid selection made."))
 } else {

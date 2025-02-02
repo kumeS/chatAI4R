@@ -6,7 +6,7 @@
 #'
 #' @title designPackage
 #' @description Assist in proposing the overall design and architecture of an R package.
-#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4-0613".
+#' @param Model The OpenAI GPT model to use for text generation. Default is "gpt-4o-mini".
 #' @param verbose Logical flag to indicate whether to display the generated text. Default is TRUE.
 #' @param SlowTone Logical flag to indicate whether to print the text slowly. Default is FALSE.
 #' @importFrom clipr read_clip
@@ -18,10 +18,10 @@
 #' @examples
 #' \dontrun{
 #' # Copy the text into your clipboard then execute
-#' designPackage(Model = "gpt-4-0613", verbose = TRUE, SlowTone = FALSE)
+#' designPackage(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 #' }
 
-designPackage <- function(Model = "gpt-4-0613",
+designPackage <- function(Model = "gpt-4o-mini",
                           verbose = TRUE,
                           SlowTone = FALSE) {
 

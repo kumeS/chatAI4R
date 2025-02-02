@@ -7,7 +7,7 @@
 chat4R_history(
   history,
   api_key = Sys.getenv("OPENAI_API_KEY"),
-  Model = "gpt-3.5-turbo-16k",
+  Model = "gpt-4o-mini",
   temperature = 1
 )
 }
@@ -18,7 +18,7 @@ and 'content' which is the content of the message from that role.}
 
 \item{api_key}{A string. Input your OpenAI API key. Defaults to the value of the environment variable "OPENAI_API_KEY".}
 
-\item{Model}{A string. The model to use for the chat completion. Default is "gpt-3.5-turbo-16k".}
+\item{Model}{A string. The model to use for the chat completion. Default is "gpt-4o-mini".}
 
 \item{temperature}{The temperature to use for the chat completion. Default is 1.}
 }

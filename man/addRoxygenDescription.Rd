@@ -5,13 +5,13 @@
 \title{Add Roxygen Description to R Function}
 \usage{
 addRoxygenDescription(
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   SelectedCode = TRUE,
   verbose = TRUE
 )
 }
 \arguments{
-\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4-0613".}
+\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4o-mini".}
 
 \item{SelectedCode}{A logical value indicating whether to use the selected code in RStudio. Default is TRUE.}
 
@@ -33,7 +33,7 @@ Add Roxygen Description to R Function
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-addRoxygenDescription(Model = "gpt-4-0613", SelectedCode = FALSE)
+addRoxygenDescription(Model = "gpt-4o-mini", SelectedCode = FALSE)
 }
 }
 \author{

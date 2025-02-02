@@ -6,7 +6,7 @@
 \usage{
 searchFunction(
   Summary_nch = 100,
-  Model = "gpt-4-0613",
+  Model = "gpt-4o-mini",
   SelectedCode = TRUE,
   verbose = TRUE,
   SlowTone = FALSE
@@ -15,7 +15,7 @@ searchFunction(
 \arguments{
 \item{Summary_nch}{Numeric, number of characters to limit the function description (default = 100).}
 
-\item{Model}{String, the model used for the search, default is "gpt-4-0613".}
+\item{Model}{String, the model used for the search, default is "gpt-4o-mini".}
 
 \item{SelectedCode}{Logical, whether to get text from RStudio selection (default = TRUE).}
 

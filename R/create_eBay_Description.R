@@ -3,7 +3,7 @@
 #' @title Create eBay Product Description
 #' @description This function generates a product description for eBay listings in English.
 #' It uses the GPT-4 model for text generation and can take input from either RStudio or the clipboard.
-#' @param Model The GPT-4 model to use for text generation. Default is "gpt-4-0613".
+#' @param Model The GPT-4 model to use for text generation. Default is "gpt-4o-mini".
 #' @param SelectedCode Whether to get the input from the selected code in RStudio. Default is TRUE.
 #' @param verbose Whether to display progress information. Default is TRUE.
 #' @param SlowTone Whether to print the output slowly. Default is FALSE.
@@ -21,10 +21,10 @@
 #' # Select some text in RStudio and then run the rstudio addins
 #' # Option 2
 #' # Copy the text into your clipboard then execute
-#' createEBAYdes(Model = "gpt-4-0613", SelectedCode = FALSE, verbose = TRUE)
+#' createEBAYdes(Model = "gpt-4o-mini", SelectedCode = FALSE, verbose = TRUE)
 #' }
 
-createEBAYdes <- function(Model = "gpt-4-0613",
+createEBAYdes <- function(Model = "gpt-4o-mini",
                           SelectedCode = TRUE,
                           verbose = TRUE,
                           SlowTone = FALSE){
