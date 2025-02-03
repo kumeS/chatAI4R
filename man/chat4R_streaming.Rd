@@ -2,43 +2,54 @@
 % Please edit documentation in R/chat4R_streaming.R
 \name{chat4R_streaming}
 \alias{chat4R_streaming}
-\title{chat4R_streaming: Interact with GPT-4o (default) with streaming using OpenAI API}
+\title{chat4R_streaming: Interact with GPT-4o (default) with streaming using OpenAI API and set system context}
 \usage{
 chat4R_streaming(
   content,
   Model = "gpt-4o-mini",
   temperature = 1,
+  system_set = "",
   api_key = Sys.getenv("OPENAI_API_KEY")
 )
 }
 \arguments{
 \item{content}{A string containing the user's input message.}
 
-\item{Model}{A string specifying the GPT model to use (default: "GPT-4o").}
+\item{Model}{A string specifying the GPT model to use (default: "gpt-4o-mini").}
 
 \item{temperature}{A numeric value controlling the randomness of the model's output (default: 1).}
+
+\item{system_set}{A string containing the system message to set the context.
+If provided, it will be added as the first message in the conversation.
+Default is an empty string.}
 
 \item{api_key}{A string containing the user's OpenAI API key.
 Defaults to the value of the environment variable "OPENAI_API_KEY".}
 }
 \value{
-A data frame containing the response from the GPT model.
+A data frame containing the response from the GPT model (streamed to the console).
 }
 \description{
-This function uses the OpenAI API to interact with the
-   GPT-4o model (default) and generates responses based on user input with
-   streaming data back to R
-   In this function, currently, "gpt-4o-mini", "gpt-4o", and "gpt-4-turbo"
-   can be selected as OpenAI's LLM model.
+This function uses the OpenAI API to interact with the GPT-4o model (default)
+  and generates responses based on user input with streaming data back to R.
+  In this function, currently, "gpt-4o-mini", "gpt-4o", and "gpt-4-turbo" can be selected as OpenAI's LLM model.
+  Additionally, a system message can be provided to set the context.
 }
 \details{
-Chat4R Function with Streaming
+Chat4R Function with Streaming and System Context
 }
 \examples{
 \dontrun{
-Sys.setenv(OPENAI_API_KEY = "Your API key")
-response <- chat4R_streaming(content = "What is the capital of France?")
-response
+  Sys.setenv(OPENAI_API_KEY = "Your API key")
+
+  # Without system_set
+  chat4R_streaming(content = "What is the capital of France?")
+
+  # With system_set provided
+  chat4R_streaming(
+    content = "What is the capital of France?",
+    system_set = "You are a helpful assistant."
+  )
 }
 }
 \author{

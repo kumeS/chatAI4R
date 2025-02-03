@@ -1,0 +1,107 @@
+---
+title: "Automating Twitter Posts with chatAI4R package"
+author: 
+- name: Satoshi Kume
+  email: satoshi.kume.1984@gmail.com
+date: "`r Sys.Date()`"
+graphics: no
+package: chatAI4R
+output:
+    BiocStyle::html_document:
+        toc_float: true
+vignette: >
+    %\VignetteIndexEntry{Automating Twitter Posts with chatAI4R package"}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r style, echo = FALSE, results = 'asis', message=FALSE}
+BiocStyle::markdown()
+```
+
+**Last modified:** `r file.info("WebSearch_plus_LLM_plus_SNS.Rmd")$mtime`<br />
+**Compiled**: `r date()`
+
+
+# chatAI4R and Genspark AI Search Documentation
+
+# Load Required Packages
+
+Before starting, load the necessary packages. For example, the `chatAI4R` package is required for interacting with OpenAI's API.
+
+```{r echo=TRUE, eval=FALSE}
+library(chatAI4R)
+```
+
+# Set API Keys
+
+Set the API keys for each web API. For instance, to obtain an OpenAI API key, please register on the OpenAI website at [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys) and use your key.
+
+```{r echo=TRUE, eval=FALSE}
+# Set your key for the OpenAI API
+Sys.setenv(OPENAI_API_KEY = "Your API key")
+
+```
+
+# How to Use Genspark AI Search and chatAI4R
+
+This document demonstrates how to perform AI search with Genspark to create articles and then use the `chat4R_streaming` function to generate and fine-tune a draft.
+
+## Step 1: Extract Main Content
+
+First, copy the URL of the page you wish to analyze. Then, extract the main text content using the provided extraction function.
+
+```{r echo=TRUE, eval=FALSE}
+source("https://gist.githubusercontent.com/kumeS/f252b967f8060dcc56c7feb1e33c8b85/raw/617b25e2eaa0fdf581dbc1b77009b7bf068c8847/extract_and_decode_main_content.R")
+
+# Example usage:
+url <- "https://..."
+# Alternatively, read the URL from the clipboard:
+url <- clipr::read_clip()
+
+# Uncomment the following line to open the URL in your browser:
+# browseURL(url)
+
+body_content <- extract_and_decode_main_content(url)
+print(body_content)
+```
+
+## Step 2: Generate and Fine-Tune the Draft
+
+Next, use the `chat4R_streaming` function along with a system message to generate and fine-tune your draft. The system message is sourced from an external file, which provides context to guide the AI's response.
+
+```{r echo=TRUE, eval=FALSE}
+# Define system_set by sourcing the external file
+source("https://gist.githubusercontent.com/kumeS/5452be22101600bee91d4153f1d82680/raw/cfd4da6fcd012e3544f3bc4d1a9ddb3854df6dfd/system_set.R")
+
+res <- chat4R_streaming(
+  content = body_content,
+  Model = "gpt-4o-mini",
+  temperature = 1,
+  system_set = system_set
+)
+```
+
+## Step 3: Pipe Multiple Function Executions Together
+
+For a streamlined workflow, you can pipe the execution of multiple functions using the `magrittr` package. This example reads a URL from the clipboard, extracts its main content, and then passes it directly to the `chat4R_streaming` function.
+
+```{r echo=TRUE, eval=FALSE}
+library(magrittr)
+
+res <- clipr::read_clip() %>%
+  extract_and_decode_main_content() %>%
+  chat4R_streaming(
+    content = .,
+    Model = "gpt-4o-mini",
+    temperature = 1,
+    system_set = system_set
+  )
+```
+
+# Conclusion
+
+This document demonstrates how to use Genspark AI Search to extract content from a webpage and process that content with the `chat4R_streaming` function from the `chatAI4R` package. By combining these steps, you can automate the generation and fine-tuning of AI-driven drafts. Modify the code and parameters as needed to suit your application.
+
