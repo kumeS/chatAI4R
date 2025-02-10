@@ -66,6 +66,14 @@ url <- clipr::read_clip()
 
 body_content <- extract_and_decode_main_content(url)
 print(body_content)
+
+#Pass URLs copied to the clipboard and return output to the clipboard
+library(magrittr)
+
+clipr::read_clip() %>%
+  extract_and_decode_main_content()  %>%
+    clipr::write_clip()
+
 ```
 
 ## Step 2: Generate and Fine-Tune the Draft
@@ -99,6 +107,37 @@ res <- clipr::read_clip() %>%
     temperature = 1,
     system_set = system_set
   )
+
+```
+
+# translate into your language
+
+```{r echo=TRUE, eval=FALSE}
+
+```
+
+# posting to twitter
+
+Twitter Developer Portalにアクセスして、アカウント登録をする。
+
+https://developer.x.com/en/portal/dashboard
+
+```{r echo=TRUE, eval=FALSE}
+#ロード
+#install.packages("rtweet")
+library(rtweet)
+
+client_list()
+rtweet::auth_as()
+
+#テキストをつぶやく
+tweet_post( text = "何かをつぶやく" )
+
+tweet_search_recent(q="つぶやき")
+
+#Twitterサイトを開いて、確認する
+browseURL("https://twitter.com/home?lang=ja")
+
 ```
 
 # Conclusion

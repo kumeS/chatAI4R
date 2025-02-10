@@ -2,64 +2,44 @@
 % Please edit documentation in R/vision4R.R
 \name{vision4R}
 \alias{vision4R}
-\title{vision4R: Analyze an image using OpenAI's Vision API}
+\title{Vision API Function using OpenAI's Vision API}
 \usage{
 vision4R(
   image_path,
-  prompt = "",
-  Model = "gpt-4-vision",
+  user_prompt = "What is depicted in this image?",
+  Model = "gpt-4o-mini",
   temperature = 1,
-  system_set = "",
   api_key = Sys.getenv("OPENAI_API_KEY")
 )
 }
 \arguments{
-\item{image_path}{A string specifying the path to the image file to be analyzed.}
+\item{image_path}{A string specifying the path to the image file. The image format should be png or jpeg.}
 
-\item{prompt}{A string containing the analysis prompt for the Vision API (optional).
-If left empty (i.e., prompt = ""), a notice will be output to remind the user to provide a prompt.}
+\item{user_prompt}{A string containing the text prompt. Default: "What is in this image?".}
 
-\item{Model}{A string specifying the vision model to use. Currently supported models include "gpt-4-vision".}
+\item{Model}{The model to use. Defaults to "gpt-4-turbo". Allowed values: "gpt-4-turbo", "gpt-4o-mini".}
 
-\item{temperature}{A numeric value controlling the randomness of the model's output (default: 1).}
+\item{temperature}{A numeric value controlling the randomness of the output (default: 1).}
 
-\item{system_set}{A string containing the system message to set the context for the analysis.
-If provided, it will be included in the request. Default is an empty string.}
-
-\item{api_key}{A string containing the user's OpenAI API key.
-Defaults to the value of the environment variable "OPENAI_API_KEY".}
+\item{api_key}{Your OpenAI API key. Default: environment variable `OPENAI_API_KEY`.}
 }
 \value{
-A data frame containing the analysis result from the Vision API.
+A data frame containing the model's response.
 }
 \description{
-This function uses the OpenAI Vision API to analyze an image provided by the user.
-  The function sends the image along with an optional prompt and system message to the API,
-  and returns the analysis result. The Vision API endpoint is assumed to be similar in structure
-  to other OpenAI endpoints, accepting multipart/form-data uploads.
-}
-\details{
-Vision API Function using OpenAI's Vision API
+This function sends a local image along with a text prompt to OpenAI's GPT-4 Vision API.
+  The function encodes the image in Base64 format and constructs a JSON payload where the user's
+  message contains both text and an image URL (data URI). This structure mimics the provided Python code.
 }
 \examples{
 \dontrun{
-  Sys.setenv(OPENAI_API_KEY = "Your API key")
-
-  # Analyze an image with a prompt and system context using a supported model "gpt-4-vision"
-  result <- vision4R(
-    image_path = "path/to/your/image.jpg",
-    prompt = "Describe the scene and identify any objects.",
-    system_set = "You are an expert image analyst.",
-    Model = "gpt-4-vision",
-    temperature = 0.8
-  )
-  print(result)
-
-  # If prompt is empty, a notice will be output
-  result <- vision4R(
-    image_path = "path/to/your/image.jpg",
-    prompt = "",
-    Model = "gpt-4-vision"
-  )
+  # Example usage of the function
+  api_key <- "YOUR_OPENAI_API_KEY"
+  file_path <- "path/to/your/text_file.txt"
+  vision4R(image_path = file_path, api_key = api_key)
 }
+
+}
+\author{
+Satoshi Kume
 }
