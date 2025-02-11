@@ -8,6 +8,7 @@ chat4Rv2(
   content,
   Model = "gpt-4o-mini",
   temperature = 1,
+  max_tokens = 50,
   simple = TRUE,
   fromJSON_parsed = FALSE,
   system_prompt = "",
@@ -20,6 +21,8 @@ chat4Rv2(
 \item{Model}{A string specifying the GPT model to use (default: "gpt-4o-mini").}
 
 \item{temperature}{A numeric value controlling the randomness of the model's output (default: 1).}
+
+\item{max_tokens}{A numeric value specifying the maximum number of tokens to generate (default is 50).}
 
 \item{simple}{Logical, if TRUE, only the content of the model's message will be returned.}
 

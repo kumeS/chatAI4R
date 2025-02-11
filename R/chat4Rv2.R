@@ -10,6 +10,7 @@
 #'    Defaults to the value of the environment variable "OPENAI_API_KEY".
 #' @param Model A string specifying the GPT model to use (default: "gpt-4o-mini").
 #' @param temperature A numeric value controlling the randomness of the model's output (default: 1).
+#' @param max_tokens A numeric value specifying the maximum number of tokens to generate (default is 50).
 #' @param simple Logical, if TRUE, only the content of the model's message will be returned.
 #' @param fromJSON_parsed Logical, if TRUE, content will be parsed from JSON.
 #' @param system_prompt A string containing the system message to set the context.
@@ -33,14 +34,14 @@
 #' response
 #' }
 
-
 chat4Rv2 <- function(content,
-                   Model = "gpt-4o-mini",
-                   temperature = 1,
-                   simple = TRUE,
-                   fromJSON_parsed = FALSE,
-                   system_prompt = "",
-                   api_key = Sys.getenv("OPENAI_API_KEY")) {
+                     Model = "gpt-4o-mini",
+                     temperature = 1,
+                     max_tokens = 50,
+                     simple = TRUE,
+                     fromJSON_parsed = FALSE,
+                     system_prompt = "",
+                     api_key = Sys.getenv("OPENAI_API_KEY")) {
 
   # Define parameters
   api_url <- "https://api.openai.com/v1/chat/completions"
@@ -65,10 +66,11 @@ chat4Rv2 <- function(content,
     )
   }
 
-  # Define the body of the API request
+  # Define the body of the API request including max_tokens
   body <- list(model = Model,
                messages = messages_list,
                temperature = temperature,
+               max_tokens = max_tokens,
                top_p = top_p,
                n = n)
 
@@ -92,5 +94,3 @@ chat4Rv2 <- function(content,
     }
   }
 }
-
-
