@@ -10,7 +10,7 @@ chat4Rv2(
   temperature = 1,
   simple = TRUE,
   fromJSON_parsed = FALSE,
-  system_set = "",
+  system_prompt = "",
   api_key = Sys.getenv("OPENAI_API_KEY")
 )
 }
@@ -25,7 +25,7 @@ chat4Rv2(
 
 \item{fromJSON_parsed}{Logical, if TRUE, content will be parsed from JSON.}
 
-\item{system_set}{A string containing the system message to set the context.
+\item{system_prompt}{A string containing the system message to set the context.
 If provided, it will be added as the first message in the conversation.
 Default is an empty string.}
 
@@ -47,13 +47,13 @@ chat4Rv2 Function
 \examples{
 \dontrun{
 Sys.setenv(OPENAI_API_KEY = "Your API key")
-# Using chat4Rv2 without system_set (default behavior)
+# Using chat4Rv2 without system_prompt (default behavior)
 response <- chat4Rv2(content = "What is the capital of France?")
 response
 
-# Using chat4Rv2 with a system_set provided
+# Using chat4Rv2 with a system_prompt provided
 response <- chat4Rv2(content = "What is the capital of France?",
-                     system_set = "You are a helpful assistant.")
+                     system_prompt = "You are a helpful assistant.")
 response
 }
 }

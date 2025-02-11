@@ -12,7 +12,7 @@
 #' @param temperature A numeric value controlling the randomness of the model's output (default: 1).
 #' @param simple Logical, if TRUE, only the content of the model's message will be returned.
 #' @param fromJSON_parsed Logical, if TRUE, content will be parsed from JSON.
-#' @param system_set A string containing the system message to set the context.
+#' @param system_prompt A string containing the system message to set the context.
 #'    If provided, it will be added as the first message in the conversation.
 #'    Default is an empty string.
 #' @importFrom httr POST add_headers content
@@ -23,13 +23,13 @@
 #' @examples
 #' \dontrun{
 #' Sys.setenv(OPENAI_API_KEY = "Your API key")
-#' # Using chat4Rv2 without system_set (default behavior)
+#' # Using chat4Rv2 without system_prompt (default behavior)
 #' response <- chat4Rv2(content = "What is the capital of France?")
 #' response
 #'
-#' # Using chat4Rv2 with a system_set provided
+#' # Using chat4Rv2 with a system_prompt provided
 #' response <- chat4Rv2(content = "What is the capital of France?",
-#'                      system_set = "You are a helpful assistant.")
+#'                      system_prompt = "You are a helpful assistant.")
 #' response
 #' }
 
@@ -39,7 +39,7 @@ chat4Rv2 <- function(content,
                    temperature = 1,
                    simple = TRUE,
                    fromJSON_parsed = FALSE,
-                   system_set = "",
+                   system_prompt = "",
                    api_key = Sys.getenv("OPENAI_API_KEY")) {
 
   # Define parameters
@@ -51,15 +51,15 @@ chat4Rv2 <- function(content,
   headers <- httr::add_headers(`Content-Type` = "application/json",
                                `Authorization` = paste("Bearer", api_key))
 
-  # Construct messages list depending on system_set parameter
-  if (nzchar(system_set)) {
+  # Construct messages list depending on system_prompt parameter
+  if (nzchar(system_prompt)) {
     # Include system message if provided
     messages_list <- list(
-      list(role = "system", content = system_set),
+      list(role = "system", content = system_prompt),
       list(role = "user", content = content)
     )
   } else {
-    # Only include user message if system_set is empty
+    # Only include user message if system_prompt is empty
     messages_list <- list(
       list(role = "user", content = content)
     )
