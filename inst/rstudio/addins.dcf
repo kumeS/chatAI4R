@@ -118,11 +118,6 @@ Description: This function performs a web search with "LLM" as the query and out
 Binding: summaryWebScrapingText
 Interactive: false
 
-Name: Create eBay Product Description
-Description: This function generates a product description for eBay listings in English.
-Binding: createEBAYdes
-Interactive: false
-
 
 
 
