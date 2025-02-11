@@ -11,6 +11,8 @@ inst/examples/cache
 inst/Development_script
 inst/flowchart
 inst/OtherScript
+inst/vignettes/WebSearch_plus_LLM_plus_SNS.html
+inst/vignettes/WebSearch_plus_LLM_plus_SNS.Rmd
 knitr-minimal.md
 knitr-spin.md
 png$
