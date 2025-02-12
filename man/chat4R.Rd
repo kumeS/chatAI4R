@@ -10,6 +10,7 @@ chat4R(
   temperature = 1,
   simple = TRUE,
   fromJSON_parsed = FALSE,
+  check = FALSE,
   api_key = Sys.getenv("OPENAI_API_KEY")
 )
 }
@@ -24,16 +25,20 @@ chat4R(
 
 \item{fromJSON_parsed}{Logical, if TRUE, content will be parsed from JSON.}
 
+\item{check}{Logical, if TRUE, prints detailed error information (message, type, param, code) if the API response includes an error.
+If there is no error, "No error" is printed.}
+
 \item{api_key}{A string containing the user's OpenAI API key.
 Defaults to the value of the environment variable "OPENAI_API_KEY".}
 }
 \value{
-A data frame containing the response from the GPT model.
+A data frame or list containing the response from the GPT model, depending on arguments.
 }
 \description{
 This function uses the OpenAI API to interact with the
    gpt-4o-mini model (default) and generates responses based on user input.
-   In this function, currently, "gpt-4o-mini", "gpt-4o", "gpt-4", "gpt-4-turbo" and "gpt-3.5-turbo"
+   In this function, currently, "gpt-4o-mini", "gpt-4o", "gpt-4",
+   "gpt-4-turbo" and "gpt-3.5-turbo"
    can be selected as OpenAI's LLM model.
 }
 \details{
@@ -42,8 +47,8 @@ Chat4R Function
 \examples{
 \dontrun{
 Sys.setenv(OPENAI_API_KEY = "Your API key")
-response <- chat4R(content = "What is the capital of France?")
-response
+chat4R(content = "What is the capital of France?", check = TRUE)
+
 }
 }
 \author{
