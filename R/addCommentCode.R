@@ -11,6 +11,7 @@
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext insertText
 #' @return A message indicating completion if `SelectedCode` is TRUE, otherwise the commented code is copied to the clipboard.
 #' @export addCommentCode
+#'
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
