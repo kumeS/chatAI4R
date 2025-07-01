@@ -1,28 +1,24 @@
-#' Gemini API Google Search Grounding Request Function
+#' Gemini API Google Search Grounding Request (v1beta, 2025-07)
 #'
-#' This function sends a request to the Gemini API with Google Search grounding enabled.
-#' Grounding improves the factuality of the answer by incorporating the latest web search results.
+#' A thin R wrapper for Google Gemini API with Google Search grounding enabled.
+#' Grounding improves factuality by incorporating web search results.
 #'
-#' @param mode A character string specifying the mode. Valid values are "text", "stream_text", "chat", "stream_chat".
-#' @param contents For "text" or "stream_text" modes, a character string with the input text.
-#'   For "chat" or "stream_chat" modes, a list of messages. Each message is a list with fields:
-#'   \code{role} (e.g., "user" or "model") and \code{text} (the message content).
-#' @param store_history Logical. If TRUE in chat mode, the chat history is stored in the environment
-#'   variable "chat_history" as a JSON string.
-#' @param dynamic_threshold A numeric value [0,1] specifying the dynamic retrieval threshold.
-#'   The default is 1, meaning grounding is always applied.
-#' @param api_key A character string containing your Gemini API key.
-#' @param ... Additional options passed to the HTTP request.
+#' @param mode        One of `"text"`, `"stream_text"`, `"chat"`, `"stream_chat"`.
+#' @param contents    Character vector (single-turn) or list of message objects
+#'                    (chat modes). See Examples.
+#' @param model       Gemini model ID. Default `"gemini-2.0-flash"`.
+#' @param store_history Logical. If TRUE, chat history is persisted to the
+#'                      `chat_history` env-var (JSON).
+#' @param dynamic_threshold Numeric [0,1] for dynamic retrieval threshold (default: 1).
+#' @param api_key     Your Google Gemini API key (default: `Sys.getenv("GoogleGemini_API_KEY")`).
+#' @param max_tokens  Maximum output tokens. NULL for server default.
+#' @param ...         Additional `httr::POST` options (timeouts etc.).
 #'
-#' @return For synchronous modes ("text", "chat"), a parsed JSON object is returned.
-#'   For streaming modes ("stream_text", "stream_chat"), a list with \code{full_text} (combined output)
-#'   and \code{chunks} (individual text pieces) is returned.
+#' @return For non-stream modes, a parsed list. For stream modes, a list with
+#'         `full_text` and `chunks`.
 #'
-#' @importFrom httr POST add_headers content status_code http_error
-#' @importFrom jsonlite toJSON fromJSON
-#' @importFrom curl new_handle handle_setheaders handle_setopt curl_fetch_stream
-#' @export geminiGrounding4R
-#' @author Satoshi Kume
+#' @author Satoshi Kume (revised 2025-07-01)
+#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -61,45 +57,36 @@
 #'   print(stream_result$full_text)
 #' }
 
-geminiGrounding4R <- function(mode, contents, store_history = FALSE, dynamic_threshold = 1, api_key, ...) {
-  # Input validation
-  if (!is.character(mode) || length(mode) != 1 || nchar(mode) == 0) {
-    stop("mode must be a non-empty character string", call. = FALSE)
-  }
-  
-  if (!is.character(api_key) || length(api_key) != 1 || nchar(api_key) == 0) {
-    stop("api_key must be a non-empty character string. Set GoogleGemini_API_KEY environment variable.", call. = FALSE)
-  }
-  
-  if (!is.logical(store_history) || length(store_history) != 1) {
-    stop("store_history must be a logical value", call. = FALSE)
-  }
-  
-  if (!is.numeric(dynamic_threshold) || length(dynamic_threshold) != 1 || 
-      dynamic_threshold < 0 || dynamic_threshold > 1) {
-    stop("dynamic_threshold must be a numeric value between 0 and 1", call. = FALSE)
-  }
+geminiGrounding4R <- function(mode,
+                               contents,
+                               model             = "gemini-2.0-flash",
+                               store_history     = FALSE,
+                               dynamic_threshold = 1,
+                               api_key           = Sys.getenv("GoogleGemini_API_KEY"),
+                               max_tokens        = 2048,
+                               ...) {
 
-  # Validate the mode parameter
   mode <- tolower(mode)
   valid_modes <- c("text", "stream_text", "chat", "stream_chat")
-  if (!(mode %in% valid_modes)) {
-    stop("Invalid mode specified. Choose one of: ", paste(valid_modes, collapse = ", "), call. = FALSE)
+  if (!mode %in% valid_modes)
+    stop("Invalid mode. Choose one of: ", paste(valid_modes, collapse = ", "))
+
+  #----- Build endpoint --------------------------------------------------------
+  method   <- if (grepl("^stream", mode)) "streamGenerateContent" else "generateContent"
+  endpoint <- sprintf(
+    "https://generativelanguage.googleapis.com/v1beta/models/%s:%s?key=%s",
+    model, method, api_key
+  )
+  if (grepl("^stream", mode))
+    endpoint <- paste0(endpoint, "&alt=sse")  # SSE required for streaming
+
+  #----- Construct request body ------------------------------------------------
+  make_message <- function(role, text) {
+    list(role = role,
+         parts = list(list(text = text)))
   }
 
-  # Determine the endpoint based on the mode.
-  # This example uses a Gemini 1.5 Pro model that supports grounding.
-  if (mode == "text") {
-    endpoint <- paste0("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-002:generateContent?key=", api_key)
-  } else if (mode == "stream_text") {
-    endpoint <- paste0("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-002:streamGenerateContent?alt=sse&key=", api_key)
-  } else if (mode == "chat") {
-    endpoint <- paste0("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-002:generateContent?key=", api_key)
-  } else if (mode == "stream_chat") {
-    endpoint <- paste0("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-002:streamGenerateContent?alt=sse&key=", api_key)
-  }
-
-  # Build the request body. Add the tool setting for Google Search grounding.
+  # Google Search grounding tool configuration
   grounding_tool <- list(
     google_search_retrieval = list(
       dynamic_retrieval_config = list(
@@ -109,153 +96,91 @@ geminiGrounding4R <- function(mode, contents, store_history = FALSE, dynamic_thr
     )
   )
 
-  if (mode %in% c("text", "stream_text")) {
-    if (!is.list(contents)) {
-      request_body <- list(
-        contents = list(
-          list(parts = list(list(text = contents)))
-        ),
-        tools = list(grounding_tool)
-      )
-    } else {
-      request_body <- list(
-        contents = contents,
-        tools = list(grounding_tool)
-      )
-    }
-  } else if (mode %in% c("chat", "stream_chat")) {
-    request_body <- list(
-      contents = lapply(contents, function(msg) {
-        list(
-          role = msg$role,
-          parts = list(list(text = msg$text))
-        )
-      }),
+  body <- switch(
+    mode,
+    "text" = list(
+      contents = list(make_message("user", contents)),
+      tools = list(grounding_tool)
+    ),
+    "stream_text" = list(
+      contents = list(make_message("user", contents)),
+      tools = list(grounding_tool)
+    ),
+    "chat" = list(
+      contents = lapply(contents, \(m) make_message(m$role, m$text)),
+      tools = list(grounding_tool)
+    ),
+    "stream_chat" = list(
+      contents = lapply(contents, \(m) make_message(m$role, m$text)),
       tools = list(grounding_tool)
     )
-  }
+  )
 
-  # Convert the request body to a JSON string
-  json_body <- toJSON(request_body, auto_unbox = TRUE)
+  if (!is.null(max_tokens))
+    body$generationConfig <- list(maxOutputTokens = max_tokens)
 
-  # Synchronous modes ("text" and "chat")
-  if (mode %in% c("text", "chat")) {
-    response <- POST(
-      url = endpoint,
+  json_body <- jsonlite::toJSON(body, auto_unbox = TRUE)
+
+  #---------------------------------------------------------------------------
+  if (mode %in% c("text", "chat")) {        # ■ synchronous --------------------
+    res <- httr::POST(
+      url  = endpoint,
       body = json_body,
       encode = "json",
-      add_headers("Content-Type" = "application/json"),
+      httr::add_headers("Content-Type" = "application/json"),
       ...
     )
+    if (httr::http_error(res))
+      stop("HTTP error: ", httr::status_code(res))
 
-    # Validate HTTP status code before parsing response
-    status_code <- httr::status_code(response)
-    if (status_code != 200) {
-      error_content <- tryCatch(httr::content(response, "parsed"), error = function(e) NULL)
-      
-      # Extract error message with safe handling
-      error_msg <- if (!is.null(error_content) && !is.null(error_content$error)) {
-        if (!is.null(error_content$error$message)) {
-          error_content$error$message
-        } else {
-          "Unknown Gemini API error"
-        }
-      } else {
-        paste("Gemini API error with status code", status_code)
-      }
-      
-      stop("Gemini API Error (", status_code, "): ", error_msg, call. = FALSE)
-    }
+    parsed <- jsonlite::fromJSON(httr::content(res, "text", encoding = "UTF-8"),
+                                 simplifyVector = FALSE)
 
-    # Parse response content with error handling
-    res_content <- tryCatch({
-      httr::content(response, as = "text", encoding = "UTF-8")
-    }, error = function(e) {
-      stop("Failed to extract response content: ", e$message, call. = FALSE)
-    })
-    
-    parsed_response <- tryCatch({
-      jsonlite::fromJSON(res_content, simplifyVector = FALSE)
-    }, error = function(e) {
-      stop("Failed to parse Gemini API response: ", e$message, call. = FALSE)
-    })
-    
-    # Validate that we received a valid response structure
-    if (is.null(parsed_response)) {
-      stop("Gemini API returned empty response", call. = FALSE)
-    }
-
-    # For chat mode with history storage, update the environment variable with safe handling
     if (mode == "chat" && store_history) {
-      tryCatch({
-        prev_history <- Sys.getenv("chat_history")
-        if (nzchar(prev_history)) {
-          prev_history_list <- jsonlite::fromJSON(prev_history, simplifyVector = FALSE)
-        } else {
-          prev_history_list <- list()
-        }
-        
-        # Safely construct new history
-        if (!is.null(request_body$contents) && !is.null(parsed_response)) {
-          new_history <- c(prev_history_list, request_body$contents, list(parsed_response))
-          Sys.setenv(chat_history = jsonlite::toJSON(new_history, auto_unbox = TRUE))
-        }
-      }, error = function(e) {
-        warning("Failed to update chat history: ", e$message, call. = FALSE)
-      })
+      prev <- Sys.getenv("chat_history")
+      hist <- if (nzchar(prev)) jsonlite::fromJSON(prev, simplifyVector = FALSE) else list()
+      Sys.setenv(chat_history = jsonlite::toJSON(c(hist, body$contents, parsed),
+                                                 auto_unbox = TRUE))
     }
-
-    return(parsed_response)
+    return(parsed)
   }
 
-  # Streaming modes ("stream_text" and "stream_chat")
-  if (mode %in% c("stream_text", "stream_chat")) {
-    h <- new_handle()
-    handle_setheaders(h, "Content-Type" = "application/json")
-    handle_setopt(h, post = TRUE, postfields = json_body)
+  #---------------------------------------------------------------------------
+  if (mode %in% c("stream_text", "stream_chat")) {   # ■ streaming --------------
+    h <- curl::new_handle()
+    curl::handle_setheaders(h, "Content-Type" = "application/json")
+    curl::handle_setopt(h, post = TRUE, postfields = json_body)
 
-    accumulated_output <- character()
+    acc <- character()
 
-    callback <- function(data, ...) {
-      chunk <- rawToChar(data)
-      lines <- strsplit(chunk, "\n")[[1]]
-      for (line in lines) {
+    cb <- function(raw, ...) {
+      for (line in strsplit(rawToChar(raw), "\n")[[1]]) {
         line <- trimws(line)
-        if (nchar(line) == 0) next
-        if (startsWith(line, "data:")) {
-          data_line <- sub("^data:\\s*", "", line)
-          if (data_line == "[DONE]") next
-          parsed_chunk <- tryCatch({
-            fromJSON(data_line, simplifyVector = FALSE)
-          }, error = function(e) {
-            warning("Failed to parse JSON chunk: ", data_line)
-            NULL
-          })
-          if (!is.null(parsed_chunk)) {
-            if (!is.null(parsed_chunk$text)) {
-              accumulated_output <<- c(accumulated_output, parsed_chunk$text)
-            } else if (!is.null(parsed_chunk$candidates)) {
-              candidate_texts <- sapply(parsed_chunk$candidates, function(x) x$output)
-              accumulated_output <<- c(accumulated_output, candidate_texts)
-            }
-            if (mode == "stream_chat" && store_history) {
-              prev_history <- Sys.getenv("chat_history")
-              if (nzchar(prev_history)) {
-                prev_history_list <- fromJSON(prev_history, simplifyVector = FALSE)
-              } else {
-                prev_history_list <- list()
-              }
-              new_history <- c(prev_history_list, list(parsed_chunk))
-              Sys.setenv(chat_history = toJSON(new_history, auto_unbox = TRUE))
-            }
-          }
+        if (!nchar(line) || !startsWith(line, "data:")) next
+        payload <- sub("^data:\\s*", "", line)
+        if (payload == "[DONE]") next
+        dat <- tryCatch(jsonlite::fromJSON(payload, simplifyVector = FALSE),
+                        error = \(e) NULL)
+        if (is.null(dat)) next
+
+        # Extract incremental text
+        new_txt <- unlist(lapply(dat$candidates, function(cand) {
+          vapply(cand$content$parts, `[[`, "", "text")
+        }), use.names = FALSE)
+        if (length(new_txt))
+          acc <<- c(acc, new_txt)
+
+        if (mode == "stream_chat" && store_history) {
+          prev <- Sys.getenv("chat_history")
+          hist <- if (nzchar(prev)) jsonlite::fromJSON(prev, simplifyVector = FALSE) else list()
+          Sys.setenv(chat_history = jsonlite::toJSON(c(hist, list(dat)),
+                                                     auto_unbox = TRUE))
         }
       }
-      return(length(data))
+      length(raw)
     }
 
-    curl_fetch_stream(url = endpoint, fun = callback, handle = h)
-    final_output <- paste(accumulated_output, collapse = " ")
-    return(list(full_text = final_output, chunks = accumulated_output))
+    curl::curl_fetch_stream(endpoint, cb, handle = h)
+    list(full_text = paste(acc, collapse = ""), chunks = acc)
   }
 }

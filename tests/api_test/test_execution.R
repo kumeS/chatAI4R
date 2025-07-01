@@ -241,7 +241,7 @@ test_api_functions <- function() {
   # Test vision4R
   run_test("vision4R_basic", function() {
     # Check if the test image exists
-    image_path <- "inst/figures/Concept_v2.png"
+    image_path <- "../../inst/figures/Concept_v2.png"
     if (file.exists(image_path)) {
       result <- vision4R(
         image_path = image_path,
@@ -415,7 +415,7 @@ test_extended_api_functions <- function() {
   run_test("gemini4R_basic", function() {
     # Check for correct environment variable name
     if (Sys.getenv("GoogleGemini_API_KEY") != "") {
-      result <- gemini4R("Hello", mode = "text")  # Add required mode parameter
+      result <- gemini4R(mode = "text", contents = "Hello")  # Fix parameter order
       return(TRUE)
     } else {
       stop("Google Gemini API key not available")
@@ -425,13 +425,15 @@ test_extended_api_functions <- function() {
   # Test replicatellmAPI4R (if Replicate API key is available)
   run_test("replicatellmAPI4R_basic", function() {
     if (Sys.getenv("Replicate_API_KEY") != "") {
-      # Use correct input format as list
+      # Use correct input format as per function documentation
       input_data <- list(
-        prompt = "Hello",
-        max_new_tokens = 50,
-        temperature = 0.1
+        input = list(
+          prompt = "Hello",
+          max_tokens = 50,
+          temperature = 0.1
+        )
       )
-      result <- replicatellmAPI4R(input_data, "meta/llama-2-7b-chat")
+      result <- replicatellmAPI4R(input_data, "models/meta/meta-llama-3.1-405b-instruct/predictions")
       return(TRUE)
     } else {
       stop("Replicate API key not available")
@@ -447,7 +449,7 @@ test_extended_api_functions <- function() {
     tryCatch({
       test_text <- "This is a test document about machine learning and artificial intelligence."
       clipr::write_clip(test_text, allow_non_interactive = TRUE)
-      result <- extractKeywords(Model = "gpt-4o-mini", SelectedCode = FALSE, verbose = FALSE)
+      result <- extractKeywords(Model = "gpt-4o-mini", verbose = FALSE)
       return(TRUE)
     }, finally = {
       # Restore original environment variable

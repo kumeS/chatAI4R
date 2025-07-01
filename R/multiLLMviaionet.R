@@ -331,57 +331,81 @@ multiLLMviaionet <- function(prompt,
   return(suggestions)
 }
 
-# Helper function: Execute models in parallel (enhanced with future)
-.execute_models_parallel <- function(prompt, models, api_key, max_tokens, 
-                                    temperature, timeout, streaming, verbose) {
+# Helper function: Execute models in parallel
+.execute_models_parallel <- function(prompt, models, api_key, max_tokens, temperature,
+                                    timeout, streaming, verbose) {
   
   if (verbose) {
     cat(">> Executing", length(models), "models in parallel (async)\n")
   }
   
-  # Setup future plan for asynchronous execution
-  original_plan <- future::plan()
-  on.exit(future::plan(original_plan), add = TRUE)
+  # Suppress package loading messages in parallel execution
+  suppressPackageStartupMessages({
+    future::plan(future::multisession, workers = min(length(models), 6))
+  })
   
-  # Use multisession for true parallel execution
-  future::plan(future::multisession, workers = min(8, length(models)))
-  
-  # Create futures for each model
-  futures <- list()
+  # Create futures for each model with suppressed messages
+  futures_list <- list()
   for (i in seq_along(models)) {
-    model <- models[i]
-    futures[[model]] <- future::future({
-      .execute_single_model(prompt, model, api_key, max_tokens, temperature, 
-                           timeout, streaming, verbose = FALSE)
-    }, seed = TRUE)
+    futures_list[[models[i]]] <- future::future({
+      # Suppress all package startup messages within each worker
+      suppressPackageStartupMessages({
+        library(httr, quietly = TRUE)
+        library(jsonlite, quietly = TRUE)
+      })
+      
+      .execute_single_model(
+        prompt, models[i], api_key, max_tokens, temperature,
+        timeout, streaming, verbose = FALSE  # Disable verbose for cleaner parallel output
+      )
+    })
   }
   
-  # Monitor progress and collect results
-  results <- list()
-  completed <- character(0)
-  
+  # Monitor progress
   if (verbose) {
     cat(">> Monitoring async execution progress:\n")
-  }
-  
-  while (length(completed) < length(models)) {
-    for (model in names(futures)) {
-      if (!model %in% completed && future::resolved(futures[[model]])) {
-        # Collect result from completed future
-        results[[model]] <- future::value(futures[[model]])
-        completed <- c(completed, model)
-        
-        if (verbose) {
-          cat("  [OK]", model, "completed (", length(completed), "/", length(models), ")\n")
+    completed_count <- 0
+    
+    while (completed_count < length(models)) {
+      for (model in names(futures_list)) {
+        if (future::resolved(futures_list[[model]])) {
+          result <- tryCatch(future::value(futures_list[[model]]), error = function(e) NULL)
+          if (!is.null(result) && !is.null(result$model)) {
+            completed_count <- completed_count + 1
+            status <- if (result$success) "[OK]" else "[ERROR]"
+            cat("  ", status, result$model, "completed (", completed_count, "/", length(models), ")\n")
+            futures_list[[model]] <- NULL  # Remove completed future
+          }
         }
       }
-    }
-    
-    # Small delay to prevent busy waiting
-    if (length(completed) < length(models)) {
-      Sys.sleep(0.1)
+      if (completed_count < length(models)) {
+        Sys.sleep(0.5)  # Brief pause before next check
+      }
     }
   }
+  
+  # Collect all results with suppressed messages
+  results <- list()
+  suppressPackageStartupMessages({
+    for (model in models) {
+      if (!is.null(futures_list[[model]])) {
+        results[[model]] <- tryCatch(
+          future::value(futures_list[[model]]),
+          error = function(e) {
+            list(
+              model = model,
+              response = NULL,
+              success = FALSE,
+              execution_time = 0,
+              usage = list(prompt_tokens = 0, completion_tokens = 0, total_tokens = 0),
+              timestamp = Sys.time(),
+              error = paste("Future execution failed:", e$message)
+            )
+          }
+        )
+      }
+    }
+  })
   
   if (verbose) {
     cat(">> All", length(models), "models completed asynchronously\n")
@@ -390,9 +414,9 @@ multiLLMviaionet <- function(prompt,
   return(results)
 }
 
-# Helper function: Execute models sequentially  
-.execute_models_sequential <- function(prompt, models, api_key, max_tokens,
-                                      temperature, timeout, streaming, verbose) {
+# Helper function: Execute models sequentially
+.execute_models_sequential <- function(prompt, models, api_key, max_tokens, temperature,
+                                     timeout, streaming, verbose) {
   
   if (verbose) {
     cat(">> Executing", length(models), "models sequentially\n")
@@ -414,25 +438,25 @@ multiLLMviaionet <- function(prompt,
   return(results)
 }
 
-# Helper function: Execute single model
+# Helper function: Execute single model with enhanced debugging
 .execute_single_model <- function(prompt, model, api_key, max_tokens, temperature,
                                  timeout, streaming, verbose = TRUE) {
   
   start_time <- Sys.time()
   
   tryCatch({
-    # Prepare request body
+    # Prepare request body (following JavaScript reference implementation)
     body <- list(
       model = model,
       messages = list(
         list(role = "user", content = prompt)
       ),
-      max_completion_tokens = max_tokens,
+      max_completion_tokens = if (is.null(max_tokens)) 1024 else max_tokens,
       temperature = temperature,
-      stream = streaming
+      stream = streaming == TRUE  # Explicit boolean conversion as in JS example
     )
     
-    # Make API request
+    # Make API request (following JavaScript reference implementation)
     response <- httr::POST(
       url = "https://api.intelligence.io.solutions/api/v1/chat/completions",
       httr::add_headers(
@@ -489,38 +513,115 @@ multiLLMviaionet <- function(prompt,
       stop(error_msg)
     }
     
-    # Parse response with error handling
+    # Parse response with enhanced debugging (following JavaScript reference)
     parsed_response <- tryCatch({
-      if (streaming) {
-        # For streaming, handle SSE format
+      if (streaming == TRUE) {
+        # For streaming, handle Server-Sent Events (SSE) format
         content_text <- httr::content(response, "text", encoding = "UTF-8")
-        # Simplified streaming parser - full implementation would handle SSE chunks
-        if (grepl("^data:", content_text)) {
-          # Extract JSON from SSE format
-          json_lines <- strsplit(content_text, "\n")[[1]]
-          json_lines <- json_lines[grepl("^data:", json_lines)]
-          json_lines <- gsub("^data: ", "", json_lines)
-          json_lines <- json_lines[json_lines != "[DONE]" & nchar(json_lines) > 0]
+        
+        if (verbose) {
+          cat("[DEBUG] Raw streaming response length:", nchar(content_text), "characters\n")
+        }
+        
+        # Handle SSE format: parse data chunks
+        if (grepl("data:", content_text)) {
+          # Split into lines and process SSE data chunks
+          lines <- strsplit(content_text, "\n")[[1]]
+          data_lines <- lines[grepl("^data:\\s*", lines)]
           
-          if (length(json_lines) > 0) {
-            # Parse the last complete chunk
-            jsonlite::fromJSON(json_lines[length(json_lines)])
+          # Clean data lines and remove empty/DONE markers
+          data_lines <- gsub("^data:\\s*", "", data_lines)
+          data_lines <- data_lines[data_lines != "[DONE]" & nchar(trimws(data_lines)) > 0]
+          
+          if (length(data_lines) > 0) {
+            # Accumulate content from all chunks for complete response
+            accumulated_content <- ""
+            
+            for (data_line in data_lines) {
+              tryCatch({
+                chunk_data <- jsonlite::fromJSON(data_line)
+                if (!is.null(chunk_data$choices) && length(chunk_data$choices) > 0) {
+                  if (!is.null(chunk_data$choices[[1]]$delta$content)) {
+                    accumulated_content <- paste0(accumulated_content, chunk_data$choices[[1]]$delta$content)
+                  }
+                }
+              }, error = function(e) {
+                # Skip malformed chunks
+                if (verbose) cat("[WARNING] Skipping malformed chunk:", data_line, "\n")
+              })
+            }
+            
+            # Create a synthetic response object with accumulated content
+            if (nchar(accumulated_content) > 0) {
+              list(
+                choices = list(list(
+                  message = list(content = accumulated_content)
+                )),
+                usage = list(prompt_tokens = 0, completion_tokens = 0, total_tokens = 0)
+              )
+            } else {
+              # Parse the last valid chunk as fallback
+              jsonlite::fromJSON(data_lines[length(data_lines)])
+            }
           } else {
-            stop("No valid streaming data received")
+            stop("No valid streaming data chunks found in SSE response")
           }
         } else {
+          # Not SSE format, try parsing as regular JSON
           jsonlite::fromJSON(content_text)
         }
       } else {
+        # Non-streaming: parse as standard JSON
         httr::content(response, "parsed")
       }
     }, error = function(e) {
-      stop("Failed to parse API response for model '", model, "': ", e$message)
+      # Enhanced error message with response content for debugging
+      raw_content <- tryCatch(httr::content(response, "text", encoding = "UTF-8"), error = function(e2) "Unable to extract content")
+      stop("Failed to parse API response for model '", model, "'. Raw content (first 500 chars): ", 
+           substr(raw_content, 1, 500), ". Parse error: ", e$message)
     })
     
-    # Extract response text with enhanced safety checks
-    response_text <- tryCatch({
-      if (!is.null(parsed_response$choices) && length(parsed_response$choices) > 0) {
+    # Debug: Log actual response structure when choices are missing
+    if (is.null(parsed_response$choices) || length(parsed_response$choices) == 0) {
+      # Log the structure for debugging
+      response_structure <- capture.output(utils::str(parsed_response, max.level = 2))
+      response_names <- if (is.list(parsed_response)) names(parsed_response) else "Not a list"
+      
+      debug_info <- paste(
+        "API Response Debug Info for model", model, ":",
+        "\nResponse has", length(parsed_response), "top-level elements.",
+        "\nTop-level names:", paste(response_names, collapse = ", "),
+        "\nResponse structure (first 3 levels):",
+        paste(response_structure[1:min(10, length(response_structure))], collapse = "\n"),
+        "\nFirst 200 chars of raw response:",
+        substr(httr::content(response, "text", encoding = "UTF-8"), 1, 200)
+      )
+      
+      # Check for alternative response formats
+      possible_content <- NULL
+      
+      # Try different common response formats
+      if (!is.null(parsed_response$content)) {
+        possible_content <- parsed_response$content
+      } else if (!is.null(parsed_response$output)) {
+        possible_content <- parsed_response$output
+      } else if (!is.null(parsed_response$text)) {
+        possible_content <- parsed_response$text
+      } else if (!is.null(parsed_response$response)) {
+        possible_content <- parsed_response$response
+      } else if (!is.null(parsed_response$data) && !is.null(parsed_response$data$content)) {
+        possible_content <- parsed_response$data$content
+      }
+      
+      if (!is.null(possible_content) && nchar(trimws(possible_content)) > 0) {
+        # Found content in alternative format
+        response_text <- possible_content
+      } else {
+        stop("No valid content found in API response for model '", model, "'. ", debug_info)
+      }
+    } else {
+      # Standard choices format - extract response text
+      response_text <- tryCatch({
         if (streaming && !is.null(parsed_response$choices[[1]]$delta) && 
             !is.null(parsed_response$choices[[1]]$delta$content)) {
           parsed_response$choices[[1]]$delta$content
@@ -528,14 +629,12 @@ multiLLMviaionet <- function(prompt,
                    !is.null(parsed_response$choices[[1]]$message$content)) {
           parsed_response$choices[[1]]$message$content
         } else {
-          stop("Message content not found in API response")
+          stop("Message content not found in choices structure")
         }
-      } else {
-        stop("No choices found in API response")
-      }
-    }, error = function(e) {
-      stop("Failed to extract content from model '", model, "' response: ", e$message)
-    })
+      }, error = function(e) {
+        stop("Failed to extract content from choices for model '", model, "': ", e$message)
+      })
+    }
     
     # Validate response content
     if (is.null(response_text) || length(response_text) == 0 || 

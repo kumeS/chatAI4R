@@ -3,6 +3,7 @@ tikzDictionary$
 aux$
 log$
 out$
+.claude
 inst/examples/knitr-.*.pdf
 inst/examples/child/knitr-.*.pdf
 inst/examples/child/knitr-.*\.md

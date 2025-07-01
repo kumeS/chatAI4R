@@ -2,78 +2,50 @@
 % Please edit documentation in R/gemini4R.R
 \name{gemini4R}
 \alias{gemini4R}
-\title{Gemini API Request Function}
+\title{Gemini API Request (v1beta, 2025-07)}
 \usage{
 gemini4R(
   mode,
   contents,
+  model = "gemini-2.0-flash",
   store_history = FALSE,
   api_key = Sys.getenv("GoogleGemini_API_KEY"),
-  max_token = 200,
+  max_tokens = 2048,
   ...
 )
 }
 \arguments{
-\item{mode}{A character string specifying the mode. Valid values are "text", "stream_text", "chat", "stream_chat".}
+\item{mode}{One of `"text"`, `"stream_text"`, `"chat"`, `"stream_chat"`.}
 
-\item{contents}{For "text" or "stream_text" modes, a character string with the input text.
-For "chat" or "stream_chat" modes, a list of messages. Each message is a list with fields:
-\code{role} (e.g., "user" or "model") and \code{text} (message content).}
+\item{contents}{Character vector (single-turn) or list of message objects
+(chat modes).  See Examples.}
 
-\item{store_history}{Logical. If TRUE and in a chat mode, the chat history is stored in the environment
-variable "chat_history" as a JSON string.}
+\item{model}{Gemini model ID.  Default `"gemini-2.0-flash"`.}
 
-\item{api_key}{A character string containing your Gemini API key.}
+\item{store_history}{Logical.  If TRUE, chat history is persisted to the
+`chat_history` env-var (JSON).}
 
-\item{max_token}{Integer. Optional. Maximum number of tokens for the generated output.}
+\item{api_key}{Your Google Gemini API key (default: `Sys.getenv("GEMINI_API_KEY")`).}
 
-\item{...}{Additional options passed to the HTTP request.}
+\item{max_tokens}{Maximum output tokens.  NULL for server default.}
+
+\item{...}{Additional `httr::POST` options (timeouts etc.).}
 }
 \value{
-For synchronous modes ("text", "chat"), a parsed JSON object is returned.
-  For streaming modes ("stream_text", "stream_chat"), a list with \code{full_text} (combined output)
-  and \code{chunks} (individual text pieces) is returned.
+For non-stream modes, a parsed list.  For stream modes, a list with
+        `full_text` and `chunks`.
 }
 \description{
-This function sends a request to the Gemini API to generate text or perform interactive chat.
-It supports both synchronous and streaming modes.
+A thin, dependency-light R wrapper for Google Gemini API
+(`models.generateContent` / `models.streamGenerateContent`).
 }
 \examples{
 \dontrun{
-  # Synchronous text generation:
-  result <- gemini4R(
-    mode = "text",
-    api_key = Sys.getenv("GoogleGemini_API_KEY"),
-    contents = "Explain how AI works",
-    max_token = 256
-  )
-  print(result)
-
-  # Synchronous chat mode with history storage:
-  chat_history <- list(
-    list(role = "user", text = "Hello"),
-    list(role = "model", text = "Great to meet you. What would you like to know?"),
-    list(role = "user", text = "I have two dogs in my house. How many paws are in my house?")
-  )
-  chat_result <- gemini4R(
-    mode = "chat",
-    api_key = Sys.getenv("GoogleGemini_API_KEY"),
-    contents = chat_history,
-    store_history = TRUE,
-    max_token = 150
-  )
-  print(chat_result)
-
-  # Streaming text generation:
-  stream_result <- gemini4R(
-    mode = "stream_text",
-    api_key = Sys.getenv("GoogleGemini_API_KEY"),
-    contents = "Write a story about a magic backpack.",
-    max_token = 200
-  )
-  print(stream_result$full_text)
+gemini4R("text",
+         contents = "Explain how AI works.",
+         max_tokens = 256)
 }
 }
 \author{
-Satoshi Kume
+Satoshi Kume (revised 2025-07-01)
 }

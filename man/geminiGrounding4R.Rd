@@ -2,42 +2,45 @@
 % Please edit documentation in R/geminiGrounding4R.R
 \name{geminiGrounding4R}
 \alias{geminiGrounding4R}
-\title{Gemini API Google Search Grounding Request Function}
+\title{Gemini API Google Search Grounding Request (v1beta, 2025-07)}
 \usage{
 geminiGrounding4R(
   mode,
   contents,
+  model = "gemini-2.0-flash",
   store_history = FALSE,
   dynamic_threshold = 1,
-  api_key,
+  api_key = Sys.getenv("GoogleGemini_API_KEY"),
+  max_tokens = 2048,
   ...
 )
 }
 \arguments{
-\item{mode}{A character string specifying the mode. Valid values are "text", "stream_text", "chat", "stream_chat".}
+\item{mode}{One of `"text"`, `"stream_text"`, `"chat"`, `"stream_chat"`.}
 
-\item{contents}{For "text" or "stream_text" modes, a character string with the input text.
-For "chat" or "stream_chat" modes, a list of messages. Each message is a list with fields:
-\code{role} (e.g., "user" or "model") and \code{text} (the message content).}
+\item{contents}{Character vector (single-turn) or list of message objects
+(chat modes). See Examples.}
 
-\item{store_history}{Logical. If TRUE in chat mode, the chat history is stored in the environment
-variable "chat_history" as a JSON string.}
+\item{model}{Gemini model ID. Default `"gemini-2.0-flash"`.}
 
-\item{dynamic_threshold}{A numeric value [0,1] specifying the dynamic retrieval threshold.
-The default is 1, meaning grounding is always applied.}
+\item{store_history}{Logical. If TRUE, chat history is persisted to the
+`chat_history` env-var (JSON).}
 
-\item{api_key}{A character string containing your Gemini API key.}
+\item{dynamic_threshold}{Numeric [0,1] for dynamic retrieval threshold (default: 1).}
 
-\item{...}{Additional options passed to the HTTP request.}
+\item{api_key}{Your Google Gemini API key (default: `Sys.getenv("GoogleGemini_API_KEY")`).}
+
+\item{max_tokens}{Maximum output tokens. NULL for server default.}
+
+\item{...}{Additional `httr::POST` options (timeouts etc.).}
 }
 \value{
-For synchronous modes ("text", "chat"), a parsed JSON object is returned.
-  For streaming modes ("stream_text", "stream_chat"), a list with \code{full_text} (combined output)
-  and \code{chunks} (individual text pieces) is returned.
+For non-stream modes, a parsed list. For stream modes, a list with
+        `full_text` and `chunks`.
 }
 \description{
-This function sends a request to the Gemini API with Google Search grounding enabled.
-Grounding improves the factuality of the answer by incorporating the latest web search results.
+A thin R wrapper for Google Gemini API with Google Search grounding enabled.
+Grounding improves factuality by incorporating web search results.
 }
 \examples{
 \dontrun{
@@ -77,5 +80,5 @@ Grounding improves the factuality of the answer by incorporating the latest web 
 }
 }
 \author{
-Satoshi Kume
+Satoshi Kume (revised 2025-07-01)
 }
