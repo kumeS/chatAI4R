@@ -63,10 +63,22 @@ chat4R <- function(content,
     config = headers
   )
 
+  # Check HTTP status code first
+  if (httr::status_code(response) != 200) {
+    error_content <- httr::content(response, "parsed")
+    error_msg <- if (!is.null(error_content$error$message)) {
+      error_content$error$message
+    } else {
+      paste("HTTP", httr::status_code(response), "error")
+    }
+    stop("API Error (", httr::status_code(response), "): ", error_msg)
+  }
+
+  # Parse response content safely
+  resp_parsed <- httr::content(response, "parsed")
+
   # Optionally check and display error information
   if (check) {
-    resp_parsed <- httr::content(response, "parsed")
-
     # If no 'error' object is present, print "No error"
     if (is.null(resp_parsed$error)) {
       message("Status: No error")
@@ -79,9 +91,16 @@ chat4R <- function(content,
     }
   }
 
-  # Extract and return the response content in the requested format
+  # Extract and return the response content in the requested format with safe access
   if (simple) {
-    return(data.frame(content = httr::content(response, "parsed")$choices[[1]]$message$content))
+    # Safe access to nested data structure
+    if (!is.null(resp_parsed$choices) && length(resp_parsed$choices) > 0 && 
+        !is.null(resp_parsed$choices[[1]]$message) && 
+        !is.null(resp_parsed$choices[[1]]$message$content)) {
+      return(data.frame(content = resp_parsed$choices[[1]]$message$content))
+    } else {
+      stop("Unexpected API response format: choices or message content not found")
+    }
   } else {
     if (fromJSON_parsed) {
       raw_content <- httr::content(response, "raw")
@@ -89,7 +108,7 @@ chat4R <- function(content,
       parsed_data <- jsonlite::fromJSON(char_content)
       return(parsed_data)
     } else {
-      return(data.frame(httr::content(response, "parsed")))
+      return(data.frame(resp_parsed))
     }
   }
 }

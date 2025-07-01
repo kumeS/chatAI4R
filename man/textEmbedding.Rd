@@ -4,10 +4,17 @@
 \alias{textEmbedding}
 \title{Text Embedding from OpenAI Embeddings API}
 \usage{
-textEmbedding(text, api_key = Sys.getenv("OPENAI_API_KEY"))
+textEmbedding(
+  text,
+  model = "text-embedding-3-small",
+  api_key = Sys.getenv("OPENAI_API_KEY")
+)
 }
 \arguments{
 \item{text}{A string. The input text to get the embedding for. This should be a character string.}
+
+\item{model}{A string. The embedding model to use. Options: "text-embedding-3-small" (default), 
+"text-embedding-3-large", "text-embedding-ada-002" (legacy).}
 
 \item{api_key}{A string. The API key for the OpenAI API. Defaults to the value of the environment variable "OPENAI_API_KEY".}
 }
@@ -16,12 +23,14 @@ A vector representing the text embeddings.
 }
 \description{
 This function calls the OpenAI Embeddings API to get the multidimensional vector
-  via text embedding of the input text. This function uses the 'text-embedding-ada-002' model.
+  via text embedding of the input text. This function uses the 'text-embedding-3-small' model by default,
+  with options for 'text-embedding-3-large' and legacy 'text-embedding-ada-002'.
 }
 \examples{
 \dontrun{
 Sys.setenv(OPENAI_API_KEY = "Your API key")
 textEmbedding("Hello, world!")
+textEmbedding("Hello, world!", model = "text-embedding-3-large")
 }
 }
 \author{

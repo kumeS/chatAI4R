@@ -18,16 +18,31 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ## About this project and future developments
 
-- AI integration with R
-  - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, GPT-3.5, GPT-4, text embeddings)
+- **Multi-API AI Integration with R**
+  - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, GPT-4, text embeddings, vision)
+  - [Google Gemini API](https://ai.google.dev/) (Gemini models, search grounding)
+  - [Replicate API](https://replicate.com/) (Llama, other open-source models)
+  - [Dify API](https://dify.ai/) (Workflow-based AI applications)
+  - [io.net API](https://io.net/) (Multi-LLM parallel execution, 23 models)
+  - [DeepL API](https://www.deepl.com/translator-api) (Professional translation)
 
-- LLM-assisted R Package Development
-  - Package design, create R function, proofread English text, etc.
+- **4-Layer Architecture for Progressive AI Capabilities**
+  - **Core Layer**: Direct API access and basic utilities
+  - **Usage/Task Layer**: Conversation management, text processing, proofreading
+  - **Workflow Layer**: Multi-bot systems, R package development automation
+  - **Expertise Layer**: Advanced data mining, pattern recognition, expert analysis
 
-- LLM-Based Data Analysis and Integration (future developments)
-  - Automated Analysis: Analysis Design, Statistics, Data Visualization, Discussion, Question Answering
-  - Highly-technical texts modeling and natural language question answering
-  - Bioinformatics analysis
+- **LLM-assisted R Package Development**
+  - Complete package design and architecture planning
+  - Automated R function creation with documentation
+  - Code optimization and error analysis
+  - Professional text proofreading and enhancement
+
+- **Advanced Data Analysis and Knowledge Discovery**
+  - Multi-domain statistical analysis interpretation (13+ domains)
+  - Scientific literature processing and knowledge extraction
+  - Web data mining and intelligent summarization
+  - Expert-level discussion simulation and peer review processes
   
 ***The functionality for interlanguage translation using DeepL has been separated as the 'deepRstudio' package. Functions related to text-to-image generation were separated as the 'stableDiffusion4R' package.***
 
@@ -66,23 +81,57 @@ system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.2.3.tar.gz")
 system("R CMD INSTALL v0.2.3.tar.gz")
 ```
 
-### 3. Set the API key according to each Web API.
+### 3. Set the API keys for Multi-API Support
 
-For example, to obtain an OpenAI API key, please register as a member on the OpenAI website (https://platform.openai.com/account/api-keys) and obtain your API key.
+chatAI4R supports multiple AI APIs. Configure the APIs you want to use:
+
+#### **Required: OpenAI API** (for most functions)
+Register at [OpenAI website](https://platform.openai.com/account/api-keys) and obtain your API key.
 
 ```r
-#Set your key for the OpenAI API
-Sys.setenv(OPENAI_API_KEY = "Your API key")
+# Set your OpenAI API key (required)
+Sys.setenv(OPENAI_API_KEY = "sk-your-openai-api-key")
 ```
 
-Create an .Rprofile file in your home directory and add your API key (using the code above) into it.
+#### **Optional: Additional AI APIs** (for extended functions)
 
-```{r}
+```r
+# Google Gemini API (for gemini4R, geminiGrounding4R)
+Sys.setenv(GoogleGemini_API_KEY = "your-gemini-api-key")
+
+# Replicate API (for replicatellmAPI4R)
+Sys.setenv(Replicate_API_KEY = "your-replicate-api-key")
+
+# Dify API (for DifyChat4R)
+Sys.setenv(DIFY_API_KEY = "your-dify-api-key")
+
+# DeepL API (for discussion_flow functions with translation)
+Sys.setenv(DeepL_API_KEY = "your-deepl-api-key")
+
+# io.net API (for multiLLMviaionet functions)
+Sys.setenv(IONET_API_KEY = "your-ionet-api-key")
+```
+
+#### **Permanent Configuration**
+Create an .Rprofile file in your home directory and add your API keys:
+
+```r
 # Create a file
 file.create("~/.Rprofile") 
 
+# Add all your API keys to the file
+cat('
+# chatAI4R API Keys Configuration
+Sys.setenv(OPENAI_API_KEY = "sk-your-openai-api-key")
+Sys.setenv(GoogleGemini_API_KEY = "your-gemini-api-key")
+Sys.setenv(Replicate_API_KEY = "your-replicate-api-key")
+Sys.setenv(DIFY_API_KEY = "your-dify-api-key")
+Sys.setenv(DeepL_API_KEY = "your-deepl-api-key")
+Sys.setenv(IONET_API_KEY = "your-ionet-api-key")
+', file = "~/.Rprofile", append = TRUE)
+
 # [MacOS X] Open the file and edit it
-system(paste("open ~/.Rprofile"))
+system("open ~/.Rprofile")
 ```
 
 Note: Please be aware of newline character inconsistencies across different operating systems.
@@ -92,6 +141,8 @@ Note: Please be aware of newline character inconsistencies across different oper
 ### Basic usage
 
 - [Usage of functions in the chatAI4R package](https://kumes.github.io/chatAI4R/inst/vignettes/HowToUse.html)
+
+- [Multi-LLM Demo: io.net API Examples](https://github.com/kumeS/chatAI4R/blob/main/examples/multiLLM_demo.R)
 
 - [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
 
@@ -121,64 +172,88 @@ Note: Please be aware of newline character inconsistencies across different oper
 
 ## R functions
 
-Flowcharts of the R functions were created by GPT-4 + Skrive plugin.
+The chatAI4R package is structured as **4 Layered Functions** that provide increasingly sophisticated AI capabilities, from basic API access to expert-level data mining and analysis.
 
-### Basic functions
+### 🟢 Core Functions (1st Layer)
+**Access to LLM API / Multi-APIs**
 
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|chat4R|Chat4R: Interact with GPT-3.5 (default) using OpenAI API (One-shot)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R.png)|
-|chat4R_history|Use chat history for OpenAI's GPT model|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R_history.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R_history.png)|
-|completions4R|Generate text using OpenAI completions API (One-shot)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/completions4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/completions4R.png)|
-|textEmbedding|Text Embedding from OpenAI Embeddings API (model: text-embedding-ada-002)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textEmbedding.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/textEmbedding.png)|
-|slow_print_v2|Slowly Print Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print_v2.R)||
-|ngsub|Remove Extra Spaces and Newline Characters|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/ngsub.R)||
-|removeQuotations|Remove All Types of Quotations from Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/removeQuotations.R)||
+Core functions provide direct access to multiple AI APIs, enabling basic AI operations.
 
-### Basic Secondary Layer Functions
+|Function|Description|API Service|Script|Flowchart|
+|:---|:---|:---|:---:|:---:|
+|chat4R|Chat with GPT models using OpenAI API (One-shot)|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R.png)|
+|chat4R_history|Use chat history for OpenAI's GPT model|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R_history.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R_history.png)|
+|textEmbedding|Text Embedding from OpenAI Embeddings API (1536-dimensional)|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textEmbedding.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/textEmbedding.png)|
+|vision4R|Advanced image analysis and interpretation|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/vision4R.R)||
+|gemini4R|Chat with Google Gemini AI models|Google Gemini|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/gemini4R.R)||
+|replicatellmAPI4R|Access various LLM models through Replicate platform|Replicate|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/replicateAPI4R.R)||
+|DifyChat4R|Chat and completion endpoints through Dify platform|Dify|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/DifyChat4R.R)||
+|multiLLMviaionet|Execute multiple LLM models simultaneously via io.net API|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
+|list_ionet_models|List available LLM models on io.net platform|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
+|multiLLM_random10|Quick execution of 10 randomly selected models via io.net|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
+|multiLLM_random5|Quick execution of 5 randomly selected models via io.net|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
+|completions4R|Generate text using OpenAI completions API (deprecated)|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/completions4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/completions4R.png)|
 
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|conversation4R|Manage a conversation using a chatting history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
-|autocreateFunction4R|Generate and Improve R Functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/autocreateFunction4R.R)||
-|revisedText|Revision for a scientific text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/revisedText.R)||
+**Utility Functions (Non-API)**
 
-### Functions for R package developments
+|Function|Description|Script|
+|:---|:---|:---:|
+|slow_print_v2|Slowly print text with typewriter effect|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print_v2.R)|
+|ngsub|Remove extra spaces and newline characters|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/ngsub.R)|
+|removeQuotations|Remove all types of quotations from text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/removeQuotations.R)|
 
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|designPackage|Design Package for R|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/designPackage.R)||
-|supportIdeaGeneration|Support Idea Generation from Selected Text or Clipboard Input|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/supportIdeaGeneration.R)||
-|enrichTextContent|Enrich Text Content|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/enrichTextContent.R)||
-|createSpecifications4R|Create Specifications for R Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createSpecifications4R.R)||
-|createRcode|Create R Code from Clipboard Content and Output into the R Console|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRcode.R)||
-|createRfunction|Create R Function from Selected Text or Clipboard Content |[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRfunction.R)||
-|convertRscript2Function|Convert Selected R Script to R Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertRscript2Function.R)||
-|OptimizeRcode|Optimize and Complete R Code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/OptimizeRcode.R)||
-|addCommentCode|Add Comments to R Code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)||
-|addRoxygenDescription|Add Roxygen Description to R Function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addRoxygenDescription.R)||
-|proofreadEnglishText|Proofread English Text During R Package Development via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadEnglishText.R)||
-|checkErrorDet|Check Error Details|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)||
-|checkErrorDet_JP|Check Error Details in Japanese via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet_JP.R)||
-|convertScientificLiterature|Convert to Scientific Literature|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertScientificLiterature.R)||
-|searchFunction|Search the R function based on the provided text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/searchFunction.R)||
+### 🟡 2nd Layered Functions (Usage/Task)
+**Execution of simple LLM tasks: Chat memory, translation, proofreading, etc.**
 
-### Functions for Text Summary
+These functions combine core APIs to perform specific tasks and maintain conversation context.
 
 |Function|Description|Script|Flowchart|
 |:---|:---|:---:|:---:|
-|TextSummary| Summarize a long text (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
-|summaryWebScrapingText|Summarize Text via Web Scraping of Google Search|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/summaryWebScrapingText.R)||
-|TextSummaryAsBullet|Summarize Selected Text into Bullet Points|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummaryAsBullet.R)||
-|convertBullet2Sentence|Convert Bullet Points to Sentences|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertBullet2Sentence.R)||
-|chatAI4pdf|Summarize PDF Text via LLM|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chatAI4pdf.R)||
-|extractKeywords|Extract Keywords from Text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/extractKeywords.R)||
+|conversation4R|Manage conversation with persistent history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
+|TextSummary|Summarize long texts with intelligent chunking|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
+|TextSummaryAsBullet|Summarize selected text into bullet points|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummaryAsBullet.R)||
+|revisedText|Revision for scientific text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/revisedText.R)||
+|proofreadEnglishText|Proofread English text via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadEnglishText.R)||
+|proofreadText|Proofread text with grammar and style correction|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadText.R)||
+|enrichTextContent|Enrich text content with additional information|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/enrichTextContent.R)||
+|convertBullet2Sentence|Convert bullet points to sentences|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertBullet2Sentence.R)||
 
-### Interactions and Flow Control Between LLM-based Bots (LLBs)
+### 🟠 3rd Layered Functions (Workflow)
+**LLM Workflow, LLM Bots, R Packaging Supports**
 
-|Function|Description|Script|Flowchart|
-|:---|:---|:---:|:---:|
-|discussion_flow_v1|Simulates interactions and flow control between three different roles of LLM-based bots (LLBs)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/discussion_flow_v1.R)||
+Advanced workflow functions that orchestrate multiple AI operations and support complex development tasks.
+
+|Function|Description|Script|
+|:---|:---|:---:|
+|discussion_flow_v1|Multi-agent expert system simulation (3 roles)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/discussion_flow_v1.R)|
+|discussion_flow_v2|Enhanced multi-bot conversation system|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/discussion_flow_v2.R)|
+|createSpecifications4R|Create detailed specifications for R functions|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createSpecifications4R.R)|
+|createRfunction|Create R functions from selected text or clipboard|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRfunction.R)|
+|createRcode|Generate R code from clipboard content|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createRcode.R)|
+|convertRscript2Function|Convert R script to structured R function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertRscript2Function.R)|
+|addRoxygenDescription|Add Roxygen documentation to R functions|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addRoxygenDescription.R)|
+|OptimizeRcode|Optimize and complete R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/OptimizeRcode.R)|
+|designPackage|Design complete R packages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/designPackage.R)|
+|addCommentCode|Add intelligent comments to R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)|
+|checkErrorDet|Analyze and explain R error messages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)|
+|autocreateFunction4R|Generate and improve R functions (experimental)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/autocreateFunction4R.R)|
+|supportIdeaGeneration|Support idea generation from text input|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/supportIdeaGeneration.R)|
+
+### 🔴 4th Layered Functions (Expertise)
+**Data mining & Advanced Analysis**
+
+Expert-level functions that provide sophisticated data analysis, pattern recognition, and knowledge extraction capabilities.
+
+|Function|Description|Script|
+|:---|:---|:---:|
+|interpretResult|Interpret analysis results across 13 analytical domains|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/interpretResult.R)|
+|extractKeywords|Extract key concepts and terms from complex text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/extractKeywords.R)|
+|convertScientificLiterature|Convert text to scientific literature format|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertScientificLiterature.R)|
+|summaryWebScrapingText|Web scraping with intelligent summarization|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/summaryWebScrapingText.R)|
+|geminiGrounding4R|Advanced AI with Google Search grounding|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/geminiGrounding4R.R)|
+|chatAI4pdf|Intelligent PDF document analysis and summarization|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chatAI4pdf.R)|
+|textFileInput4ai|Large-scale text file analysis with chunking|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textFileInput4ai.R)|
+|searchFunction|Expert-level R function discovery and recommendation|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/searchFunction.R)|
 
 
 ### Functions for RIKEN press release (future developments)
@@ -220,6 +295,38 @@ Converts input text to a numeric vector. The model text-embedding-ada-002 result
 ```r
 #Embedding
 textEmbedding("Hello, world!")
+```
+
+### Multi-LLM Execution via io.net
+
+Execute multiple LLM models simultaneously for comprehensive AI responses.
+
+```r
+# Set io.net API key
+Sys.setenv(IONET_API_KEY = "your-ionet-api-key")
+
+# Basic multi-LLM execution with latest models
+result <- multiLLMviaionet(
+  prompt = "Explain quantum computing",
+  models = c("deepseek-ai/DeepSeek-R1-0528",            # Latest DeepSeek reasoning
+             "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",  # Llama 4 multimodal
+             "Qwen/Qwen3-235B-A22B-FP8")               # Latest Qwen3 MoE
+)
+
+# Quick random 10 model comparison (from 23 available models)
+result <- multiLLM_random10("What is artificial intelligence?")
+
+# Quick random 5 model comparison
+result <- multiLLM_random5("Write a Python function")
+
+# List available models (23 total as of 2025)
+models <- list_ionet_models()
+
+# List by category
+llama_models <- list_ionet_models("llama")      # 3 models
+deepseek_models <- list_ionet_models("deepseek")  # 4 models
+mistral_models <- list_ionet_models("mistral")    # 4 models
+compact_models <- list_ionet_models("compact")    # 4 models
 ```
 
 ## License

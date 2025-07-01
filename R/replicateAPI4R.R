@@ -78,30 +78,82 @@ replicatellmAPI4R <- function(input,
     config = headers
   )
 
+  # Check HTTP status code first
+  if (httr::status_code(response) != 200 && httr::status_code(response) != 201) {
+    error_content <- httr::content(response, "parsed")
+    error_msg <- if (!is.null(error_content$detail)) {
+      error_content$detail
+    } else {
+      paste("HTTP", httr::status_code(response), "error")
+    }
+    stop("API Error (", httr::status_code(response), "): ", error_msg)
+  }
+
   # If fetch_stream is TRUE, handle streaming response mode
   if (fetch_stream) {
-    # Get the URL to poll for the prediction result
-    get_url <- httr::content(response, "parsed")$urls$get
+    # Parse response content safely
+    parsed_response <- httr::content(response, "parsed")
+    
+    # Safe access to get URL
+    if (!is.null(parsed_response$urls) && !is.null(parsed_response$urls$get)) {
+      get_url <- parsed_response$urls$get
+    } else {
+      stop("Unexpected API response format: missing URLs or get URL")
+    }
 
-    # Initialize result as NULL to start polling
+    # Initialize result as NULL to start polling with timeout protection
     result <- NULL
-    # Poll the get_url until the result is ready
-    while (is.null(result)) {
+    timeout_seconds <- 300  # 5 minutes timeout
+    start_time <- Sys.time()
+    retry_count <- 0
+    max_retries <- 5
+    
+    # Poll the get_url until the result is ready or timeout occurs
+    while (is.null(result) && (Sys.time() - start_time) < timeout_seconds) {
       response_output <- httr::GET(get_url, headers)
+      
+      # Check polling response status with improved error handling
+      if (httr::status_code(response_output) != 200) {
+        retry_count <- retry_count + 1
+        if (retry_count > max_retries) {
+          stop("Max polling retries (", max_retries, ") exceeded with HTTP status: ", httr::status_code(response_output))
+        }
+        # Exponential backoff: wait 2^retry_count seconds, max 30 seconds
+        backoff_time <- min(2^retry_count, 30)
+        warning("Polling request failed with status: ", httr::status_code(response_output), 
+                ". Retrying in ", backoff_time, " seconds (attempt ", retry_count, "/", max_retries, ")")
+        Sys.sleep(backoff_time)
+        next
+      }
+      
+      # Reset retry count on successful request
+      retry_count <- 0
+      
       # Parse the response text into JSON
       content <- jsonlite::fromJSON(httr::content(response_output, "text", encoding = "UTF-8"))
 
-      if (content$status == "succeeded") {
-        # If prediction succeeded, assign the result to response_result and update result to exit the loop
-        response_result <- content
-        result <- response_result
-      } else if (content$status == "failed") {
-        # If prediction failed, throw an error
-        stop("Prediction failed")
+      if (!is.null(content$status)) {
+        if (content$status == "succeeded") {
+          # If prediction succeeded, assign the result to response_result and update result to exit the loop
+          response_result <- content
+          result <- response_result
+        } else if (content$status == "failed") {
+          # If prediction failed, throw an error
+          error_msg <- if (!is.null(content$error)) content$error else "Prediction failed"
+          stop("Prediction failed: ", error_msg)
+        } else {
+          # Wait for 1 second before polling again
+          Sys.sleep(1)
+        }
       } else {
-        # Wait for 1 second before polling again
+        # If status is missing, wait and continue
         Sys.sleep(1)
       }
+    }
+    
+    # Check if we exited due to timeout
+    if (is.null(result)) {
+      stop("Request timed out after ", timeout_seconds, " seconds")
     }
 
     # Return a simplified output if simple is TRUE, otherwise return the full response
@@ -113,8 +165,15 @@ replicatellmAPI4R <- function(input,
   } else {
     # If fetch_stream is FALSE, handle non-streaming mode
 
-    # Get the streaming URL from the API response
-    stream_url <- httr::content(response, "parsed")$urls$stream
+    # Parse response content safely
+    parsed_response <- httr::content(response, "parsed")
+    
+    # Safe access to stream URL
+    if (!is.null(parsed_response$urls) && !is.null(parsed_response$urls$stream)) {
+      stream_url <- parsed_response$urls$stream
+    } else {
+      stop("Unexpected API response format: missing URLs or stream URL")
+    }
 
     # Define a callback function to process streaming data chunks as they arrive
     streaming_callback <- function(data) {

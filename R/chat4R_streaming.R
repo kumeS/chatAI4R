@@ -118,6 +118,17 @@ chat4R_streaming <- function(content,
     httr::write_stream(streaming_callback)
   )
 
+  # Check HTTP status code after streaming
+  if (httr::status_code(response) != 200) {
+    error_content <- httr::content(response, "parsed")
+    error_msg <- if (!is.null(error_content$error$message)) {
+      error_content$error$message
+    } else {
+      paste("HTTP", httr::status_code(response), "error")
+    }
+    stop("API Error (", httr::status_code(response), "): ", error_msg)
+  }
+
   # After streaming completes, return the accumulated text
   return(result_env$full_text)
   #cat(result_env$full_text)

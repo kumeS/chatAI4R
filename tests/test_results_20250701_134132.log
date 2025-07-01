@@ -1,0 +1,24 @@
+[2025-07-01 13:41:32] INFO: Starting chatAI4R Package Execution Tests
+[2025-07-01 13:41:32] INFO: Test mode: utilities
+[2025-07-01 13:41:32] INFO: API key provided: TRUE
+[2025-07-01 13:41:32] INFO: Output file: test_results_20250701_134132.log
+[2025-07-01 13:41:32] INFO: === Testing Utility Functions ===
+[2025-07-01 13:41:32] INFO: Running test: slow_print_v2_basic
+[2025-07-01 13:41:34] PASS: ✓ PASSED: slow_print_v2_basic
+[2025-07-01 13:41:34] INFO: Running test: slow_print_v2_random
+[2025-07-01 13:41:36] PASS: ✓ PASSED: slow_print_v2_random
+[2025-07-01 13:41:36] INFO: Running test: ngsub_basic
+[2025-07-01 13:41:36] PASS: ✓ PASSED: ngsub_basic
+[2025-07-01 13:41:36] INFO: Running test: removeQuotations_basic
+[2025-07-01 13:41:36] PASS: ✓ PASSED: removeQuotations_basic
+[2025-07-01 13:41:36] INFO: Running test: interpretResult_basic
+[2025-07-01 13:41:43] PASS: ✓ PASSED: interpretResult_basic
+[2025-07-01 13:41:43] INFO: Running test: convertBullet2Sentence_basic
+[2025-07-01 13:41:43] PASS: ✓ PASSED: convertBullet2Sentence_basic
+[2025-07-01 13:41:43] INFO: === TEST SUMMARY ===
+[2025-07-01 13:41:43] INFO: Total tests: 6
+[2025-07-01 13:41:43] INFO: Passed: 6
+[2025-07-01 13:41:43] INFO: Failed: 0
+[2025-07-01 13:41:43] INFO: Skipped: 0
+[2025-07-01 13:41:43] INFO: Detailed results saved to: test_results_20250701_134132_details.json
+[2025-07-01 13:41:43] INFO: All tests completed successfully

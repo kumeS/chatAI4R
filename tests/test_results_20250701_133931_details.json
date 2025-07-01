@@ -1,0 +1,43 @@
+{
+  "passed": [5],
+  "failed": [1],
+  "skipped": [0],
+  "details": [
+    {
+      "name": ["slow_print_v2_basic"],
+      "category": ["UTILITY"],
+      "status": ["PASSED"],
+      "message": ["Test completed successfully"]
+    },
+    {
+      "name": ["slow_print_v2_random"],
+      "category": ["UTILITY"],
+      "status": ["PASSED"],
+      "message": ["Test completed successfully"]
+    },
+    {
+      "name": ["ngsub_basic"],
+      "category": ["UTILITY"],
+      "status": ["PASSED"],
+      "message": ["Test completed successfully"]
+    },
+    {
+      "name": ["removeQuotations_basic"],
+      "category": ["UTILITY"],
+      "status": ["PASSED"],
+      "message": ["Test completed successfully"]
+    },
+    {
+      "name": ["interpretResult_basic"],
+      "category": ["UTILITY"],
+      "status": ["FAILED"],
+      "message": ["Error in interpretResult(\"test\"): could not find function \"interpretResult\"\n"]
+    },
+    {
+      "name": ["convertBullet2Sentence_basic"],
+      "category": ["UTILITY"],
+      "status": ["PASSED"],
+      "message": ["Test completed successfully"]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+[2025-07-01 13:41:10] INFO: Starting chatAI4R Package Execution Tests
+[2025-07-01 13:41:10] INFO: Test mode: utilities
+[2025-07-01 13:41:10] INFO: API key provided: TRUE
+[2025-07-01 13:41:10] INFO: Output file: test_results_20250701_134110.log
+[2025-07-01 13:41:10] INFO: === Testing Utility Functions ===
+[2025-07-01 13:41:10] INFO: Running test: slow_print_v2_basic
+[2025-07-01 13:41:12] PASS: ✓ PASSED: slow_print_v2_basic
+[2025-07-01 13:41:12] INFO: Running test: slow_print_v2_random
+[2025-07-01 13:41:15] PASS: ✓ PASSED: slow_print_v2_random
+[2025-07-01 13:41:15] INFO: Running test: ngsub_basic
+[2025-07-01 13:41:15] PASS: ✓ PASSED: ngsub_basic
+[2025-07-01 13:41:15] INFO: Running test: removeQuotations_basic
+[2025-07-01 13:41:15] PASS: ✓ PASSED: removeQuotations_basic
+[2025-07-01 13:41:15] INFO: Running test: interpretResult_basic
+[2025-07-01 13:41:18] ERROR: ✗ FAILED: interpretResult_basic - interpretResult did not return character
+[2025-07-01 13:41:18] INFO: Running test: convertBullet2Sentence_basic
+[2025-07-01 13:41:18] PASS: ✓ PASSED: convertBullet2Sentence_basic
+[2025-07-01 13:41:18] INFO: === TEST SUMMARY ===
+[2025-07-01 13:41:18] INFO: Total tests: 6
+[2025-07-01 13:41:18] INFO: Passed: 5
+[2025-07-01 13:41:18] INFO: Failed: 1
+[2025-07-01 13:41:18] INFO: Skipped: 0
+[2025-07-01 13:41:18] INFO: === FAILED TESTS ===
+[2025-07-01 13:41:18] INFO: - interpretResult_basic: Error in test_func(): interpretResult did not return character
+
+[2025-07-01 13:41:18] INFO: Detailed results saved to: test_results_20250701_134110_details.json
+[2025-07-01 13:41:18] ERROR: Tests completed with failures

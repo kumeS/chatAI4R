@@ -130,17 +130,30 @@ textFileInput4ai <- function(file_path,
     }
     response <- httr::POST(url, httr::add_headers(.headers = headers), body = body, encode = "json")
 
+    # Check HTTP status code first
+    if (httr::status_code(response) != 200) {
+      error_content <- httr::content(response, "parsed")
+      error_msg <- if (!is.null(error_content$error$message)) {
+        error_content$error$message
+      } else {
+        paste("HTTP", httr::status_code(response), "error")
+      }
+      stop("API Error (", httr::status_code(response), "): ", error_msg)
+    }
+
     # Parse the response content from the API
     result <- httr::content(response, "parsed", encoding = "UTF-8")
 
-    # If the API returned valid choices, return the generated text; otherwise, throw an error
-    if (!is.null(result$choices) && length(result$choices) > 0) {
+    # Safe access to nested data structure
+    if (!is.null(result$choices) && length(result$choices) > 0 && 
+        !is.null(result$choices[[1]]$message) && 
+        !is.null(result$choices[[1]]$message$content)) {
       if (show_progress) {
         cat("Response received successfully.\n")
       }
       return(result$choices[[1]]$message$content)
     } else {
-      stop("No response from OpenAI API. Check your API key and input data.")
+      stop("Unexpected API response format: choices or message content not found")
     }
   } else {
     # Split the text content into chunks based on character count only
@@ -205,11 +218,24 @@ textFileInput4ai <- function(file_path,
       }
       response <- httr::POST(url, httr::add_headers(.headers = headers), body = body, encode = "json")
 
+      # Check HTTP status code first
+      if (httr::status_code(response) != 200) {
+        error_content <- httr::content(response, "parsed")
+        error_msg <- if (!is.null(error_content$error$message)) {
+          error_content$error$message
+        } else {
+          paste("HTTP", httr::status_code(response), "error")
+        }
+        stop("API Error (", httr::status_code(response), "): ", error_msg)
+      }
+
       # Parse the response
       result <- httr::content(response, "parsed", encoding = "UTF-8")
 
-      # Store the response
-      if (!is.null(result$choices) && length(result$choices) > 0) {
+      # Store the response with safe access
+      if (!is.null(result$choices) && length(result$choices) > 0 && 
+          !is.null(result$choices[[1]]$message) && 
+          !is.null(result$choices[[1]]$message$content)) {
         responses[[i]] <- result$choices[[1]]$message$content
         if (show_progress) {
           cat(sprintf("  Chunk %d processed successfully.\n", i))
@@ -258,11 +284,24 @@ textFileInput4ai <- function(file_path,
       # Send the summarization request
       response <- httr::POST(url, httr::add_headers(.headers = headers), body = body, encode = "json")
 
+      # Check HTTP status code first
+      if (httr::status_code(response) != 200) {
+        error_content <- httr::content(response, "parsed")
+        error_msg <- if (!is.null(error_content$error$message)) {
+          error_content$error$message
+        } else {
+          paste("HTTP", httr::status_code(response), "error")
+        }
+        stop("API Error (", httr::status_code(response), "): ", error_msg)
+      }
+
       # Parse the response
       result <- httr::content(response, "parsed", encoding = "UTF-8")
 
-      # Add the summary to the responses list
-      if (!is.null(result$choices) && length(result$choices) > 0) {
+      # Add the summary to the responses list with safe access
+      if (!is.null(result$choices) && length(result$choices) > 0 && 
+          !is.null(result$choices[[1]]$message) && 
+          !is.null(result$choices[[1]]$message$content)) {
         responses[[length(responses) + 1]] <- result$choices[[1]]$message$content
         if (show_progress) {
           cat("Summary generated successfully.\n")

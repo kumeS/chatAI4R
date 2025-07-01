@@ -1,0 +1,27 @@
+[2025-07-01 13:40:52] INFO: Starting chatAI4R Package Execution Tests
+[2025-07-01 13:40:52] INFO: Test mode: utilities
+[2025-07-01 13:40:52] INFO: API key provided: TRUE
+[2025-07-01 13:40:52] INFO: Output file: test_results_20250701_134052.log
+[2025-07-01 13:40:52] INFO: === Testing Utility Functions ===
+[2025-07-01 13:40:52] INFO: Running test: slow_print_v2_basic
+[2025-07-01 13:40:54] PASS: ✓ PASSED: slow_print_v2_basic
+[2025-07-01 13:40:54] INFO: Running test: slow_print_v2_random
+[2025-07-01 13:40:56] PASS: ✓ PASSED: slow_print_v2_random
+[2025-07-01 13:40:56] INFO: Running test: ngsub_basic
+[2025-07-01 13:40:56] PASS: ✓ PASSED: ngsub_basic
+[2025-07-01 13:40:56] INFO: Running test: removeQuotations_basic
+[2025-07-01 13:40:56] PASS: ✓ PASSED: removeQuotations_basic
+[2025-07-01 13:40:56] INFO: Running test: interpretResult_basic
+[2025-07-01 13:40:56] ERROR: ✗ FAILED: interpretResult_basic - Unknown analysis type. Please provide a valid value. Available values are: summary, PCA, regression, group_comparison, visualization, time_series, clustering, biological_implication, statistical_metrics, test_validity, report, preprocessing, custom
+[2025-07-01 13:40:56] INFO: Running test: convertBullet2Sentence_basic
+[2025-07-01 13:40:56] PASS: ✓ PASSED: convertBullet2Sentence_basic
+[2025-07-01 13:40:56] INFO: === TEST SUMMARY ===
+[2025-07-01 13:40:56] INFO: Total tests: 6
+[2025-07-01 13:40:56] INFO: Passed: 5
+[2025-07-01 13:40:56] INFO: Failed: 1
+[2025-07-01 13:40:56] INFO: Skipped: 0
+[2025-07-01 13:40:56] INFO: === FAILED TESTS ===
+[2025-07-01 13:40:56] INFO: - interpretResult_basic: Error in interpretResult("test", "This is test data"): Unknown analysis type. Please provide a valid value. Available values are: summary, PCA, regression, group_comparison, visualization, time_series, clustering, biological_implication, statistical_metrics, test_validity, report, preprocessing, custom
+
+[2025-07-01 13:40:56] INFO: Detailed results saved to: test_results_20250701_134052_details.json
+[2025-07-01 13:40:56] ERROR: Tests completed with failures

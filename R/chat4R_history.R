@@ -52,8 +52,28 @@ chat4R_history <- function(history,
                          body = jsonlite::toJSON(body, auto_unbox = TRUE),
                          encode = "json", config = headers)
 
-  # Parsing the result
-  return(data.frame(content=httr::content(response, "parsed")$choices[[1]]$message$content))
+  # Check HTTP status code first
+  if (httr::status_code(response) != 200) {
+    error_content <- httr::content(response, "parsed")
+    error_msg <- if (!is.null(error_content$error$message)) {
+      error_content$error$message
+    } else {
+      paste("HTTP", httr::status_code(response), "error")
+    }
+    stop("API Error (", httr::status_code(response), "): ", error_msg)
+  }
+
+  # Parse response content safely
+  resp_parsed <- httr::content(response, "parsed")
+
+  # Safe access to nested data structure
+  if (!is.null(resp_parsed$choices) && length(resp_parsed$choices) > 0 && 
+      !is.null(resp_parsed$choices[[1]]$message) && 
+      !is.null(resp_parsed$choices[[1]]$message$content)) {
+    return(data.frame(content = resp_parsed$choices[[1]]$message$content))
+  } else {
+    stop("Unexpected API response format: choices or message content not found")
+  }
 }
 
 
