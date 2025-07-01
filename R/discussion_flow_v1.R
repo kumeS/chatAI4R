@@ -54,6 +54,23 @@ discussion_flow_v1 <- function(issue,
                                Nonfuture = TRUE,
                                sayENorJA = TRUE){
 
+# Input validation
+if (!is.character(issue) || length(issue) != 1 || nchar(issue) == 0) {
+  stop("issue must be a non-empty character string", call. = FALSE)
+}
+
+if (!is.character(api_key) || length(api_key) != 1 || nchar(api_key) == 0) {
+  stop("api_key must be a non-empty character string. Set OPENAI_API_KEY environment variable.", call. = FALSE)
+}
+
+if (!is.character(Domain) || length(Domain) != 1) {
+  stop("Domain must be a character string", call. = FALSE)
+}
+
+if (!is.logical(verbose) || length(verbose) != 1) {
+  stop("verbose must be a logical value", call. = FALSE)
+}
+
 #Create multi-session
 future::plan(future::multisession())
 DEEPL <- any(names(Sys.getenv()) == "DeepL_API_KEY")
@@ -332,10 +349,15 @@ break()
 Sys.sleep(0.5)
 }}}
 
-#re-input
-res3 <- future::value(fut4)[[1]]
-LLB_A <- future::value(fut4)[[2]]
-res3_ja <- future::value(fut4)[[3]]
+#re-input with safe access
+fut4_result <- future::value(fut4)
+if (is.null(fut4_result) || length(fut4_result) < 3) {
+  stop("Invalid result from fut4 - insufficient elements", call. = FALSE)
+}
+
+res3 <- if (!is.null(fut4_result[[1]])) fut4_result[[1]] else stop("Missing res3 from fut4", call. = FALSE)
+LLB_A <- if (!is.null(fut4_result[[2]])) fut4_result[[2]] else stop("Missing LLB_A from fut4", call. = FALSE)
+res3_ja <- if (!is.null(fut4_result[[3]])) fut4_result[[3]] else ""
 
 #Task 5: ask it to the expert
 # Substituting arguments into the prompt
@@ -395,10 +417,15 @@ break()
 Sys.sleep(0.5)
 }}}
 
-#re-input
-res4 <- future::value(fut5)[[1]]
-LLB_B <- future::value(fut5)[[2]]
-res4_ja <- future::value(fut5)[[3]]
+#re-input with safe access
+fut5_result <- future::value(fut5)
+if (is.null(fut5_result) || length(fut5_result) < 1) {
+  stop("Invalid result from fut5 - insufficient elements", call. = FALSE)
+}
+
+res4 <- if (!is.null(fut5_result[[1]])) fut5_result[[1]] else stop("Missing res4 from fut5", call. = FALSE)
+LLB_B <- if (length(fut5_result) >= 2 && !is.null(fut5_result[[2]])) fut5_result[[2]] else stop("Missing LLB_B from fut5", call. = FALSE)
+res4_ja <- if (length(fut5_result) >= 3 && !is.null(fut5_result[[3]])) fut5_result[[3]] else ""
 
 #Graph 5
 main = "LLB B answer to LLB A"

@@ -13,6 +13,7 @@
 #' @param initialization A logical flag to initialize a new conversation. Default is FALSE.
 #' @param verbose A logical flag to print the conversation. Default is TRUE.
 #' @importFrom assertthat assert_that is.string is.count is.flag
+#' @importFrom crayon red blue
 #' @return Prints the conversation if verbose is TRUE. No return value.
 #' @export conversation4R
 #' @author Satoshi Kume
@@ -73,11 +74,20 @@ chat_historyR <- list(
   list(role = "system", content = system_set),
   list(role = "user", content = message))
 
-# Run
-res <- chatAI4R::chat4R_history(history = chat_historyR,
-               api_key = api_key,
-               Model = Model,
-               temperature = temperature)
+# Run with safe error handling
+res <- tryCatch({
+  chatAI4R::chat4R_history(history = chat_historyR,
+                          api_key = api_key,
+                          Model = Model,
+                          temperature = temperature)
+}, error = function(e) {
+  stop("Failed to get response from chat4R_history: ", e$message, call. = FALSE)
+})
+
+# Validate response
+if (is.null(res) || !is.character(res) || length(res) == 0 || nchar(trimws(res)) == 0) {
+  stop("Invalid or empty response from chat4R_history", call. = FALSE)
+}
 
 
 system_set3s <- sprintf(system_set3, message)
@@ -111,30 +121,59 @@ if(length(chat_history$history) > ConversationBufferWindowMemory_k*2 + 1){
 new_conversation <- list(list(role = "user", content = message))
 chat_historyR <- c(chat_historyR, new_conversation)
 
-# Run
-res <- chatAI4R::chat4R_history(history = chat_historyR,
-               api_key = api_key,
-               Model = Model,
-               temperature = temperature)
+# Run with safe error handling
+res <- tryCatch({
+  chatAI4R::chat4R_history(history = chat_historyR,
+                          api_key = api_key,
+                          Model = Model,
+                          temperature = temperature)
+}, error = function(e) {
+  stop("Failed to get response from chat4R_history: ", e$message, call. = FALSE)
+})
+
+# Validate response
+if (is.null(res) || !is.character(res) || length(res) == 0 || nchar(trimws(res)) == 0) {
+  stop("Invalid or empty response from chat4R_history", call. = FALSE)
+}
 
 assistant_conversation<- list(list(role = "assistant", content = res))
 chat_historyR <- c(chat_historyR, assistant_conversation)
 
 rr <- c()
 for(n in 2:length(chat_history$history)){
-r <- switch(chat_history$history[[n]]$role,
+  # Safe access to history elements with null checks
+  if (!is.null(chat_history$history[[n]]) && 
+      !is.null(chat_history$history[[n]]$role) && 
+      !is.null(chat_history$history[[n]]$content)) {
+    
+    r <- switch(chat_history$history[[n]]$role,
                  "system" = paste0("System: ", chat_history$history[[n]]$content),
                  "user" = paste0("\nHuman: ", chat_history$history[[n]]$content),
-                 "assistant" = paste0("\nAssistant: ", chat_history$history[[n]]$content))
-rr <- c(rr, r)
+                 "assistant" = paste0("\nAssistant: ", chat_history$history[[n]]$content),
+                 paste0("\nUnknown: ", chat_history$history[[n]]$content))  # fallback
+    rr <- c(rr, r)
+  }
 }
 
 system_set2s <- sprintf(system_set2, paste0(rr, collapse = ""))
 
+# Safe access to conversation elements with null checks
+user_content <- if (!is.null(new_conversation[[1]]) && !is.null(new_conversation[[1]]$content)) {
+  new_conversation[[1]]$content
+} else {
+  "Error: Missing user content"
+}
+
+assistant_content <- if (!is.null(assistant_conversation[[1]]) && !is.null(assistant_conversation[[1]]$content)) {
+  assistant_conversation[[1]]$content
+} else {
+  "Error: Missing assistant content"
+}
+
 out <- c(paste0("System: ", system_set),
          system_set2s,
-         crayon::red(sprintf(system_set3, new_conversation[[1]]$content)),
-         crayon::blue(sprintf(system_set4, assistant_conversation[[1]]$content)))
+         crayon::red(sprintf(system_set3, user_content)),
+         crayon::blue(sprintf(system_set4, assistant_content)))
 
 chat_history$history <- chat_historyR
 

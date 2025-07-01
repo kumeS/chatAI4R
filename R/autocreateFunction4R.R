@@ -58,10 +58,11 @@ template1s <- sprintf(template1, Func_description, packages)
 
 # 01 Run function creation
 if(verbose){cat(crayon::red("01 Run function creation \n"))}
-f <- completions4R(prompt = template1s,
-       api_key = api_key,
-       max_tokens =  max_tokens,
-       simple = TRUE)
+f_result <- chat4R(content = template1s,
+                   api_key = api_key,
+                   Model = "gpt-4o-mini",
+                   check = FALSE)
+f <- f_result$content
 
 #View
 if(View){
@@ -80,10 +81,11 @@ Please itemize and suggest improvements to this function.
 
 # 02 Propose improvements to the function
 if(verbose){cat(crayon::red("02 Propose improvements to the function \n"))}
-f1 <- completions4R(prompt = template2,
-       api_key = api_key,
-       max_tokens =  max_tokens,
-       simple = TRUE)
+f1_result <- chat4R(content = template2,
+                    api_key = api_key,
+                    Model = "gpt-4o-mini",
+                    check = FALSE)
+f1 <- f1_result$content
 
 #View
 if(View){
@@ -105,10 +107,11 @@ template3s <- sprintf(template3, Func_description, packages)
 
 # 03 Improve the function
 if(verbose){cat(crayon::red("03 Improve the function \n"))}
-f2 <- completions4R(prompt = template3s,
-       api_key = api_key,
-       max_tokens =  max_tokens,
-       simple = TRUE)
+f2_result <- chat4R(content = template3s,
+                    api_key = api_key,
+                    Model = "gpt-4o-mini",
+                    check = FALSE)
+f2 <- f2_result$content
 
 #View
 if(View){
@@ -131,11 +134,12 @@ Function: ", f2)
 
 # 04 Include roxygen comments
 if(verbose){cat(crayon::red("04 Include roxygen comments \n"))}
-f3 <- completions4R(prompt = template4,
-       api_key = api_key,
-       max_tokens =  max_tokens,
-       temperature = 1,
-       simple = TRUE)
+f3_result <- chat4R(content = template4,
+                    api_key = api_key,
+                    Model = "gpt-4o-mini",
+                    temperature = 1,
+                    check = FALSE)
+f3 <- f3_result$content
 
 f4 <- paste0(f3, "\n", f2)
 f4g <- gsub("   ", "\n", f4)

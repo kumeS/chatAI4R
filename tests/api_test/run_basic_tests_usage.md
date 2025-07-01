@@ -1,7 +1,7 @@
-# run_basic_tests.sh 実行方法
+# run_tests.sh 実行方法
 
 ## 概要
-`run_basic_tests.sh`は、chatAI4Rパッケージの統合テストを実行するためのシェルスクリプトです。複数のAPI プロバイダーをサポートしています。
+`run_tests.sh`は、chatAI4Rパッケージの統合テストを実行するためのシェルスクリプトです。複数のAPI プロバイダーをサポートしています。
 
 ## 実行場所
 ```bash
@@ -10,7 +10,7 @@ cd tests/
 
 ## 基本構文
 ```bash
-./run_basic_tests.sh [OPTIONS]
+./run_tests.sh [OPTIONS]
 ```
 
 ## オプション
@@ -32,9 +32,9 @@ cd tests/
 
 ### 1. utilities モード（APIキー不要）
 ```bash
-./run_basic_tests.sh
+./run_tests.sh
 # または
-./run_basic_tests.sh -m utilities
+./run_tests.sh -m utilities
 ```
 - 6つの基本機能テスト
 - 実行時間: 約10秒
@@ -42,7 +42,7 @@ cd tests/
 
 ### 2. api-only モード
 ```bash
-./run_basic_tests.sh -k sk-xxx... -m api-only
+./run_tests.sh -k sk-xxx... -m api-only
 ```
 - 12個のAPI テスト
 - 実行時間: 約30秒
@@ -50,7 +50,7 @@ cd tests/
 
 ### 3. full モード
 ```bash
-./run_basic_tests.sh -k sk-xxx... -m full
+./run_tests.sh -k sk-xxx... -m full
 ```
 - 18個の包括的テスト（utilities + api-only）
 - 実行時間: 約60秒
@@ -58,7 +58,7 @@ cd tests/
 
 ### 4. extended モード
 ```bash
-./run_basic_tests.sh -k sk-xxx... -i io-xxx... -m extended
+./run_tests.sh -k sk-xxx... -i io-xxx... -m extended
 ```
 - 23個の全テスト（full + 拡張API）
 - 実行時間: 3-5分
@@ -99,27 +99,27 @@ cd tests/
 
 ### 基本テスト（APIキーなし）
 ```bash
-./run_basic_tests.sh
+./run_tests.sh
 ```
 
 ### OpenAI のみ
 ```bash
-./run_basic_tests.sh -k sk-your-openai-key -m full
+./run_tests.sh -k sk-your-openai-key -m full
 ```
 
 ### 複数API
 ```bash
-./run_basic_tests.sh -k sk-key -g gemini-key -m extended
+./run_tests.sh -k sk-key -g gemini-key -m extended
 ```
 
 ### io.net テスト
 ```bash
-./run_basic_tests.sh -k sk-key -i ionet-key -m extended
+./run_tests.sh -k sk-key -i ionet-key -m extended
 ```
 
 ### 静寂モード
 ```bash
-./run_basic_tests.sh -k sk-key -m full -q
+./run_tests.sh -k sk-key -m full -q
 ```
 
 ## テスト結果の解釈

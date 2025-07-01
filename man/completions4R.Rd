@@ -31,9 +31,24 @@ A value close to 0 produces more deterministic output, while a higher value (up 
 The generated text or the full response from the API, depending on the value of `simple`.
 }
 \description{
-**DEPRECATED**: This function uses the legacy OpenAI completions API which is being phased out.
-  Use chat4R() instead for new implementations. This function sends a request to the OpenAI completions API
-  to generate text based on the provided prompt and parameters.
+**⚠️ DEPRECATED AND SCHEDULED FOR REMOVAL**: This function uses the legacy OpenAI completions API 
+  which is being phased out by OpenAI. **This function will be removed in a future version.**
+  
+  **MIGRATION REQUIRED**: Please migrate to chat4R() for all new implementations.
+  The chat4R() function uses the modern OpenAI Chat Completions API and provides better performance,
+  more features, and continued support.
+  
+  **Migration Example**:
+  ```r
+  # Old (deprecated):
+  result <- completions4R("Your prompt here")
+  
+  # New (recommended):
+  result <- chat4R("Your prompt here")
+  text_content <- result$content
+  ```
+  
+  This function sends a request to the OpenAI completions API to generate text based on the provided prompt and parameters.
 }
 \examples{
 \dontrun{

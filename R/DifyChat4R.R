@@ -21,7 +21,8 @@
 #'
 #' @return A list containing the parsed JSON response from the Dify API.
 #'
-#' @import httr jsonlite
+#' @importFrom httr POST add_headers content status_code
+#' @importFrom jsonlite toJSON
 #' @export DifyChat4R
 #'
 #' @examples
@@ -54,9 +55,22 @@ DifyChat4R <- function(query,
                         response_mode = "blocking",
                         endpoint = "chat-messages") {
 
+  # Input validation
+  if (!is.character(query) || length(query) != 1 || nchar(query) == 0) {
+    stop("query must be a non-empty character string", call. = FALSE)
+  }
+  
+  if (!is.character(api_key) || length(api_key) != 1 || nchar(api_key) == 0) {
+    stop("api_key must be a non-empty character string. Set DIFY_API_KEY environment variable.", call. = FALSE)
+  }
+  
+  if (!is.character(user) || length(user) != 1) {
+    stop("user must be a character string", call. = FALSE)
+  }
+
   # Validate the endpoint parameter
   if (!endpoint %in% c("chat-messages", "completion-messages")) {
-    stop("Invalid endpoint. Please use 'chat-messages' or 'completion-messages'.")
+    stop("Invalid endpoint. Please use 'chat-messages' or 'completion-messages'.", call. = FALSE)
   }
 
   # Set the API endpoint based on the chosen endpoint
@@ -90,8 +104,35 @@ DifyChat4R <- function(query,
     config = headers
   )
 
-  # Parse and return the JSON response as a list
-  parsed <- httr::content(response, as = "parsed", encoding = "UTF-8")
+  # Validate HTTP status code before parsing response
+  status_code <- httr::status_code(response)
+  if (status_code != 200) {
+    error_content <- tryCatch(httr::content(response, "parsed"), error = function(e) NULL)
+    
+    # Extract error message with safe handling
+    error_msg <- if (!is.null(error_content) && !is.null(error_content$message)) {
+      error_content$message
+    } else if (!is.null(error_content) && !is.null(error_content$error)) {
+      error_content$error
+    } else {
+      paste("Dify API error with status code", status_code)
+    }
+    
+    stop("Dify API Error (", status_code, "): ", error_msg, call. = FALSE)
+  }
+
+  # Parse and return the JSON response as a list with safe error handling
+  parsed <- tryCatch({
+    httr::content(response, as = "parsed", encoding = "UTF-8")
+  }, error = function(e) {
+    stop("Failed to parse Dify API response: ", e$message, call. = FALSE)
+  })
+  
+  # Validate that we received a valid response structure
+  if (is.null(parsed)) {
+    stop("Dify API returned empty response", call. = FALSE)
+  }
+  
   return(parsed)
 }
 

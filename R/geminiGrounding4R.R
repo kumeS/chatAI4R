@@ -18,6 +18,9 @@
 #'   For streaming modes ("stream_text", "stream_chat"), a list with \code{full_text} (combined output)
 #'   and \code{chunks} (individual text pieces) is returned.
 #'
+#' @importFrom httr POST add_headers content status_code http_error
+#' @importFrom jsonlite toJSON fromJSON
+#' @importFrom curl new_handle handle_setheaders handle_setopt curl_fetch_stream
 #' @export geminiGrounding4R
 #' @author Satoshi Kume
 #'
@@ -59,11 +62,29 @@
 #' }
 
 geminiGrounding4R <- function(mode, contents, store_history = FALSE, dynamic_threshold = 1, api_key, ...) {
+  # Input validation
+  if (!is.character(mode) || length(mode) != 1 || nchar(mode) == 0) {
+    stop("mode must be a non-empty character string", call. = FALSE)
+  }
+  
+  if (!is.character(api_key) || length(api_key) != 1 || nchar(api_key) == 0) {
+    stop("api_key must be a non-empty character string. Set GoogleGemini_API_KEY environment variable.", call. = FALSE)
+  }
+  
+  if (!is.logical(store_history) || length(store_history) != 1) {
+    stop("store_history must be a logical value", call. = FALSE)
+  }
+  
+  if (!is.numeric(dynamic_threshold) || length(dynamic_threshold) != 1 || 
+      dynamic_threshold < 0 || dynamic_threshold > 1) {
+    stop("dynamic_threshold must be a numeric value between 0 and 1", call. = FALSE)
+  }
+
   # Validate the mode parameter
   mode <- tolower(mode)
   valid_modes <- c("text", "stream_text", "chat", "stream_chat")
   if (!(mode %in% valid_modes)) {
-    stop("Invalid mode specified. Choose one of: ", paste(valid_modes, collapse = ", "))
+    stop("Invalid mode specified. Choose one of: ", paste(valid_modes, collapse = ", "), call. = FALSE)
   }
 
   # Determine the endpoint based on the mode.
@@ -127,24 +148,61 @@ geminiGrounding4R <- function(mode, contents, store_history = FALSE, dynamic_thr
       ...
     )
 
-    # Check for HTTP errors
-    if (http_error(response)) {
-      stop("HTTP error: ", status_code(response))
+    # Validate HTTP status code before parsing response
+    status_code <- httr::status_code(response)
+    if (status_code != 200) {
+      error_content <- tryCatch(httr::content(response, "parsed"), error = function(e) NULL)
+      
+      # Extract error message with safe handling
+      error_msg <- if (!is.null(error_content) && !is.null(error_content$error)) {
+        if (!is.null(error_content$error$message)) {
+          error_content$error$message
+        } else {
+          "Unknown Gemini API error"
+        }
+      } else {
+        paste("Gemini API error with status code", status_code)
+      }
+      
+      stop("Gemini API Error (", status_code, "): ", error_msg, call. = FALSE)
     }
 
-    res_content <- content(response, as = "text", encoding = "UTF-8")
-    parsed_response <- fromJSON(res_content, simplifyVector = FALSE)
+    # Parse response content with error handling
+    res_content <- tryCatch({
+      httr::content(response, as = "text", encoding = "UTF-8")
+    }, error = function(e) {
+      stop("Failed to extract response content: ", e$message, call. = FALSE)
+    })
+    
+    parsed_response <- tryCatch({
+      jsonlite::fromJSON(res_content, simplifyVector = FALSE)
+    }, error = function(e) {
+      stop("Failed to parse Gemini API response: ", e$message, call. = FALSE)
+    })
+    
+    # Validate that we received a valid response structure
+    if (is.null(parsed_response)) {
+      stop("Gemini API returned empty response", call. = FALSE)
+    }
 
-    # For chat mode with history storage, update the environment variable
+    # For chat mode with history storage, update the environment variable with safe handling
     if (mode == "chat" && store_history) {
-      prev_history <- Sys.getenv("chat_history")
-      if (nzchar(prev_history)) {
-        prev_history_list <- fromJSON(prev_history, simplifyVector = FALSE)
-      } else {
-        prev_history_list <- list()
-      }
-      new_history <- c(prev_history_list, request_body$contents, parsed_response)
-      Sys.setenv(chat_history = toJSON(new_history, auto_unbox = TRUE))
+      tryCatch({
+        prev_history <- Sys.getenv("chat_history")
+        if (nzchar(prev_history)) {
+          prev_history_list <- jsonlite::fromJSON(prev_history, simplifyVector = FALSE)
+        } else {
+          prev_history_list <- list()
+        }
+        
+        # Safely construct new history
+        if (!is.null(request_body$contents) && !is.null(parsed_response)) {
+          new_history <- c(prev_history_list, request_body$contents, list(parsed_response))
+          Sys.setenv(chat_history = jsonlite::toJSON(new_history, auto_unbox = TRUE))
+        }
+      }, error = function(e) {
+        warning("Failed to update chat history: ", e$message, call. = FALSE)
+      })
     }
 
     return(parsed_response)

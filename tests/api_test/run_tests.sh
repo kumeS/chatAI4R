@@ -1,10 +1,19 @@
 #!/bin/bash
 
 # =============================================================================
-# Basic Test Runner for chatAI4R Package
+# chatAI4R Package Test Runner v0.4.3
 # =============================================================================
-# This script provides easy test execution for chatAI4R package
-# Usage: ./run_basic_tests.sh [API_KEY] [MODE]
+# Comprehensive testing tool for chatAI4R package with multi-API support
+# Tests 25+ functions across utility, API, and advanced functionality
+# 
+# Features:
+# • No-API utility testing for quick validation
+# • OpenAI API integration testing (chat4R, textEmbedding, vision4R, etc.)
+# • Multi-LLM testing via io.net API (NEW in v0.4.3)
+# • Extended API testing (Gemini, Replicate, Dify)
+# • Comprehensive error handling and logging
+# 
+# Usage: ./run_tests.sh --help
 # =============================================================================
 
 set -e  # Exit on any error
@@ -28,27 +37,72 @@ VERBOSE=true
 
 # Help function
 show_help() {
-    echo "chatAI4R Package Test Runner"
+    echo "=========================================="
+    echo "  chatAI4R Package Test Runner v0.4.3"
+    echo "=========================================="
     echo ""
-    echo "Usage: $0 [OPTIONS]"
+    echo "DESCRIPTION:"
+    echo "  Comprehensive testing tool for chatAI4R package with multi-API support."
+    echo "  Tests 25+ functions across utility, API, and advanced functionality."
     echo ""
-    echo "Options:"
-    echo "  -k, --api-key KEY      OpenAI API key (sk-...)"
-    echo "  -g, --gemini-key KEY   Google Gemini API key"
-    echo "  -r, --replicate-key KEY Replicate API token"
-    echo "  -d, --dify-key KEY     Dify API key"
-    echo "  -l, --deepl-key KEY    DeepL API key"
-    echo "  -i, --ionet-key KEY    io.net API key"
-    echo "  -m, --mode MODE        Test mode: utilities|api-only|full|extended"
-    echo "  -q, --quiet            Quiet mode (less verbose output)"
-    echo "  -h, --help             Show this help message"
+    echo "USAGE:"
+    echo "  $0 [OPTIONS]"
     echo ""
-    echo "Examples:"
-    echo "  $0                                      # Run utility tests only"
-    echo "  $0 -k sk-your-key -m full             # Run all tests with OpenAI"
-    echo "  $0 -k sk-key -g gemini-key -m extended # Run with multiple APIs"
-    echo "  $0 -k sk-key -i ionet-key -m extended  # Run with io.net API"
-    echo "  $0 --api-key sk-your-key --mode api-only  # Run API tests only"
+    echo "API KEY OPTIONS:"
+    echo "  -k, --api-key KEY      🔑 OpenAI API key (sk-...)"
+    echo "                         └── Required for: chat4R, textEmbedding, vision4R, etc."
+    echo "  -g, --gemini-key KEY   🔑 Google Gemini API key"  
+    echo "                         └── Required for: gemini4R, geminiGrounding4R"
+    echo "  -r, --replicate-key KEY 🔑 Replicate API token"
+    echo "                         └── Required for: replicatellmAPI4R (Llama models)"
+    echo "  -d, --dify-key KEY     🔑 Dify API key"
+    echo "                         └── Required for: DifyChat4R (workflow AI)"
+    echo "  -l, --deepl-key KEY    🔑 DeepL API key"
+    echo "                         └── Required for: discussion flow translation"
+    echo "  -i, --ionet-key KEY    🔑 io.net API key (NEW in v0.4.3)"
+    echo "                         └── Required for: multiLLMviaionet, multiLLM_random5/10"
+    echo ""
+    echo "TEST MODE OPTIONS:"
+    echo "  -m, --mode MODE        Test execution mode:"
+    echo "    utilities            📦 Utility functions only (no API key needed)"
+    echo "                         └── Tests: ngsub, removeQuotations, slow_print_v2"
+    echo "    api-only             🌐 Basic API functions only (OpenAI key required)" 
+    echo "                         └── Tests: chat4R, textEmbedding, vision4R, etc."
+    echo "    full                 🚀 All utility + API functions (recommended)"
+    echo "                         └── Tests: 25+ functions with OpenAI integration"
+    echo "    extended             ⭐ Full + multi-API + advanced features"
+    echo "                         └── Tests: Multi-LLM, Gemini, Replicate, file processing"
+    echo ""
+    echo "OTHER OPTIONS:"
+    echo "  -q, --quiet            🔇 Quiet mode (minimal output)"
+    echo "  -h, --help             ❓ Show this help message"
+    echo ""
+    echo "EXAMPLES:"
+    echo "  # Quick start - utility tests only (no API key needed)"
+    echo "  $0"
+    echo ""
+    echo "  # Basic API testing with OpenAI"
+    echo "  $0 --api-key sk-your-openai-key --mode full"
+    echo ""
+    echo "  # Advanced multi-API testing (v0.4.3 features)"
+    echo "  $0 --api-key sk-openai-key \\"
+    echo "     --ionet-key your-ionet-key \\"
+    echo "     --gemini-key your-gemini-key \\"
+    echo "     --mode extended"
+    echo ""
+    echo "  # Multi-LLM testing only (NEW: io.net integration)"
+    echo "  $0 --api-key sk-openai-key \\"
+    echo "     --ionet-key your-ionet-key \\"
+    echo "     --mode extended"
+    echo ""
+    echo "  # Silent execution for CI/CD"
+    echo "  $0 --api-key sk-your-key --mode full --quiet"
+    echo ""
+    echo "NOTES:"
+    echo "  • Set API keys as environment variables for persistence"
+    echo "  • Extended mode requires multiple API keys for full coverage"
+    echo "  • Test results are logged with timestamps and detailed error info"
+    echo "  • Use utilities mode for quick package validation without API costs"
     echo ""
 }
 

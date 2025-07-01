@@ -1,7 +1,22 @@
 #' @title completions4R: Generate text using OpenAI completions API (Legacy - DEPRECATED)
-#' @description **DEPRECATED**: This function uses the legacy OpenAI completions API which is being phased out.
-#'   Use chat4R() instead for new implementations. This function sends a request to the OpenAI completions API
-#'   to generate text based on the provided prompt and parameters.
+#' @description **⚠️ DEPRECATED AND SCHEDULED FOR REMOVAL**: This function uses the legacy OpenAI completions API 
+#'   which is being phased out by OpenAI. **This function will be removed in a future version.**
+#'   
+#'   **MIGRATION REQUIRED**: Please migrate to chat4R() for all new implementations.
+#'   The chat4R() function uses the modern OpenAI Chat Completions API and provides better performance,
+#'   more features, and continued support.
+#'   
+#'   **Migration Example**:
+#'   ```r
+#'   # Old (deprecated):
+#'   result <- completions4R("Your prompt here")
+#'   
+#'   # New (recommended):
+#'   result <- chat4R("Your prompt here")
+#'   text_content <- result$content
+#'   ```
+#'   
+#'   This function sends a request to the OpenAI completions API to generate text based on the provided prompt and parameters.
 #' @param prompt A string. The initial text that the model responds to.
 #' @param api_key A string. The API key for OpenAI. Defaults to the value of the environment variable "OPENAI_API_KEY".
 #' @param Model A string. The model ID to use, such as "davinci-002" or "gpt-3.5-turbo-instruct".
@@ -32,8 +47,8 @@ completions4R <- function(prompt,
                           temperature = 1,
                           simple = TRUE){
 
-  # Issue deprecation warning
-  warning("completions4R() is deprecated. The OpenAI completions API is being phased out. Use chat4R() for new implementations which uses the chat completions API.", call. = FALSE)
+  # Issue strong deprecation warning
+  warning("CRITICAL: completions4R() is DEPRECATED and scheduled for removal. The OpenAI completions API is being phased out. Please migrate to chat4R() immediately. See ?completions4R for migration examples.", call. = FALSE)
 
   # Validate model parameter
   valid_models <- c("gpt-3.5-turbo-instruct", "davinci-002", "babbage-002")
