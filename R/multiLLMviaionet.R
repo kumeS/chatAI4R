@@ -114,8 +114,8 @@ multiLLMviaionet <- function(prompt,
   )
   
   if (verbose) {
-    cat("🚀 Starting multi-LLM execution via io.net API\n")
-    cat("📝 Prompt:", substr(prompt, 1, 100), if(nchar(prompt) > 100) "..." else "", "\n")
+    cat(">> Starting multi-LLM execution via io.net API\n")
+    cat("** Prompt:", substr(prompt, 1, 100), if(nchar(prompt) > 100) "..." else "", "\n")
   }
   
   # Get list of available models
@@ -131,7 +131,7 @@ multiLLMviaionet <- function(prompt,
   }
   
   if (verbose) {
-    cat("🎯 Selected models (", length(processed_models), "):\n")
+    cat("** Selected models (", length(processed_models), "):\n")
     for (i in seq_along(processed_models)) {
       cat("  ", i, ". ", processed_models[i], "\n")
     }
@@ -169,8 +169,8 @@ multiLLMviaionet <- function(prompt,
   )
   
   if (verbose) {
-    cat("✅ Multi-LLM execution completed in", round(total_time, 2), "seconds\n")
-    cat("📊 Success rate:", summary_data$success_rate, "%\n")
+    cat(">> Multi-LLM execution completed in", round(total_time, 2), "seconds\n")
+    cat("** Success rate:", summary_data$success_rate, "%\n")
   }
   
   class(output) <- c("multiLLM_result", "list")
@@ -246,14 +246,14 @@ multiLLMviaionet <- function(prompt,
   
   if (length(invalid_models) > 0) {
     if (verbose) {
-      cat("⚠️  Invalid/unavailable models (skipped):\n")
+      cat("!! Invalid/unavailable models (skipped):\n")
       for (model in invalid_models) {
         cat("   - ", model, "\n")
         
         # Suggest similar available models
         suggestions <- .suggest_similar_models(model, available_models)
         if (length(suggestions) > 0) {
-          cat("     💡 Similar available models: ", paste(suggestions[1:min(2, length(suggestions))], collapse = ", "), "\n")
+          cat("     >> Similar available models: ", paste(suggestions[1:min(2, length(suggestions))], collapse = ", "), "\n")
         }
       }
       cat("\n")
@@ -261,8 +261,8 @@ multiLLMviaionet <- function(prompt,
     
     # Provide helpful error context
     if (length(valid_models) == 0) {
-      cat("❌ No valid models found from your selection.\n")
-      cat("📋 Available models on io.net (", length(available_models), " total):\n")
+      cat("!! No valid models found from your selection.\n")
+      cat("** Available models on io.net (", length(available_models), " total):\n")
       
              # Group by category for better display
        categories <- list(
@@ -277,15 +277,15 @@ multiLLMviaionet <- function(prompt,
       
       for (cat_name in names(categories)) {
         if (length(categories[[cat_name]]) > 0) {
-          cat("  🔸 ", cat_name, " (", length(categories[[cat_name]]), "):\n")
+          cat("  >> ", cat_name, " (", length(categories[[cat_name]]), "):\n")
           for (model in categories[[cat_name]]) {
             cat("     - ", model, "\n")
           }
         }
       }
       
-      cat("\n💡 Use list_ionet_models() to see all available models\n")
-      cat("💡 Use multiLLM_random10() or multiLLM_random5() for quick testing\n")
+      cat("\n>> Use list_ionet_models() to see all available models\n")
+      cat(">> Use multiLLM_random10() or multiLLM_random5() for quick testing\n")
       
       stop("No valid models found. Please check model names against available models.")
     }
@@ -295,12 +295,12 @@ multiLLMviaionet <- function(prompt,
   if (length(valid_models) > max_models) {
     if (random_selection) {
       if (verbose) {
-        cat("🎲 Randomly selecting", max_models, "models from", length(valid_models), "valid models\n")
+        cat("** Randomly selecting", max_models, "models from", length(valid_models), "valid models\n")
       }
       valid_models <- sample(valid_models, max_models)
     } else {
       if (verbose) {
-        cat("✂️  Limiting to first", max_models, "models\n")
+        cat(">>  Limiting to first", max_models, "models\n")
       }
       valid_models <- valid_models[1:max_models]
     }
@@ -336,7 +336,7 @@ multiLLMviaionet <- function(prompt,
                                     temperature, timeout, streaming, verbose) {
   
   if (verbose) {
-    cat("🔄 Executing", length(models), "models in parallel (async)\n")
+    cat(">> Executing", length(models), "models in parallel (async)\n")
   }
   
   # Setup future plan for asynchronous execution
@@ -361,7 +361,7 @@ multiLLMviaionet <- function(prompt,
   completed <- character(0)
   
   if (verbose) {
-    cat("📊 Monitoring async execution progress:\n")
+    cat(">> Monitoring async execution progress:\n")
   }
   
   while (length(completed) < length(models)) {
@@ -372,7 +372,7 @@ multiLLMviaionet <- function(prompt,
         completed <- c(completed, model)
         
         if (verbose) {
-          cat("  ✅", model, "completed (", length(completed), "/", length(models), ")\n")
+          cat("  [OK]", model, "completed (", length(completed), "/", length(models), ")\n")
         }
       }
     }
@@ -384,7 +384,7 @@ multiLLMviaionet <- function(prompt,
   }
   
   if (verbose) {
-    cat("🎉 All", length(models), "models completed asynchronously\n")
+    cat(">> All", length(models), "models completed asynchronously\n")
   }
   
   return(results)
@@ -395,7 +395,7 @@ multiLLMviaionet <- function(prompt,
                                       temperature, timeout, streaming, verbose) {
   
   if (verbose) {
-    cat("🔄 Executing", length(models), "models sequentially\n")
+    cat(">> Executing", length(models), "models sequentially\n")
   }
   
   results <- list()
@@ -572,7 +572,7 @@ multiLLMviaionet <- function(prompt,
     execution_time <- as.numeric(difftime(end_time, start_time, units = "secs"))
     
     if (verbose) {
-      cat("❌ Error with model", model, ":", e$message, "\n")
+      cat("[ERROR] Error with model", model, ":", e$message, "\n")
     }
     
     return(list(
@@ -801,9 +801,9 @@ multiLLM_random10 <- function(prompt,
   )
   
   if (verbose) {
-    cat("🎲 Random 10-Model Multi-LLM Execution\n")
+    cat(">> Random 10-Model Multi-LLM Execution\n")
     cat("====================================\n")
-    cat("🎯 Selection mode:", if (balanced) "Balanced across categories" else "Pure random", "\n")
+          cat(">> Selection mode:", if (balanced) "Balanced across categories" else "Pure random", "\n")
   }
   
   # Get all available models
@@ -813,7 +813,7 @@ multiLLM_random10 <- function(prompt,
   if (length(exclude_models) > 0) {
     all_models <- all_models[!all_models %in% exclude_models]
     if (verbose && length(exclude_models) > 0) {
-      cat("🚫 Excluded", length(exclude_models), "models from selection\n")
+      cat(">> Excluded", length(exclude_models), "models from selection\n")
     }
   }
   
@@ -830,7 +830,7 @@ multiLLM_random10 <- function(prompt,
   }
   
   if (verbose) {
-    cat("🎯 Selected 10 models for execution:\n")
+    cat(">> Selected 10 models for execution:\n")
     for (i in seq_along(selected_models)) {
       cat("  ", i, ". ", selected_models[i], "\n")
     }
@@ -891,9 +891,9 @@ multiLLM_random10 <- function(prompt,
   model_by_category <- model_by_category[sapply(model_by_category, length) > 0]
   
   if (verbose) {
-    cat("📊 Available models by category:\n")
+    cat(">> Available models by category:\n")
     for (cat_name in names(model_by_category)) {
-      cat("  🔸", toupper(cat_name), ":", length(model_by_category[[cat_name]]), "models\n")
+              cat("  -", toupper(cat_name), ":", length(model_by_category[[cat_name]]), "models\n")
     }
   }
   
@@ -967,7 +967,7 @@ print.multiLLM_result <- function(x, ...) {
   cat("Multi-LLM Execution Result\n")
   cat("==========================\n\n")
   
-  cat("📊 Summary:\n")
+  cat(">> Summary:\n")
   cat("  Models executed:", x$summary$total_models, "\n")
   cat("  Successful:", x$summary$successful_models, "\n") 
   cat("  Failed:", x$summary$failed_models, "\n")
@@ -977,13 +977,13 @@ print.multiLLM_result <- function(x, ...) {
   cat("  Total tokens used:", x$summary$total_tokens_used, "\n\n")
   
   if (x$summary$failed_models > 0) {
-    cat("❌ Failed models:\n")
+    cat("[ERROR] Failed models:\n")
     for (model_name in x$summary$failed_model_names) {
       cat("  -", model_name, "\n")
     }
     cat("\n")
   }
   
-  cat("🎯 Successful responses available for", x$summary$successful_models, "models\n")
+  cat(">> Successful responses available for", x$summary$successful_models, "models\n")
   cat("   Use result$results to access individual responses\n")
 }

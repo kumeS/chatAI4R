@@ -11,7 +11,7 @@
 # Load required libraries
 suppressPackageStartupMessages({
   library(chatAI4R)
-  library(jsonlite)
+  # library(jsonlite)  # JSON output removed
   library(utils)
 })
 
@@ -27,7 +27,7 @@ config <- list(
   api_key = NULL,
   mode = "full",  # "full", "utilities", "api-only", "extended"
   verbose = TRUE,
-  output_file = paste0("test_results_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".log"),
+  # output_file removed - console output only
   timeout = 30    # seconds for each test
 )
 
@@ -71,12 +71,11 @@ test_results <- list(
   details = list()
 )
 
-# Logging function
+# Console output function
 log_message <- function(message, level = "INFO") {
   timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
   log_entry <- sprintf("[%s] %s: %s", timestamp, level, message)
   if (config$verbose) cat(log_entry, "\n")
-  write(log_entry, file = config$output_file, append = TRUE)
 }
 
 # Test wrapper function
@@ -460,7 +459,7 @@ main <- function() {
   log_message("Starting chatAI4R Package Execution Tests")
   log_message(sprintf("Test mode: %s", config$mode))
   log_message(sprintf("API key provided: %s", !is.null(config$api_key)))
-  log_message(sprintf("Output file: %s", config$output_file))
+  # Output file removed - console output only
   
   # Run tests based on mode
   if (config$mode %in% c("full", "utilities")) {
@@ -497,10 +496,7 @@ main <- function() {
     }
   }
   
-  # Save detailed results
-  results_file <- gsub("\\.log$", "_details.json", config$output_file)
-  write(toJSON(test_results, pretty = TRUE), file = results_file)
-  log_message(sprintf("Detailed results saved to: %s", results_file))
+  # JSON output removed - log file contains all necessary information
   
   # Exit with appropriate code
   if (test_results$failed > 0) {
