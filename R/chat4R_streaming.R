@@ -129,7 +129,7 @@ chat4R_streaming <- function(content,
     stop("API Error (", httr::status_code(response), "): ", error_msg)
   }
 
-  # After streaming completes, return the accumulated text
-  return(result_env$full_text)
-  #cat(result_env$full_text)
+  # After streaming completes, return the accumulated text invisibly
+  # to avoid duplicate output (streaming already displayed the content)
+  invisible(result_env$full_text)
 }

@@ -29,15 +29,15 @@ TextSummary <- function(text = clipr::read_clip(),
                         verbose = TRUE,
                         returnText = FALSE){
 
-  choices1 <- c("GPT-3.5", "GPT-4 (0613)", "Another LLM")
+  choices1 <- c("GPT-4o-mini (Default)", "GPT-4o", "GPT-4-turbo")
   selection1 <- utils::menu(choices1, title = "Which language model do you prefer?")
 
   if (selection1 == 1) {
-    Model = "gpt-3.5-turbo"
+    Model = "gpt-4o-mini"
   } else if (selection1 == 2) {
-    Model = "gpt-4-0613"
+    Model = "gpt-4o"
   } else if (selection1 == 3) {
-    return(message("No valid selection made."))
+    Model = "gpt-4-turbo"
   } else {
     return(message("No valid selection made."))
   }
@@ -169,7 +169,7 @@ TextSummary <- function(text = clipr::read_clip(),
                             nch = 2000,
                             verbose = TRUE){
 
-  Model = "gpt-3.5-turbo"
+  Model = "gpt-4o-mini"
   Summary_block = nch*0.1
   temperature = 1
 

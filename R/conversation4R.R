@@ -75,7 +75,7 @@ chat_historyR <- list(
   list(role = "user", content = message))
 
 # Run with safe error handling
-res <- tryCatch({
+res_df <- tryCatch({
   chatAI4R::chat4R_history(history = chat_historyR,
                           api_key = api_key,
                           Model = Model,
@@ -84,10 +84,13 @@ res <- tryCatch({
   stop("Failed to get response from chat4R_history: ", e$message, call. = FALSE)
 })
 
-# Validate response
-if (is.null(res) || !is.character(res) || length(res) == 0 || nchar(trimws(res)) == 0) {
+# Extract content from data.frame and validate response
+if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+    is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
   stop("Invalid or empty response from chat4R_history", call. = FALSE)
 }
+
+res <- as.character(res_df$content)
 
 
 system_set3s <- sprintf(system_set3, message)
@@ -122,7 +125,7 @@ new_conversation <- list(list(role = "user", content = message))
 chat_historyR <- c(chat_historyR, new_conversation)
 
 # Run with safe error handling
-res <- tryCatch({
+res_df <- tryCatch({
   chatAI4R::chat4R_history(history = chat_historyR,
                           api_key = api_key,
                           Model = Model,
@@ -131,10 +134,13 @@ res <- tryCatch({
   stop("Failed to get response from chat4R_history: ", e$message, call. = FALSE)
 })
 
-# Validate response
-if (is.null(res) || !is.character(res) || length(res) == 0 || nchar(trimws(res)) == 0) {
+# Extract content from data.frame and validate response
+if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+    is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
   stop("Invalid or empty response from chat4R_history", call. = FALSE)
 }
+
+res <- as.character(res_df$content)
 
 assistant_conversation<- list(list(role = "assistant", content = res))
 chat_historyR <- c(chat_historyR, assistant_conversation)

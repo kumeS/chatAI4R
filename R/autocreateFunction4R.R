@@ -57,7 +57,7 @@ Please write the R code for this function without any example usage and note.
 template1s <- sprintf(template1, Func_description, packages)
 
 # 01 Run function creation
-if(verbose){cat(crayon::red("01 Run function creation \n"))}
+if(verbose){cat(crayon::red("\n01 Run function creation \n"))}
 f_result <- chat4R(content = template1s,
                    api_key = api_key,
                    Model = "gpt-4o-mini",
@@ -80,7 +80,7 @@ Please itemize and suggest improvements to this function.
 ", f)
 
 # 02 Propose improvements to the function
-if(verbose){cat(crayon::red("02 Propose improvements to the function \n"))}
+if(verbose){cat(crayon::red("\n02 Propose improvements to the function \n"))}
 f1_result <- chat4R(content = template2,
                     api_key = api_key,
                     Model = "gpt-4o-mini",
@@ -106,7 +106,7 @@ R script: ", f)
 template3s <- sprintf(template3, Func_description, packages)
 
 # 03 Improve the function
-if(verbose){cat(crayon::red("03 Improve the function \n"))}
+if(verbose){cat(crayon::red("\n03 Improve the function \n"))}
 f2_result <- chat4R(content = template3s,
                     api_key = api_key,
                     Model = "gpt-4o-mini",
@@ -133,7 +133,7 @@ Please write roxygen comments only for the following R code.
 Function: ", f2)
 
 # 04 Include roxygen comments
-if(verbose){cat(crayon::red("04 Include roxygen comments \n"))}
+if(verbose){cat(crayon::red("\n04 Include roxygen comments \n"))}
 f3_result <- chat4R(content = template4,
                     api_key = api_key,
                     Model = "gpt-4o-mini",
@@ -153,14 +153,14 @@ if(View){
 }
 
 # View results
-if(verbose){cat(crayon::red("Finished!!"))}
+if(verbose){cat(crayon::red("\nFinished!!"))}
 
 return(f4)
 
 }else{
 
 # View results
-if(verbose){cat(crayon::red("Finished!!"))}
+if(verbose){cat(crayon::red("\nFinished!!"))}
 
 return(f2)
 }

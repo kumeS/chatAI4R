@@ -37,8 +37,8 @@ A data frame or list containing the response from the GPT model, depending on ar
 \description{
 This function uses the OpenAI API to interact with the
    gpt-4o-mini model (default) and generates responses based on user input.
-   In this function, currently, "gpt-4o-mini", "gpt-4o", "gpt-4",
-   "gpt-4-turbo" and "gpt-3.5-turbo"
+   In this function, currently, "gpt-4o-mini" (default), "gpt-4o", "gpt-4",
+   and "gpt-4-turbo"
    can be selected as OpenAI's LLM model.
 }
 \details{

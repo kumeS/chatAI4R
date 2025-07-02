@@ -348,12 +348,7 @@ multiLLMviaionet <- function(prompt,
   futures_list <- list()
   for (i in seq_along(models)) {
     futures_list[[models[i]]] <- future::future({
-      # Suppress all package startup messages within each worker
-      suppressPackageStartupMessages({
-        library(httr, quietly = TRUE)
-        library(jsonlite, quietly = TRUE)
-      })
-      
+      # Execute single model (package functions are automatically available in workers)
       .execute_single_model(
         prompt, models[i], api_key, max_tokens, temperature,
         timeout, streaming, verbose = FALSE  # Disable verbose for cleaner parallel output
