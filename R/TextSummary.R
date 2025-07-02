@@ -133,9 +133,18 @@ TextSummary <- function(text = clipr::read_clip(),
 
     retry_count <- 0
     while (retry_count <= 2) {
-      res <- chat4R_history(history = history,
-                            Model = Model,
-                            temperature = temperature)
+      res_df <- chat4R_history(history = history,
+                              Model = Model,
+                              temperature = temperature)
+                              
+      # Extract content from data.frame
+      if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+          is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+        stop("Invalid or empty response from chat4R_history", call. = FALSE)
+      }
+      
+      res <- as.character(res_df$content)
+      
       if(nchar(res) < Summary_block + 100){ break }
       retry_count <- retry_count + 1
     }
@@ -243,9 +252,18 @@ TextSummary <- function(text = clipr::read_clip(),
 
     retry_count <- 0
     while (retry_count <= 2) {
-      res <- chat4R_history(history = history,
-                            Model = Model,
-                            temperature = temperature)
+      res_df <- chat4R_history(history = history,
+                              Model = Model,
+                              temperature = temperature)
+                              
+      # Extract content from data.frame
+      if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+          is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+        stop("Invalid or empty response from chat4R_history", call. = FALSE)
+      }
+      
+      res <- as.character(res_df$content)
+      
       if(nchar(res) < Summary_block + 100){ break }
       retry_count <- retry_count + 1
     }

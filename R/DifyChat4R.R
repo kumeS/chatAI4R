@@ -1,9 +1,9 @@
-#' DifyChat4R Function (Blocking Mode Only)
+#' DifyChat4R Function (Completion Messages Only)
 #'
 #' @description
-#' This function sends a chat query to the Dify API using blocking mode.
-#' It allows switching between the "chat-messages" and "completion-messages" endpoints.
-#' It returns the complete parsed JSON response from the API.
+#' This function sends a query to the Dify API using the completion-messages endpoint in blocking mode.
+#' It provides a simple interface for interacting with Dify AI applications.
+#' The function uses the stable blocking response mode to avoid streaming parsing issues.
 #'
 #' @param query A character string representing the user's input query.
 #' @param user A character string representing the user identifier. Default is "abc-123".
@@ -15,9 +15,6 @@
 #'          - type (e.g., "image")
 #'          - transfer_method (e.g., "remote_url")
 #'          - url (the file URL)
-#' @param response_mode A character string specifying the response mode. Default is "blocking".
-#' @param endpoint A character string specifying which endpoint to use.
-#'        Valid values are "chat-messages" and "completion-messages". Default is "chat-messages".
 #'
 #' @return A list containing the parsed JSON response from the Dify API.
 #'
@@ -30,30 +27,25 @@
 #'   # Set your Dify API key in the environment or pass it directly
 #'   Sys.setenv(DIFY_API_KEY = "YOUR-DIFY-SECRET-KEY")
 #'
-#'   # Use the chat-messages endpoint
-#'   response_chat <- DifyChat4R(
-#'     query = "Hello world via chat!",
-#'     endpoint = "chat-messages"
-#'   )
-#'   print(response_chat)
+#'   # Basic usage
+#'   response <- DifyChat4R(query = "Hello world!")
+#'   print(response)
 #'
-#'   # Use the completion-messages endpoint
-#'   response_completion <- DifyChat4R(
-#'     query = "Hello world via completion!",
-#'     endpoint = "completion-messages"
+#'   # With conversation context
+#'   response <- DifyChat4R(
+#'     query = "How are you?",
+#'     conversation_id = "conv-123",
+#'     user = "user-456"
 #'   )
-#'   print(response_completion)
+#'   print(response)
 #' }
 #'
-
 
 DifyChat4R <- function(query,
                         user = "abc-123",
                         api_key = Sys.getenv("DIFY_API_KEY"),
                         conversation_id = "",
-                        files = NULL,
-                        response_mode = "blocking",
-                        endpoint = "chat-messages") {
+                        files = NULL) {
 
   # Input validation
   if (!is.character(query) || length(query) != 1 || nchar(query) == 0) {
@@ -68,13 +60,8 @@ DifyChat4R <- function(query,
     stop("user must be a character string", call. = FALSE)
   }
 
-  # Validate the endpoint parameter
-  if (!endpoint %in% c("chat-messages", "completion-messages")) {
-    stop("Invalid endpoint. Please use 'chat-messages' or 'completion-messages'.", call. = FALSE)
-  }
-
-  # Set the API endpoint based on the chosen endpoint
-  api_url <- paste0("https://api.dify.ai/v1/", endpoint)
+  # Set the API endpoint (completion-messages only)
+  api_url <- "https://api.dify.ai/v1/completion-messages"
 
   # Set the API headers
   headers <- httr::add_headers(
@@ -82,14 +69,17 @@ DifyChat4R <- function(query,
     `Content-Type`  = "application/json"
   )
 
-  # Create the request body
+  # Create the request body for completion-messages
   body <- list(
-    inputs = list(),
-    query = query,
-    response_mode = response_mode,
-    conversation_id = conversation_id,
+    inputs = list(query = query),
+    response_mode = "blocking",  # Fixed to blocking mode to avoid streaming issues
     user = user
   )
+  
+  # Add conversation_id only if not empty
+  if (conversation_id != "") {
+    body$conversation_id <- conversation_id
+  }
 
   # Include files if provided
   if (!is.null(files)) {

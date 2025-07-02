@@ -9,9 +9,11 @@
 #' @param model       Gemini model ID. Default `"gemini-2.0-flash"`.
 #' @param store_history Logical. If TRUE, chat history is persisted to the
 #'                      `chat_history` env-var (JSON).
-#' @param dynamic_threshold Numeric [0,1] for dynamic retrieval threshold (default: 1).
+#' @param dynamic_threshold Numeric [0,1] for dynamic retrieval threshold (default: 0.7).
 #' @param api_key     Your Google Gemini API key (default: `Sys.getenv("GoogleGemini_API_KEY")`).
-#' @param max_tokens  Maximum output tokens. NULL for server default.
+#' @param max_tokens  Maximum output tokens. Default 2048.
+#' @param debug       Logical. If TRUE, prints request details for debugging.
+#' @param enable_grounding Logical. If TRUE, enables Google Search grounding (default).
 #' @param ...         Additional `httr::POST` options (timeouts etc.).
 #'
 #' @return For non-stream modes, a parsed list. For stream modes, a list with
@@ -27,10 +29,21 @@
 #'     mode = "text",
 #'     contents = "What is the current Google stock price?",
 #'     store_history = FALSE,
-#'     dynamic_threshold = 1,
+#'     dynamic_threshold = 0.7,
+#'     debug = TRUE,  # Enable debug to see request details
 #'     api_key = Sys.getenv("GoogleGemini_API_KEY")
 #'   )
 #'   print(result)
+#'   
+#'   # Basic text generation without grounding (for troubleshooting):
+#'   basic_result <- geminiGrounding4R(
+#'     mode = "text",
+#'     contents = "Hello, how are you?",
+#'     enable_grounding = FALSE,
+#'     debug = TRUE,
+#'     api_key = Sys.getenv("GoogleGemini_API_KEY")
+#'   )
+#'   print(basic_result)
 #'
 #'   # Chat mode with history storage:
 #'   chat_history <- list(
@@ -41,7 +54,7 @@
 #'     mode = "chat",
 #'     contents = chat_history,
 #'     store_history = TRUE,
-#'     dynamic_threshold = 1,
+#'     dynamic_threshold = 0.7,
 #'     api_key = Sys.getenv("GoogleGemini_API_KEY")
 #'   )
 #'   print(chat_result)
@@ -51,7 +64,7 @@
 #'     mode = "stream_text",
 #'     contents = "Tell me a story about a magic backpack.",
 #'     store_history = FALSE,
-#'     dynamic_threshold = 1,
+#'     dynamic_threshold = 0.7,
 #'     api_key = Sys.getenv("GoogleGemini_API_KEY")
 #'   )
 #'   print(stream_result$full_text)
@@ -59,17 +72,24 @@
 
 geminiGrounding4R <- function(mode,
                                contents,
-                               model             = "gemini-2.0-flash",
+                               model             = "gemini-1.5-pro",
                                store_history     = FALSE,
-                               dynamic_threshold = 1,
+                               dynamic_threshold = 0.7,
                                api_key           = Sys.getenv("GoogleGemini_API_KEY"),
                                max_tokens        = 2048,
+                               debug             = FALSE,
+                               enable_grounding  = TRUE,
                                ...) {
 
+  # Input validation
+  if (is.null(api_key) || nchar(api_key) == 0) {
+    stop("API key is required. Set GoogleGemini_API_KEY environment variable or provide api_key parameter.", call. = FALSE)
+  }
+  
   mode <- tolower(mode)
   valid_modes <- c("text", "stream_text", "chat", "stream_chat")
   if (!mode %in% valid_modes)
-    stop("Invalid mode. Choose one of: ", paste(valid_modes, collapse = ", "))
+    stop("Invalid mode. Choose one of: ", paste(valid_modes, collapse = ", "), call. = FALSE)
 
   #----- Build endpoint --------------------------------------------------------
   method   <- if (grepl("^stream", mode)) "streamGenerateContent" else "generateContent"
@@ -88,38 +108,51 @@ geminiGrounding4R <- function(mode,
 
   # Google Search grounding tool configuration
   grounding_tool <- list(
-    google_search_retrieval = list(
-      dynamic_retrieval_config = list(
-        mode = "MODE_DYNAMIC",
-        dynamic_threshold = dynamic_threshold
-      )
-    )
+    googleSearchRetrieval = list()
   )
+  
+  # Add dynamic retrieval config if threshold is specified
+  if (!is.null(dynamic_threshold) && dynamic_threshold != 1) {
+    grounding_tool$googleSearchRetrieval$dynamicRetrievalConfig <- list(
+      mode = "MODE_DYNAMIC",
+      dynamicThreshold = dynamic_threshold
+    )
+  }
 
   body <- switch(
     mode,
     "text" = list(
-      contents = list(make_message("user", contents)),
-      tools = list(grounding_tool)
+      contents = list(make_message("user", contents))
     ),
     "stream_text" = list(
-      contents = list(make_message("user", contents)),
-      tools = list(grounding_tool)
+      contents = list(make_message("user", contents))
     ),
     "chat" = list(
-      contents = lapply(contents, \(m) make_message(m$role, m$text)),
-      tools = list(grounding_tool)
+      contents = lapply(contents, \(m) make_message(m$role, m$text))
     ),
     "stream_chat" = list(
-      contents = lapply(contents, \(m) make_message(m$role, m$text)),
-      tools = list(grounding_tool)
+      contents = lapply(contents, \(m) make_message(m$role, m$text))
     )
   )
+  
+  # Add grounding tools if enabled
+  if (enable_grounding) {
+    body$tools <- list(grounding_tool)
+  }
 
   if (!is.null(max_tokens))
     body$generationConfig <- list(maxOutputTokens = max_tokens)
 
   json_body <- jsonlite::toJSON(body, auto_unbox = TRUE)
+  
+  # Debug output
+  if (debug) {
+    cat("=== DEBUG: Request Body ===\n")
+    cat(json_body)
+    cat("\n=== DEBUG: Endpoint ===\n")
+    cat(gsub("key=[^&]*", "key=***", endpoint))
+    cat("\n========================\n")
+  }
 
   #---------------------------------------------------------------------------
   if (mode %in% c("text", "chat")) {        # ■ synchronous --------------------
@@ -130,8 +163,10 @@ geminiGrounding4R <- function(mode,
       httr::add_headers("Content-Type" = "application/json"),
       ...
     )
-    if (httr::http_error(res))
-      stop("HTTP error: ", httr::status_code(res))
+    if (httr::http_error(res)) {
+      error_content <- httr::content(res, "text", encoding = "UTF-8")
+      stop("HTTP error: ", httr::status_code(res), "\nResponse: ", error_content, call. = FALSE)
+    }
 
     parsed <- jsonlite::fromJSON(httr::content(res, "text", encoding = "UTF-8"),
                                  simplifyVector = FALSE)

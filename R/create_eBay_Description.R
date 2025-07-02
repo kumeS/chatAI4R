@@ -97,9 +97,17 @@ history <- list(list('role' = 'system', 'content' = template),
 if(verbose){utils::setTxtProgressBar(pb, 2)}
 
 # Execution
-res <- chat4R_history(history=history,
+res_df <- chat4R_history(history=history,
                       Model = Model,
                       temperature = temperature)
+
+# Extract content from data.frame
+if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+    is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+  stop("Invalid or empty response from chat4R_history", call. = FALSE)
+}
+
+res <- as.character(res_df$content)
 if(verbose){
 utils::setTxtProgressBar(pb, 3)
 cat("\n")}

@@ -65,15 +65,23 @@ convertScientificLiterature <- function(Model = "gpt-4o-mini",
                   list('role' = 'user', 'content' = template1s))
 
   # Execute the chat model
-  res <- chat4R_history(history=history,
-                        Model = Model,
-                        temperature = temperature)
+  res_df <- chat4R_history(history=history,
+                          Model = Model,
+                          temperature = temperature)
+
+  # Extract content from data.frame
+  if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+      is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+    stop("Invalid or empty response from chat4R_history", call. = FALSE)
+  }
+  
+  res <- as.character(res_df$content)
 
   # Output the converted text
   if(SelectedCode){
-    rstudioapi::insertText(text = as.character(res))
+    rstudioapi::insertText(text = res)
   } else {
     # Write to the clipboard
-    return(clipr::write_clip(as.character(res)))
+    return(clipr::write_clip(res))
   }
 }

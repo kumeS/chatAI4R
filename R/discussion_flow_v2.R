@@ -158,6 +158,9 @@ res1 <- chat4R_history(history = LLB_A,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_A[[length(LLB_A) + 1]] <- list('role' = 'assistant', 'content' = res1)
 
+# Initialize res1_ja
+res1_ja <- res1  # Default to original text
+
 if(!sayENorJA){
   if(DEEPL){
   res1_ja <- deepRstudio::deepel(input = res1, target_lang = "JA")$text
@@ -238,6 +241,9 @@ res2 <- chat4R_history(history = LLB_B,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_B[[length(LLB_B) + 1]] <- list('role' = 'assistant', 'content' = res2)
 
+# Initialize res2_ja
+res2_ja <- res2  # Default to original text
+
 if(!sayENorJA){
   if(DEEPL){
   res2_ja <- deepRstudio::deepel(input = res2, target_lang = "JA")$text
@@ -297,6 +303,9 @@ fut4 <- future::future({
 res3 <- chat4R_history(history = LLB_A,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_A[[length(LLB_A) + 1]] <- list('role' = 'assistant', 'content' = res3)
+
+# Initialize res3_ja
+res3_ja <- res3  # Default to original text
 
 if(!sayENorJA){
   if(DEEPL){
@@ -358,6 +367,9 @@ fut5 <- future::future({
 res4 <- chat4R_history(history = LLB_B,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_B[[length(LLB_B) + 1]] <- list('role' = 'assistant', 'content' = res4)
+
+# Initialize res4_ja
+res4_ja <- res4  # Default to original text
 
 if(!sayENorJA){
   if(DEEPL){
@@ -431,6 +443,8 @@ res5 <- chat4R_history(history = LLB_A,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_A[[length(LLB_A) + 1]] <- list('role' = 'assistant', 'content' = res5)
 
+# Initialize res5_ja
+res5_ja <- res5  # Default to original text
 
 if(!sayENorJA){
   if(DEEPL){
@@ -488,6 +502,9 @@ LLB_C <- list(list('role' = 'system', 'content' = paste(Setting_C_R)),
 fut7 <- future::future({
 res6 <- chat4R_history(history = LLB_C,
                api_key = api_key, Model = Model, temperature = 1)
+
+# Initialize res6_ja
+res6_ja <- res6  # Default to original text
 
 if(!sayENorJA){
   if(DEEPL){
@@ -602,6 +619,9 @@ res7 <- chat4R_history(history = LLB_A,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_A[[length(LLB_A) + 1]] <- list('role' = 'assistant', 'content' = res7)
 
+# Initialize res7_ja
+res7_ja <- res7  # Default to original text
+
 if(!sayENorJA){
   if(DEEPL){
   res7_ja <- deepRstudio::deepel(input = res7, target_lang = "JA")$text
@@ -629,6 +649,9 @@ res7_ja <- future::value(fut8)[[3]]
 if(Ans){
   res7 <- paste(res7, Human_intervention_en)
 
+  # Update res7_ja when res7 is modified
+  res7_ja <- res7  # Default to original text
+  
   if(!sayENorJA){
   if(DEEPL){
   res7_ja <- deepRstudio::deepel(input = res7, target_lang = "JA")$text
@@ -646,6 +669,9 @@ fut9 <- future::future({
 res8 <- chat4R_history(history = LLB_B,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_B[[length(LLB_B) + 1]] <- list('role' = 'assistant', 'content' = res8)
+
+# Initialize res8_ja
+res8_ja <- res8  # Default to original text
 
 if(!sayENorJA){
   if(DEEPL){
@@ -766,6 +792,9 @@ res <- chat4R_history(history = LLB_A,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_A[[length(LLB_A) + 1]] <- list('role' = 'assistant', 'content' = res)
 
+# Initialize res_ja
+res_ja <- res  # Default to original text
+
 if(!sayENorJA){
   if(DEEPL){
   res_ja <- deepRstudio::deepel(input = res, target_lang = "JA")$text
@@ -834,6 +863,9 @@ futR <- future::future({
 res <- chat4R_history(history = LLB_B,
                api_key = api_key, Model = Model, temperature = 1)
 LLB_B[[length(LLB_B) + 1]] <- list('role' = 'assistant', 'content' = res)
+
+# Initialize res_ja
+res_ja <- res  # Default to original text
 
 if(!sayENorJA){
   if(DEEPL){
@@ -913,6 +945,9 @@ LLB_A[[length(LLB_A) + 1]] <- list('role' = 'user', 'content' = prompt_A3)
 fut10 <- future::future({
 res9 <- chat4R_history(history = LLB_A,
                api_key = api_key, Model = Model, temperature = 1)
+
+# Initialize res9_ja
+res9_ja <- res9  # Default to original text
 
 if(!sayENorJA){
   if(DEEPL){

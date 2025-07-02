@@ -7,28 +7,28 @@
 createImagePrompt_v2(
   Base_prompt = "",
   removed_from_image = "",
-  stable_diffusion = "N/A",
+  style_guidance = "N/A",
   Model = "gpt-4o-mini",
   len = 1000
 )
 }
 \arguments{
-\item{Base_prompt}{A string. This is the base prompt that forms the basis for the generated prompts.}
+\item{Base_prompt}{A string. The main description of the image you want to generate (e.g., "A serene mountain landscape").}
 
-\item{removed_from_image}{A string. This is an attribute that should be removed from the image.}
+\item{removed_from_image}{A string. Elements or attributes to avoid or exclude from the image (e.g., "people, buildings, text"). Use empty string if not applicable.}
 
-\item{stable_diffusion}{A string. This parameter is used to control the stability of the diffusion process.}
+\item{style_guidance}{A string. Style or quality guidance for the image generation (e.g., "photorealistic", "artistic", "detailed", "minimalist"). Default is "N/A".}
 
 \item{Model}{A string. This is the model used for generating the prompts. Default is "gpt-4o-mini".}
 
 \item{len}{An integer. This is the maximum length of the generated prompts. Must be between 1 and 1000. Default is 1000.}
 }
 \value{
-A vector of strings. Each string in the vector is a generated prompt.
+A vector of strings. Each string in the vector is a generated prompt (typically 3 prompts).
 }
 \description{
 Generates optimal prompts for creating images using the OpenAI API.
-Given a base prompt, image attributes, and model parameters, it generates the optimal prompts for image creation.
+Given a base prompt, negative elements, and style guidance, it generates three optimized prompts for image creation.
 This is an experimental function.
 }
 \details{
@@ -36,16 +36,25 @@ Generate Image Prompts version 2
 }
 \examples{
 \dontrun{
-# Define the base prompt and image attributes
-base_prompt = "A sunset over a serene lake"
-removed_from_image = "The sun"
-stable_diffusion = "Moderate"
+# Example 1: Landscape without specific exclusions
+base_prompt <- "A peaceful mountain lake surrounded by pine trees"
+removed_from_image <- ""
+style_guidance <- "photorealistic, high detail"
 
-# Generate image prompts
-res <- createImagePrompt_v2(Base_prompt = base_prompt, removed_from_image = removed_from_image,
-stable_diffusion = stable_diffusion, len = 100)
+res <- createImagePrompt_v2(Base_prompt = base_prompt, 
+                           removed_from_image = removed_from_image,
+                           style_guidance = style_guidance, 
+                           len = 200)
+print(res)
 
-# Print the generated prompts
+# Example 2: Portrait with specific exclusions
+base_prompt <- "A portrait of a wise elderly person"
+removed_from_image <- "hat, glasses, jewelry"
+style_guidance <- "oil painting style"
+
+res <- createImagePrompt_v2(Base_prompt = base_prompt, 
+                           removed_from_image = removed_from_image,
+                           style_guidance = style_guidance)
 print(res)
 }
 }

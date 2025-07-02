@@ -8,7 +8,7 @@
 [![chatAI4R status badge](https://kumes.r-universe.dev/badges/chatAI4R)](https://kumes.r-universe.dev)
 <!-- badges: end -->
 
-**Version 0.4.3** - Enhanced Security & Multi-LLM Capabilities
+**Version 1.0.0** - Enhanced Security & Multi-LLM Capabilities
 
 [GitHub/chatAI4R](https://github.com/kumeS/chatAI4R)
 

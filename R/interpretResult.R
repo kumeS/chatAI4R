@@ -19,7 +19,7 @@
 #' # Example using summary() output of a data frame:
 #' df <- data.frame(x = rnorm(100), y = rnorm(100))
 #' interpretation <- interpretResult("summary", summary(df))
-#' cat(interpretation)
+#' cat(interpretation$content)
 #' }
 #' @importFrom glue glue
 #' @importFrom utils capture.output

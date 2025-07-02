@@ -122,8 +122,9 @@ completions4R(prompt)
 # conversation4R examples
 # -----------------------------------------------------------------------------
 
-conversation4R(message = "Hello, OpenAI!",
-               language = "English")
+conversation4R(message = "Hello, OpenAI! How are you?",
+               language = "English",
+               ConversationBufferWindowMemory_k = 10)
 
 # -----------------------------------------------------------------------------
 # convertBullet2Sentence examples
@@ -179,9 +180,11 @@ createImagePrompt_v1(content = "A Japanese girl animation with blonde hair.")
 base_prompt = "A sunset over a serene lake"
 removed_from_image = "The sun"
 stable_diffusion = "Moderate"
+
 # Generate image prompts
-res <- createImagePrompt_v2(Base_prompt = base_prompt, removed_from_image = removed_from_image,
-stable_diffusion = stable_diffusion, len = 100)
+res <- createImagePrompt_v2(Base_prompt = base_prompt,
+                            removed_from_image = removed_from_image,
+                            style_guidance = stable_diffusion, len = 100)
 # Print the generated prompts
 print(res)
 
@@ -206,11 +209,12 @@ createRfunction(SelectedCode = FALSE)
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-createSpecifications4R(input = "Your R function specification")
+createSpecifications4R(SelectedCode = FALSE)
 
 # -----------------------------------------------------------------------------
 # designPackage examples
 # -----------------------------------------------------------------------------
+??chatAI4R
 
 # Copy the text into your clipboard then execute
 designPackage(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
@@ -223,16 +227,9 @@ designPackage(Model = "gpt-4o-mini", verbose = TRUE, SlowTone = FALSE)
 #Sys.setenv(DIFY_API_KEY = "YOUR-DIFY-SECRET-KEY")
 # Use the chat-messages endpoint
 response_chat <- DifyChat4R(
-query = "Hello world via chat!",
-endpoint = "chat-messages"
-)
+query = "Hello world via chat!")
+
 print(response_chat)
-# Use the completion-messages endpoint
-response_completion <- DifyChat4R(
-query = "Hello world via completion!",
-endpoint = "completion-messages"
-)
-print(response_completion)
 
 # -----------------------------------------------------------------------------
 # discussion_flow_v1 examples
@@ -240,7 +237,8 @@ print(response_completion)
 
 issue <-  "I want to solve linear programming and create a timetable."
 #Run Discussion with the domain of bioinformatics
-discussion_flow_v1(issue)
+discussion_flow_v1(issue, sayENorJA = T)
+discussion_flow_v1(issue, sayENorJA = F)
 
 # -----------------------------------------------------------------------------
 # discussion_flow_v2 examples
@@ -248,7 +246,8 @@ discussion_flow_v1(issue)
 
 issue <-  "I want to solve linear programming and create a timetable."
 #Run Discussion with the domain of bioinformatics
-discussion_flow_v2(issue)
+discussion_flow_v2(issue, sayENorJA = TRUE)
+discussion_flow_v2(issue, sayENorJA = F)
 
 # -----------------------------------------------------------------------------
 # enrichTextContent examples
@@ -291,6 +290,7 @@ dynamic_threshold = 1,
 api_key = Sys.getenv("GoogleGemini_API_KEY")
 )
 print(result)
+
 # Chat mode with history storage:
 chat_history <- list(
 list(role = "user", text = "Hello"),
@@ -321,7 +321,7 @@ print(stream_result$full_text)
 # Example using summary() output of a data frame:
 df <- data.frame(x = rnorm(100), y = rnorm(100))
 interpretation <- interpretResult("summary", summary(df))
-cat(interpretation)
+cat(interpretation$content)
 
 # -----------------------------------------------------------------------------
 # multiLLMviaionet examples
@@ -333,10 +333,12 @@ cat(interpretation)
 # Basic usage with default models
 result <- multiLLMviaionet(
 prompt = "Explain quantum computing in simple terms",
-models = c("meta-llama/Llama-3.3-70B-Instruct",
-"deepseek-ai/DeepSeek-R1",
-"Qwen/Qwen3-235B-A22B-FP8")
+models = c("meta-llama/Llama-3.3-70B-Instruct"),
+streaming = F
 )
+
+
+
 # Advanced usage with random selection (10 models)
 result <- multiLLMviaionet(
 prompt = "Write a Python function to calculate fibonacci numbers",

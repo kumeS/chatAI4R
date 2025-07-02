@@ -71,9 +71,18 @@ You are an excellent assistant. Your expertise as an assistant is truly unparall
   # Execute text generation
   retry_count <- 0
   while (retry_count <= 3) {
-    res <- chat4R_history(history = history,
-                          Model = Model,
-                          temperature = temperature)
+    res_df <- chat4R_history(history = history,
+                            Model = Model,
+                            temperature = temperature)
+    
+    # Extract content from data.frame
+    if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+        is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+      stop("Invalid or empty response from chat4R_history", call. = FALSE)
+    }
+    
+    res <- as.character(res_df$content)
+    
     if(nchar(res) >= nchar(input) * 2){ break }
     retry_count <- retry_count + 1
   }
@@ -82,9 +91,9 @@ You are an excellent assistant. Your expertise as an assistant is truly unparall
 
   # Output the enriched text
   if(SelectedCode){
-    rstudioapi::insertText(text = as.character(res))
+    rstudioapi::insertText(text = res)
     return(message("Finished!!"))
   } else {
-    return(clipr::write_clip(as.character(res)))
+    return(clipr::write_clip(res))
   }
 }

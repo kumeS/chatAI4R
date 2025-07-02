@@ -41,15 +41,14 @@ assertthat::assert_that(assertthat::is.string(system_set))
 assertthat::assert_that(assertthat::is.count(ConversationBufferWindowMemory_k))
 assertthat::assert_that(assertthat::is.flag(initialization))
 
-# Initialization
-if(!exists("chat_history")){
-chat_history <- new.env()
-chat_history$history <- c()
+# Initialization - use global environment to persist chat_history
+if(!exists("chat_history", envir = .GlobalEnv) || initialization){
+  chat_history <- new.env()
+  chat_history$history <- list()
+  assign("chat_history", chat_history, envir = .GlobalEnv)
 } else {
-if(initialization){
-chat_history <- new.env()
-chat_history$history <- c()
-}}
+  chat_history <- get("chat_history", envir = .GlobalEnv)
+}
 
 # Define
 temperature = 1
@@ -68,7 +67,7 @@ Human: %s"
 system_set4 = "
 Assistant: %s"
 
-if(identical(as.character(chat_history$history), character(0))){
+if(length(chat_history$history) == 0){
 
 chat_historyR <- list(
   list(role = "system", content = system_set),
@@ -102,6 +101,9 @@ chat_history$history <- list(
   list(role = "assistant", content = res)
 )
 
+# Save to global environment
+assign("chat_history", chat_history, envir = .GlobalEnv)
+
 out <- c(paste0("System: ", system_set),
          crayon::red(system_set3s),
          crayon::blue(system_set4s))
@@ -112,10 +114,12 @@ if(verbose){
 
 }else{
 
-if(!identical(as.character(chat_history$history), character(0))){
+# Handle continuing conversation (chat_history exists and has content)
 
 if(length(chat_history$history) > ConversationBufferWindowMemory_k*2 + 1){
-  chat_historyR <- chat_history$history[(length(chat_history)-1):length(chat_history)]
+  # Keep system message + last k pairs of user/assistant messages
+  start_idx <- length(chat_history$history) - (ConversationBufferWindowMemory_k*2)
+  chat_historyR <- c(chat_history$history[1], chat_history$history[start_idx:length(chat_history$history)])
 }else{
   chat_historyR <- chat_history$history
 }
@@ -145,19 +149,25 @@ res <- as.character(res_df$content)
 assistant_conversation<- list(list(role = "assistant", content = res))
 chat_historyR <- c(chat_historyR, assistant_conversation)
 
+# Update the global chat_history with new conversation
+chat_history$history <- chat_historyR
+
+# Generate display history from updated chat_history (excluding current exchange)
 rr <- c()
-for(n in 2:length(chat_history$history)){
-  # Safe access to history elements with null checks
-  if (!is.null(chat_history$history[[n]]) && 
-      !is.null(chat_history$history[[n]]$role) && 
-      !is.null(chat_history$history[[n]]$content)) {
-    
-    r <- switch(chat_history$history[[n]]$role,
-                 "system" = paste0("System: ", chat_history$history[[n]]$content),
-                 "user" = paste0("\nHuman: ", chat_history$history[[n]]$content),
-                 "assistant" = paste0("\nAssistant: ", chat_history$history[[n]]$content),
-                 paste0("\nUnknown: ", chat_history$history[[n]]$content))  # fallback
-    rr <- c(rr, r)
+if(length(chat_history$history) > 3) {  # More than system + current user + current assistant
+  for(n in 2:(length(chat_history$history)-2)){  # Exclude current user/assistant pair
+    # Safe access to history elements with null checks
+    if (!is.null(chat_history$history[[n]]) && 
+        !is.null(chat_history$history[[n]]$role) && 
+        !is.null(chat_history$history[[n]]$content)) {
+      
+      r <- switch(chat_history$history[[n]]$role,
+                   "system" = paste0("System: ", chat_history$history[[n]]$content),
+                   "user" = paste0("\nHuman: ", chat_history$history[[n]]$content),
+                   "assistant" = paste0("\nAssistant: ", chat_history$history[[n]]$content),
+                   paste0("\nUnknown: ", chat_history$history[[n]]$content))  # fallback
+      rr <- c(rr, r)
+    }
   }
 }
 
@@ -181,12 +191,12 @@ out <- c(paste0("System: ", system_set),
          crayon::red(sprintf(system_set3, user_content)),
          crayon::blue(sprintf(system_set4, assistant_content)))
 
-chat_history$history <- chat_historyR
+# Save updated history to global environment
+assign("chat_history", chat_history, envir = .GlobalEnv)
 
 if(verbose){
   cat(out)
 }
 
-}
 }
 }

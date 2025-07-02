@@ -2,16 +2,14 @@
 % Please edit documentation in R/DifyChat4R.R
 \name{DifyChat4R}
 \alias{DifyChat4R}
-\title{DifyChat4R Function (Blocking Mode Only)}
+\title{DifyChat4R Function (Completion Messages Only)}
 \usage{
 DifyChat4R(
   query,
   user = "abc-123",
   api_key = Sys.getenv("DIFY_API_KEY"),
   conversation_id = "",
-  files = NULL,
-  response_mode = "blocking",
-  endpoint = "chat-messages"
+  files = NULL
 )
 }
 \arguments{
@@ -29,38 +27,31 @@ Each file should be a list containing at least the keys:
   - type (e.g., "image")
   - transfer_method (e.g., "remote_url")
   - url (the file URL)}
-
-\item{response_mode}{A character string specifying the response mode. Default is "blocking".}
-
-\item{endpoint}{A character string specifying which endpoint to use.
-Valid values are "chat-messages" and "completion-messages". Default is "chat-messages".}
 }
 \value{
 A list containing the parsed JSON response from the Dify API.
 }
 \description{
-This function sends a chat query to the Dify API using blocking mode.
-It allows switching between the "chat-messages" and "completion-messages" endpoints.
-It returns the complete parsed JSON response from the API.
+This function sends a query to the Dify API using the completion-messages endpoint in blocking mode.
+It provides a simple interface for interacting with Dify AI applications.
+The function uses the stable blocking response mode to avoid streaming parsing issues.
 }
 \examples{
 \dontrun{
   # Set your Dify API key in the environment or pass it directly
   Sys.setenv(DIFY_API_KEY = "YOUR-DIFY-SECRET-KEY")
 
-  # Use the chat-messages endpoint
-  response_chat <- DifyChat4R(
-    query = "Hello world via chat!",
-    endpoint = "chat-messages"
-  )
-  print(response_chat)
+  # Basic usage
+  response <- DifyChat4R(query = "Hello world!")
+  print(response)
 
-  # Use the completion-messages endpoint
-  response_completion <- DifyChat4R(
-    query = "Hello world via completion!",
-    endpoint = "completion-messages"
+  # With conversation context
+  response <- DifyChat4R(
+    query = "How are you?",
+    conversation_id = "conv-123",
+    user = "user-456"
   )
-  print(response_completion)
+  print(response)
 }
 
 }

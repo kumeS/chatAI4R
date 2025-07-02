@@ -16,7 +16,7 @@
 #' @param models A character vector of model names to use. Default includes 3 diverse models.
 #'   See details for complete list of available models.
 #' @param max_models Integer specifying maximum number of models to run (1-10). Default is 6.
-#' @param streaming Logical indicating whether to use streaming responses. Default is TRUE.
+#' @param streaming Logical indicating whether to use streaming responses. Default is FALSE.
 #' @param random_selection Logical indicating whether to randomly select models when 
 #'   more than max_models are provided. Default is FALSE.
 #' @param api_key A string containing the io.net API key. 
@@ -78,7 +78,7 @@ multiLLMviaionet <- function(prompt,
                                         "deepseek-ai/DeepSeek-R1", 
                                         "Qwen/Qwen3-235B-A22B-FP8"),
                              max_models = 6,
-                             streaming = TRUE,
+                             streaming = FALSE,
                              random_selection = FALSE,
                              api_key = Sys.getenv("IONET_API_KEY"),
                              max_tokens = 1024,
@@ -846,7 +846,7 @@ list_ionet_models <- function(category = "all", detailed = FALSE) {
 #' @param max_tokens Integer specifying maximum tokens to generate per model. Default is 1024.
 #' @param temperature Numeric value controlling randomness (0-2). Default is 0.7.
 #' @param timeout Numeric value in seconds for request timeout per model. Default is 300.
-#' @param streaming Logical indicating whether to use streaming responses. Default is TRUE.
+#' @param streaming Logical indicating whether to use streaming responses. Default is FALSE.
 #' @param verbose Logical indicating whether to show detailed progress. Default is TRUE.
 #'
 #' @return A multiLLM_result object with results from 10 randomly selected models.
@@ -880,7 +880,7 @@ multiLLM_random10 <- function(prompt,
                               max_tokens = 1024,
                               temperature = 0.7,
                               timeout = 300,
-                              streaming = TRUE,
+                              streaming = FALSE,
                               verbose = TRUE) {
   
   # Input validation

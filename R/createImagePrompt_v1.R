@@ -35,7 +35,15 @@ createImagePrompt_v1 <- function(content,
                  list('role' = 'user', 'content' = len_w))
 
   # Executing chat4R_history
-  res <- chat4R_history(history, Model = Model)
+  res_df <- chat4R_history(history, Model = Model)
+
+  # Extract content from data.frame
+  if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
+      is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+    stop("Invalid or empty response from chat4R_history", call. = FALSE)
+  }
+  
+  res <- as.character(res_df$content)
 
   # Returning the image generation prompt
   return(res)
