@@ -1047,6 +1047,7 @@ multiLLM_random5 <- function(prompt, ...) {
     prompt = prompt,
     models = selected_models,
     max_models = 5,
+    streaming = FALSE,
     random_selection = FALSE,
     parallel = TRUE,
     ...
