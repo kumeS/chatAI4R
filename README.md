@@ -20,7 +20,7 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ## About this project and future developments
 
-- **🚀 Multi-API AI Integration with R** *(v0.4.3 Features)*
+- **🚀 Multi-API AI Integration with R** *(v1.0.0 Features)*
   - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, GPT-4, text embeddings, vision) ✅ **Enhanced Security**
   - [Google Gemini API](https://ai.google.dev/) (Gemini models, search grounding) ✅ **Enhanced Security**
   - [Replicate API](https://replicate.com/) (Llama, other open-source models) ✅ **Enhanced Security**
@@ -28,7 +28,7 @@ chatAI4R is an experimental project aimed at developing and implementing various
   - [**NEW**: io.net API](https://io.net/) (Multi-LLM parallel execution, **23+ models**)
   - [DeepL API](https://www.deepl.com/translator-api) (Professional translation)
 
-- **🔒 Security Enhancements (v0.4.3)**
+- **🔒 Security Enhancements (v1.0.0)**
   - **HTTP Status Validation**: All API functions now validate HTTP response codes
   - **Safe Data Access**: Null-safe nested JSON parsing across all functions  
   - **Enhanced Error Handling**: Comprehensive error messages without credential exposure
@@ -305,7 +305,7 @@ Converts input text to a numeric vector. The model text-embedding-ada-002 result
 textEmbedding("Hello, world!")
 ```
 
-### 🌟 NEW: Multi-LLM Execution via io.net (v0.4.3)
+### 🌟 NEW: Multi-LLM Execution via io.net (v1.0.0)
 
 Execute multiple LLM models simultaneously for comprehensive AI responses across **23+ cutting-edge models**.
 
@@ -371,7 +371,7 @@ lapply(result$results, function(x) {     # Individual model responses
 - **Magistral-Small-2506**: European AI with multilingual support
 - **Phi-4**: Microsoft's efficient 14B parameter model
 
-## 📈 What's New in v0.4.3 (January 2025)
+## 📈 What's New in v1.0.0 (January 2025)
 
 ### 🔒 **Security Enhancements**
 - **Critical Security Fixes**: Resolved HTTP status validation issues across all API functions
@@ -404,7 +404,7 @@ Copyright (c) 2025 Satoshi Kume. Released under the [Artistic License 2.0](http:
 
 ## Cite
 
-Kume S. (2025) chatAI4R: Chat-based Interactive Artificial Intelligence for R. Version 0.4.3.
+Kume S. (2025) chatAI4R: Chat-based Interactive Artificial Intelligence for R. Version 1.0.0.
 
 ```
 #BibTeX
@@ -412,7 +412,7 @@ Kume S. (2025) chatAI4R: Chat-based Interactive Artificial Intelligence for R. V
   title={chatAI4R: Chat-Based Interactive Artificial Intelligence for R},
   author={Kume, Satoshi}, 
   year={2025},
-  version={0.4.3},
+  version={1.0.0},
   publisher={GitHub}, 
   note={R Package with Multi-LLM Capabilities},
   howpublished={\url{https://github.com/kumeS/chatAI4R}},

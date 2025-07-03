@@ -9,7 +9,9 @@
 #'
 #' @param file_path A string representing the path to the text or csv file to be read and sent to the API.
 #' @param api_key A string containing the OpenAI API key. Defaults to the "OPENAI_API_KEY" environment variable.
-#' @param model A string specifying the OpenAI model to be used (default is "gpt-4o-mini").
+#' @param model A string specifying the OpenAI model to be used (default is "gpt-4o-mini"). 
+#'        The function automatically handles parameter compatibility for newer models (o3, o1, gpt-4o series) 
+#'        that require max_completion_tokens instead of max_tokens.
 #' @param system_prompt Optional. A system-level instruction that can be used to guide the model's behavior
 #' (default is "You are a helpful assistant to analyze your input.").
 #' @param max_tokens A numeric value specifying the maximum number of tokens to generate (default is 50).
@@ -115,14 +117,27 @@ textFileInput4ai <- function(file_path,
     }
 
     # Process as a single request
-    body <- jsonlite::toJSON(list(
+    # Check if model requires max_completion_tokens instead of max_tokens
+    # Newer models like o3-mini, o1 series, and gpt-4o models use max_completion_tokens
+    token_param_name <- if (grepl("^o3", model) || grepl("^o1", model) || grepl("^gpt-4o", model)) {
+      "max_completion_tokens"
+    } else {
+      "max_tokens"
+    }
+    
+    # Create base body structure
+    body_list <- list(
       model = model,
       messages = list(
         list(role = "system", content = system_prompt),
         list(role = "user", content = content_to_process)
-      ),
-      max_tokens = max_tokens
-    ), auto_unbox = TRUE)
+      )
+    )
+    
+    # Add the appropriate token parameter
+    body_list[[token_param_name]] <- max_tokens
+    
+    body <- jsonlite::toJSON(body_list, auto_unbox = TRUE)
 
     # Send a POST request to the OpenAI API with the specified headers and body
     if (show_progress) {
@@ -203,14 +218,27 @@ textFileInput4ai <- function(file_path,
       )
 
       # Create the request body for this chunk
-      body <- jsonlite::toJSON(list(
+      # Check if model requires max_completion_tokens instead of max_tokens
+      # Newer models like o3-mini, o1 series, and gpt-4o models use max_completion_tokens
+      token_param_name <- if (grepl("^o3", model) || grepl("^o1", model) || grepl("^gpt-4o", model)) {
+        "max_completion_tokens"
+      } else {
+        "max_tokens"
+      }
+      
+      # Create base body structure
+      body_list <- list(
         model = model,
         messages = list(
           list(role = "system", content = chunk_system_prompt),
           list(role = "user", content = chunk_content)
-        ),
-        max_tokens = max_tokens
-      ), auto_unbox = TRUE)
+        )
+      )
+      
+      # Add the appropriate token parameter
+      body_list[[token_param_name]] <- max_tokens
+      
+      body <- jsonlite::toJSON(body_list, auto_unbox = TRUE)
 
       # Send the request
       if (show_progress) {
@@ -272,14 +300,27 @@ textFileInput4ai <- function(file_path,
       )
 
       # Create the request body for summarization
-      body <- jsonlite::toJSON(list(
+      # Check if model requires max_completion_tokens instead of max_tokens
+      # Newer models like o3-mini, o1 series, and gpt-4o models use max_completion_tokens
+      token_param_name <- if (grepl("^o3", model) || grepl("^o1", model) || grepl("^gpt-4o", model)) {
+        "max_completion_tokens"
+      } else {
+        "max_tokens"
+      }
+      
+      # Create base body structure
+      body_list <- list(
         model = model,
         messages = list(
           list(role = "system", content = summary_system_prompt),
           list(role = "user", content = combined_responses)
-        ),
-        max_tokens = max_tokens * 2  # Allow more tokens for summarization
-      ), auto_unbox = TRUE)
+        )
+      )
+      
+      # Add the appropriate token parameter with more tokens for summarization
+      body_list[[token_param_name]] <- max_tokens * 2
+      
+      body <- jsonlite::toJSON(body_list, auto_unbox = TRUE)
 
       # Send the summarization request
       response <- httr::POST(url, httr::add_headers(.headers = headers), body = body, encode = "json")

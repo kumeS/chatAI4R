@@ -7,11 +7,13 @@
 geminiGrounding4R(
   mode,
   contents,
-  model = "gemini-2.0-flash",
+  model = "gemini-1.5-pro",
   store_history = FALSE,
-  dynamic_threshold = 1,
+  dynamic_threshold = 0.7,
   api_key = Sys.getenv("GoogleGemini_API_KEY"),
   max_tokens = 2048,
+  debug = FALSE,
+  enable_grounding = TRUE,
   ...
 )
 }
@@ -26,11 +28,15 @@ geminiGrounding4R(
 \item{store_history}{Logical. If TRUE, chat history is persisted to the
 `chat_history` env-var (JSON).}
 
-\item{dynamic_threshold}{Numeric [0,1] for dynamic retrieval threshold (default: 1).}
+\item{dynamic_threshold}{Numeric [0,1] for dynamic retrieval threshold (default: 0.7).}
 
 \item{api_key}{Your Google Gemini API key (default: `Sys.getenv("GoogleGemini_API_KEY")`).}
 
-\item{max_tokens}{Maximum output tokens. NULL for server default.}
+\item{max_tokens}{Maximum output tokens. Default 2048.}
+
+\item{debug}{Logical. If TRUE, prints request details for debugging.}
+
+\item{enable_grounding}{Logical. If TRUE, enables Google Search grounding (default).}
 
 \item{...}{Additional `httr::POST` options (timeouts etc.).}
 }
@@ -49,10 +55,21 @@ Grounding improves factuality by incorporating web search results.
     mode = "text",
     contents = "What is the current Google stock price?",
     store_history = FALSE,
-    dynamic_threshold = 1,
+    dynamic_threshold = 0.7,
+    debug = TRUE,  # Enable debug to see request details
     api_key = Sys.getenv("GoogleGemini_API_KEY")
   )
   print(result)
+  
+  # Basic text generation without grounding (for troubleshooting):
+  basic_result <- geminiGrounding4R(
+    mode = "text",
+    contents = "Hello, how are you?",
+    enable_grounding = FALSE,
+    debug = TRUE,
+    api_key = Sys.getenv("GoogleGemini_API_KEY")
+  )
+  print(basic_result)
 
   # Chat mode with history storage:
   chat_history <- list(
@@ -63,7 +80,7 @@ Grounding improves factuality by incorporating web search results.
     mode = "chat",
     contents = chat_history,
     store_history = TRUE,
-    dynamic_threshold = 1,
+    dynamic_threshold = 0.7,
     api_key = Sys.getenv("GoogleGemini_API_KEY")
   )
   print(chat_result)
@@ -73,7 +90,7 @@ Grounding improves factuality by incorporating web search results.
     mode = "stream_text",
     contents = "Tell me a story about a magic backpack.",
     store_history = FALSE,
-    dynamic_threshold = 1,
+    dynamic_threshold = 0.7,
     api_key = Sys.getenv("GoogleGemini_API_KEY")
   )
   print(stream_result$full_text)

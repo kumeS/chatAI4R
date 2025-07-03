@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =============================================================================
-# chatAI4R Package Test Runner v0.4.3
+# chatAI4R Package Test Runner v1.0.0
 # =============================================================================
 # Comprehensive testing tool for chatAI4R package with multi-API support
 # Tests 25+ functions across utility, API, and advanced functionality
@@ -9,7 +9,7 @@
 # Features:
 # • No-API utility testing for quick validation
 # • OpenAI API integration testing (chat4R, textEmbedding, vision4R, etc.)
-# • Multi-LLM testing via io.net API (NEW in v0.4.3)
+# • Multi-LLM testing via io.net API (NEW in v1.0.0)
 # • Extended API testing (Gemini, Replicate, Dify)
 # • Comprehensive error handling and logging
 # 
@@ -38,7 +38,7 @@ VERBOSE=true
 # Help function
 show_help() {
     echo "=========================================="
-    echo "  chatAI4R Package Test Runner v0.4.3"
+    echo "  chatAI4R Package Test Runner v1.0.0"
     echo "=========================================="
     echo ""
     echo "DESCRIPTION:"
@@ -59,7 +59,7 @@ show_help() {
     echo "                         └── Required for: DifyChat4R (workflow AI)"
     echo "  -l, --deepl-key KEY    🔑 DeepL API key"
     echo "                         └── Required for: discussion flow translation"
-    echo "  -i, --ionet-key KEY    🔑 io.net API key (NEW in v0.4.3)"
+    echo "  -i, --ionet-key KEY    🔑 io.net API key (NEW in v1.0.0)"
     echo "                         └── Required for: multiLLMviaionet, multiLLM_random5/10"
     echo ""
     echo "TEST MODE OPTIONS:"
@@ -84,7 +84,7 @@ show_help() {
     echo "  # Basic API testing with OpenAI"
     echo "  $0 --api-key sk-your-openai-key --mode full"
     echo ""
-    echo "  # Advanced multi-API testing (v0.4.3 features)"
+    echo "  # Advanced multi-API testing (v1.0.0 features)"
     echo "  $0 --api-key sk-openai-key \\"
     echo "     --ionet-key your-ionet-key \\"
     echo "     --gemini-key your-gemini-key \\"

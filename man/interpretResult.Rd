@@ -27,7 +27,7 @@ This function constructs an interpretation prompt based on the analysis type and
 # Example using summary() output of a data frame:
 df <- data.frame(x = rnorm(100), y = rnorm(100))
 interpretation <- interpretResult("summary", summary(df))
-cat(interpretation)
+cat(interpretation$content)
 }
 }
 \author{

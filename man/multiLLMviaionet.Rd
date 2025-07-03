@@ -9,7 +9,7 @@ multiLLMviaionet(
   models = c("meta-llama/Llama-3.3-70B-Instruct", "deepseek-ai/DeepSeek-R1",
     "Qwen/Qwen3-235B-A22B-FP8"),
   max_models = 6,
-  streaming = TRUE,
+  streaming = FALSE,
   random_selection = FALSE,
   api_key = Sys.getenv("IONET_API_KEY"),
   max_tokens = 1024,
@@ -27,10 +27,11 @@ See details for complete list of available models.}
 
 \item{max_models}{Integer specifying maximum number of models to run (1-10). Default is 6.}
 
-\item{streaming}{Logical indicating whether to use streaming responses. Default is TRUE.}
+\item{streaming}{Logical indicating whether to use streaming responses. Default is FALSE.}
 
-\item{random_selection}{Logical indicating whether to randomly select models when 
-more than max_models are provided. Default is FALSE.}
+\item{random_selection}{Logical indicating whether to randomly select models. 
+If TRUE, ignores the 'models' parameter and randomly selects from all available models.
+If FALSE, uses the specified models in order. Default is FALSE.}
 
 \item{api_key}{A string containing the io.net API key. 
 Defaults to the environment variable "IONET_API_KEY".}

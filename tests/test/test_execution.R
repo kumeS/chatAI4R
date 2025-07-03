@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 # =============================================================================
-# chatAI4R Package Execution Test Script v0.4.3
+# chatAI4R Package Execution Test Script v1.0.0
 # =============================================================================
 # Comprehensive testing framework for chatAI4R package
 # Tests 25+ functions across utility, API, and advanced functionality
@@ -9,7 +9,7 @@
 # FEATURES:
 # • Utility Functions (6): No API key required - quick validation
 # • Basic API Functions (12): OpenAI integration testing  
-# • Extended API Functions (5): Multi-LLM via io.net (NEW v0.4.3)
+# • Extended API Functions (5): Multi-LLM via io.net (NEW v1.0.0)
 # • File Processing (1): PDF and text file handling
 # • Error Handling (2): Invalid inputs and API failures
 #
@@ -18,7 +18,7 @@
 #   Rscript test_execution.R --mode=utilities  (no API key needed)
 #   Rscript test_execution.R --help
 #
-# COVERAGE STATUS (v0.4.3):
+# COVERAGE STATUS (v1.0.0):
 #   Total Exported Functions: 54
 #   Functions Tested: 25 (46.3% coverage)
 #   Missing Tests: 29 functions (see test_coverage_analysis.md)

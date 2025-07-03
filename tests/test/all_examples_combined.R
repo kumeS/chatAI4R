@@ -337,16 +337,15 @@ models = c("meta-llama/Llama-3.3-70B-Instruct"),
 streaming = F
 )
 
-
-
 # Advanced usage with random selection (10 models)
 result <- multiLLMviaionet(
 prompt = "Write a Python function to calculate fibonacci numbers",
-max_models = 10,
+max_models = 3,
 random_selection = TRUE,
 temperature = 0.3,
 streaming = FALSE
 )
+
 # Quick random 10 model comparison
 result <- multiLLM_random10(
 prompt = "Explain machine learning in simple terms"

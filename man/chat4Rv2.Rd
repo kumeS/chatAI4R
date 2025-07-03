@@ -18,7 +18,9 @@ chat4Rv2(
 \arguments{
 \item{content}{A string containing the user's input message.}
 
-\item{Model}{A string specifying the GPT model to use (default: "gpt-4o-mini").}
+\item{Model}{A string specifying the GPT model to use (default: "gpt-4o-mini").
+The function automatically handles parameter compatibility for newer models (o3, o1, gpt-4o series) 
+that require max_completion_tokens instead of max_tokens.}
 
 \item{temperature}{A numeric value controlling the randomness of the model's output (default: 1).}
 

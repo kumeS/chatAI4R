@@ -19,7 +19,9 @@ textFileInput4ai(
 \arguments{
 \item{file_path}{A string representing the path to the text or csv file to be read and sent to the API.}
 
-\item{model}{A string specifying the OpenAI model to be used (default is "gpt-4o-mini").}
+\item{model}{A string specifying the OpenAI model to be used (default is "gpt-4o-mini"). 
+The function automatically handles parameter compatibility for newer models (o3, o1, gpt-4o series) 
+that require max_completion_tokens instead of max_tokens.}
 
 \item{system_prompt}{Optional. A system-level instruction that can be used to guide the model's behavior
 (default is "You are a helpful assistant to analyze your input.").}

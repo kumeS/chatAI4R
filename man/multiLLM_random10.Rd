@@ -12,7 +12,7 @@ multiLLM_random10(
   max_tokens = 1024,
   temperature = 0.7,
   timeout = 300,
-  streaming = TRUE,
+  streaming = FALSE,
   verbose = TRUE
 )
 }
@@ -33,7 +33,7 @@ Defaults to the environment variable "IONET_API_KEY".}
 
 \item{timeout}{Numeric value in seconds for request timeout per model. Default is 300.}
 
-\item{streaming}{Logical indicating whether to use streaming responses. Default is TRUE.}
+\item{streaming}{Logical indicating whether to use streaming responses. Default is FALSE.}
 
 \item{verbose}{Logical indicating whether to show detailed progress. Default is TRUE.}
 }

@@ -17,8 +17,9 @@
 #'   See details for complete list of available models.
 #' @param max_models Integer specifying maximum number of models to run (1-10). Default is 6.
 #' @param streaming Logical indicating whether to use streaming responses. Default is FALSE.
-#' @param random_selection Logical indicating whether to randomly select models when 
-#'   more than max_models are provided. Default is FALSE.
+#' @param random_selection Logical indicating whether to randomly select models. 
+#'   If TRUE, ignores the 'models' parameter and randomly selects from all available models.
+#'   If FALSE, uses the specified models in order. Default is FALSE.
 #' @param api_key A string containing the io.net API key. 
 #'   Defaults to the environment variable "IONET_API_KEY".
 #' @param max_tokens Integer specifying maximum tokens to generate per model. Default is 1024.
@@ -120,6 +121,14 @@ multiLLMviaionet <- function(prompt,
   
   # Get list of available models
   available_models <- .get_ionet_available_models()
+  
+  # Handle random selection - override models parameter if random_selection is TRUE
+  if (random_selection) {
+    if (verbose) {
+      cat("** Random selection enabled - ignoring specified models, selecting from all available models\n")
+    }
+    models <- available_models  # Use all available models for random selection
+  }
   
   # Validate and process model selection
   processed_models <- .validate_and_process_models(
@@ -295,15 +304,25 @@ multiLLMviaionet <- function(prompt,
   if (length(valid_models) > max_models) {
     if (random_selection) {
       if (verbose) {
-        cat("** Randomly selecting", max_models, "models from", length(valid_models), "valid models\n")
+        cat("** Randomly selecting", max_models, "models from", length(valid_models), "available models\n")
       }
+      # Set seed for reproducible debugging if needed, then randomize
       valid_models <- sample(valid_models, max_models)
+      if (verbose) {
+        cat("** Random selection completed\n")
+      }
     } else {
       if (verbose) {
-        cat(">>  Limiting to first", max_models, "models\n")
+        cat(">>  Limiting to first", max_models, "models from specified list\n")
       }
       valid_models <- valid_models[1:max_models]
     }
+  } else if (random_selection && length(valid_models) > 1) {
+    # Even if we don't need to limit, shuffle the order if random_selection is TRUE
+    if (verbose) {
+      cat("** Shuffling", length(valid_models), "models in random order\n")
+    }
+    valid_models <- sample(valid_models)
   }
   
   return(valid_models)
