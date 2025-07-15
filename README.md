@@ -191,6 +191,8 @@ Core functions provide direct access to multiple AI APIs, enabling basic AI oper
 |:---|:---|:---|:---:|:---:|
 |chat4R|Chat with GPT models using OpenAI API (One-shot)|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R.png)|
 |chat4R_history|Use chat history for OpenAI's GPT model|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R_history.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/chat4R_history.png)|
+|chat4R_streaming|Chat with GPT models using streaming response|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4R_streaming.R)||
+|chat4Rv2|Enhanced chat interface with system prompt support|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chat4Rv2.R)||
 |textEmbedding|Text Embedding from OpenAI Embeddings API (1536-dimensional)|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textEmbedding.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/textEmbedding.png)|
 |vision4R|Advanced image analysis and interpretation|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/vision4R.R)||
 |gemini4R|Chat with Google Gemini AI models|Google Gemini|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/gemini4R.R)||
@@ -209,6 +211,9 @@ Core functions provide direct access to multiple AI APIs, enabling basic AI oper
 |slow_print_v2|Slowly print text with typewriter effect|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/slow_print_v2.R)|
 |ngsub|Remove extra spaces and newline characters|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/ngsub.R)|
 |removeQuotations|Remove all types of quotations from text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/removeQuotations.R)|
+|speakInEN|Text-to-speech functionality for English|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/speakInEN.R)|
+|speakInJA|Text-to-speech functionality for Japanese|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/speakInJA.R)|
+|speakInJA_v2|Enhanced text-to-speech functionality for Japanese|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/speakInJA_v2.R)|
 
 ### 🟡 2nd Layered Functions (Usage/Task)
 **Execution of simple LLM tasks: Chat memory, translation, proofreading, etc.**
@@ -220,7 +225,7 @@ These functions combine core APIs to perform specific tasks and maintain convers
 |conversation4R|Manage conversation with persistent history|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/conversation4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/conversation4R.png)|
 |TextSummary|Summarize long texts with intelligent chunking|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummary.R)||
 |TextSummaryAsBullet|Summarize selected text into bullet points|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/TextSummaryAsBullet.R)||
-|revisedText|Revision for scientific text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/revisedText.R)||
+|revisedText|Revision for scientific text with AI assistance|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/RevisedText.R)||
 |proofreadEnglishText|Proofread English text via RStudio API|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadEnglishText.R)||
 |proofreadText|Proofread text with grammar and style correction|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadText.R)||
 |enrichTextContent|Enrich text content with additional information|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/enrichTextContent.R)||
@@ -241,11 +246,16 @@ Advanced workflow functions that orchestrate multiple AI operations and support 
 |convertRscript2Function|Convert R script to structured R function|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertRscript2Function.R)|
 |addRoxygenDescription|Add Roxygen documentation to R functions|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addRoxygenDescription.R)|
 |OptimizeRcode|Optimize and complete R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/OptimizeRcode.R)|
+|RcodeImprovements|Suggest improvements for R code from clipboard|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/RcodeImprovements.R)|
 |designPackage|Design complete R packages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/designPackage.R)|
 |addCommentCode|Add intelligent comments to R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)|
 |checkErrorDet|Analyze and explain R error messages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)|
+|checkErrorDet_JP|Analyze and explain R error messages (Japanese)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet_JP.R)|
 |autocreateFunction4R|✨ **UPDATED** - Generate and improve R functions (now uses chat4R)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/autocreateFunction4R.R)|
 |supportIdeaGeneration|Support idea generation from text input|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/supportIdeaGeneration.R)|
+|createEBAYdes|Create professional eBay product descriptions|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/create_eBay_Description.R)|
+|createImagePrompt_v1|Create image generation prompts|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v1.R)|
+|createImagePrompt_v2|Enhanced image generation prompts|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v2.R)|
 
 ### 🔴 4th Layered Functions (Expertise)
 **Data mining & Advanced Analysis**
@@ -387,16 +397,16 @@ lapply(result$results, function(x) {     # Individual model responses
 - **Comprehensive Testing**: Enhanced test suite with 40+ functions tested
 
 ### 🛠️ **Developer Experience**
-- **57 Functions**: Complete AI toolkit for R (up from 51)
+- **65+ Functions**: Complete AI toolkit for R with enhanced coverage
 - **Enhanced Documentation**: Comprehensive examples and usage patterns
 - **CRAN Ready**: Production-quality codebase with consistent patterns
 - **25 RStudio Addins**: Integrated development workflow
 
 ### 📊 **Function Categories**
-- **Core Layer**: 15 functions for direct API access
-- **Usage/Task Layer**: 12 functions for conversation management  
-- **Workflow Layer**: 15 functions for R package development
-- **Expertise Layer**: 15 functions for advanced data analysis
+- **Core Layer**: 19 functions for direct API access and utilities
+- **Usage/Task Layer**: 8 functions for conversation management and text processing
+- **Workflow Layer**: 18 functions for R package development and content creation
+- **Expertise Layer**: 8 functions for advanced data analysis and knowledge mining
 
 ## License
 
