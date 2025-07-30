@@ -166,6 +166,37 @@ Note: Please be aware of newline character inconsistencies across different oper
 
 - AI-based chatting loaded with highly-technical documents (RIKEN Pressrelease text)
 
+### 🔥 NEW: Multi-Provider Support for addCommentCode
+
+The `addCommentCode` function now supports **multiple AI providers** with automatic detection and intelligent routing:
+
+```r
+# Auto-detect available API keys (OpenAI -> Gemini -> Vertex AI)
+addCommentCode(Model = "gpt-4o-mini", SelectedCode = TRUE)
+
+# Explicitly use OpenAI API
+addCommentCode(Model = "gpt-4o-mini", provider = "openai", SelectedCode = TRUE)
+
+# Use Google Gemini API  
+addCommentCode(Model = "gemini-2.0-flash", provider = "gemini", SelectedCode = TRUE)
+
+# Use Google Vertex AI
+addCommentCode(Model = "gemini-1.5-pro", provider = "vertex", SelectedCode = TRUE)
+```
+
+**Features:**
+- ✅ **Auto-Detection**: Automatically uses available API keys (priority: OpenAI → Gemini → Vertex AI)
+- ✅ **Multi-Provider**: Supports OpenAI, Google Gemini, and Google Vertex AI
+- ✅ **Backwards Compatible**: Existing OpenAI usage continues to work without changes
+- ✅ **Flexible Authentication**: Multiple auth methods for each provider
+
+**Environment Variables:**
+- `OPENAI_API_KEY` - For OpenAI/ChatGPT models
+- `GoogleGemini_API_KEY` - For Google Gemini models
+- `GOOGLE_CLOUD_PROJECT` + `GOOGLE_ACCESS_TOKEN` (or `gcloud auth`) - For Vertex AI
+
+**Note:** The `provider` parameter is a **function parameter**, not an R environment variable. It controls which AI service to use for code commenting.
+
 ## Prompts for chatGPT / GPT-4
 
 |File|Description|Prompt|
@@ -248,7 +279,7 @@ Advanced workflow functions that orchestrate multiple AI operations and support 
 |OptimizeRcode|Optimize and complete R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/OptimizeRcode.R)|
 |RcodeImprovements|Suggest improvements for R code from clipboard|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/RcodeImprovements.R)|
 |designPackage|Design complete R packages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/designPackage.R)|
-|addCommentCode|Add intelligent comments to R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)|
+|addCommentCode|Add intelligent comments to R code (supports OpenAI, Gemini, Vertex AI)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)|
 |checkErrorDet|Analyze and explain R error messages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)|
 |checkErrorDet_JP|Analyze and explain R error messages (Japanese)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet_JP.R)|
 |autocreateFunction4R|✨ **UPDATED** - Generate and improve R functions (now uses chat4R)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/autocreateFunction4R.R)|
