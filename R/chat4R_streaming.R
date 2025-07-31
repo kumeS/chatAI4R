@@ -133,3 +133,4 @@ chat4R_streaming <- function(content,
   # to avoid duplicate output (streaming already displayed the content)
   invisible(result_env$full_text)
 }
+
