@@ -6,7 +6,7 @@
 #' @param Model A character string specifying the model to be used. Default is "gpt-4o-mini" for OpenAI or "gemini-2.0-flash" for Gemini.
 #' @param language A character string specifying the language for the comments. Default is "English".
 #' @param SelectedCode A logical value indicating whether to use the selected code in RStudio. Default is TRUE.
-#' @param provider A character string specifying the API provider. Options: "auto" (default), "openai", "gemini". When "auto", automatically detects available API keys.
+#' @param provider A character string specifying the API provider. Options: "auto" (default), "openai", "gemini". When "auto", automatically detects available API keys with priority: OpenAI → Gemini.
 #' @importFrom assertthat assert_that is.string noNA
 #' @importFrom clipr read_clip write_clip
 #' @importFrom rstudioapi isAvailable getActiveDocumentContext insertText

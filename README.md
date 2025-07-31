@@ -248,7 +248,7 @@ Advanced workflow functions that orchestrate multiple AI operations and support 
 |OptimizeRcode|Optimize and complete R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/OptimizeRcode.R)|
 |RcodeImprovements|Suggest improvements for R code from clipboard|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/RcodeImprovements.R)|
 |designPackage|Design complete R packages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/designPackage.R)|
-|addCommentCode|Add intelligent comments to R code|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)|
+|addCommentCode|Add intelligent comments to R code (supports OpenAI & Gemini)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/addCommentCode.R)|
 |checkErrorDet|Analyze and explain R error messages|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet.R)|
 |checkErrorDet_JP|Analyze and explain R error messages (Japanese)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/checkErrorDet_JP.R)|
 |autocreateFunction4R|✨ **UPDATED** - Generate and improve R functions (now uses chat4R)|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/autocreateFunction4R.R)|
