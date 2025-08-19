@@ -1,13 +1,13 @@
 #' Multi-LLM via io.net API
 #'
-#' @title multiLLMviaionet: Execute multiple LLM models simultaneously via io.net API
-#' @description This function allows you to run the same prompt across multiple LLM models 
-#'   simultaneously using the io.net API. It supports up to 6 models running in parallel,
-#'   with streaming responses and comprehensive error handling.
+#' @title multiLLMviaionet: Execute ALL available LLM models simultaneously via io.net API
+#' @description This function automatically runs the same prompt across ALL currently available 
+#'   LLM models on the io.net API. It supports running all models in parallel with streaming 
+#'   responses and comprehensive error handling.
 #'   
 #'   The function dynamically fetches the current list of available models from the io.net API
-#'   to ensure compatibility when model endpoints change. Results are cached for 1 hour to 
-#'   improve performance. If the API is unavailable, it falls back to a static model list.
+#'   and executes ALL of them by default (unless limited by max_models parameter). Results are 
+#'   cached for 1 hour to improve performance. If the API is unavailable, it falls back to a static model list.
 #'   
 #'   Supported model categories include:
 #'   - Meta Llama series (Llama-4-Maverick, Llama-3.3-70B, etc.)
@@ -17,13 +17,11 @@
 #'   - Microsoft Phi, Mistral, Google Gemma, and more
 #'
 #' @param prompt A string containing the input prompt to send to all selected models.
-#' @param models A character vector of model names to use. Default includes 3 diverse models.
-#'   See details for complete list of available models.
-#' @param max_models Integer specifying maximum number of models to run (1-10). Default is 6.
+#' @param max_models Integer specifying maximum number of models to run (1-50). Default is all available models.
 #' @param streaming Logical indicating whether to use streaming responses. Default is FALSE.
-#' @param random_selection Logical indicating whether to randomly select models. 
-#'   If TRUE, ignores the 'models' parameter and randomly selects from all available models.
-#'   If FALSE, uses the specified models in order. Default is FALSE.
+#' @param random_selection Logical indicating whether to randomly select models from all available models. 
+#'   If TRUE, randomly selects up to max_models from all available models.
+#'   If FALSE, uses all available models in order (up to max_models limit). Default is FALSE.
 #' @param api_key A string containing the io.net API key. 
 #'   Defaults to the environment variable "IONET_API_KEY".
 #' @param max_tokens Integer specifying maximum tokens to generate per model. Default is 1024.
@@ -51,22 +49,18 @@
 #'   # Set your io.net API key
 #'   Sys.setenv(IONET_API_KEY = "your_ionet_api_key_here")
 #'   
-#'   # Basic usage with default models (dynamically fetched)
+#'   # Basic usage - automatically runs on ALL available models
 #'   result <- multiLLMviaionet(
-#'     prompt = "Explain quantum computing in simple terms",
-#'     models = c("meta-llama/Llama-3.3-70B-Instruct", 
-#'                "deepseek-ai/DeepSeek-R1",
-#'                "Qwen/Qwen3-235B-A22B-FP8")
+#'     prompt = "Explain quantum computing in simple terms"
 #'   )
 #'   
-#'   # Get current available models first, then use them
-#'   current_models <- refresh_ionet_models()
+#'   # Limit to first 5 models in order
 #'   result <- multiLLMviaionet(
 #'     prompt = "What is machine learning?",
-#'     models = current_models[1:3]  # Use first 3 available models
+#'     max_models = 5
 #'   )
 #'   
-#'   # Advanced usage with random selection (10 models)
+#'   # Random selection of 10 models from all available
 #'   result <- multiLLMviaionet(
 #'     prompt = "Write a Python function to calculate fibonacci numbers",
 #'     max_models = 10,
@@ -86,10 +80,7 @@
 #' }
 
 multiLLMviaionet <- function(prompt,
-                             models = c("meta-llama/Llama-3.3-70B-Instruct",
-                                        "deepseek-ai/DeepSeek-R1", 
-                                        "Qwen/Qwen3-235B-A22B-FP8"),
-                             max_models = 6,
+                             max_models = NULL,
                              streaming = FALSE,
                              random_selection = FALSE,
                              api_key = Sys.getenv("IONET_API_KEY"),
@@ -104,11 +95,6 @@ multiLLMviaionet <- function(prompt,
     assertthat::is.string(prompt),
     assertthat::noNA(prompt),
     nchar(prompt) > 0,
-    is.character(models),
-    length(models) > 0,
-    assertthat::is.count(max_models),
-    max_models >= 1,
-    max_models <= 10,
     assertthat::is.flag(streaming),
     assertthat::is.flag(random_selection),
     assertthat::is.string(api_key),
@@ -125,21 +111,37 @@ multiLLMviaionet <- function(prompt,
     assertthat::is.flag(verbose)
   )
   
+  # Validate max_models if provided
+  if (!is.null(max_models)) {
+    assertthat::assert_that(
+      assertthat::is.count(max_models),
+      max_models >= 1,
+      max_models <= 50
+    )
+  }
+  
   if (verbose) {
-    cat(">> Starting multi-LLM execution via io.net API\n")
+    cat(">> Starting multi-LLM execution on ALL available models via io.net API\n")
     cat("** Prompt:", substr(prompt, 1, 100), if(nchar(prompt) > 100) "..." else "", "\n")
   }
   
   # Get list of available models (with dynamic API fetching)
   available_models <- .get_ionet_available_models(api_key = api_key, verbose = verbose)
   
-  # Handle random selection - override models parameter if random_selection is TRUE
-  if (random_selection) {
-    if (verbose) {
-      cat("** Random selection enabled - ignoring specified models, selecting from all available models\n")
-    }
-    models <- available_models  # Use all available models for random selection
+  if (length(available_models) == 0) {
+    stop("No models available from io.net API")
   }
+  
+  # Set max_models to all available if not specified
+  if (is.null(max_models)) {
+    max_models <- length(available_models)
+    if (verbose) {
+      cat("** Using all available models (", max_models, " models)\n")
+    }
+  }
+  
+  # Use all available models as the base set
+  models <- available_models
   
   # Validate and process model selection
   processed_models <- .validate_and_process_models(
@@ -1155,20 +1157,46 @@ multiLLM_random10 <- function(prompt,
     cat("\n")
   }
   
-  # Execute using main function
-  result <- multiLLMviaionet(
-    prompt = prompt,
-    models = selected_models,
-    max_models = 10,
-    streaming = streaming,
-    random_selection = FALSE,  # Already selected
-    api_key = api_key,
-    max_tokens = max_tokens,
-    temperature = temperature,
-    timeout = timeout,
-    parallel = TRUE,
-    verbose = verbose
-  )
+  # Execute using main function with pre-selected models
+  # Since multiLLMviaionet now uses all available models, we need to temporarily
+  # override the available models list to use only our selected models
+  original_env_models <- NULL
+  tryCatch({
+    # Store original cached models if they exist
+    if (exists("ionet_models_cache", envir = .GlobalEnv)) {
+      original_env_models <- get("ionet_models_cache", envir = .GlobalEnv)
+    }
+    
+    # Set our selected models as the "available" models for this execution
+    assign("ionet_models_cache", selected_models, envir = .GlobalEnv)
+    assign("ionet_models_cache_time", Sys.time(), envir = .GlobalEnv)
+    
+    result <- multiLLMviaionet(
+      prompt = prompt,
+      max_models = 10,
+      streaming = streaming,
+      random_selection = FALSE,  # Already selected
+      api_key = api_key,
+      max_tokens = max_tokens,
+      temperature = temperature,
+      timeout = timeout,
+      parallel = TRUE,
+      verbose = verbose
+    )
+  }, finally = {
+    # Restore original cached models
+    if (!is.null(original_env_models)) {
+      assign("ionet_models_cache", original_env_models, envir = .GlobalEnv)
+    } else {
+      # Remove the temporary cache
+      if (exists("ionet_models_cache", envir = .GlobalEnv)) {
+        rm("ionet_models_cache", envir = .GlobalEnv)
+      }
+      if (exists("ionet_models_cache_time", envir = .GlobalEnv)) {
+        rm("ionet_models_cache_time", envir = .GlobalEnv)
+      }
+    }
+  })
   
   # Add random selection metadata
   result$selection_method <- if (balanced) "balanced" else "random"
@@ -1266,16 +1294,40 @@ multiLLM_random5 <- function(prompt, ...) {
   all_models <- .get_ionet_available_models(verbose = FALSE)
   selected_models <- .select_balanced_models(all_models, 5, verbose = FALSE)
   
-  # Execute with selected models
-  multiLLMviaionet(
-    prompt = prompt,
-    models = selected_models,
-    max_models = 5,
-    streaming = FALSE,
-    random_selection = FALSE,
-    parallel = TRUE,
-    ...
-  )
+  # Execute with selected models by temporarily overriding cache
+  original_env_models <- NULL
+  tryCatch({
+    # Store original cached models if they exist
+    if (exists("ionet_models_cache", envir = .GlobalEnv)) {
+      original_env_models <- get("ionet_models_cache", envir = .GlobalEnv)
+    }
+    
+    # Set our selected models as the "available" models for this execution
+    assign("ionet_models_cache", selected_models, envir = .GlobalEnv)
+    assign("ionet_models_cache_time", Sys.time(), envir = .GlobalEnv)
+    
+    multiLLMviaionet(
+      prompt = prompt,
+      max_models = 5,
+      streaming = FALSE,
+      random_selection = FALSE,
+      parallel = TRUE,
+      ...
+    )
+  }, finally = {
+    # Restore original cached models
+    if (!is.null(original_env_models)) {
+      assign("ionet_models_cache", original_env_models, envir = .GlobalEnv)
+    } else {
+      # Remove the temporary cache
+      if (exists("ionet_models_cache", envir = .GlobalEnv)) {
+        rm("ionet_models_cache", envir = .GlobalEnv)
+      }
+      if (exists("ionet_models_cache_time", envir = .GlobalEnv)) {
+        rm("ionet_models_cache_time", envir = .GlobalEnv)
+      }
+    }
+  })
 }
 
 #' Print method for multiLLM_result
