@@ -5,6 +5,10 @@
 #'   simultaneously using the io.net API. It supports up to 6 models running in parallel,
 #'   with streaming responses and comprehensive error handling.
 #'   
+#'   The function dynamically fetches the current list of available models from the io.net API
+#'   to ensure compatibility when model endpoints change. Results are cached for 1 hour to 
+#'   improve performance. If the API is unavailable, it falls back to a static model list.
+#'   
 #'   Supported model categories include:
 #'   - Meta Llama series (Llama-4-Maverick, Llama-3.3-70B, etc.)
 #'   - DeepSeek series (DeepSeek-R1, DeepSeek-R1-Distill variants)
@@ -28,7 +32,7 @@
 #' @param parallel Logical indicating whether to run models in parallel. Default is TRUE.
 #' @param verbose Logical indicating whether to show detailed progress. Default is TRUE.
 #'
-#' @importFrom httr POST add_headers content status_code
+#' @importFrom httr POST GET add_headers content status_code timeout
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom parallel makeCluster stopCluster parLapply detectCores
 #' @importFrom future future multisession plan resolved value
@@ -47,12 +51,19 @@
 #'   # Set your io.net API key
 #'   Sys.setenv(IONET_API_KEY = "your_ionet_api_key_here")
 #'   
-#'   # Basic usage with default models
+#'   # Basic usage with default models (dynamically fetched)
 #'   result <- multiLLMviaionet(
 #'     prompt = "Explain quantum computing in simple terms",
 #'     models = c("meta-llama/Llama-3.3-70B-Instruct", 
 #'                "deepseek-ai/DeepSeek-R1",
 #'                "Qwen/Qwen3-235B-A22B-FP8")
+#'   )
+#'   
+#'   # Get current available models first, then use them
+#'   current_models <- refresh_ionet_models()
+#'   result <- multiLLMviaionet(
+#'     prompt = "What is machine learning?",
+#'     models = current_models[1:3]  # Use first 3 available models
 #'   )
 #'   
 #'   # Advanced usage with random selection (10 models)
@@ -119,8 +130,8 @@ multiLLMviaionet <- function(prompt,
     cat("** Prompt:", substr(prompt, 1, 100), if(nchar(prompt) > 100) "..." else "", "\n")
   }
   
-  # Get list of available models
-  available_models <- .get_ionet_available_models()
+  # Get list of available models (with dynamic API fetching)
+  available_models <- .get_ionet_available_models(api_key = api_key, verbose = verbose)
   
   # Handle random selection - override models parameter if random_selection is TRUE
   if (random_selection) {
@@ -186,8 +197,135 @@ multiLLMviaionet <- function(prompt,
   return(output)
 }
 
-# Helper function: Get available io.net models
-.get_ionet_available_models <- function() {
+# Helper function: Get available io.net models dynamically
+.get_ionet_available_models <- function(api_key = NULL, force_refresh = FALSE, verbose = FALSE) {
+  
+  # Use provided api_key or get from environment
+  if (is.null(api_key)) {
+    api_key <- Sys.getenv("IONET_API_KEY")
+  }
+  
+  # Check if we should use cached results
+  cache_key <- "ionet_models_cache"
+  cache_time_key <- "ionet_models_cache_time"
+  cache_duration <- 3600  # Cache for 1 hour
+  
+  # Get cached data if available and not forcing refresh
+  if (!force_refresh && exists(cache_key, envir = .GlobalEnv) && exists(cache_time_key, envir = .GlobalEnv)) {
+    cached_time <- get(cache_time_key, envir = .GlobalEnv)
+    if (as.numeric(difftime(Sys.time(), cached_time, units = "secs")) < cache_duration) {
+      cached_models <- get(cache_key, envir = .GlobalEnv)
+      if (verbose) {
+        cat("** Using cached model list (", length(cached_models), " models, cached ", 
+            round(as.numeric(difftime(Sys.time(), cached_time, units = "mins"))), " minutes ago)\n")
+      }
+      return(cached_models)
+    }
+  }
+  
+  # Try to fetch models from API
+  api_models <- NULL
+  if (nchar(api_key) > 0) {
+    api_models <- tryCatch({
+      .fetch_ionet_models_from_api(api_key, verbose)
+    }, error = function(e) {
+      if (verbose) {
+        cat("!! Failed to fetch models from API:", e$message, "\n")
+        cat("** Falling back to static model list\n")
+      }
+      NULL
+    })
+  }
+  
+  # Use API models if available, otherwise fall back to static list
+  final_models <- if (!is.null(api_models) && length(api_models) > 0) {
+    if (verbose) {
+      cat("** Successfully fetched", length(api_models), "models from io.net API\n")
+    }
+    
+    # Cache the API results
+    assign(cache_key, api_models, envir = .GlobalEnv)
+    assign(cache_time_key, Sys.time(), envir = .GlobalEnv)
+    
+    api_models
+  } else {
+    if (verbose) {
+      cat("** Using static fallback model list\n")
+    }
+    .get_ionet_static_models()
+  }
+  
+  return(final_models)
+}
+
+# Helper function: Fetch models from io.net API
+.fetch_ionet_models_from_api <- function(api_key, verbose = FALSE) {
+  
+  if (verbose) {
+    cat("** Fetching current model list from io.net API...\n")
+  }
+  
+  # Make API request to get models
+  response <- httr::GET(
+    url = "https://api.intelligence.io.solutions/api/v1/models",
+    httr::add_headers(
+      `Authorization` = paste("Bearer", api_key)
+    ),
+    httr::timeout(30)  # 30 second timeout for model list
+  )
+  
+  # Check response status
+  if (httr::status_code(response) != 200) {
+    error_content <- tryCatch(httr::content(response, "parsed"), error = function(e) NULL)
+    error_msg <- if (!is.null(error_content$error)) {
+      error_content$error$message %||% "Unknown API error"
+    } else {
+      paste("HTTP", httr::status_code(response), "error")
+    }
+    stop("API request failed: ", error_msg)
+  }
+  
+  # Parse response
+  parsed_response <- httr::content(response, "parsed")
+  
+  # Extract model names from API response
+  model_names <- character(0)
+  
+  # Handle different possible response formats
+  if (!is.null(parsed_response$data) && is.list(parsed_response$data)) {
+    # Format: {"data": [{"id": "model-name", ...}, ...]}
+    for (model_info in parsed_response$data) {
+      if (!is.null(model_info$id)) {
+        model_names <- c(model_names, model_info$id)
+      }
+    }
+  } else if (is.list(parsed_response) && length(parsed_response) > 0) {
+    # Format: [{"id": "model-name", ...}, ...]
+    for (model_info in parsed_response) {
+      if (!is.null(model_info$id)) {
+        model_names <- c(model_names, model_info$id)
+      }
+    }
+  } else {
+    stop("Unexpected API response format")
+  }
+  
+  # Filter out empty or invalid model names
+  model_names <- model_names[nchar(trimws(model_names)) > 0]
+  
+  if (length(model_names) == 0) {
+    stop("No valid models found in API response")
+  }
+  
+  if (verbose) {
+    cat("** Found", length(model_names), "models from API\n")
+  }
+  
+  return(unique(model_names))
+}
+
+# Helper function: Static model list (fallback)
+.get_ionet_static_models <- function() {
   c(
     # Meta Llama series - Multimodal and instruction-tuned models
     "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",  # Llama 4 with 128 experts, multimodal
@@ -745,23 +883,89 @@ multiLLMviaionet <- function(prompt,
 # Utility function for null coalescing
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
+#' Refresh io.net Model Cache
+#'
+#' @title refresh_ionet_models: Manually refresh the cached model list from io.net API
+#' @description This function forces a refresh of the model list cache by fetching 
+#'   the current models from the io.net API. Use this if you suspect the model list 
+#'   has changed and you want to update immediately rather than waiting for the 
+#'   1-hour cache to expire.
+#'
+#' @param api_key Optional API key for fetching current models. Defaults to IONET_API_KEY environment variable.
+#' @param verbose Logical indicating whether to show detailed fetching information. Default is TRUE.
+#'
+#' @return A character vector of current model names from the API, or NULL if the API call failed
+#' @export refresh_ionet_models
+#' @author Satoshi Kume
+#' @examples
+#' \dontrun{
+#'   # Refresh model list from API
+#'   current_models <- refresh_ionet_models()
+#'   
+#'   # Refresh silently
+#'   current_models <- refresh_ionet_models(verbose = FALSE)
+#' }
+refresh_ionet_models <- function(api_key = NULL, verbose = TRUE) {
+  
+  # Input validation
+  if (is.null(api_key)) {
+    api_key <- Sys.getenv("IONET_API_KEY")
+  }
+  
+  if (nchar(api_key) == 0) {
+    if (verbose) {
+      cat("!! No API key found. Please set IONET_API_KEY environment variable or provide api_key parameter.\n")
+    }
+    return(NULL)
+  }
+  
+  if (verbose) {
+    cat(">> Refreshing io.net model list from API...\n")
+  }
+  
+  # Force refresh the model list
+  tryCatch({
+    models <- .get_ionet_available_models(api_key = api_key, force_refresh = TRUE, verbose = verbose)
+    
+    if (verbose) {
+      cat(">> Successfully refreshed model list with", length(models), "models\n")
+      cat("** Cache will be used for the next 1 hour\n")
+    }
+    
+    return(models)
+  }, error = function(e) {
+    if (verbose) {
+      cat("!! Failed to refresh models from API:", e$message, "\n")
+      cat("** Existing cache (if any) will continue to be used\n")
+    }
+    return(NULL)
+  })
+}
+
 #' List Available io.net Models
 #'
 #' @title list_ionet_models: Display available LLM models on io.net API
 #' @description This function returns a list of all available LLM models that can be used
 #'   with the multiLLMviaionet function. Models are categorized by family/provider.
+#'   This function will attempt to fetch the current model list from the io.net API.
 #'
 #' @param category Optional character string to filter models by category. 
 #'   Options: "llama", "deepseek", "qwen", "phi", "mistral", "specialized", "all". Default is "all".
 #' @param detailed Logical indicating whether to show detailed model information. Default is FALSE.
+#' @param api_key Optional API key for fetching current models. Defaults to IONET_API_KEY environment variable.
+#' @param force_refresh Logical indicating whether to force refresh the model list from API. Default is FALSE.
+#' @param verbose Logical indicating whether to show detailed fetching information. Default is FALSE.
 #'
 #' @return A character vector of model names, or a data frame if detailed=TRUE
 #' @export list_ionet_models
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#'   # List all available models
+#'   # List all available models (from API if available)
 #'   all_models <- list_ionet_models()
+#'   
+#'   # Force refresh from API
+#'   fresh_models <- list_ionet_models(force_refresh = TRUE)
 #'   
 #'   # List only Llama models
 #'   llama_models <- list_ionet_models("llama")
@@ -769,10 +973,11 @@ multiLLMviaionet <- function(prompt,
 #'   # Show detailed information
 #'   model_info <- list_ionet_models(detailed = TRUE)
 #' }
-list_ionet_models <- function(category = "all", detailed = FALSE) {
+list_ionet_models <- function(category = "all", detailed = FALSE, api_key = NULL, 
+                              force_refresh = FALSE, verbose = FALSE) {
   
-  # Get all available models
-  all_models <- .get_ionet_available_models()
+  # Get all available models (with dynamic API fetching)
+  all_models <- .get_ionet_available_models(api_key = api_key, force_refresh = force_refresh, verbose = verbose)
   
   # Define model categories with descriptions
   model_categories <- list(
@@ -919,8 +1124,8 @@ multiLLM_random10 <- function(prompt,
           cat(">> Selection mode:", if (balanced) "Balanced across categories" else "Pure random", "\n")
   }
   
-  # Get all available models
-  all_models <- .get_ionet_available_models()
+  # Get all available models (with dynamic API fetching)
+  all_models <- .get_ionet_available_models(api_key = api_key, verbose = verbose)
   
   # Remove excluded models
   if (length(exclude_models) > 0) {
@@ -1058,7 +1263,7 @@ multiLLM_random10 <- function(prompt,
 multiLLM_random5 <- function(prompt, ...) {
   
   # Get all models and select 5
-  all_models <- .get_ionet_available_models()
+  all_models <- .get_ionet_available_models(verbose = FALSE)
   selected_models <- .select_balanced_models(all_models, 5, verbose = FALSE)
   
   # Execute with selected models
