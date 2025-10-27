@@ -56,9 +56,33 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ## Installation of the chatAI4R package
 
-### 1. Start R / RStudio console.
+### 1. Install System Dependencies (Required for PDF functionality)
 
-### 2. Run the following commands in the R console:
+Before installing the R package, ensure that system dependencies are installed:
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install libqpdf-dev
+```
+
+**CentOS/RHEL/Rocky Linux:**
+```bash
+sudo yum install qpdf-devel
+# or for newer versions:
+sudo dnf install qpdf-devel
+```
+
+**macOS (with Homebrew):**
+```bash
+brew install qpdf
+```
+
+**Note:** The `qpdf` system library is required for the `pdftools` dependency, which enables PDF processing functionality in `chatAI4pdf()`.
+
+### 2. Start R / RStudio console.
+
+### 3. Run the following commands in the R console:
 
 #### CRAN-version installation
 
@@ -89,7 +113,7 @@ system("wget https://github.com/kumeS/chatAI4R/archive/refs/tags/v0.2.3.tar.gz")
 system("R CMD INSTALL v0.2.3.tar.gz")
 ```
 
-### 3. Set the API keys for Multi-API Support
+### 4. Set the API keys for Multi-API Support
 
 chatAI4R supports multiple AI APIs. Configure the APIs you want to use:
 
