@@ -56,9 +56,11 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ## Installation of the chatAI4R package
 
-### 1. Install System Dependencies (Required for PDF functionality)
+### 🐧 **LINUX USERS: Read This First!**
 
-Before installing the R package, ensure that system dependencies are installed:
+On Linux systems, you **MUST** install system dependencies **BEFORE** installing the R package. The package includes PDF processing functionality that requires system libraries.
+
+**Step 1: Install System Dependencies**
 
 **Ubuntu/Debian:**
 ```bash
@@ -66,23 +68,66 @@ sudo apt-get update
 sudo apt-get install libqpdf-dev
 ```
 
-**CentOS/RHEL/Rocky Linux:**
+**CentOS/RHEL:**
 ```bash
 sudo yum install qpdf-devel
-# or for newer versions:
+```
+
+**Rocky Linux/Fedora:**
+```bash
 sudo dnf install qpdf-devel
 ```
 
-**macOS (with Homebrew):**
+**Step 2: Install pdftools in R (Optional but Recommended)**
+```r
+# After installing libqpdf-dev, install pdftools
+install.packages("pdftools")
+```
+
+**Step 3: Install chatAI4R**
+```r
+# Now you can install chatAI4R
+install.packages("chatAI4R")
+```
+
+**💡 Alternative: Install without PDF functionality**
+
+If you don't need PDF processing (`chatAI4pdf()` function), you can install without pdftools:
+```r
+install.packages("chatAI4R", dependencies = FALSE)
+```
+All other functions will work normally. The package will show a helpful message if you try to use `chatAI4pdf()` without pdftools installed.
+
+---
+
+### 🍎 **macOS Users**
+
+**With Homebrew (Recommended):**
 ```bash
 brew install qpdf
 ```
 
-**Note:** The `qpdf` system library is required for the `pdftools` dependency, which enables PDF processing functionality in `chatAI4pdf()`.
+Then install the R package:
+```r
+install.packages("chatAI4R")
+```
 
-### 2. Start R / RStudio console.
+---
 
-### 3. Run the following commands in the R console:
+### 🪟 **Windows Users**
+
+Windows users can install directly:
+```r
+install.packages("chatAI4R")
+```
+
+---
+
+### General Installation Instructions
+
+### 1. Start R / RStudio console.
+
+### 2. Run the following commands in the R console:
 
 #### CRAN-version installation
 
