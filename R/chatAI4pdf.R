@@ -1,13 +1,14 @@
 #' Summarize PDF Text via LLM
 #'
 #' This function reads a PDF file and summarizes its content using a specified Large Language Model (LLM).
+#' Note: This function requires the 'pdftools' package to be installed. On Linux systems, you may need
+#' to install system dependencies first (e.g., 'sudo apt-get install libqpdf-dev' on Ubuntu/Debian).
 #'
 #' @title chatAI4pdf
 #' @description Reads a PDF file and summarizes its content using a specified Large Language Model (LLM).
 #' @param pdf_file_path The path to the PDF file to be summarized. Must be a string.
 #' @param nch The maximum number of characters for the summary. Default is 2000.
 #' @param verbose Logical flag to print the summary. Default is TRUE.
-#' @importFrom pdftools pdf_text
 #' @return A string containing the summarized text.
 #' @export chatAI4pdf
 #' @author Satoshi Kume
@@ -24,6 +25,20 @@
 chatAI4pdf <- function(pdf_file_path,
                        nch = 2000,
                        verbose = TRUE) {
+
+  # Check if pdftools is installed
+  if (!requireNamespace("pdftools", quietly = TRUE)) {
+    stop(
+      "Package 'pdftools' is required for PDF processing but is not installed.\n",
+      "Please install it with: install.packages('pdftools')\n\n",
+      "Note: On Linux, you may need to install system dependencies first:\n",
+      "  Ubuntu/Debian: sudo apt-get install libqpdf-dev\n",
+      "  CentOS/RHEL:   sudo yum install qpdf-devel\n",
+      "  Rocky Linux:   sudo dnf install qpdf-devel\n",
+      "See ?chatAI4pdf for more information.",
+      call. = FALSE
+    )
+  }
 
   #selection
   choices1 <- c("All text",  "First Quarter Text",  "Second Quarter Text",

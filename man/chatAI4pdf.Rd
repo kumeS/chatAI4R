@@ -23,6 +23,8 @@ Reads a PDF file and summarizes its content using a specified Large Language Mod
 Summarize PDF Text via LLM
 
 This function reads a PDF file and summarizes its content using a specified Large Language Model (LLM).
+Note: This function requires the 'pdftools' package to be installed. On Linux systems, you may need
+to install system dependencies first (e.g., 'sudo apt-get install libqpdf-dev' on Ubuntu/Debian).
 }
 \examples{
 \dontrun{

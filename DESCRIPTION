@@ -18,25 +18,24 @@ Description: The Large Language Model (LLM) represents a groundbreaking advancem
     The previous functions such as seamless translation and image generation have been moved 
     to other packages 'deepRstudio' and 'stableDiffusion4R'.
 Depends: R (>= 4.2.0)
-Imports: httr, 
-    jsonlite, 
-    assertthat, 
-    clipr, 
-    crayon, 
+Imports: httr,
+    jsonlite,
+    assertthat,
+    clipr,
+    crayon,
     rstudioapi,
     future,
     igraph,
     deepRstudio,
-    pdftools,
     xml2,
     rvest,
     curl,
     base64enc,
     glue,
     utils
-Suggests: testthat, knitr
+Suggests: testthat, knitr, pdftools
 License: Artistic-2.0
 URL: https://kumes.github.io/chatAI4R/, https://github.com/kumeS/chatAI4R
 BugReports: https://github.com/kumeS/chatAI4R/issues
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
