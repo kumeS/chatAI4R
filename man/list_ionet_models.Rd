@@ -4,13 +4,25 @@
 \alias{list_ionet_models}
 \title{list_ionet_models: Display available LLM models on io.net API}
 \usage{
-list_ionet_models(category = "all", detailed = FALSE)
+list_ionet_models(
+  category = "all",
+  detailed = FALSE,
+  api_key = NULL,
+  force_refresh = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{category}{Optional character string to filter models by category. 
 Options: "llama", "deepseek", "qwen", "phi", "mistral", "specialized", "all". Default is "all".}
 
 \item{detailed}{Logical indicating whether to show detailed model information. Default is FALSE.}
+
+\item{api_key}{Optional API key for fetching current models. Defaults to IONET_API_KEY environment variable.}
+
+\item{force_refresh}{Logical indicating whether to force refresh the model list from API. Default is FALSE.}
+
+\item{verbose}{Logical indicating whether to show detailed fetching information. Default is FALSE.}
 }
 \value{
 A character vector of model names, or a data frame if detailed=TRUE
@@ -18,14 +30,18 @@ A character vector of model names, or a data frame if detailed=TRUE
 \description{
 This function returns a list of all available LLM models that can be used
   with the multiLLMviaionet function. Models are categorized by family/provider.
+  This function will attempt to fetch the current model list from the io.net API.
 }
 \details{
 List Available io.net Models
 }
 \examples{
 \dontrun{
-  # List all available models
+  # List all available models (from API if available)
   all_models <- list_ionet_models()
+  
+  # Force refresh from API
+  fresh_models <- list_ionet_models(force_refresh = TRUE)
   
   # List only Llama models
   llama_models <- list_ionet_models("llama")

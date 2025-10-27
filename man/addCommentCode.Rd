@@ -7,15 +7,18 @@
 addCommentCode(
   Model = "gpt-4o-mini",
   language = "English",
-  SelectedCode = TRUE
+  SelectedCode = TRUE,
+  provider = "auto"
 )
 }
 \arguments{
-\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4o-mini".}
+\item{Model}{A character string specifying the model to be used. Default is "gpt-4o-mini" for OpenAI or "gemini-2.0-flash" for Gemini.}
 
 \item{language}{A character string specifying the language for the comments. Default is "English".}
 
 \item{SelectedCode}{A logical value indicating whether to use the selected code in RStudio. Default is TRUE.}
+
+\item{provider}{A character string specifying the API provider. Options: "auto" (default), "openai", "gemini". When "auto", automatically detects available API keys with priority: OpenAI → Gemini.}
 }
 \value{
 A message indicating completion if `SelectedCode` is TRUE, otherwise the commented code is copied to the clipboard.
@@ -29,11 +32,18 @@ Add Comments to R Code
 }
 \examples{
 \dontrun{
-# Option 1
+# Option 1: Auto-detect available API (OpenAI or Gemini)
 # Select some text in RStudio and then run the rstudio addins
-# Option 2
-# Copy the text into your clipboard then execute
 addCommentCode(Model = "gpt-4o-mini", language = "English", SelectedCode = TRUE)
+
+# Option 2: Explicitly use OpenAI
+addCommentCode(Model = "gpt-4o-mini", provider = "openai", SelectedCode = TRUE)
+
+# Option 3: Use Gemini API
+addCommentCode(Model = "gemini-2.0-flash", provider = "gemini", SelectedCode = TRUE)
+
+# Option 4: Copy text to clipboard and execute
+addCommentCode(Model = "gpt-4o-mini", language = "English", SelectedCode = FALSE)
 }
 }
 \author{

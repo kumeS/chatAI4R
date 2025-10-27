@@ -2,13 +2,11 @@
 % Please edit documentation in R/multiLLMviaionet.R
 \name{multiLLMviaionet}
 \alias{multiLLMviaionet}
-\title{multiLLMviaionet: Execute multiple LLM models simultaneously via io.net API}
+\title{multiLLMviaionet: Execute ALL available LLM models simultaneously via io.net API}
 \usage{
 multiLLMviaionet(
   prompt,
-  models = c("meta-llama/Llama-3.3-70B-Instruct", "deepseek-ai/DeepSeek-R1",
-    "Qwen/Qwen3-235B-A22B-FP8"),
-  max_models = 6,
+  max_models = NULL,
   streaming = FALSE,
   random_selection = FALSE,
   api_key = Sys.getenv("IONET_API_KEY"),
@@ -22,16 +20,13 @@ multiLLMviaionet(
 \arguments{
 \item{prompt}{A string containing the input prompt to send to all selected models.}
 
-\item{models}{A character vector of model names to use. Default includes 3 diverse models.
-See details for complete list of available models.}
-
-\item{max_models}{Integer specifying maximum number of models to run (1-10). Default is 6.}
+\item{max_models}{Integer specifying maximum number of models to run (1-50). Default is all available models.}
 
 \item{streaming}{Logical indicating whether to use streaming responses. Default is FALSE.}
 
-\item{random_selection}{Logical indicating whether to randomly select models. 
-If TRUE, ignores the 'models' parameter and randomly selects from all available models.
-If FALSE, uses the specified models in order. Default is FALSE.}
+\item{random_selection}{Logical indicating whether to randomly select models from all available models. 
+If TRUE, randomly selects up to max_models from all available models.
+If FALSE, uses all available models in order (up to max_models limit). Default is FALSE.}
 
 \item{api_key}{A string containing the io.net API key. 
 Defaults to the environment variable "IONET_API_KEY".}
@@ -56,9 +51,13 @@ A list containing:
   }
 }
 \description{
-This function allows you to run the same prompt across multiple LLM models 
-  simultaneously using the io.net API. It supports up to 6 models running in parallel,
-  with streaming responses and comprehensive error handling.
+This function automatically runs the same prompt across ALL currently available 
+  LLM models on the io.net API. It supports running all models in parallel with streaming 
+  responses and comprehensive error handling.
+  
+  The function dynamically fetches the current list of available models from the io.net API
+  and executes ALL of them by default (unless limited by max_models parameter). Results are 
+  cached for 1 hour to improve performance. If the API is unavailable, it falls back to a static model list.
   
   Supported model categories include:
   - Meta Llama series (Llama-4-Maverick, Llama-3.3-70B, etc.)
@@ -75,15 +74,18 @@ Multi-LLM via io.net API
   # Set your io.net API key
   Sys.setenv(IONET_API_KEY = "your_ionet_api_key_here")
   
-  # Basic usage with default models
+  # Basic usage - automatically runs on ALL available models
   result <- multiLLMviaionet(
-    prompt = "Explain quantum computing in simple terms",
-    models = c("meta-llama/Llama-3.3-70B-Instruct", 
-               "deepseek-ai/DeepSeek-R1",
-               "Qwen/Qwen3-235B-A22B-FP8")
+    prompt = "Explain quantum computing in simple terms"
   )
   
-  # Advanced usage with random selection (10 models)
+  # Limit to first 5 models in order
+  result <- multiLLMviaionet(
+    prompt = "What is machine learning?",
+    max_models = 5
+  )
+  
+  # Random selection of 10 models from all available
   result <- multiLLMviaionet(
     prompt = "Write a Python function to calculate fibonacci numbers",
     max_models = 10,
@@ -92,10 +94,6 @@ Multi-LLM via io.net API
     streaming = FALSE
   )
   
-  # Quick random 10 model comparison
-  result <- multiLLM_random10(
-    prompt = "Explain machine learning in simple terms"
-  )
   
   # Access results
   print(result$summary)
