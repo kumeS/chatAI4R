@@ -56,79 +56,6 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ## Installation of the chatAI4R package
 
-### 🐧 **LINUX USERS: Read This First!**
-
-On Linux systems, you **MUST** install system dependencies **BEFORE** installing the R package. The package includes PDF processing functionality that requires system libraries.
-
-**Step 1: Install System Dependencies**
-
-**Ubuntu/Debian:**
-```bash
-sudo apt-get update
-sudo apt-get install libqpdf-dev
-```
-
-**CentOS/RHEL:**
-```bash
-sudo yum install qpdf-devel
-```
-
-**Rocky Linux/Fedora:**
-```bash
-sudo dnf install qpdf-devel
-```
-
-**Step 2: Install pdftools in R (Optional but Recommended)**
-```r
-# After installing libqpdf-dev, install pdftools
-install.packages("pdftools")
-```
-
-**Step 3: Install chatAI4R**
-```r
-# Now you can install chatAI4R
-install.packages("chatAI4R")
-```
-
-**💡 Alternative: Install without PDF functionality**
-
-If you don't need PDF processing (`chatAI4pdf()` function), you can install without pdftools:
-```r
-install.packages("chatAI4R", dependencies = FALSE)
-```
-All other functions will work normally. The package will show a helpful message if you try to use `chatAI4pdf()` without pdftools installed.
-
----
-
-### 🍎 **macOS Users**
-
-**With Homebrew (Recommended):**
-```bash
-brew install qpdf
-```
-
-<<<<<<< HEAD
-Then install the R package:
-```r
-install.packages("chatAI4R")
-```
-=======
-**Note:** PDF processing functionality has been moved to a standalone script. See `chatAI4pdf_standalone.sh` for PDF analysis capabilities that require the `qpdf` system library.
->>>>>>> cf37f8b5ca241a2f75eea9e0fe14f504a085ae95
-
----
-
-### 🪟 **Windows Users**
-
-Windows users can install directly:
-```r
-install.packages("chatAI4R")
-```
-
----
-
-### General Installation Instructions
-
 ### 1. Start R / RStudio console.
 
 ### 2. Run the following commands in the R console:
@@ -342,7 +269,6 @@ Expert-level functions that provide sophisticated data analysis, pattern recogni
 |convertScientificLiterature|Convert text to scientific literature format|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertScientificLiterature.R)|
 |summaryWebScrapingText|Web scraping with intelligent summarization|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/summaryWebScrapingText.R)|
 |geminiGrounding4R|Advanced AI with Google Search grounding|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/geminiGrounding4R.R)|
-|chatAI4pdf|Intelligent PDF document analysis and summarization|[Standalone Script](https://github.com/kumeS/chatAI4R/blob/main/chatAI4pdf_standalone.sh)|
 |textFileInput4ai|Large-scale text file analysis with chunking|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textFileInput4ai.R)|
 |searchFunction|Expert-level R function discovery and recommendation|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/searchFunction.R)|
 
