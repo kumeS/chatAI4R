@@ -107,10 +107,14 @@ All other functions will work normally. The package will show a helpful message 
 brew install qpdf
 ```
 
+<<<<<<< HEAD
 Then install the R package:
 ```r
 install.packages("chatAI4R")
 ```
+=======
+**Note:** PDF processing functionality has been moved to a standalone script. See `chatAI4pdf_standalone.sh` for PDF analysis capabilities that require the `qpdf` system library.
+>>>>>>> cf37f8b5ca241a2f75eea9e0fe14f504a085ae95
 
 ---
 
@@ -338,7 +342,7 @@ Expert-level functions that provide sophisticated data analysis, pattern recogni
 |convertScientificLiterature|Convert text to scientific literature format|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertScientificLiterature.R)|
 |summaryWebScrapingText|Web scraping with intelligent summarization|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/summaryWebScrapingText.R)|
 |geminiGrounding4R|Advanced AI with Google Search grounding|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/geminiGrounding4R.R)|
-|chatAI4pdf|Intelligent PDF document analysis and summarization|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/chatAI4pdf.R)|
+|chatAI4pdf|Intelligent PDF document analysis and summarization|[Standalone Script](https://github.com/kumeS/chatAI4R/blob/main/chatAI4pdf_standalone.sh)|
 |textFileInput4ai|Large-scale text file analysis with chunking|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textFileInput4ai.R)|
 |searchFunction|Expert-level R function discovery and recommendation|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/searchFunction.R)|
 

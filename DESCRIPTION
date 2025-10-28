@@ -33,7 +33,7 @@ Imports: httr,
     base64enc,
     glue,
     utils
-Suggests: testthat, knitr, pdftools
+Suggests: testthat, knitr
 License: Artistic-2.0
 URL: https://kumes.github.io/chatAI4R/, https://github.com/kumeS/chatAI4R
 BugReports: https://github.com/kumeS/chatAI4R/issues
