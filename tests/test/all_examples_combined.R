@@ -85,14 +85,10 @@ response <- chat4Rv2(content = "What is the capital of France?",
 response
 
 # -----------------------------------------------------------------------------
-# chatAI4pdf examples
+# chatAI4pdf examples - MOVED TO STANDALONE SCRIPT
 # -----------------------------------------------------------------------------
-
-#Baktash et al: GPT-4: A REVIEW ON ADVANCEMENTS AND OPPORTUNITIES IN NATURAL LANGUAGE PROCESSING
-pdf_file_path <- "https://arxiv.org/pdf/2305.03195.pdf"
-
-#Execute
-summary_text <- chatAI4pdf(pdf_file_path)
+# Note: chatAI4pdf functionality has been moved to chatAI4pdf_standalone.sh
+# Use: source('chatAI4pdf_standalone.sh') to access this functionality
 
 # -----------------------------------------------------------------------------
 # checkErrorDet_JP examples
