@@ -1,6 +1,7 @@
 # chatAI4R: Chat-Based Interactive Artificial Intelligence for R <img src="inst/figures/chatAI4R_logo.png" align="right" height="139" />
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/kumeS/chatAI4R/workflows/R-CMD-check/badge.svg)](https://github.com/kumeS/chatAI4R/actions)
 [![CRAN](https://www.r-pkg.org/badges/version/chatAI4R)](https://cran.r-project.org/web/packages/chatAI4R/index.html)
 [![CRAN_latest_release_date](https://www.r-pkg.org/badges/last-release/chatAI4R)](https://cran.r-project.org/package=chatAI4R)
 [![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/chatAI4R)](https://www.datasciencemeta.com/rpackages)
@@ -75,9 +76,6 @@ library(chatAI4R)
 devtools::install_github("kumeS/chatAI4R")
 library(chatAI4R)
 
-# Release v0.2.3
-devtools::install_github("kumeS/chatAI4R", ref = "v0.2.3")
-library(chatAI4R)
 ```
 
 #### Installation from source
