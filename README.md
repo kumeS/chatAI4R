@@ -9,7 +9,7 @@
 [![chatAI4R status badge](https://kumes.r-universe.dev/badges/chatAI4R)](https://kumes.r-universe.dev)
 <!-- badges: end -->
 
-**Version 1.0.0** - Enhanced Security & Multi-LLM Capabilities
+**Version 1.1.0** - Linux Installation Improvements & CI/CD Integration
 
 [GitHub/chatAI4R](https://github.com/kumeS/chatAI4R)
 
@@ -378,32 +378,57 @@ lapply(result$results, function(x) {     # Individual model responses
 - **Magistral-Small-2506**: European AI with multilingual support
 - **Phi-4**: Microsoft's efficient 14B parameter model
 
-## 📈 What's New in v1.0.0 (January 2025)
+## 📈 What's New
 
-### 🔒 **Security Enhancements**
+### 🐧 **Version 1.1.0** (October 2025) - Linux Installation Fix
+
+**Breaking Change for Better Compatibility:**
+- **Removed pdftools Dependency**: Eliminated the optional `pdftools` dependency that was causing Linux installation failures due to missing system libraries (`libqpdf-dev`)
+- **Simplified Installation**: Linux users can now install chatAI4R without any system library dependencies
+- **Function Removal**: `chatAI4pdf()` function has been removed from the package (available as standalone script in `inst/sh/`)
+
+**CI/CD Integration:**
+- **Multi-Platform Testing**: Added GitHub Actions workflow for automated testing on Windows, macOS, and Linux
+- **Continuous Integration**: R CMD check runs automatically on push/PR to main, master, and dev branches
+- **Quality Assurance**: Ensures package builds correctly across all major platforms
+
+**Installation Improvements:**
+- ✅ **Before v1.1.0** (Linux): Required system libraries → Installation errors
+- ✅ **After v1.1.0** (Linux): No system dependencies → Simple `install.packages("chatAI4R")`
+
+**Impact:**
+- **53 Core Functions**: All AI, LLM, and R development functions work normally
+- **No Breaking Changes**: Only the optional PDF processing function was removed
+- **Better User Experience**: Eliminates the most common Linux installation error
+
+---
+
+### 📊 **Version 1.0.0** (January 2025) - Security & Multi-LLM
+
+**🔒 Security Enhancements**
 - **Critical Security Fixes**: Resolved HTTP status validation issues across all API functions
 - **Safe Data Access**: Implemented null-safe nested JSON parsing to prevent runtime crashes
 - **Enhanced Error Handling**: Comprehensive error messages without API key exposure
 - **Input Validation**: Standardized parameter validation using assertthat patterns
 - **Security Score**: Improved from C+ (60/100) to **A- (85/100)**
 
-### 🚀 **New Multi-LLM Capabilities** 
+**🚀 New Multi-LLM Capabilities**
 - **io.net Integration**: Execute 23+ models simultaneously via io.net API
 - **Advanced Model Selection**: Random balanced selection across model families
 - **True Async Processing**: Parallel execution using future package
 - **Comprehensive Testing**: Enhanced test suite with 40+ functions tested
 
-### 🛠️ **Developer Experience**
+**🛠️ Developer Experience**
 - **54 Functions**: Complete AI toolkit for R with enhanced coverage
 - **Enhanced Documentation**: Comprehensive examples and usage patterns
 - **CRAN Ready**: Production-quality codebase with consistent patterns
 - **25 RStudio Addins**: Integrated development workflow
 
-### 📊 **Function Categories**
+**📊 Function Categories**
 - **Core Layer**: 19 functions for direct API access and utilities
 - **Usage/Task Layer**: 8 functions for conversation management and text processing
 - **Workflow Layer**: 18 functions for R package development and content creation
-- **Expertise Layer**: 8 functions for advanced data analysis and knowledge mining
+- **Expertise Layer**: 7 functions for advanced data analysis and knowledge mining (PDF function removed in v1.1.0)
 
 ## License
 
@@ -411,16 +436,16 @@ Copyright (c) 2025 Satoshi Kume. Released under the [Artistic License 2.0](http:
 
 ## Cite
 
-Kume S. (2025) chatAI4R: Chat-based Interactive Artificial Intelligence for R. Version 1.0.0.
+Kume S. (2025) chatAI4R: Chat-based Interactive Artificial Intelligence for R. Version 1.1.0.
 
 ```
 #BibTeX
 @misc{Kume2025chatAI4R,
   title={chatAI4R: Chat-Based Interactive Artificial Intelligence for R},
-  author={Kume, Satoshi}, 
+  author={Kume, Satoshi},
   year={2025},
-  version={1.0.0},
-  publisher={GitHub}, 
+  version={1.1.0},
+  publisher={GitHub},
   note={R Package with Multi-LLM Capabilities},
   howpublished={\url{https://github.com/kumeS/chatAI4R}},
 }
