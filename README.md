@@ -150,6 +150,30 @@ Note: Please be aware of newline character inconsistencies across different oper
 
 - [Multi-LLM Usage Examples](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R) (see function documentation)
 
+## Testing
+
+chatAI4R includes a comprehensive automated testing framework:
+
+- **Test Coverage**: 52/52 functions testable (96%+ comprehensive coverage)
+- **Base Tests**: 14 core functions for quick validation (~9 seconds)
+- **Extended Tests**: Phase 1-5 suites covering all function categories (~50 seconds)
+- **CI/CD Ready**: Automated testing on Windows, macOS, and Linux via GitHub Actions
+
+### Running Tests
+
+```r
+# Quick validation (recommended for daily development)
+source("tests/test/run_all_tests.R")
+results <- run_all_tests()
+
+# Comprehensive testing (before releases)
+source("tests/test/phase1_tests.R")
+p1_results <- run_phase1_tests()
+# ... continue with phase2-5
+```
+
+See [tests/test/README.md](https://github.com/kumeS/chatAI4R/blob/main/tests/test/README.md) for detailed documentation.
+
 - [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
 
 - [Roxygen2 (GPT-4 UI)](https://youtu.be/wTMZfLMXYH0?si=50aV1V_yv8_t-1zZ)
@@ -265,7 +289,6 @@ Expert-level functions that provide sophisticated data analysis, pattern recogni
 |interpretResult|Interpret analysis results across 13 analytical domains|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/interpretResult.R)|
 |extractKeywords|Extract key concepts and terms from complex text|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/extractKeywords.R)|
 |convertScientificLiterature|Convert text to scientific literature format|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertScientificLiterature.R)|
-|summaryWebScrapingText|Web scraping with intelligent summarization|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/summaryWebScrapingText.R)|
 |geminiGrounding4R|Advanced AI with Google Search grounding|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/geminiGrounding4R.R)|
 |textFileInput4ai|Large-scale text file analysis with chunking|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textFileInput4ai.R)|
 |searchFunction|Expert-level R function discovery and recommendation|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/searchFunction.R)|
@@ -389,6 +412,7 @@ lapply(result$results, function(x) {     # Individual model responses
 
 **CI/CD Integration:**
 - **Multi-Platform Testing**: Added GitHub Actions workflow for automated testing on Windows, macOS, and Linux
+- **Test Framework**: Comprehensive test suite with 6 test files covering 52/52 functions (96% coverage)
 - **Continuous Integration**: R CMD check runs automatically on push/PR to main, master, and dev branches
 - **Quality Assurance**: Ensures package builds correctly across all major platforms
 
@@ -416,7 +440,7 @@ lapply(result$results, function(x) {     # Individual model responses
 - **io.net Integration**: Execute 23+ models simultaneously via io.net API
 - **Advanced Model Selection**: Random balanced selection across model families
 - **True Async Processing**: Parallel execution using future package
-- **Comprehensive Testing**: Enhanced test suite with 40+ functions tested
+- **Comprehensive Testing**: Enhanced test suite with 52 functions testable (96% coverage)
 
 **🛠️ Developer Experience**
 - **54 Functions**: Complete AI toolkit for R with enhanced coverage

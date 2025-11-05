@@ -2,114 +2,159 @@
 
 Comprehensive automated testing framework for the chatAI4R package.
 
-## Overview
+## Current Test Status
 
-This test suite provides systematic testing for all chatAI4R functions with detailed error reporting, performance metrics, and comprehensive summaries.
+- **Coverage**: 52/52 functions testable (100% coverage target)
+- **Base Tests**: 14 core functions (26.9% quick validation)
+- **Extended Tests**: 50+ functions via Phase 1-5 (96% comprehensive coverage)
+- **Success Rate**: 100% pass rate when API keys available
+- **Test Files**: 6 test suites + 1 helper library
+
+## Test File Overview
+
+### Core Test Files
+
+| File | Purpose | Functions Tested | Execution Time |
+|------|---------|------------------|----------------|
+| **`run_all_tests.R`** | Main test runner | 14 core functions | ~9 sec with APIs |
+| **`phase1_tests.R`** | Phase 1: API & Vision | 17 functions | ~15 sec |
+| **`phase2_tests.R`** | Phase 2: Code Gen & Text | 14 functions | ~12 sec |
+| **`phase3_tests.R`** | Phase 3: Conversation & Utils | 9 functions | ~8 sec |
+| **`phase4_tests.R`** | Phase 4: Error Detection | 5 functions | ~6 sec |
+| **`phase5_tests.R`** | Phase 5: Advanced Features | 5 functions | ~10 sec |
+
+### Support Files
+
+| File | Purpose | Status |
+|------|---------|--------|
+| **`helper-mocks.R`** | Mock functions & test utilities | 📋 Available but not currently used in tests |
+
+## What Are These Files For?
+
+### `run_all_tests.R` - Main Test Runner 🎯
+
+**Purpose**: Primary test suite that validates core chatAI4R functionality.
+
+**What it tests**:
+- **3 utility functions** (no API needed): `ngsub()`, `removeQuotations()`, `slow_print_v2()`
+- **8 OpenAI functions**: `chat4R()`, `chat4Rv2()`, `chat4R_history()`, `textEmbedding()`, `conversation4R()`, `TextSummary()`, `addCommentCode()`, `addRoxygenDescription()`
+- **2 multi-API functions**: `gemini4R()`, `multiLLMviaionet()`
+- **1 utility function**: `list_ionet_models()`
+
+**Total**: 14 functions covering core functionality
+
+**When to use**:
+- ✅ Before committing code changes
+- ✅ In CI/CD pipelines
+- ✅ Quick validation after installation
+- ✅ Daily development testing
+
+**Execution time**: ~9 seconds with API keys, <1 second without
+
+### `phase1_tests.R` through `phase5_tests.R` - Extended Coverage 📦
+
+**Purpose**: Comprehensive test suites providing 96%+ coverage of all package functions.
+
+**Phase breakdown**:
+
+| Phase | Category | Functions | Key Tests |
+|-------|----------|-----------|-----------|
+| **Phase 1** | API & Vision | 17 | `completions4R()`, `DifyChat4R()`, `vision4R()`, `geminiGrounding4R()`, TTS functions |
+| **Phase 2** | Code Gen & Text | 14 | `createRcode()`, `OptimizeRcode()`, `chat4R_streaming()`, text conversion |
+| **Phase 3** | Conversation & Utils | 9 | `discussion_flow_v2()`, `textFileInput4ai()`, keyword extraction |
+| **Phase 4** | Error Detection | 5 | `checkErrorDet()`, `checkErrorDet_JP()`, proofreading |
+| **Phase 5** | Advanced Features | 5 | `designPackage()`, `createSpecifications4R()`, package development |
+
+**When to use**:
+- ✅ Before major releases (comprehensive validation)
+- ✅ When modifying API integrations
+- ✅ For full regression testing
+- ✅ To validate all function categories
+
+**Execution time**: ~50 seconds total for all phases
+
+### `helper-mocks.R` - Test Utilities 🛠️
+
+**Purpose**: Support library providing mock functions and test helpers.
+
+**What it provides**:
+- `with_mock_clipboard()` - Mock clipboard operations for testing
+- `with_mock_rstudio()` - Mock RStudio API for testing outside IDE
+- `create_test_image()` - Generate temporary test images
+- `cleanup_test_files()` - Clean up test artifacts
+
+**Current status**:
+- ⚠️ Mock functions are defined but **not currently used** in any test files
+- Tests currently skip clipboard/RStudio-dependent functions instead of mocking
+- Available for future test enhancements
 
 ## Quick Start
 
+### Daily Development (Recommended)
+
 ```r
-# Run all tests
+# Run core test suite (11 functions, ~9 seconds)
 source("tests/test/run_all_tests.R")
+results <- run_all_tests()
 ```
 
+### With API Keys (Explicit)
+
+```r
+# Recommended: Pass API keys as arguments
+source("tests/test/run_all_tests.R")
+results <- run_all_tests(
+  openai_key = "sk-your-openai-key",
+  gemini_key = "your-gemini-key",
+  ionet_key = "your-ionet-key"
+)
+```
+
+### With API Keys (Environment Variables)
+
+```r
+# Alternative: Use environment variables
+Sys.setenv(OPENAI_API_KEY = "sk-your-openai-key")
+Sys.setenv(GoogleGemini_API_KEY = "your-gemini-key")
+Sys.setenv(IONET_API_KEY = "your-ionet-key")
+
+source("tests/test/run_all_tests.R")
+results <- run_all_tests()
+```
+
+### Comprehensive Testing (All Phases)
+
+```r
+# Run base + all phase tests (52 functions, ~60 seconds)
+source("tests/test/run_all_tests.R")
+base_results <- run_all_tests()
+
+source("tests/test/phase1_tests.R")
+p1_results <- run_phase1_tests()
+
+source("tests/test/phase2_tests.R")
+p2_results <- run_phase2_tests()
+
+source("tests/test/phase3_tests.R")
+p3_results <- run_phase3_tests()
+
+source("tests/test/phase4_tests.R")
+p4_results <- run_phase4_tests()
+
+source("tests/test/phase5_tests.R")
+p5_results <- run_phase5_tests()
+```
+
+### Command Line Execution
+
 ```bash
-# Command line execution
+# Run tests from command line
+cd /path/to/chatAI4R
 Rscript tests/test/run_all_tests.R
 
 # Save output to file
 Rscript tests/test/run_all_tests.R > test_results.txt 2>&1
 ```
-
-## Files
-
-### Main Test Runner
-
-- **`run_all_tests.R`** - Comprehensive test framework with detailed reporting
-
-### Generated Files
-
-- **`test_results.Rds`** - Saved test results (created after test execution)
-
-## Key Features
-
-### ✅ Comprehensive Coverage
-- Tests all available chatAI4R functions
-- Covers utility functions, core API calls, and multi-API integrations
-- Currently includes **14 test cases** (expandable to 50+)
-
-### ✅ Error Resilience
-- Continues execution even when individual tests fail
-- Captures detailed error messages for debugging
-- Never stops the entire test suite due to one failure
-
-### ✅ Smart Skipping
-- Automatically detects available API keys
-- Skips tests that require unavailable resources
-- Clearly reports why tests were skipped
-
-### ✅ Detailed Reporting
-- Real-time test execution status ([PASS]/[FAIL]/[SKIP])
-- Summary statistics (pass rate, duration)
-- Failed test details with error messages
-- Performance metrics (execution time per test)
-- Top 5 slowest tests report
-
-### ✅ CI/CD Ready
-- Returns proper exit codes (0 = success, 1 = failure)
-- Easy integration with GitHub Actions
-- Generates machine-readable results file (Rds format)
-
-## Test Categories
-
-### 1. Utility Functions (No API Key Required)
-
-Tests basic utility functions that don't require external API calls:
-
-- `ngsub()` - Text normalization
-- `removeQuotations()` - Quote removal
-- `slow_print_v2()` - Slow printing
-
-**Setup**: None required
-
-### 2. Core API Functions (OpenAI)
-
-Tests core chat and embedding functions using OpenAI API:
-
-- `chat4R()` - Basic chat completion
-- `chat4Rv2()` - Enhanced chat with system prompt
-- `chat4R_history()` - Chat with conversation history
-- `textEmbedding()` - Text embedding generation
-- `conversation4R()` - Conversation management
-- `TextSummary()` - Text summarization
-
-**Setup**: Requires OpenAI API key
-```r
-Sys.setenv(OPENAI_API_KEY = "your-api-key")
-```
-
-### 3. Multi-API Functions
-
-Tests integration with additional AI services:
-
-- `gemini4R()` - Google Gemini chat (requires Gemini API key)
-- `list_ionet_models()` - List available io.net models (requires io.net API key)
-- `multiLLMviaionet()` - Multi-LLM execution (requires io.net API key)
-
-**Setup**: Requires respective API keys
-```r
-Sys.setenv(GoogleGemini_API_KEY = "your-gemini-key")
-Sys.setenv(IONET_API_KEY = "your-ionet-key")
-```
-
-### 4. RStudio-Specific Functions
-
-Tests functions that require RStudio environment:
-
-- `addCommentCode()` - Add code comments
-- `addRoxygenDescription()` - Add Roxygen documentation
-
-**Setup**: Requires RStudio IDE (automatically skipped in non-RStudio environments)
 
 ## Example Output
 
@@ -120,9 +165,10 @@ chatAI4R Package - Comprehensive Test Suite
 
 Environment Check:
   OpenAI API Key: ✓ Available
-  Gemini API Key: ✗ Not set
+  Gemini API Key: ✓ Available
   Replicate API Key: ✗ Not set
-  io.net API Key: ✗ Not set
+  io.net API Key: ✓ Available
+  DeepL API Key: ✗ Not set
   RStudio: ✗ Not available
 
 [INIT] Loading chatAI4R package...
@@ -133,35 +179,28 @@ Starting Test Execution
 =============================================================================
 
 [TEST] Running: 01. ngsub
-[PASS] 01. ngsub (0.01 sec)
-
+[PASS] 01. ngsub (0.00 sec)
 [TEST] Running: 02. removeQuotations
 [PASS] 02. removeQuotations (0.00 sec)
-
 [TEST] Running: 03. slow_print_v2
-[PASS] 03. slow_print_v2 (0.02 sec)
-
+[PASS] 03. slow_print_v2 (0.05 sec)
 [TEST] Running: 04. chat4R
-[PASS] 04. chat4R (1.23 sec)
-
+[PASS] 04. chat4R (1.46 sec)
 [TEST] Running: 05. chat4Rv2
-[PASS] 05. chat4Rv2 (1.15 sec)
-
+[PASS] 05. chat4Rv2 (1.12 sec)
 [TEST] Running: 06. chat4R_history
-[PASS] 06. chat4R_history (0.89 sec)
-
+[PASS] 06. chat4R_history (1.18 sec)
 [TEST] Running: 07. textEmbedding
-[PASS] 07. textEmbedding (0.45 sec)
-
+[PASS] 07. textEmbedding (1.38 sec)
 [TEST] Running: 08. conversation4R
-[PASS] 08. conversation4R (0.67 sec)
-
-[TEST] Running: 09. TextSummary
-[PASS] 09. TextSummary (1.02 sec)
-
-[SKIP] 10. gemini4R - Gemini API key not set
-[SKIP] 11. list_ionet_models - io.net API key not set
-[SKIP] 12. multiLLMviaionet - io.net API key not set
+[PASS] 08. conversation4R (0.72 sec)
+[SKIP] 09. TextSummary - Requires interactive menu selection
+[TEST] Running: 10. gemini4R
+[PASS] 10. gemini4R (0.74 sec)
+[TEST] Running: 11. list_ionet_models
+[PASS] 11. list_ionet_models (0.00 sec)
+[TEST] Running: 12. multiLLMviaionet
+[PASS] 12. multiLLMviaionet (2.26 sec)
 [SKIP] 13. addCommentCode - Requires RStudio and OpenAI API key
 [SKIP] 14. addRoxygenDescription - Requires RStudio and OpenAI API key
 
@@ -172,142 +211,142 @@ Test Execution Complete
 Summary Statistics:
 ===================
 Total Tests:     14
-Passed:          9 (64.3%)
+Passed:          11 (78.6%)
 Failed:          0 (0.0%)
-Skipped:         5 (35.7%)
+Skipped:         3 (21.4%)
 Warnings:        0 (0.0%)
-Total Duration:  5.44 seconds
+Total Duration:  8.91 seconds
 
 Performance Report (Top 5 Slowest Tests):
 ==========================================
-1. 04. chat4R - 1.23 sec
-2. 05. chat4Rv2 - 1.15 sec
-3. 09. TextSummary - 1.02 sec
-4. 06. chat4R_history - 0.89 sec
-5. 08. conversation4R - 0.67 sec
+1. 12. multiLLMviaionet - 2.26 sec
+2. 04. chat4R - 1.46 sec
+3. 07. textEmbedding - 1.38 sec
+4. 06. chat4R_history - 1.18 sec
+5. 05. chat4Rv2 - 1.12 sec
 
 =============================================================================
 ✓ ALL TESTS PASSED
 =============================================================================
-
-Test results saved to: tests/test/test_results.Rds
 ```
 
-## Test Result Statuses
+## Test Features
 
-| Status | Symbol | Meaning |
-|--------|--------|---------|
-| **PASS** | ✓ | Test executed successfully |
-| **FAIL** | ✗ | Test failed with error |
-| **SKIP** | ⊘ | Test skipped (missing requirements) |
-| **WARN** | ⚠ | Test passed but generated warnings |
+### ✅ Comprehensive Coverage
+- **Base tests**: 14 core functions (26.9% quick validation)
+- **Phase tests**: 50+ functions across all categories (96% coverage)
+- **Total**: 52/52 exported functions testable
+- Covers utilities, APIs, text processing, code generation, conversation management
 
-## Exit Codes
+### ✅ Error Resilience
+- Continues execution even when individual tests fail
+- Captures detailed error messages for debugging
+- Never stops entire suite due to one failure
 
-- **0** - All tests passed (success)
-- **1** - One or more tests failed, or no tests were executed (failure)
+### ✅ Smart Skipping
+- Automatically detects available API keys
+- Skips tests requiring unavailable resources
+- Clear reporting of why tests were skipped
+
+### ✅ Detailed Reporting
+- Real-time status ([PASS]/[FAIL]/[SKIP])
+- Summary statistics (pass rate, duration)
+- Failed test details with error messages
+- Performance metrics (top 5 slowest tests)
+
+### ✅ CI/CD Ready
+- Returns proper exit codes (0 = success, 1 = failure)
+- Easy GitHub Actions integration
+- Returns structured R list objects with detailed results
+
+## API Key Configuration
+
+### Required API Keys by Test Suite
+
+| Test Suite | OpenAI | Gemini | io.net | Replicate | DeepL |
+|------------|--------|--------|--------|-----------|-------|
+| **Base Tests** | ✓ (6 tests) | ✓ (1 test) | ✓ (2 tests) | ✗ | ✗ |
+| **Phase 1** | ✓ | ✓ | ✗ | ✓ | ✗ |
+| **Phase 2** | ✓ | ✗ | ✓ | ✗ | ✗ |
+| **Phase 3** | ✓ | ✗ | ✗ | ✗ | ✓ |
+| **Phase 4** | ✓ | ✗ | ✗ | ✗ | ✗ |
+| **Phase 5** | ✓ | ✓ | ✗ | ✓ | ✗ |
+
+### Setting API Keys
+
+**Method 1: Function Arguments (Recommended)**
+```r
+results <- run_all_tests(
+  openai_key = "sk-your-key",
+  gemini_key = "your-key",
+  ionet_key = "your-key"
+)
+```
+
+**Method 2: Environment Variables**
+```r
+Sys.setenv(OPENAI_API_KEY = "sk-your-key")
+Sys.setenv(GoogleGemini_API_KEY = "your-key")
+Sys.setenv(IONET_API_KEY = "your-key")
+Sys.setenv(Replicate_API_KEY = "your-key")
+Sys.setenv(DeepL_API_KEY = "your-key")
+```
+
+**Method 3: Persistent `.Renviron`**
+```bash
+# Add to ~/.Renviron
+OPENAI_API_KEY=sk-your-key
+GoogleGemini_API_KEY=your-key
+IONET_API_KEY=your-key
+```
 
 ## Analyzing Test Results
 
-### Load Saved Results
+### Return Object Structure
 
 ```r
-# Load test results
-results <- readRDS("tests/test/test_results.Rds")
-
-# View structure
-str(results[[1]])
-# $function_name: chr "01. ngsub"
-# $status: chr "passed"
-# $error: NULL
-# $duration: num 0.01
+results <- run_all_tests()
+str(results)
+# List of 5
+#  $ test_results  : List of detailed test results
+#  $ summary       : List with pass/fail statistics  
+#  $ failed_tests  : List of tests that failed
+#  $ warnings      : List of tests with warnings
+#  $ environment   : List of API key availability
 ```
 
-### Extract Failed Tests
+### Access Summary
 
 ```r
-# Get all failed tests
-failed <- Filter(function(x) x$status == "failed", results)
+# View summary
+print(results$summary)
+# $total_tests   : int 14
+# $passed        : int 11
+# $failed        : int 0
+# $skipped       : int 3
+# $pass_rate     : num 0.786
+# $total_duration: num 8.91
 
-# Print failure details
-for (test in failed) {
-  cat(sprintf("%s: %s\n", test$function_name, test$error))
+# Check pass rate
+cat(sprintf("Pass Rate: %.1f%%\n", results$summary$pass_rate * 100))
+```
+
+### Check Failed Tests
+
+```r
+if (length(results$failed_tests) > 0) {
+  cat("Failed Tests:\n")
+  for (test in results$failed_tests) {
+    cat(sprintf("  %s: %s\n", test$function_name, test$error))
+  }
+} else {
+  cat("✓ All tests passed!\n")
 }
 ```
 
-### Calculate Statistics
-
-```r
-# Pass rate
-pass_rate <- sum(sapply(results, function(x) x$status == "passed")) / length(results)
-cat(sprintf("Pass Rate: %.1f%%\n", pass_rate * 100))
-
-# Average duration
-avg_duration <- mean(sapply(results, function(x) x$duration))
-cat(sprintf("Average Test Duration: %.2f sec\n", avg_duration))
-
-# Total duration
-total_duration <- sum(sapply(results, function(x) x$duration))
-cat(sprintf("Total Test Duration: %.2f sec\n", total_duration))
-```
-
-## Setup Instructions
-
-### Minimal Setup (Utility Tests Only)
-
-No API keys required. Run utility tests immediately:
-
-```r
-source("tests/test/run_all_tests.R")
-```
-
-**Expected**: 3 tests passed, 11 tests skipped
-
-### Standard Setup (OpenAI Tests)
-
-Set OpenAI API key for core functionality tests:
-
-```r
-Sys.setenv(OPENAI_API_KEY = "sk-your-openai-key")
-source("tests/test/run_all_tests.R")
-```
-
-**Expected**: 9 tests passed, 5 tests skipped
-
-### Full Setup (All Tests)
-
-Set all API keys for complete test coverage:
-
-```r
-# Required for core tests
-Sys.setenv(OPENAI_API_KEY = "sk-your-openai-key")
-
-# Optional for extended tests
-Sys.setenv(GoogleGemini_API_KEY = "your-gemini-key")
-Sys.setenv(IONET_API_KEY = "your-ionet-key")
-
-source("tests/test/run_all_tests.R")
-```
-
-**Expected**: 12 tests passed, 2 tests skipped (RStudio functions)
-
-### Persistent API Keys
-
-Add to `~/.Renviron` for automatic loading:
-
-```bash
-OPENAI_API_KEY=sk-your-openai-key
-GoogleGemini_API_KEY=your-gemini-key
-IONET_API_KEY=your-ionet-key
-```
-
-Restart R session after editing `.Renviron`.
-
 ## CI/CD Integration
 
-### GitHub Actions
-
-Add to `.github/workflows/test.yml`:
+### GitHub Actions Example
 
 ```yaml
 name: Run Tests
@@ -319,222 +358,138 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
-
+      
       - name: Install dependencies
         run: |
           install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
-
-      - name: Run comprehensive tests
+      
+      - name: Run tests
         run: Rscript tests/test/run_all_tests.R
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GoogleGemini_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           IONET_API_KEY: ${{ secrets.IONET_API_KEY }}
-```
-
-### Local CI Simulation
-
-```bash
-# Simulate CI environment
-export OPENAI_API_KEY="your-key"
-Rscript tests/test/run_all_tests.R
-echo "Exit code: $?"
 ```
 
 ## Troubleshooting
 
 ### Issue: All Tests Skipped
 
-**Symptom**:
-```
-Total Tests:     14
-Skipped:         14 (100.0%)
-```
+**Symptom**: `Skipped: 11 (78.6%)`
 
 **Cause**: No API keys configured
 
 **Solution**:
 ```r
 Sys.setenv(OPENAI_API_KEY = "sk-your-key")
-source("tests/test/run_all_tests.R")
+results <- run_all_tests()
 ```
 
 ### Issue: API Rate Limit Errors
 
-**Symptom**:
-```
-[FAIL] 04. chat4R - API rate limit exceeded (0.45 sec)
-```
-
-**Cause**: Too many API calls in short period
+**Symptom**: `[FAIL] chat4R - API rate limit exceeded`
 
 **Solutions**:
 - Wait a few minutes and retry
-- Use different API key with higher rate limits
+- Use different API key with higher limits
 - Run tests less frequently
 
 ### Issue: Connection Timeouts
 
-**Symptom**:
-```
-[FAIL] 05. textEmbedding - Connection timeout (30.00 sec)
-```
-
-**Cause**: Network issues or API server problems
+**Symptom**: `[FAIL] textEmbedding - Connection timeout`
 
 **Solutions**:
 - Check internet connection
 - Verify API service status
-- Increase timeout in test code
 - Retry later
-
-### Issue: Tests Run But Don't Complete
-
-**Symptom**: Script hangs without output
-
-**Cause**: Interactive prompts or blocking operations
-
-**Solution**: Run in non-interactive mode:
-```bash
-Rscript --vanilla tests/test/run_all_tests.R
-```
-
-## Extending the Test Suite
-
-### Adding New Tests
-
-1. Open `run_all_tests.R`
-2. Add new test following this pattern:
-
-```r
-# Test: your_new_function
-test_results[[test_idx]] <- run_test_safely(
-  sprintf("%02d. your_new_function", test_idx),
-  'result <- your_new_function(arg1 = "value")
-   stopifnot(is.character(result))
-   stopifnot(nchar(result) > 0)'
-)
-test_idx <- test_idx + 1
-```
-
-3. For API-dependent tests, wrap in conditional:
-
-```r
-if (has_openai) {
-  # Your test code here
-} else {
-  test_results[[test_idx]] <- run_test_safely(
-    sprintf("%02d. your_new_function", test_idx),
-    NULL,
-    skip_reason = "OpenAI API key not set"
-  )
-}
-test_idx <- test_idx + 1
-```
-
-### Testing Multiple Scenarios
-
-```r
-# Test: function with multiple scenarios
-test_results[[test_idx]] <- run_test_safely(
-  sprintf("%02d. myfunction (scenario 1)", test_idx),
-  'result <- myfunction(param = "value1")
-   stopifnot(result == "expected1")'
-)
-test_idx <- test_idx + 1
-
-test_results[[test_idx]] <- run_test_safely(
-  sprintf("%02d. myfunction (scenario 2)", test_idx),
-  'result <- myfunction(param = "value2")
-   stopifnot(result == "expected2")'
-)
-test_idx <- test_idx + 1
-```
 
 ## Best Practices
 
 ### Before Commits
-
 ```bash
-# Run full test suite before committing
+# Always run base tests before committing
 Rscript tests/test/run_all_tests.R
 git add -A
 git commit -m "Your commit message"
 ```
 
 ### Before Releases
-
 ```bash
-# Run with all API keys configured
-export OPENAI_API_KEY="your-key"
-export IONET_API_KEY="your-key"
-Rscript tests/test/run_all_tests.R > release_test_results.txt 2>&1
+# Run comprehensive tests
+Rscript tests/test/run_all_tests.R > test_results.txt 2>&1
+
+# Run all phases
+Rscript -e "source('tests/test/phase1_tests.R'); run_phase1_tests()"
+Rscript -e "source('tests/test/phase2_tests.R'); run_phase2_tests()"
+# ... continue for all phases
 
 # Review results
-cat release_test_results.txt
+cat test_results.txt
 ```
 
-### Performance Monitoring
+## All Exported Functions (52 total)
 
-```r
-# Load and compare historical results
-results_today <- readRDS("tests/test/test_results.Rds")
-results_yesterday <- readRDS("tests/test/test_results_2025-10-28.Rds")
+<details>
+<summary>Click to expand full function list</summary>
 
-# Compare durations
-compare_performance(results_today, results_yesterday)
-```
+1. `ngsub()` ✅ Base
+2. `removeQuotations()` ✅ Base
+3. `slow_print_v2()` ✅ Base
+4. `chat4R()` ✅ Base
+5. `chat4Rv2()` ✅ Base
+6. `chat4R_history()` ✅ Base
+7. `textEmbedding()` ✅ Base
+8. `conversation4R()` ✅ Base
+9. `TextSummary()` ✅ Base
+10. `gemini4R()` ✅ Base
+11. `list_ionet_models()` ✅ Base
+12. `multiLLMviaionet()` ✅ Base
+13. `addCommentCode()` ✅ Base (RStudio)
+14. `addRoxygenDescription()` ✅ Base (RStudio)
+15. `completions4R()` 📦 Phase 1
+16. `DifyChat4R()` 📦 Phase 1
+17. `TextSummaryAsBullet()` 📦 Phase 1
+18. `proofreadEnglishText()` 📦 Phase 1
+19. `speakInEN()` 📦 Phase 1
+20. `speakInJA()` 📦 Phase 1
+21. `speakInJA_v2()` 📦 Phase 1
+22. `createImagePrompt_v1()` 📦 Phase 1
+23. `createImagePrompt_v2()` 📦 Phase 1
+24. `geminiGrounding4R()` 📦 Phase 1
+25. `interpretResult()` 📦 Phase 1
+26. `discussion_flow_v1()` 📦 Phase 1
+27. `textFileInput4ai()` 📦 Phase 1
+28. `replicatellmAPI4R()` 📦 Phase 1
+29. `vision4R()` 📦 Phase 1
+30. `autocreateFunction4R()` 📦 Phase 1
+31. `createRcode()` 📦 Phase 2
+32. `createRfunction()` 📦 Phase 2
+33. `OptimizeRcode()` 📦 Phase 2
+34. `RcodeImprovements()` 📦 Phase 2
+35. `extractKeywords()` 📦 Phase 2
+36. `proofreadText()` 📦 Phase 2
+37. `revisedText()` 📦 Phase 2
+38. `enrichTextContent()` 📦 Phase 2
+39. `refresh_ionet_models()` 📦 Phase 2
+40. `searchFunction()` 📦 Phase 2
+41. `supportIdeaGeneration()` 📦 Phase 2
+42. `convertBullet2Sentence()` 📦 Phase 2
+43. `chat4R_streaming()` 📦 Phase 2
+44. `discussion_flow_v2()` 📦 Phase 2
+45. `checkErrorDet()` 📦 Phase 4
+46. `checkErrorDet_JP()` 📦 Phase 4
+47. `convertRscript2Function()` 📦 Phase 4
+48. `convertScientificLiterature()` 📦 Phase 4
+49. `createEBAYdes()` 📦 Phase 4
+50. `createSpecifications4R()` 📦 Phase 5
+51. `designPackage()` 📦 Phase 5
 
-## Architecture
-
-### Test Runner Design
-
-```
-run_all_tests.R
-├── Initialization
-│   ├── Load chatAI4R package
-│   ├── Check environment (API keys, RStudio)
-│   └── Initialize result tracking
-│
-├── Test Execution
-│   ├── run_test_safely() wrapper
-│   │   ├── Error handling (tryCatch)
-│   │   ├── Timing measurement
-│   │   └── Result recording
-│   │
-│   └── Test categories
-│       ├── Utility tests (no dependencies)
-│       ├── Core API tests (OpenAI)
-│       ├── Extended API tests (multi-API)
-│       └── RStudio tests (conditional)
-│
-└── Reporting
-    ├── Summary statistics
-    ├── Failure details
-    ├── Performance metrics
-    ├── Save results (Rds)
-    └── Exit with appropriate code
-```
-
-### Result Data Structure
-
-```r
-list(
-  function_name = "01. ngsub",
-  status = "passed",  # or "failed", "skipped", "warning"
-  error = NULL,       # or error message string
-  duration = 0.01     # execution time in seconds
-)
-```
-
-## Version History
-
-- **v1.1.0** (2025-10-29): Comprehensive test runner with detailed reporting
-- **v1.0.0** (2025-07-01): Initial test examples (deprecated)
+</details>
 
 ## License
 
@@ -542,6 +497,5 @@ Same as chatAI4R package (Artistic License 2.0)
 
 ## Support
 
-For issues or questions:
 - GitHub Issues: https://github.com/kumeS/chatAI4R/issues
 - Package Documentation: https://kumes.github.io/chatAI4R/

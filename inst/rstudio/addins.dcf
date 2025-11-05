@@ -113,11 +113,6 @@ Description: Speak Selected Text in Japanese on MacOS System.
 Binding: speakInJA
 Interactive: false
 
-Name: Summarize Text via Web Scraping of Google Search
-Description: This function performs a web search with "LLM" as the query and outputs a summary of the hit sites.
-Binding: summaryWebScrapingText
-Interactive: false
-
 
 
 

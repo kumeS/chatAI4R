@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git commit:*)"
+      "Bash(rm:*)",
+      "Bash(for file in tests/test/phase*.R)"
     ],
     "deny": [],
     "ask": []
