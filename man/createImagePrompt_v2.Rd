@@ -41,9 +41,9 @@ base_prompt <- "A peaceful mountain lake surrounded by pine trees"
 removed_from_image <- ""
 style_guidance <- "photorealistic, high detail"
 
-res <- createImagePrompt_v2(Base_prompt = base_prompt, 
+res <- createImagePrompt_v2(Base_prompt = base_prompt,
                            removed_from_image = removed_from_image,
-                           style_guidance = style_guidance, 
+                           style_guidance = style_guidance,
                            len = 200)
 print(res)
 
@@ -52,7 +52,7 @@ base_prompt <- "A portrait of a wise elderly person"
 removed_from_image <- "hat, glasses, jewelry"
 style_guidance <- "oil painting style"
 
-res <- createImagePrompt_v2(Base_prompt = base_prompt, 
+res <- createImagePrompt_v2(Base_prompt = base_prompt,
                            removed_from_image = removed_from_image,
                            style_guidance = style_guidance)
 print(res)

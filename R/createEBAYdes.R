@@ -59,7 +59,7 @@ assertthat::noNA(input)
 )
 
 if(verbose){
-  cat("\n", "createEBAYdes: ", "\n")
+  cat("\n", "createEBAYdes in progress: ", "\n")
   pb <- utils::txtProgressBar(min = 0, max = 3, style = 3)
 }
 

@@ -19,19 +19,19 @@
 #' base_prompt <- "A peaceful mountain lake surrounded by pine trees"
 #' removed_from_image <- ""
 #' style_guidance <- "photorealistic, high detail"
-#' 
-#' res <- createImagePrompt_v2(Base_prompt = base_prompt, 
+#'
+#' res <- createImagePrompt_v2(Base_prompt = base_prompt,
 #'                            removed_from_image = removed_from_image,
-#'                            style_guidance = style_guidance, 
+#'                            style_guidance = style_guidance,
 #'                            len = 200)
 #' print(res)
-#' 
+#'
 #' # Example 2: Portrait with specific exclusions
 #' base_prompt <- "A portrait of a wise elderly person"
 #' removed_from_image <- "hat, glasses, jewelry"
 #' style_guidance <- "oil painting style"
-#' 
-#' res <- createImagePrompt_v2(Base_prompt = base_prompt, 
+#'
+#' res <- createImagePrompt_v2(Base_prompt = base_prompt,
 #'                            removed_from_image = removed_from_image,
 #'                            style_guidance = style_guidance)
 #' print(res)
@@ -74,17 +74,58 @@ history <- list(list('role' = 'system', 'content' = paste0('You are a helpful as
   # Executing chat4R_history
   res_df <- chat4R_history(history, Model = Model)
 
-  # Extract content from data.frame
-  if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
-      is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+  # Extract content from data.frame with enhanced validation
+  if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) ||
+      is.null(res_df$content) || length(res_df$content) == 0) {
     stop("Invalid or empty response from chat4R_history", call. = FALSE)
   }
-  
-  res <- as.character(res_df$content)
 
-  # Splitting the string
-  res1 <- unlist(strsplit(res, "\\n\\n"))
+  # Convert to character with robust error handling to prevent AI output randomness issues
+  res <- tryCatch({
+    # Handle list or nested structures from AI response
+    if (is.list(res_df$content) && !is.data.frame(res_df$content)) {
+      res_df$content <- unlist(res_df$content)
+    }
 
-  # Returning the image generation prompt
+    # Convert to character
+    res_char <- as.character(res_df$content)
+
+    # Collapse multiple elements if they exist
+    if (length(res_char) > 1) {
+      res_char <- paste(res_char, collapse = " ")
+    }
+
+    # Validate conversion result: must be single non-NA character
+    if (is.na(res_char) || !is.character(res_char) || length(res_char) != 1) {
+      stop("Conversion to character failed", call. = FALSE)
+    }
+
+    # Trim whitespace and validate non-empty content
+    res_char <- trimws(res_char)
+    if (nchar(res_char) == 0) {
+      stop("Response content is empty after trimming", call. = FALSE)
+    }
+
+    res_char
+  }, error = function(e) {
+    stop(paste("Failed to process AI response:", e$message), call. = FALSE)
+  })
+
+  # Split the string safely with error handling
+  res1 <- tryCatch({
+    unlist(strsplit(res, "\\n\\n"))
+  }, error = function(e) {
+    stop(paste("Failed to split response text:", e$message), call. = FALSE)
+  })
+
+  # Filter out "---" separator lines and empty strings
+  res1 <- res1[nzchar(trimws(res1)) & trimws(res1) != "---"]
+
+  # Validate that we have at least one prompt
+  if (length(res1) == 0) {
+    stop("No valid prompts generated after filtering", call. = FALSE)
+  }
+
+  # Returning the image generation prompts
   return(res1)
 }

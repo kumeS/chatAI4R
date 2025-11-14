@@ -27,7 +27,7 @@ chatAI4R is an experimental project aimed at developing and implementing various
   - [Replicate API](https://replicate.com/) (Llama, other open-source models) ✅ **Enhanced Security**
   - [Dify API](https://dify.ai/) (Workflow-based AI applications) ✅ **Enhanced Security**
   - [**NEW**: io.net API](https://io.net/) (Multi-LLM parallel execution, **23+ models**)
-  - [DeepL API](https://www.deepl.com/translator-api) (Professional translation)
+  - DeepL API (Professional translation)
 
 - **🔒 Security Enhancements (v1.0.0)**
   - **HTTP Status Validation**: All API functions now validate HTTP response codes
