@@ -3,7 +3,7 @@
 #' @title Create eBay Product Description
 #' @description This function generates a product description for eBay listings in English.
 #' It uses the GPT-4 model for text generation and can take input from either RStudio or the clipboard.
-#' @param Model The GPT-4 model to use for text generation. Default is "gpt-4o-mini".
+#' @param Model The GPT-4 model to use for text generation. Default is "gpt-5-nano".
 #' @param SelectedCode Whether to get the input from the selected code in RStudio. Default is TRUE.
 #' @param verbose Whether to display progress information. Default is TRUE.
 #' @param SlowTone Whether to print the output slowly. Default is FALSE.
@@ -19,12 +19,18 @@
 #' \dontrun{
 #' # Option 1
 #' # Select some text in RStudio and then run the rstudio addins
+#'
 #' # Option 2
 #' # Copy the text into your clipboard then execute
 #' createEBAYdes(Model = "gpt-4o-mini", SelectedCode = FALSE, verbose = TRUE)
+#'
+#' # Option 3
+#' # clipr the text into your clipboard then execute
+#' clipr::write_clip("A new A100 GPU")
+#' createEBAYdes(Model = "gpt-4o-mini", SelectedCode = FALSE, verbose = TRUE)
 #' }
 
-createEBAYdes <- function(Model = "gpt-4o-mini",
+createEBAYdes <- function(Model = "gpt-5-nano",
                           SelectedCode = TRUE,
                           verbose = TRUE,
                           SlowTone = FALSE){
@@ -101,13 +107,42 @@ res_df <- chat4R_history(history=history,
                       Model = Model,
                       temperature = temperature)
 
-# Extract content from data.frame
-if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
-    is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+# Extract content from data.frame with enhanced validation
+if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) ||
+    is.null(res_df$content) || length(res_df$content) == 0) {
   stop("Invalid or empty response from chat4R_history", call. = FALSE)
 }
 
-res <- as.character(res_df$content)
+# Convert to character with robust error handling to prevent AI output randomness issues
+res <- tryCatch({
+  # Handle list or nested structures from AI response
+  if (is.list(res_df$content) && !is.data.frame(res_df$content)) {
+    res_df$content <- unlist(res_df$content)
+  }
+
+  # Convert to character
+  res_char <- as.character(res_df$content)
+
+  # Collapse multiple elements if they exist
+  if (length(res_char) > 1) {
+    res_char <- paste(res_char, collapse = " ")
+  }
+
+  # Validate conversion result: must be single non-NA character
+  if (is.na(res_char) || !is.character(res_char) || length(res_char) != 1) {
+    stop("Conversion to character failed", call. = FALSE)
+  }
+
+  # Trim whitespace and validate non-empty content
+  res_char <- trimws(res_char)
+  if (nchar(res_char) == 0) {
+    stop("Response content is empty after trimming", call. = FALSE)
+  }
+
+  res_char
+}, error = function(e) {
+  stop(paste("Failed to process AI response:", e$message), call. = FALSE)
+})
 if(verbose){
 utils::setTxtProgressBar(pb, 3)
 cat("\n")}
@@ -117,13 +152,21 @@ if(SelectedCode){
   rstudioapi::insertText(text = as.character(res))
 } else {
 if(verbose) {
-  if(SlowTone) {
-    d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)*stats::runif(1, min = 0.95, max = 1.05)
-    slow_print_v2(res, delay = d)
-  } else {
-    d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)*stats::runif(1, min = 0.95, max = 1.05)
-    slow_print_v2(res, delay = d)
-  }
+  # Attempt slow print with fallback to regular print on error
+  tryCatch({
+    if(SlowTone) {
+      d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)*stats::runif(1, min = 0.95, max = 1.05)
+      slow_print_v2(res, delay = d)
+    } else {
+      d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)*stats::runif(1, min = 0.95, max = 1.05)
+      slow_print_v2(res, delay = d)
+    }
+  }, error = function(e) {
+    # Fallback: display result directly if slow_print_v2 encounters an error
+    cat("\nWarning: Slow print failed, displaying result directly:\n")
+    cat(res, "\n")
+    warning(paste("slow_print_v2 error:", e$message), call. = FALSE)
+  })
 }
 
 return(clipr::write_clip(as.character(res)))

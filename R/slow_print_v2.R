@@ -26,19 +26,46 @@
 #' }
 
 slow_print_v2 <- function(text, random = FALSE, delay = 0.125) {
-  assertthat::is.string(text)
-  assertthat::noNA(text)
+  # Enhanced validation with detailed error reporting
+  tryCatch({
+    assertthat::is.string(text)
+    assertthat::noNA(text)
+  }, error = function(e) {
+    stop(paste("Invalid text argument:", e$message,
+               "| Type:", typeof(text),
+               "| Class:", class(text),
+               "| Length:", length(text)), call. = FALSE)
+  })
+
   assertthat::is.number(delay)
   stopifnot(delay >= 0)
 
+  # Additional safety check: ensure text is character type and single element
+  if (!is.character(text) || length(text) != 1 || is.na(text)) {
+    stop("Text must be a single non-NA character string", call. = FALSE)
+  }
+
+  # Handle empty text case gracefully
+  if (nchar(text) == 0) {
+    cat("\n")
+    return(invisible(NULL))
+  }
+
+  # Split text safely with error handling
+  text_split <- tryCatch({
+    strsplit(text, "")[[1]]
+  }, error = function(e) {
+    stop(paste("Failed to split text:", e$message), call. = FALSE)
+  })
+
   if (random) {
-    for (i in seq_along(strsplit(text, "")[[1]])) {
-      cat(strsplit(text, "")[[1]][i])
+    for (i in seq_along(text_split)) {
+      cat(text_split[i])
       Sys.sleep(stats::runif(1, min = 0.0001, max = 0.4))
     }
   } else {
-    for (i in seq_along(strsplit(text, "")[[1]])) {
-      cat(strsplit(text, "")[[1]][i])
+    for (i in seq_along(text_split)) {
+      cat(text_split[i])
       Sys.sleep(delay*stats::runif(1, min = 0.9, max = 1.1))
     }
   }
