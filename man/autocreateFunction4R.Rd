@@ -7,7 +7,8 @@
 autocreateFunction4R(
   Func_description,
   packages = "base",
-  max_tokens = 250,
+  Model = "gpt-5-nano",
+  temperature = 1,
   View = TRUE,
   roxygen = TRUE,
   api_key = Sys.getenv("OPENAI_API_KEY"),
@@ -17,15 +18,24 @@ autocreateFunction4R(
 \arguments{
 \item{Func_description}{A character string that describes the function to be generated.}
 
-\item{packages}{A character string that specifies the packages to be used in the function. Default is "base".}
+\item{packages}{A character string that specifies the packages to be used in the function.
+Default is "base".}
 
-\item{max_tokens}{An integer that specifies the maximum number of tokens to be returned by the AI model. Default is 250.}
+\item{Model}{A character string that specifies the AI model to use. Default is "gpt-5-nano".}
 
-\item{View}{A logical that indicates whether to view the intermediate steps. Default is TRUE.}
+\item{temperature}{A numeric value that controls the randomness of the AI model's output.
+Higher values (e.g., 1.0) make output more random, lower values (e.g., 0.3) make it more
+focused and deterministic. Default is 1. IMPORTANT: When using "gpt-5-nano",
+temperature MUST be set to 1.}
 
-\item{roxygen}{A logical that indicates whether to include roxygen comments in the generated function. Default is TRUE.}
+\item{View}{A logical that indicates whether to view the intermediate steps.
+Default is TRUE.}
 
-\item{api_key}{A character string that represents the API key for the AI model being used. Default is the "OPENAI_API_KEY" environment variable.}
+\item{roxygen}{A logical that indicates whether to include roxygen comments
+in the generated function. Default is TRUE.}
+
+\item{api_key}{A character string that represents the API key for the AI model being used.
+Default is the "OPENAI_API_KEY" environment variable.}
 
 \item{verbose}{A logical flag to print the message Default is TRUE.}
 }
@@ -35,16 +45,23 @@ The function returns a character string that represents the generated and improv
 \description{
 This function generates an R function based on a given description,
 proposes improvements, and then generates an improved version of the function.
-It is expected to use an AI model (possibly GPT-3 or similar) to perform these tasks.
+It uses an AI model (OpenAI GPT) with robust prompts to ensure clean R code output.
 This is an experimental function.
 }
 \details{
-Generate and Improve R Functions
+Generate and Improve R Functions (experimental)
 }
 \examples{
 \dontrun{
+  # Example 1: Basic usage with default settings
   Sys.setenv(OPENAI_API_KEY = "<APIKEY>")
-  autocreateFunction4R(Func_description = "2*n+3 sequence")
+  autocreateFunction4R(Func_description = "identify 2*n+3 sequence",  Model = "gpt-5-mini")
+
+  # Example 2: Generate function using specific packages
+  autocreateFunction4R(
+    Func_description = "create a data frame with random numbers",
+    Model = "gpt-5-mini", packages = "dplyr, tidyr"
+  )
 }
 }
 \author{
