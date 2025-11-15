@@ -1059,6 +1059,7 @@ list_ionet_models <- function(category = "all", detailed = FALSE, api_key = NULL
 #' @param x A multiLLM_result object
 #' @param ... Additional arguments (unused)
 #' @export
+#' @method print multiLLM_result
 print.multiLLM_result <- function(x, ...) {
   cat("Multi-LLM Execution Result\n")
   cat("==========================\n\n")
