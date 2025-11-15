@@ -54,3 +54,7 @@ memo*.txt
 # macOS files
 .DS_Store
 **/.DS_Store
+
+# Build artifacts
+*.tar.gz
+*.Rcheck/
