@@ -146,68 +146,27 @@ Note: Please be aware of newline character inconsistencies across different oper
 
 ### Fix Corrupted Help Database Error
 
-If you encounter this error:
+If you encounter: `Error in fetch(key): lazy-load database '...chatAI4R.rdb' is corrupt`
 
-```
-Error in fetch(key) :
-lazy-load database '/Library/Frameworks/R.framework/.../chatAI4R.rdb' is corrupt
-```
-
-**Quick Fix (One-line solution):**
+**Quick Fix:**
 
 ```r
-# Automated repair - reinstalls from GitHub
+# Automated repair (removes corrupted install, reinstalls from GitHub, verifies)
 system.file("rebuild_package.R", package = "chatAI4R") |> source()
+
+# Then restart R
+.rs.restartR()  # RStudio: or Session > Restart R (Ctrl+Shift+F10)
 ```
 
-The repair script will:
-1. ✅ Remove the corrupted installation
-2. ✅ Clean package cache
-3. ✅ Reinstall from GitHub (`kumeS/chatAI4R`)
-4. ✅ Verify the installation
-5. ✅ Prompt to restart R
-
-**After running the script, restart R:**
+**Manual alternative:**
 
 ```r
-# In RStudio
-.rs.restartR()
-
-# Or use: Session > Restart R (Ctrl+Shift+F10 / Cmd+Shift+F10)
-```
-
-**Manual fix if needed:**
-
-```r
-# Step 1: Remove corrupted package
 remove.packages("chatAI4R")
-
-# Step 2: Reinstall from GitHub
 remotes::install_github("kumeS/chatAI4R", force = TRUE)
-
-# Step 3: Restart R and verify
 .rs.restartR()
-library(chatAI4R)
-?chat4R
 ```
 
-**For detailed troubleshooting:**
-
-```r
-# View comprehensive troubleshooting guide
-file.edit(system.file("FIX_CORRUPT_HELP.md", package = "chatAI4R"))
-```
-
-**Common causes:**
-- Incomplete package installation or update
-- System crashes during package loading
-- R version upgrades
-- File system issues
-
-**Prevention tips:**
-- Always restart R after package updates
-- Use proper shutdown procedures (don't force-quit R)
-- Keep R and packages up to date
+**Detailed guide:** `file.edit(system.file("FIX_CORRUPT_HELP.md", package = "chatAI4R"))`
 
 ---
 
