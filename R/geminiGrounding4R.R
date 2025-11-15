@@ -20,7 +20,7 @@
 #'         `full_text` and `chunks`.
 #'
 #' @author Satoshi Kume (revised 2025-07-01)
-#' @export
+#' @export geminiGrounding4R
 #'
 #' @examples
 #' \dontrun{
@@ -34,7 +34,7 @@
 #'     api_key = Sys.getenv("GoogleGemini_API_KEY")
 #'   )
 #'   print(result)
-#'   
+#'
 #'   # Basic text generation without grounding (for troubleshooting):
 #'   basic_result <- geminiGrounding4R(
 #'     mode = "text",
@@ -85,7 +85,7 @@ geminiGrounding4R <- function(mode,
   if (is.null(api_key) || nchar(api_key) == 0) {
     stop("API key is required. Set GoogleGemini_API_KEY environment variable or provide api_key parameter.", call. = FALSE)
   }
-  
+
   mode <- tolower(mode)
   valid_modes <- c("text", "stream_text", "chat", "stream_chat")
   if (!mode %in% valid_modes)
@@ -110,7 +110,7 @@ geminiGrounding4R <- function(mode,
   grounding_tool <- list(
     googleSearchRetrieval = list()
   )
-  
+
   # Add dynamic retrieval config if threshold is specified
   if (!is.null(dynamic_threshold) && dynamic_threshold != 1) {
     grounding_tool$googleSearchRetrieval$dynamicRetrievalConfig <- list(
@@ -134,7 +134,7 @@ geminiGrounding4R <- function(mode,
       contents = lapply(contents, \(m) make_message(m$role, m$text))
     )
   )
-  
+
   # Add grounding tools if enabled
   if (enable_grounding) {
     body$tools <- list(grounding_tool)
@@ -144,7 +144,7 @@ geminiGrounding4R <- function(mode,
     body$generationConfig <- list(maxOutputTokens = max_tokens)
 
   json_body <- jsonlite::toJSON(body, auto_unbox = TRUE)
-  
+
   # Debug output
   if (debug) {
     cat("=== DEBUG: Request Body ===\n")

@@ -60,7 +60,7 @@ Grounding improves factuality by incorporating web search results.
     api_key = Sys.getenv("GoogleGemini_API_KEY")
   )
   print(result)
-  
+
   # Basic text generation without grounding (for troubleshooting):
   basic_result <- geminiGrounding4R(
     mode = "text",

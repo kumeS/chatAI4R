@@ -82,6 +82,12 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
+          remotes::install_cran("roxygen2")
+        shell: Rscript {0}
+
+      - name: Regenerate documentation
+        run: |
+          roxygen2::roxygenize()
         shell: Rscript {0}
 
       - name: Session info

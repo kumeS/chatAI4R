@@ -35,3 +35,4 @@ cran-comments.md
 ^memo.*\.txt$
 ^\.DS_Store$
 ^.*\.DS_Store$
+^update_docs\.R$

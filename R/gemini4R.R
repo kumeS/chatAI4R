@@ -17,7 +17,7 @@
 #'         `full_text` and `chunks`.
 #'
 #' @author Satoshi Kume (revised 2025-07-01)
-#' @export
+#' @export gemini4R
 #'
 #' @examples
 #' \dontrun{
