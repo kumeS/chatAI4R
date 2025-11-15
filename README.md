@@ -142,7 +142,23 @@ system("open ~/.Rprofile")
 
 Note: Please be aware of newline character inconsistencies across different operating systems.
 
+## 🔧 Troubleshooting
 
+### Fix Corrupted Help Database Error
+
+If you encounter: `Error in fetch(key): lazy-load database '...chatAI4R.rdb' is corrupt`
+
+**Cause:** Package help database (.rdb file) corruption due to incomplete installation, system crash during loading, or R version upgrade.
+
+**Quick Fix:**
+
+```r
+# Automated repair (removes corrupted install, reinstalls from GitHub, verifies)
+system.file("rebuild_package.R", package = "chatAI4R") |> source()
+
+# Then restart R
+.rs.restartR()  # RStudio: or Session > Restart R (Ctrl+Shift+F10)
+```
 
 **Manual alternative:**
 
