@@ -1,20 +1,35 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+about: Suggest a new feature or improvement for chatAI4R
+title: '[Feature]: '
+labels: 'enhancement'
+assignees: 'kumeS'
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**Feature description**
+Clear description of the feature you'd like to see.
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Use case**
+What problem does this solve? How would you use it?
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Proposed solution**
+How do you envision this working?
+```r
+# Example usage (if applicable)
+library(chatAI4R)
+
+# Your proposed API here
+
+```
+
+**Category (optional)**
+- [ ] New API integration (specify: ____________)
+- [ ] New AI function
+- [ ] Improvement to existing function
+- [ ] Documentation enhancement
+- [ ] Performance optimization
+- [ ] Other
 
 **Additional context**
-Add any other context or screenshots about the feature request here.
+Any other information, examples, or references.

@@ -1,38 +1,44 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+about: Report a bug or issue in chatAI4R
+title: '[Bug]: '
+labels: 'bug'
+assignees: 'kumeS'
 
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+A clear description of the bug.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**Reproducible code**
+```r
+library(chatAI4R)
+
+# Your code here that reproduces the bug
+
+```
+
+**Error message**
+```
+Paste the complete error message here
+```
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+What you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Environment**
+- chatAI4R version: [e.g., 1.1.0] (run `packageVersion("chatAI4R")`)
+- R version: [e.g., 4.5.0] (run `R.version.string`)
+- OS: [e.g., macOS 14.0, Windows 11, Ubuntu 22.04]
+- Installation method: [CRAN / GitHub / Source]
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+**API used (if applicable)**
+- [ ] OpenAI (chat4R, vision4R, etc.)
+- [ ] Google Gemini (gemini4R, geminiGrounding4R)
+- [ ] Replicate (replicatellmAPI4R)
+- [ ] Dify (DifyChat4R)
+- [ ] io.net (multiLLMviaionet)
+- [ ] No API / Utility functions
 
 **Additional context**
-Add any other context about the problem here.
+Any other relevant information.
