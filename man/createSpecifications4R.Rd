@@ -5,14 +5,14 @@
 \title{Create Specifications for R Function}
 \usage{
 createSpecifications4R(
-  Model = "gpt-4o-mini",
+  Model = "gpt-5-nano",
   SelectedCode = TRUE,
   verbose = TRUE,
   SlowTone = FALSE
 )
 }
 \arguments{
-\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-4o-mini".}
+\item{Model}{A character string specifying the GPT model to be used. Default is "gpt-5-nano".}
 
 \item{SelectedCode}{A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.}
 
@@ -36,8 +36,11 @@ Create Specifications for R Function
 # Select some text in RStudio and then run the rstudio addins
 # Option 2
 # Copy the text into your clipboard then execute
-createSpecifications4R(input = "Your R function specification")
+clipr::write_clip("A function which can compute the mean of a vector of any size")
+createSpecifications4R(Model = "gpt-5-nano", SelectedCode = FALSE, verbose = TRUE, SlowTone = FALSE)
 }
+
+
 }
 \author{
 Satoshi Kume

@@ -30,6 +30,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Clean temporary files
+        run: |
+          find . -name ".DS_Store" -delete || true
+          find . -name "memo*.txt" -delete || true
+        shell: bash
+
+      - name: Set timezone and sync time
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo timedatectl set-timezone UTC || true
+            sudo apt-get update && sudo apt-get install -y ntpdate || true
+            sudo ntpdate -u time.nist.gov || true
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            sudo systemsetup -settimezone UTC || true
+            sudo sntp -sS time.apple.com || true
+          fi
+        shell: bash
+
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
         with:

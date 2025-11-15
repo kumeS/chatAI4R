@@ -3,7 +3,7 @@
 #' @title Create Specifications for R Function
 #' @description This function generates specifications for an R function from your selected text or clipboard.
 #'    It takes in a text input, model name, verbosity, and tone speed to generate the specifications.
-#' @param Model A character string specifying the GPT model to be used. Default is "gpt-4o-mini".
+#' @param Model A character string specifying the GPT model to be used. Default is "gpt-5-nano".
 #' @param SelectedCode A logical flag to indicate whether to read from RStudio's selected text. Default is TRUE.
 #' @param verbose A logical value indicating whether to print the output. Default is TRUE.
 #' @param SlowTone A logical value indicating whether to print the output slowly. Default is FALSE.
@@ -19,10 +19,13 @@
 #' # Select some text in RStudio and then run the rstudio addins
 #' # Option 2
 #' # Copy the text into your clipboard then execute
-#' createSpecifications4R(input = "Your R function specification")
+#' clipr::write_clip("A function which can compute the mean of a vector of any size")
+#' createSpecifications4R(Model = "gpt-5-nano", SelectedCode = FALSE, verbose = TRUE, SlowTone = FALSE)
 #' }
+#'
+#'
 
-createSpecifications4R <- function(Model = "gpt-4o-mini",
+createSpecifications4R <- function(Model = "gpt-5-nano",
                                    SelectedCode = TRUE,
                                    verbose = TRUE,
                                    SlowTone = FALSE) {
@@ -81,30 +84,67 @@ createSpecifications4R <- function(Model = "gpt-4o-mini",
                           Model = Model,
                           temperature = temperature)
 
-  # Extract content from data.frame
-  if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) || 
-      is.null(res_df$content) || length(res_df$content) == 0 || nchar(trimws(res_df$content)) == 0) {
+  # Extract content from data.frame with enhanced validation
+  if (is.null(res_df) || !is.data.frame(res_df) || !"content" %in% names(res_df) ||
+      is.null(res_df$content) || length(res_df$content) == 0) {
     stop("Invalid or empty response from chat4R_history", call. = FALSE)
   }
-  
-  res <- as.character(res_df$content)
+
+  # Convert to character with robust error handling to prevent AI output randomness issues
+  res <- tryCatch({
+    # Handle list or nested structures from AI response
+    if (is.list(res_df$content) && !is.data.frame(res_df$content)) {
+      res_df$content <- unlist(res_df$content)
+    }
+
+    # Convert to character
+    res_char <- as.character(res_df$content)
+
+    # Collapse multiple elements if they exist
+    if (length(res_char) > 1) {
+      res_char <- paste(res_char, collapse = " ")
+    }
+
+    # Validate conversion result: must be single non-NA character
+    if (is.na(res_char) || !is.character(res_char) || length(res_char) != 1) {
+      stop("Conversion to character failed", call. = FALSE)
+    }
+
+    # Trim whitespace and validate non-empty content
+    res_char <- trimws(res_char)
+    if (nchar(res_char) == 0) {
+      stop("Response content is empty after trimming", call. = FALSE)
+    }
+
+    res_char
+  }, error = function(e) {
+    stop(paste("Failed to process AI response:", e$message), call. = FALSE)
+  })
 
   if(verbose){
     utils::setTxtProgressBar(pb, 3)
-    cat("\n")}
+    cat("\n\n")}
 
   # Output
   if(SelectedCode){
     rstudioapi::insertText(text = res)
   } else {
   if(verbose) {
-    if(SlowTone) {
-      d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)*stats::runif(1, min = 0.95, max = 1.05)
-      slow_print_v2(res, delay = d)
-    } else {
-      d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)*stats::runif(1, min = 0.95, max = 1.05)
-      slow_print_v2(res, delay = d)
-    }
+    # Attempt slow print with fallback to regular print on error
+    tryCatch({
+      if(SlowTone) {
+        d <- ifelse(20/nchar(res) < 0.3, 20/nchar(res), 0.3)*stats::runif(1, min = 0.95, max = 1.05)
+        slow_print_v2(res, delay = d)
+      } else {
+        d <- ifelse(10/nchar(res) < 0.15, 10/nchar(res), 0.15)*stats::runif(1, min = 0.95, max = 1.05)
+        slow_print_v2(res, delay = d)
+      }
+    }, error = function(e) {
+      # Fallback: display result directly if slow_print_v2 encounters an error
+      cat("\nWarning: Slow print failed, displaying result directly:\n")
+      cat(res, "\n")
+      warning(paste("slow_print_v2 error:", e$message), call. = FALSE)
+    })
   }
 
   return(clipr::write_clip(res))
