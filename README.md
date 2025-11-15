@@ -148,6 +148,8 @@ Note: Please be aware of newline character inconsistencies across different oper
 
 If you encounter: `Error in fetch(key): lazy-load database '...chatAI4R.rdb' is corrupt`
 
+**Cause:** Package help database (.rdb file) corruption due to incomplete installation, system crash during loading, or R version upgrade.
+
 **Quick Fix:**
 
 ```r
@@ -165,8 +167,6 @@ remove.packages("chatAI4R")
 remotes::install_github("kumeS/chatAI4R", force = TRUE)
 .rs.restartR()
 ```
-
-**Detailed guide:** `file.edit(system.file("FIX_CORRUPT_HELP.md", package = "chatAI4R"))`
 
 ---
 
