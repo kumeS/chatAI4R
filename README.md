@@ -19,41 +19,37 @@
 
 chatAI4R is an experimental project aimed at developing and implementing various LLM applications in R. Furthermore, the package is under continuous development with a focus on extending its capabilities for bioinformatics analysis.
 
-## About this project and future developments
+## 🎯 Who is this for?
 
-- **🚀 Multi-API AI Integration with R** *(v1.0.0 Features)*
-  - [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) (ChatGPT, GPT-4, text embeddings, vision) ✅ **Enhanced Security**
-  - [Google Gemini API](https://ai.google.dev/) (Gemini models, search grounding) ✅ **Enhanced Security**
-  - [Replicate API](https://replicate.com/) (Llama, other open-source models) ✅ **Enhanced Security**
-  - [Dify API](https://dify.ai/) (Workflow-based AI applications) ✅ **Enhanced Security**
-  - [**NEW**: io.net API](https://io.net/) (Multi-LLM parallel execution, **23+ models**)
-  - DeepL API (Professional translation)
+- R package developers - automate documentation (Roxygen2), generate functions, improve code quality
+- Data analysts - interpret statistical results, process literature, extract insights
 
-- **🔒 Security Enhancements (v1.0.0)**
-  - **HTTP Status Validation**: All API functions now validate HTTP response codes
-  - **Safe Data Access**: Null-safe nested JSON parsing across all functions  
-  - **Enhanced Error Handling**: Comprehensive error messages without credential exposure
-  - **Input Validation**: Standardized parameter validation using assertthat patterns
+**Key Difference**: Not just an API wrapper - provides a **4-layer architecture** from basic API access to expert-level workflows and domain-specific analysis tools.
 
-- **4-Layer Architecture for Progressive AI Capabilities**
-  - **Core Layer**: Direct API access and basic utilities
-  - **Usage/Task Layer**: Conversation management, text processing, proofreading
-  - **Workflow Layer**: Multi-bot systems, R package development automation
-  - **Expertise Layer**: Advanced data mining, pattern recognition, expert analysis
+## ✨ Key Features
 
-- **LLM-assisted R Package Development**
-  - Complete package design and architecture planning
-  - Automated R function creation with documentation (✨ **Updated**: `autocreateFunction4R` now uses modern `chat4R` API)
-  - Code optimization and error analysis
-  - Professional text proofreading and enhancement
+### 🚀 Multi-API Support (6 AI Services)
+- **OpenAI** (ChatGPT, GPT-4, Vision, Embeddings)
+- **Google Gemini** (Gemini models with search grounding)
+- **io.net** (23+ models including DeepSeek-R1, Llama-4, Qwen3, Mistral)
+- **Replicate** (Open-source models)
+- **Dify** (Workflow-based AI)
+- **DeepL** (Professional translation)
 
-- **Advanced Data Analysis and Knowledge Discovery**
-  - Multi-domain statistical analysis interpretation (13+ domains)
-  - Scientific literature processing and knowledge extraction
-  - Web data mining and intelligent summarization
-  - Expert-level discussion simulation and peer review processes
-  
-***The functionality for interlanguage translation using DeepL has been separated as the 'deepRstudio' package. Functions related to text-to-image generation were separated as the 'stableDiffusion4R' package.***
+### 🏗️ 4-Layer Architecture (Beyond Simple API Wrapper)
+
+**Layer 1 - Core**: Direct API access (`chat4R`, `gemini4R`, `multiLLMviaionet`)
+**Layer 2 - Usage**: Conversation memory, text processing (`conversation4R`, `proofreadText`)
+**Layer 3 - Workflow**: Multi-bot systems, R package automation (`discussion_flow_v1`, `autocreateFunction4R`)
+**Layer 4 - Expertise**: Domain-specific analysis (`interpretResult` with 13 domains, `geminiGrounding4R`)
+
+### 🔒 Production-Ready Security
+- HTTP status validation and error handling
+- Null-safe JSON parsing
+- Input validation with informative error messages
+- No credential exposure in logs
+
+***Note**: Translation features separated to `deepRstudio` package. Image generation features in `stableDiffusion4R` package.*
 
 ## Installation of the chatAI4R package
 
@@ -142,7 +138,7 @@ system("open ~/.Rprofile")
 
 Note: Please be aware of newline character inconsistencies across different operating systems.
 
-## 🔧 Troubleshooting
+## 🔧 Troubleshooting for instllation of this package
 
 ### Fix Corrupted Help Database Error
 
@@ -169,6 +165,51 @@ remotes::install_github("kumeS/chatAI4R", force = TRUE)
 ```
 
 ---
+
+## 🚀 Quick Start
+
+### Basic Usage
+
+```r
+library(chatAI4R)
+
+# 1. One-shot chat
+chat4R("Explain linear regression assumptions")
+
+# 2. Conversation with memory
+conversation4R("What's the best clustering algorithm for this data?")
+conversation4R("It has 10,000 samples and 50 features")
+
+# 3. R package development
+autocreateFunction4R(
+  FunctionName = "calculate_fold_change",
+  specification = "Calculate log2 fold change with error handling"
+)
+# → Generates function + Roxygen2 documentation
+```
+
+### Advanced Features
+
+**Statistical Interpretation** (13+ domains):
+```r
+model <- lm(mpg ~ wt + hp, data = mtcars)
+interpretResult(summary(model), domain = "Regression Analysis")
+```
+
+**Multi-Expert Discussion**:
+```r
+discussion_flow_v1(
+  title = "RNA-seq analysis strategy",
+  expert1 = "Bioinformatics Specialist",
+  expert2 = "Statistical Geneticist"
+)
+```
+
+## 💡 Use Cases
+
+**R Package Development**: Design packages, generate functions with Roxygen2 docs, debug errors
+**Data Analysis**: Interpret statistical results, process literature, extract insights
+**Multi-Model Comparison**: Compare 23+ LLM responses for robust analysis
 
 ## Tutorial
 
@@ -228,12 +269,39 @@ See [tests/test/README.md](https://github.com/kumeS/chatAI4R/blob/main/tests/tes
 |Img2txt_prompt_v02|A prompt to create a i2i prompt|[Prompt](https://github.com/kumeS/chatAI4R/blob/main/inst/chatGPT_prompts/Img2txt_prompt_v02.txt)|
 
 
-## R functions
+## 📚 Function Reference
+
+chatAI4R provides **54 functions** organized in a **4-layer architecture**. Below are the most commonly used functions. For a complete function list, see [Full Function Reference](#full-function-reference).
+
+### 🎯 Most Used Functions
+
+**Getting Started:**
+- `chat4R()` - One-shot chat with GPT models (OpenAI)
+- `conversation4R()` - Multi-turn conversations with memory
+- `gemini4R()` - Chat with Google Gemini models
+- `multiLLMviaionet()` - Compare 23+ models simultaneously
+
+**Data Analysis:**
+- `interpretResult()` - AI-powered statistical interpretation (13 domains)
+- `TextSummary()` - Intelligent text summarization
+- `extractKeywords()` - Extract key concepts from text
+
+**R Development:**
+- `autocreateFunction4R()` - Generate R functions with documentation
+- `addRoxygenDescription()` - Add Roxygen2 documentation
+- `checkErrorDet()` - Explain R error messages
+
+**Advanced Workflows:**
+- `discussion_flow_v1()` - Multi-expert AI discussion simulation
+- `geminiGrounding4R()` - AI with Google Search grounding
+- `textFileInput4ai()` - Process large text files
+
+### 🔍 Full Function Reference
 
 The chatAI4R package is structured as **4 Layered Functions** that provide increasingly sophisticated AI capabilities, from basic API access to expert-level data mining and analysis.
 
-### 🟢 Core Functions (1st Layer)
-**Access to LLM API / Multi-APIs**
+<details>
+<summary><b>🟢 Layer 1: Core Functions (API Access) - Click to expand</b></summary>
 
 Core functions provide direct access to multiple AI APIs, enabling basic AI operations.
 
@@ -265,6 +333,11 @@ Core functions provide direct access to multiple AI APIs, enabling basic AI oper
 |speakInJA|Text-to-speech functionality for Japanese|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/speakInJA.R)|
 |speakInJA_v2|Enhanced text-to-speech functionality for Japanese|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/speakInJA_v2.R)|
 
+</details>
+
+<details>
+<summary><b>🟡 Layer 2: Usage/Task Functions - Click to expand</b></summary>
+
 ### 🟡 2nd Layered Functions (Usage/Task)
 **Execution of simple LLM tasks: Chat memory, translation, proofreading, etc.**
 
@@ -280,6 +353,11 @@ These functions combine core APIs to perform specific tasks and maintain convers
 |proofreadText|Proofread text with grammar and style correction|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/proofreadText.R)||
 |enrichTextContent|Enrich text content with additional information|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/enrichTextContent.R)||
 |convertBullet2Sentence|Convert bullet points to sentences|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/convertBullet2Sentence.R)||
+
+</details>
+
+<details>
+<summary><b>🟠 Layer 3: Workflow Functions - Click to expand</b></summary>
 
 ### 🟠 3rd Layered Functions (Workflow)
 **LLM Workflow, LLM Bots, R Packaging Supports**
@@ -307,6 +385,11 @@ Advanced workflow functions that orchestrate multiple AI operations and support 
 |createImagePrompt_v1|Create image generation prompts|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v1.R)|
 |createImagePrompt_v2|Enhanced image generation prompts|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/createImagePrompt_v2.R)|
 
+</details>
+
+<details>
+<summary><b>🔴 Layer 4: Expertise Functions - Click to expand</b></summary>
+
 ### 🔴 4th Layered Functions (Expertise)
 **Data mining & Advanced Analysis**
 
@@ -321,6 +404,7 @@ Expert-level functions that provide sophisticated data analysis, pattern recogni
 |textFileInput4ai|Large-scale text file analysis with chunking|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/textFileInput4ai.R)|
 |searchFunction|Expert-level R function discovery and recommendation|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/searchFunction.R)|
 
+</details>
 
 ### Functions for RIKEN press release (future developments)
 
@@ -328,42 +412,9 @@ Expert-level functions that provide sophisticated data analysis, pattern recogni
 - riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)
 - riken_pressrelease_textEmbedding: Extract text and perform text embedding from RIKEN press-release
 
-## Simple usage
+## 💻 Additional Examples
 
-### One-Shot Chatting
-
-All runs using the chat4R function are One-Shot Chatting. Conversation history is not carried over to the next conversation.
-
-```r
-#API: "https://api.openai.com/v1/chat/completions"
-chat4R("Hello")
-
-#⚠️ DEPRECATED: OpenAI completions API (scheduled for removal)
-# completions4R("Hello")  # Use chat4R() instead
-```
-
-### Few-Shots/Chain-Shots Chatting
-
-Executions using the conversation4R function will keep a history of conversations. The number of previous messages to keep in memory defaults to 2.
-
-```r
-#First shot
-conversation4R("Hello")
-
-#Second shot
-conversation4R("Hello")
-```
-
-### Text Embedding
-
-Converts input text to a numeric vector. The model text-embedding-ada-002 results in a vector of 1536 floats.
-
-```r
-#Embedding
-textEmbedding("Hello, world!")
-```
-
-### 🌟 NEW: Multi-LLM Execution via io.net (v1.0.0)
+### Multi-LLM Execution via io.net
 
 Execute multiple LLM models simultaneously for comprehensive AI responses across **23+ cutting-edge models**.
 
