@@ -2,10 +2,13 @@
 #'
 #' @description This function interacts with the Replicate API (v1) to utilize language models (LLM) such as Llama. It sends a POST request with the provided input and handles both streaming and non-streaming responses.
 #'
+#' **Note**: This function is primarily designed and optimized for Large Language Models (LLMs). While the Replicate API supports various model types (e.g., image generation, audio models), this function's features (especially `collapse_tokens`) are tailored for LLM text outputs. For non-LLM models, consider setting `collapse_tokens = FALSE` or use the full response mode with `simple = FALSE`.
+#'
 #' @param input A list containing the API request body with parameters including prompt, max_tokens, top_k, top_p, min_tokens, temperature, system_prompt, presence_penalty, and frequency_penalty.
 #' @param model_url A character string specifying the model endpoint URL (e.g., "/models/meta/meta-llama-3.1-405b-instruct/predictions").
 #' @param simple A logical value indicating whether to return a simplified output (only the model output) if TRUE, or the full API response if FALSE. Default is TRUE.
 #' @param fetch_stream A logical value indicating whether to fetch a streaming response. Default is FALSE.
+#' @param collapse_tokens A logical value indicating whether to collapse token vectors into a single string for LLM text outputs. When TRUE (default), token vectors like c("The", " capital", " of", " France") are automatically combined into "The capital of France". This parameter only affects LLM text outputs and has no effect on other model types (e.g., image URLs, audio data). Default is TRUE.
 #' @param api_key A character string representing the Replicate API key. Defaults to the environment variable "Replicate_API_KEY".
 #'
 #' @importFrom httr add_headers POST GET content
@@ -13,7 +16,7 @@
 #' @importFrom curl new_handle handle_setopt handle_setheaders curl_fetch_stream
 #' @importFrom assertthat assert_that is.string is.flag noNA
 #'
-#' @return If fetch_stream is FALSE, returns either a simplified output (if simple is TRUE) or the full API response. In streaming mode, outputs the response stream directly to the console.
+#' @return If fetch_stream is FALSE, returns either a simplified output (if simple is TRUE) or the full API response. When simple is TRUE and collapse_tokens is TRUE, returns a single character string. In streaming mode, outputs the response stream directly to the console.
 #'
 #' @examples
 #' \dontrun{
@@ -32,8 +35,16 @@
 #'     )
 #'   )
 #'   model_url <- "/models/meta/meta-llama-3.1-405b-instruct/predictions"
-#'   response <- replicatellmAPI4R(input, model_url)
+#'
+#'   # Default: collapse_tokens = TRUE (returns single string)
+#'   response <- replicatellmAPI4R(input, model_url, fetch_stream = TRUE)
 #'   print(response)
+#'   # [1] "The capital of France is Paris."
+#'
+#'   # Keep tokens separated
+#'   response_tokens <- replicatellmAPI4R(input, model_url, fetch_stream = TRUE, collapse_tokens = FALSE)
+#'   print(response_tokens)
+#'   # [1] "The" " capital" " of" " France" " is" " Paris" "."
 #' }
 #'
 #' @export replicatellmAPI4R
@@ -42,6 +53,7 @@ replicatellmAPI4R <- function(input,
                               model_url,
                               simple = TRUE,
                               fetch_stream = FALSE,
+                              collapse_tokens = TRUE,
                               api_key = Sys.getenv("Replicate_API_KEY")) {
 
   # Validate input arguments using assertthat functions
@@ -51,6 +63,7 @@ replicatellmAPI4R <- function(input,
     assertthat::is.string(model_url),
     assertthat::is.flag(simple),
     assertthat::is.flag(fetch_stream),
+    assertthat::is.flag(collapse_tokens),
     assertthat::is.string(api_key),
     assertthat::noNA(api_key)
   )
@@ -158,7 +171,15 @@ replicatellmAPI4R <- function(input,
 
     # Return a simplified output if simple is TRUE, otherwise return the full response
     if (simple) {
-      return(response_result$output)
+      output <- response_result$output
+
+      # Collapse token vectors into a single string if collapse_tokens is TRUE
+      # This is useful for LLM outputs that return tokens as separate vector elements
+      if (collapse_tokens && is.character(output) && length(output) > 1) {
+        output <- paste(output, collapse = "")
+      }
+
+      return(output)
     } else {
       return(response_result)
     }
