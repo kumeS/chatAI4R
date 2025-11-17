@@ -12,19 +12,36 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#'  revisedText()
+#' # Interactive paper revision workflow
+#' revisedText()
+#'
+#' # Example interaction:
+#' # Q: Do you have text ready for input? → Yes
+#' # Q: Do you want to use your clipboard as input text? → No
+#' # → You enter: "The result shows significant increase in accuracy."
+#' #
+#' # Q: Do you have revision comments? → Yes
+#' # Q: Do you want to use your clipboard as revision comments? → No
+#' # → You enter: "Please make it more formal and add statistical details"
+#' #
+#' # Q: Do you have additional background information? → No
+#' #
+#' # Q: Which language model do you prefer?
+#' # → You select: 1 (gpt-5-nano)
+#' #
+#' # Output: AI will revise the text according to your comments
 #' }
 
 revisedText <- function(verbose = TRUE){
 
   # Ask if the user has text ready for input
   Ans1 <- utils::askYesNo("Do you have text ready for input?")
-  assertthat::assert_that(assertthat::is.count(Ans1), assertthat::noNA(Ans1))
+  assertthat::assert_that(assertthat::is.flag(Ans1), assertthat::noNA(Ans1))
 
   # Handle the response for text input
   if(Ans1){
     Ans1A <- utils::askYesNo("Do you want to use your clipboard as input text for this revision?")
-    assertthat::assert_that(assertthat::is.count(Ans1A), assertthat::noNA(Ans1A))
+    assertthat::assert_that(assertthat::is.flag(Ans1A), assertthat::noNA(Ans1A))
 
     if(Ans1A){
       txt1 <- paste0(clipr::read_clip(), collapse = " \n")
@@ -40,11 +57,11 @@ revisedText <- function(verbose = TRUE){
   # Handle the response for revision comments
   if(verbose){ cat("\n") }
   Ans2 <- utils::askYesNo("Do you have revision comments for the input?")
-  assertthat::assert_that(assertthat::is.count(Ans2), assertthat::noNA(Ans2))
+  assertthat::assert_that(assertthat::is.flag(Ans2), assertthat::noNA(Ans2))
 
   if(Ans2){
     Ans2A <- utils::askYesNo("Do you want to use your clipboard as revision comments?")
-    assertthat::assert_that(assertthat::is.count(Ans2A), assertthat::noNA(Ans2A))
+    assertthat::assert_that(assertthat::is.flag(Ans2A), assertthat::noNA(Ans2A))
 
     if(Ans2A){
       txt2 <- paste0(clipr::read_clip(), collapse = " \n")
@@ -60,31 +77,36 @@ revisedText <- function(verbose = TRUE){
 #Q3
 if(verbose){ cat("\n") }
 Ans3 <- utils::askYesNo("Do you have any additional background information to add to the entry?")
+assertthat::assert_that(assertthat::is.flag(Ans3), assertthat::noNA(Ans3))
 
 if(Ans3){
 
   Ans3A <- utils::askYesNo("Do you want to use your clipboard as background information?")
+  assertthat::assert_that(assertthat::is.flag(Ans3A), assertthat::noNA(Ans3A))
 
   if(Ans3A){
    txt3 <- paste0(clipr::read_clip(), collapse = " \n")
    assertthat::assert_that(assertthat::is.string(txt3))
   }else{
    txt3 <- readline(prompt = paste("Please enter the information: "))
+   assertthat::assert_that(assertthat::is.string(txt3))
   }
 }else{
   txt3 <- ""
 }
 
 #LLMモデルを選択する
-choices1 <- c("gpt-4o-mini (Default)", "gpt-4o", "gpt-4-turbo")
+choices1 <- c("gpt-5-nano (Default)", "gpt-4o-mini", "gpt-4o", "gpt-5")
 selection1 <- utils::menu(choices1, title = "Which language model do you prefer?")
 
 if (selection1 == 1) {
-    Model = "gpt-4o-mini"
+    Model = "gpt-5-nano"
 } else if (selection1 == 2) {
-    Model = "gpt-4o"
+    Model = "gpt-4o-mini"
 } else if (selection1 == 3) {
-    Model = "gpt-4-turbo"
+    Model = "gpt-4o"
+} else if (selection1 == 4) {
+    Model = "gpt-5"
 } else {
     return(message("No valid selection made."))
 }
@@ -106,7 +128,7 @@ template0s <- template0
 }
 
 template1 = "
-Please revise the following input text forrevision with a simple explanation based on the revision comments.:
+Please revise the following input text for revision with a simple explanation based on the revision comments.:
 "
 
 # Substitute arguments into the prompt

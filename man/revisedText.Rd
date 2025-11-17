@@ -21,7 +21,24 @@ Revise Scientific Text
 }
 \examples{
 \dontrun{
- revisedText()
+# Interactive paper revision workflow
+revisedText()
+
+# Example interaction:
+# Q: Do you have text ready for input? → Yes
+# Q: Do you want to use your clipboard as input text? → No
+# → You enter: "The result shows significant increase in accuracy."
+#
+# Q: Do you have revision comments? → Yes
+# Q: Do you want to use your clipboard as revision comments? → No
+# → You enter: "Please make it more formal and add statistical details"
+#
+# Q: Do you have additional background information? → No
+#
+# Q: Which language model do you prefer?
+# → You select: 1 (gpt-5-nano)
+#
+# → AI will revise the text according to your comments
 }
 }
 \author{
