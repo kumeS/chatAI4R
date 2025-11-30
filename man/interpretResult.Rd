@@ -4,7 +4,16 @@
 \alias{interpretResult}
 \title{Interpret Analysis Results}
 \usage{
-interpretResult(analysis_type, result_text, custom_template = NULL)
+interpretResult(
+  analysis_type,
+  result_text,
+  custom_template = NULL,
+  model = "gpt-5-nano",
+  temperature = 1,
+  api_key = Sys.getenv("OPENAI_API_KEY"),
+  use_fallback = TRUE,
+  fallback_model = "gpt-5-nano"
+)
 }
 \arguments{
 \item{analysis_type}{A character string indicating the type of analysis. Valid values include "summary", "PCA", "regression",
@@ -15,18 +24,28 @@ interpretResult(analysis_type, result_text, custom_template = NULL)
 it will be converted to one using capture.output.}
 
 \item{custom_template}{An optional custom prompt template to be used when analysis_type is "custom". If NULL, a default prompt is used.}
+
+\item{model}{The chat model to use (default: "gpt-5-nano"). Set to another supported model string if needed.}
+
+\item{temperature}{Sampling temperature passed to the chat model (default: 1).}
+
+\item{api_key}{API key passed to `chat4R` (defaults to OPENAI_API_KEY).}
+
+\item{use_fallback}{If TRUE, falls back to `fallback_model` when the primary model errors.}
+
+\item{fallback_model}{Model used when the primary model errors (default: "gpt-5-nano"). Ignored if `use_fallback = FALSE` or the primary succeeds.}
 }
 \value{
-The interpretation produced by AI
+The interpretation produced by AI (data.frame with a `content` column by default)
 }
 \description{
 This function constructs an interpretation prompt based on the analysis type and passes it to the `chat4R` function.
 }
 \examples{
 \dontrun{
-# Example using summary() output of a data frame:
-df <- data.frame(x = rnorm(100), y = rnorm(100))
-interpretation <- interpretResult("summary", summary(df))
+# Example: interpret PCA results of the iris dataset
+pca_res <- prcomp(iris[, 1:4], scale. = TRUE)
+interpretation <- interpretResult("PCA", summary(pca_res))
 cat(interpretation$content)
 }
 }

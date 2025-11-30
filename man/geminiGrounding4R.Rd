@@ -58,7 +58,6 @@ Grounding improves factuality by incorporating web search results.
     mode = "text",
     contents = "What is the current Google stock price?",
     store_history = FALSE,
-    dynamic_threshold = 0.7,
     debug = TRUE,  # Enable debug to see request details
     api_key = Sys.getenv("GoogleGemini_API_KEY")
   )

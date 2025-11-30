@@ -8,24 +8,36 @@
 #' @param result_text An object containing the analysis result to be interpreted. If it is not a character string,
 #'   it will be converted to one using capture.output.
 #' @param custom_template An optional custom prompt template to be used when analysis_type is "custom". If NULL, a default prompt is used.
+#' @param model The chat model to use (default: "gpt-5-nano"). Set to another supported model string if needed.
+#' @param temperature Sampling temperature passed to the chat model (default: 1).
+#' @param api_key API key passed to `chat4R` (defaults to OPENAI_API_KEY).
+#' @param use_fallback If TRUE, falls back to `fallback_model` when the primary model errors.
+#' @param fallback_model Model used when the primary model errors (default: "gpt-5-nano"). Ignored if `use_fallback = FALSE` or the primary succeeds.
 #'
-#' @return The interpretation produced by AI
+#' @return The interpretation produced by AI (data.frame with a `content` column by default)
 #'
 #' @export interpretResult
 #' @author Satoshi Kume
 #'
 #' @examples
 #' \dontrun{
-#' # Example using summary() output of a data frame:
-#' df <- data.frame(x = rnorm(100), y = rnorm(100))
-#' interpretation <- interpretResult("summary", summary(df))
+#' # Example: interpret PCA results of the iris dataset
+#' pca_res <- prcomp(iris[, 1:4], scale. = TRUE)
+#' interpretation <- interpretResult("PCA", summary(pca_res))
 #' cat(interpretation$content)
 #' }
 #' @importFrom glue glue
 #' @importFrom utils capture.output
-#'
+#' 
 
-interpretResult <- function(analysis_type, result_text, custom_template = NULL) {
+interpretResult <- function(analysis_type,
+                            result_text,
+                            custom_template = NULL,
+                            model = "gpt-5-nano",
+                            temperature = 1,
+                            api_key = Sys.getenv("OPENAI_API_KEY"),
+                            use_fallback = TRUE,
+                            fallback_model = "gpt-5-nano") {
   # Convert result_text to a single string if it is not already a character string.
   if (!is.character(result_text)) {
     result_text <- paste(capture.output(result_text), collapse = "\n")
@@ -73,8 +85,31 @@ interpretResult <- function(analysis_type, result_text, custom_template = NULL) 
     }
   )
 
-  # Pass the constructed prompt to chat4R and return the interpretation.
-  interpretation <- chat4R(prompt)
+  # Helper to call chat model with optional fallback when a model is unavailable
+  call_model <- function(prompt, model) {
+    chat4R(
+      content = prompt,
+      Model = model,
+      temperature = temperature,
+      api_key = api_key
+    )
+  }
+
+  model_used <- model
+  interpretation <- tryCatch(
+    call_model(prompt, model),
+    error = function(e) {
+      if (use_fallback && !is.null(fallback_model) && fallback_model != model) {
+        model_used <<- fallback_model
+        call_model(prompt, fallback_model)
+      } else {
+        stop(e)
+      }
+    }
+  )
+
+  # Attach which model was used for transparency
+  attr(interpretation, "model_used") <- model_used
+
   return(interpretation)
 }
-
