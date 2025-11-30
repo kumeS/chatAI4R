@@ -6,29 +6,33 @@
 \usage{
 multiLLMviaionet(
   prompt,
-  max_models = NULL,
+  max_models = 1,
   streaming = FALSE,
-  random_selection = FALSE,
+  random_selection = TRUE,
   api_key = Sys.getenv("IONET_API_KEY"),
   max_tokens = 1024,
   temperature = 0.7,
   timeout = 300,
   parallel = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  refresh_models = FALSE,
+  retries = 1,
+  retry_wait = 2,
+  monitor_timeout = 120
 )
 }
 \arguments{
 \item{prompt}{A string containing the input prompt to send to all selected models.}
 
-\item{max_models}{Integer specifying maximum number of models to run (1-50). Default is all available models.}
+\item{max_models}{Integer specifying maximum number of models to run (1-50). Default is 1 (single model).}
 
 \item{streaming}{Logical indicating whether to use streaming responses. Default is FALSE.}
 
-\item{random_selection}{Logical indicating whether to randomly select models from all available models. 
-If TRUE, randomly selects up to max_models from all available models.
-If FALSE, uses all available models in order (up to max_models limit). Default is FALSE.}
+\item{random_selection}{Logical indicating whether to randomly select models from all available models.
+If TRUE (default), randomly selects up to max_models from all available models.
+If FALSE, uses models in order (up to max_models limit).}
 
-\item{api_key}{A string containing the io.net API key. 
+\item{api_key}{A string containing the io.net API key.
 Defaults to the environment variable "IONET_API_KEY".}
 
 \item{max_tokens}{Integer specifying maximum tokens to generate per model. Default is 1024.}
@@ -40,6 +44,14 @@ Defaults to the environment variable "IONET_API_KEY".}
 \item{parallel}{Logical indicating whether to run models in parallel. Default is TRUE.}
 
 \item{verbose}{Logical indicating whether to show detailed progress. Default is TRUE.}
+
+\item{refresh_models}{Logical indicating whether to force-refresh the io.net model list before execution. Default is FALSE.}
+
+\item{retries}{Integer number of retries for transient errors (429/5xx/timeout/connection). Default is 1.}
+
+\item{retry_wait}{Base wait in seconds before retry (multiplied by attempt count). Default is 2.}
+
+\item{monitor_timeout}{Maximum seconds to wait for all async futures in the progress loop (prevents hangs). Default is 120.}
 }
 \value{
 A list containing:
@@ -51,20 +63,23 @@ A list containing:
   }
 }
 \description{
-This function automatically runs the same prompt across ALL currently available 
-  LLM models on the io.net API. It supports running all models in parallel with streaming 
+This function automatically runs the same prompt across ALL currently available
+  LLM models on the io.net API (by default it now selects one random model to reduce API load).
+  It supports running multiple models (configurable) in parallel with streaming
   responses and comprehensive error handling.
-  
+
   The function dynamically fetches the current list of available models from the io.net API
-  and executes ALL of them by default (unless limited by max_models parameter). Results are 
+  and executes a configurable subset (default 1 random model; set max_models or random_selection to control). Results are
   cached for 1 hour to improve performance. If the API is unavailable, it falls back to a static model list.
-  
-  Supported model categories include:
-  - Meta Llama series (Llama-4-Maverick, Llama-3.3-70B, etc.)
-  - DeepSeek series (DeepSeek-R1, DeepSeek-R1-Distill variants)
-  - Qwen series (Qwen3-235B, QwQ-32B, Qwen2.5-Coder, etc.)
-  - Specialized models (AceMath-7B, watt-tool-70B, ReaderLM-v2)
-  - Microsoft Phi, Mistral, Google Gemma, and more
+
+  Typical models observed on io.net (30-Nov-2025) include:
+  - moonshotai/Kimi-K2-Thinking, moonshotai/Kimi-K2-Instruct-0905
+  - zai-org/GLM-4.6
+  - meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8, Llama-3.3-70B-Instruct, Llama-3.2-90B-Vision-Instruct
+  - Qwen/Qwen3-235B-A22B-Thinking-2507, Qwen3-Next-80B-A3B-Instruct, Qwen2.5-VL-32B-Instruct, Intel/Qwen3-Coder-480B-A35B-Instruct-int4-mixed-ar
+  - deepseek-ai/DeepSeek-R1-0528
+  - mistralai/Devstral-Small-2505, Magistral-Small-2506, Mistral-Large-Instruct-2411, Mistral-Nemo-Instruct-2407
+  - openai/gpt-oss-120b, openai/gpt-oss-20b
 }
 \details{
 Multi-LLM via io.net API
@@ -73,31 +88,31 @@ Multi-LLM via io.net API
 \dontrun{
   # Set your io.net API key
   Sys.setenv(IONET_API_KEY = "your_ionet_api_key_here")
-  
-  # Basic usage - automatically runs on ALL available models
-  result <- multiLLMviaionet(
+
+  # Basic usage - single random model (default)
+  result_one <- multiLLMviaionet(
     prompt = "Explain quantum computing in simple terms"
   )
-  
-  # Limit to first 5 models in order
-  result <- multiLLMviaionet(
+  print(result_one$summary)
+  print_multiLLM_results(result_one)
+
+  # Run first 5 models in list order (no random selection)
+  result_top5 <- multiLLMviaionet(
     prompt = "What is machine learning?",
-    max_models = 5
+    max_models = 5,
+    random_selection = FALSE
   )
-  
+  print_multiLLM_results(result_top5)
+
   # Random selection of 10 models from all available
-  result <- multiLLMviaionet(
+  result_random10 <- multiLLMviaionet(
     prompt = "Write a Python function to calculate fibonacci numbers",
     max_models = 10,
     random_selection = TRUE,
     temperature = 0.3,
     streaming = FALSE
   )
-  
-  
-  # Access results
-  print(result$summary)
-  lapply(result$results, function(x) cat(x$model, ":\n", x$response, "\n\n"))
+  print_multiLLM_results(result_random10)
 }
 }
 \author{

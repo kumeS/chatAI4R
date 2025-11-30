@@ -15,9 +15,9 @@ refresh_ionet_models(api_key = NULL, verbose = TRUE)
 A character vector of current model names from the API, or NULL if the API call failed
 }
 \description{
-This function forces a refresh of the model list cache by fetching 
-  the current models from the io.net API. Use this if you suspect the model list 
-  has changed and you want to update immediately rather than waiting for the 
+This function forces a refresh of the model list cache by fetching
+  the current models from the io.net API. Use this if you suspect the model list
+  has changed and you want to update immediately rather than waiting for the
   1-hour cache to expire.
 }
 \details{
@@ -27,7 +27,7 @@ Refresh io.net Model Cache
 \dontrun{
   # Refresh model list from API
   current_models <- refresh_ionet_models()
-  
+
   # Refresh silently
   current_models <- refresh_ionet_models(verbose = FALSE)
 }

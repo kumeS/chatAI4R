@@ -13,7 +13,7 @@ list_ionet_models(
 )
 }
 \arguments{
-\item{category}{Optional character string to filter models by category. 
+\item{category}{Optional character string to filter models by category.
 Options: "llama", "deepseek", "qwen", "phi", "mistral", "specialized", "all". Default is "all".}
 
 \item{detailed}{Logical indicating whether to show detailed model information. Default is FALSE.}
@@ -39,13 +39,13 @@ List Available io.net Models
 \dontrun{
   # List all available models (from API if available)
   all_models <- list_ionet_models()
-  
+
   # Force refresh from API
   fresh_models <- list_ionet_models(force_refresh = TRUE)
-  
+
   # List only Llama models
   llama_models <- list_ionet_models("llama")
-  
+
   # Show detailed information
   model_info <- list_ionet_models(detailed = TRUE)
 }
