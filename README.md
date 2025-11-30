@@ -243,7 +243,7 @@ p1_results <- run_phase1_tests()
 
 See [tests/test/README.md](https://github.com/kumeS/chatAI4R/blob/main/tests/test/README.md) for detailed documentation.
 
-- [Some examples of use via Video tutorial](https://youtu.be/VJaltAS9Ef8)
+- [examples for proodread English text and check error in Japanese on Rstudio](https://youtu.be/VJaltAS9Ef8)
 
 - [Roxygen2 (GPT-4 UI)](https://youtu.be/wTMZfLMXYH0?si=50aV1V_yv8_t-1zZ)
 

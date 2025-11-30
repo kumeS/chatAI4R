@@ -36,3 +36,9 @@ cran-comments.md
 ^\.DS_Store$
 ^.*\.DS_Store$
 ^update_docs\.R$
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+paper
+paper/*
+

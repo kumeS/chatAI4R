@@ -206,13 +206,14 @@ multiLLMviaionet <- function(prompt,
   # Check if we should use cached results
   cache_key <- "ionet_models_cache"
   cache_time_key <- "ionet_models_cache_time"
+  cache_env <- .get_cache_env()
   cache_duration <- 3600  # Cache for 1 hour
   
   # Get cached data if available and not forcing refresh
-  if (!force_refresh && exists(cache_key, envir = .GlobalEnv) && exists(cache_time_key, envir = .GlobalEnv)) {
-    cached_time <- get(cache_time_key, envir = .GlobalEnv)
+  if (!force_refresh && exists(cache_key, envir = cache_env, inherits = FALSE) && exists(cache_time_key, envir = cache_env, inherits = FALSE)) {
+    cached_time <- get(cache_time_key, envir = cache_env, inherits = FALSE)
     if (as.numeric(difftime(Sys.time(), cached_time, units = "secs")) < cache_duration) {
-      cached_models <- get(cache_key, envir = .GlobalEnv)
+      cached_models <- get(cache_key, envir = cache_env, inherits = FALSE)
       if (verbose) {
         cat("** Using cached model list (", length(cached_models), " models, cached ", 
             round(as.numeric(difftime(Sys.time(), cached_time, units = "mins"))), " minutes ago)\n")
@@ -242,8 +243,8 @@ multiLLMviaionet <- function(prompt,
     }
     
     # Cache the API results
-    assign(cache_key, api_models, envir = .GlobalEnv)
-    assign(cache_time_key, Sys.time(), envir = .GlobalEnv)
+    assign(cache_key, api_models, envir = cache_env)
+    assign(cache_time_key, Sys.time(), envir = cache_env)
     
     api_models
   } else {

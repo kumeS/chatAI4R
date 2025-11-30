@@ -14,25 +14,39 @@ replicatellmAPI4R(
 )
 }
 \arguments{
-\item{input}{A list containing the API request body with parameters including prompt, max_tokens, top_k, top_p, min_tokens, temperature, system_prompt, presence_penalty, and frequency_penalty.}
+\item{input}{A list containing the API request body with parameters including prompt,
+max_tokens, top_k, top_p, min_tokens, temperature, system_prompt, presence_penalty, and frequency_penalty.}
 
 \item{model_url}{A character string specifying the model endpoint URL (e.g., "/models/meta/meta-llama-3.1-405b-instruct/predictions").}
 
-\item{simple}{A logical value indicating whether to return a simplified output (only the model output) if TRUE, or the full API response if FALSE. Default is TRUE.}
+\item{simple}{A logical value indicating whether to return a simplified output (only the model output) if TRUE,
+or the full API response if FALSE. Default is TRUE.}
 
 \item{fetch_stream}{A logical value indicating whether to fetch a streaming response. Default is FALSE.}
 
-\item{collapse_tokens}{A logical value indicating whether to collapse token vectors into a single string for LLM text outputs. When TRUE (default), token vectors like c("The", " capital", " of", " France") are automatically combined into "The capital of France". This parameter only affects LLM text outputs and has no effect on other model types (e.g., image URLs, audio data). Default is TRUE.}
+\item{collapse_tokens}{A logical value indicating whether to collapse token vectors
+into a single string for LLM text outputs. When TRUE (default), token vectors like
+c("The", " capital", " of", " France") are automatically combined into "The capital of France".
+This parameter only affects LLM text outputs and has no effect on other model types (e.g., image URLs, audio data).
+Default is TRUE.}
 
 \item{api_key}{A character string representing the Replicate API key. Defaults to the environment variable "Replicate_API_KEY".}
 }
 \value{
-If fetch_stream is FALSE, returns either a simplified output (if simple is TRUE) or the full API response. When simple is TRUE and collapse_tokens is TRUE, returns a single character string. In streaming mode, outputs the response stream directly to the console.
+If fetch_stream is FALSE, returns either a simplified output (if simple is TRUE)
+or the full API response. When simple is TRUE and collapse_tokens is TRUE, returns a single character string.
+In streaming mode, outputs the response stream directly to the console.
 }
 \description{
-This function interacts with the Replicate API (v1) to utilize language models (LLM) such as Llama. It sends a POST request with the provided input and handles both streaming and non-streaming responses.
+This function interacts with the Replicate API (v1) to utilize
+language models (LLM) such as Llama. It sends a POST request with the provided
+input and handles both streaming and non-streaming responses.
 
-**Note**: This function is primarily designed and optimized for Large Language Models (LLMs). While the Replicate API supports various model types (e.g., image generation, audio models), this function's features (especially `collapse_tokens`) are tailored for LLM text outputs. For non-LLM models, consider setting `collapse_tokens = FALSE` or use the full response mode with `simple = FALSE`.
+**Note**: This function is primarily designed and optimized for Large Language
+Models (LLMs). While the Replicate API supports various model types
+(e.g., image generation, audio models), this function's features (especially `collapse_tokens`)
+are tailored for LLM text outputs. For non-LLM models, consider setting `collapse_tokens = FALSE`
+or use the full response mode with `simple = FALSE`.
 }
 \examples{
 \dontrun{
@@ -58,7 +72,8 @@ This function interacts with the Replicate API (v1) to utilize language models (
   # [1] "The capital of France is Paris."
 
   # Keep tokens separated
-  response_tokens <- replicatellmAPI4R(input, model_url, fetch_stream = TRUE, collapse_tokens = FALSE)
+  response_tokens <- replicatellmAPI4R(input, model_url, fetch_stream = TRUE,
+                                       collapse_tokens = FALSE)
   print(response_tokens)
   # [1] "The" " capital" " of" " France" " is" " Paris" "."
 }

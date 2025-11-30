@@ -38,7 +38,7 @@ revisedText()
 # Q: Which language model do you prefer?
 # → You select: 1 (gpt-5-nano)
 #
-# → AI will revise the text according to your comments
+# Output: AI will revise the text according to your comments
 }
 }
 \author{

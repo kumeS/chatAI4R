@@ -41,13 +41,10 @@ assertthat::assert_that(assertthat::is.string(system_set))
 assertthat::assert_that(assertthat::is.count(ConversationBufferWindowMemory_k))
 assertthat::assert_that(assertthat::is.flag(initialization))
 
-# Initialization - use global environment to persist chat_history
-if(!exists("chat_history", envir = .GlobalEnv) || initialization){
-  chat_history <- new.env()
-  chat_history$history <- list()
-  assign("chat_history", chat_history, envir = .GlobalEnv)
-} else {
-  chat_history <- get("chat_history", envir = .GlobalEnv)
+# Initialization - keep chat_history inside package state (not .GlobalEnv)
+chat_history <- .get_chat_history_env()
+if (initialization || length(chat_history$history) == 0) {
+  chat_history <- .reset_chat_history_env()
 }
 
 # Define
@@ -101,9 +98,6 @@ chat_history$history <- list(
   list(role = "assistant", content = res)
 )
 
-# Save to global environment
-assign("chat_history", chat_history, envir = .GlobalEnv)
-
 out <- c(paste0("System: ", system_set),
          crayon::red(system_set3s),
          crayon::blue(system_set4s))
@@ -149,7 +143,7 @@ res <- as.character(res_df$content)
 assistant_conversation<- list(list(role = "assistant", content = res))
 chat_historyR <- c(chat_historyR, assistant_conversation)
 
-# Update the global chat_history with new conversation
+# Update chat_history with new conversation
 chat_history$history <- chat_historyR
 
 # Generate display history from updated chat_history (excluding current exchange)
@@ -191,12 +185,10 @@ out <- c(paste0("System: ", system_set),
          crayon::red(sprintf(system_set3, user_content)),
          crayon::blue(sprintf(system_set4, assistant_content)))
 
-# Save updated history to global environment
-assign("chat_history", chat_history, envir = .GlobalEnv)
-
 if(verbose){
   cat(out)
 }
 
 }
+invisible(chat_history$history)
 }

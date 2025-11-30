@@ -1,14 +1,26 @@
 #' replicatellmAPI4R: Interact with Replicate API for LLM models in R
 #'
-#' @description This function interacts with the Replicate API (v1) to utilize language models (LLM) such as Llama. It sends a POST request with the provided input and handles both streaming and non-streaming responses.
+#' @description This function interacts with the Replicate API (v1) to utilize
+#' language models (LLM) such as Llama. It sends a POST request with the provided
+#' input and handles both streaming and non-streaming responses.
 #'
-#' **Note**: This function is primarily designed and optimized for Large Language Models (LLMs). While the Replicate API supports various model types (e.g., image generation, audio models), this function's features (especially `collapse_tokens`) are tailored for LLM text outputs. For non-LLM models, consider setting `collapse_tokens = FALSE` or use the full response mode with `simple = FALSE`.
+#' **Note**: This function is primarily designed and optimized for Large Language
+#' Models (LLMs). While the Replicate API supports various model types
+#' (e.g., image generation, audio models), this function's features (especially `collapse_tokens`)
+#' are tailored for LLM text outputs. For non-LLM models, consider setting `collapse_tokens = FALSE`
+#' or use the full response mode with `simple = FALSE`.
 #'
-#' @param input A list containing the API request body with parameters including prompt, max_tokens, top_k, top_p, min_tokens, temperature, system_prompt, presence_penalty, and frequency_penalty.
+#' @param input A list containing the API request body with parameters including prompt,
+#' max_tokens, top_k, top_p, min_tokens, temperature, system_prompt, presence_penalty, and frequency_penalty.
 #' @param model_url A character string specifying the model endpoint URL (e.g., "/models/meta/meta-llama-3.1-405b-instruct/predictions").
-#' @param simple A logical value indicating whether to return a simplified output (only the model output) if TRUE, or the full API response if FALSE. Default is TRUE.
+#' @param simple A logical value indicating whether to return a simplified output (only the model output) if TRUE,
+#' or the full API response if FALSE. Default is TRUE.
 #' @param fetch_stream A logical value indicating whether to fetch a streaming response. Default is FALSE.
-#' @param collapse_tokens A logical value indicating whether to collapse token vectors into a single string for LLM text outputs. When TRUE (default), token vectors like c("The", " capital", " of", " France") are automatically combined into "The capital of France". This parameter only affects LLM text outputs and has no effect on other model types (e.g., image URLs, audio data). Default is TRUE.
+#' @param collapse_tokens A logical value indicating whether to collapse token vectors
+#' into a single string for LLM text outputs. When TRUE (default), token vectors like
+#' c("The", " capital", " of", " France") are automatically combined into "The capital of France".
+#' This parameter only affects LLM text outputs and has no effect on other model types (e.g., image URLs, audio data).
+#' Default is TRUE.
 #' @param api_key A character string representing the Replicate API key. Defaults to the environment variable "Replicate_API_KEY".
 #'
 #' @importFrom httr add_headers POST GET content
@@ -16,7 +28,9 @@
 #' @importFrom curl new_handle handle_setopt handle_setheaders curl_fetch_stream
 #' @importFrom assertthat assert_that is.string is.flag noNA
 #'
-#' @return If fetch_stream is FALSE, returns either a simplified output (if simple is TRUE) or the full API response. When simple is TRUE and collapse_tokens is TRUE, returns a single character string. In streaming mode, outputs the response stream directly to the console.
+#' @return If fetch_stream is FALSE, returns either a simplified output (if simple is TRUE)
+#' or the full API response. When simple is TRUE and collapse_tokens is TRUE, returns a single character string.
+#' In streaming mode, outputs the response stream directly to the console.
 #'
 #' @examples
 #' \dontrun{
@@ -42,7 +56,8 @@
 #'   # [1] "The capital of France is Paris."
 #'
 #'   # Keep tokens separated
-#'   response_tokens <- replicatellmAPI4R(input, model_url, fetch_stream = TRUE, collapse_tokens = FALSE)
+#'   response_tokens <- replicatellmAPI4R(input, model_url, fetch_stream = TRUE,
+#'                                        collapse_tokens = FALSE)
 #'   print(response_tokens)
 #'   # [1] "The" " capital" " of" " France" " is" " Paris" "."
 #' }
@@ -106,7 +121,7 @@ replicatellmAPI4R <- function(input,
   if (fetch_stream) {
     # Parse response content safely
     parsed_response <- httr::content(response, "parsed")
-    
+
     # Safe access to get URL
     if (!is.null(parsed_response$urls) && !is.null(parsed_response$urls$get)) {
       get_url <- parsed_response$urls$get
@@ -120,11 +135,11 @@ replicatellmAPI4R <- function(input,
     start_time <- Sys.time()
     retry_count <- 0
     max_retries <- 5
-    
+
     # Poll the get_url until the result is ready or timeout occurs
     while (is.null(result) && (Sys.time() - start_time) < timeout_seconds) {
       response_output <- httr::GET(get_url, headers)
-      
+
       # Check polling response status with improved error handling
       if (httr::status_code(response_output) != 200) {
         retry_count <- retry_count + 1
@@ -133,15 +148,15 @@ replicatellmAPI4R <- function(input,
         }
         # Exponential backoff: wait 2^retry_count seconds, max 30 seconds
         backoff_time <- min(2^retry_count, 30)
-        warning("Polling request failed with status: ", httr::status_code(response_output), 
+        warning("Polling request failed with status: ", httr::status_code(response_output),
                 ". Retrying in ", backoff_time, " seconds (attempt ", retry_count, "/", max_retries, ")")
         Sys.sleep(backoff_time)
         next
       }
-      
+
       # Reset retry count on successful request
       retry_count <- 0
-      
+
       # Parse the response text into JSON
       content <- jsonlite::fromJSON(httr::content(response_output, "text", encoding = "UTF-8"))
 
@@ -163,7 +178,7 @@ replicatellmAPI4R <- function(input,
         Sys.sleep(1)
       }
     }
-    
+
     # Check if we exited due to timeout
     if (is.null(result)) {
       stop("Request timed out after ", timeout_seconds, " seconds")
@@ -188,7 +203,7 @@ replicatellmAPI4R <- function(input,
 
     # Parse response content safely
     parsed_response <- httr::content(response, "parsed")
-    
+
     # Safe access to stream URL
     if (!is.null(parsed_response$urls) && !is.null(parsed_response$urls$stream)) {
       stream_url <- parsed_response$urls$stream
