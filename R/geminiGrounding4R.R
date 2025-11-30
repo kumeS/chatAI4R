@@ -1,4 +1,4 @@
-#' Gemini API Google Search Grounding Request (v1beta, 2025-07)
+#' Gemini API Google Search Grounding Request (v1/v1beta, 2025-07)
 #'
 #' A thin R wrapper for Google Gemini API with Google Search grounding enabled.
 #' Grounding improves factuality by incorporating web search results.
@@ -6,10 +6,11 @@
 #' @param mode        One of `"text"`, `"stream_text"`, `"chat"`, `"stream_chat"`.
 #' @param contents    Character vector (single-turn) or list of message objects
 #'                    (chat modes). See Examples.
-#' @param model       Gemini model ID. Default `"gemini-2.0-flash"`.
+#' @param model       Gemini model ID. Default `"gemini-2.5-flash"`.
+#' @param api_version API version for the Generative Language API (`"v1"` or `"v1beta"`). Default `"v1beta"`.
 #' @param store_history Logical. If TRUE, chat history is persisted to the
 #'                      `chat_history` env-var (JSON).
-#' @param dynamic_threshold Numeric [0,1] for dynamic retrieval threshold (default: 0.7).
+#' @param dynamic_threshold Numeric [0,1] for dynamic retrieval threshold (default: 0.7). Only used for Gemini 1.5 models with `googleSearchRetrieval`; ignored for newer models that use `google_search`.
 #' @param api_key     Your Google Gemini API key (default: `Sys.getenv("GoogleGemini_API_KEY")`).
 #' @param max_tokens  Maximum output tokens. Default 2048.
 #' @param debug       Logical. If TRUE, prints request details for debugging.
@@ -29,7 +30,6 @@
 #'     mode = "text",
 #'     contents = "What is the current Google stock price?",
 #'     store_history = FALSE,
-#'     dynamic_threshold = 0.7,
 #'     debug = TRUE,  # Enable debug to see request details
 #'     api_key = Sys.getenv("GoogleGemini_API_KEY")
 #'   )
@@ -72,7 +72,8 @@
 
 geminiGrounding4R <- function(mode,
                                contents,
-                               model             = "gemini-1.5-pro",
+                               model             = "gemini-2.5-flash",
+                               api_version       = "v1beta",
                                store_history     = FALSE,
                                dynamic_threshold = 0.7,
                                api_key           = Sys.getenv("GoogleGemini_API_KEY"),
@@ -91,14 +92,19 @@ geminiGrounding4R <- function(mode,
   if (!mode %in% valid_modes)
     stop("Invalid mode. Choose one of: ", paste(valid_modes, collapse = ", "), call. = FALSE)
 
+  api_version <- tolower(api_version)
+  if (!api_version %in% c("v1", "v1beta")) {
+    stop('api_version must be "v1" or "v1beta".', call. = FALSE)
+  }
+
   #----- Build endpoint --------------------------------------------------------
   method   <- if (grepl("^stream", mode)) "streamGenerateContent" else "generateContent"
   endpoint <- sprintf(
-    "https://generativelanguage.googleapis.com/v1beta/models/%s:%s?key=%s",
-    model, method, api_key
+    "https://generativelanguage.googleapis.com/%s/models/%s:%s",
+    api_version, model, method
   )
   if (grepl("^stream", mode))
-    endpoint <- paste0(endpoint, "&alt=sse")  # SSE required for streaming
+    endpoint <- paste0(endpoint, "?alt=sse")  # SSE required for streaming
 
   #----- Construct request body ------------------------------------------------
   make_message <- function(role, text) {
@@ -106,17 +112,44 @@ geminiGrounding4R <- function(mode,
          parts = list(list(text = text)))
   }
 
-  # Google Search grounding tool configuration
-  grounding_tool <- list(
-    googleSearchRetrieval = list()
-  )
+  empty_object <- function() {
+    x <- list()
+    names(x) <- character(0)
+    x
+  }
 
-  # Add dynamic retrieval config if threshold is specified
-  if (!is.null(dynamic_threshold) && dynamic_threshold != 1) {
-    grounding_tool$googleSearchRetrieval$dynamicRetrievalConfig <- list(
-      mode = "MODE_DYNAMIC",
-      dynamicThreshold = dynamic_threshold
-    )
+  # Grounding tool selection (Gemini 1.5 uses googleSearchRetrieval; Gemini 2/3 use google_search)
+  build_grounding_tools <- function(model, dynamic_threshold, debug = FALSE) {
+    if (!enable_grounding) return(NULL)
+
+    # Validate threshold only if supplied
+    if (!is.null(dynamic_threshold)) {
+      if (!is.numeric(dynamic_threshold) || length(dynamic_threshold) != 1 ||
+          is.na(dynamic_threshold) || dynamic_threshold < 0 || dynamic_threshold > 1) {
+        stop("dynamic_threshold must be a single numeric value between 0 and 1.", call. = FALSE)
+      }
+    }
+
+    # Gemini 1.5 supports googleSearchRetrieval (with dynamic threshold)
+    if (grepl("1\\.5", model)) {
+      dt <- if (is.null(dynamic_threshold)) 0.7 else as.numeric(dynamic_threshold)
+      return(list(
+        list(
+          googleSearchRetrieval = list(
+            dynamicRetrievalConfig = list(
+              mode = "MODE_DYNAMIC",
+              dynamicThreshold = dt
+            )
+          )
+        )
+      ))
+    }
+
+    # Gemini 2.x/3.x: use google_search (dynamic threshold not supported in public Developer API)
+    if (!is.null(dynamic_threshold) && debug) {
+      message("dynamic_threshold is ignored for google_search on this model.")
+    }
+    list(list(google_search = empty_object()))
   }
 
   body <- switch(
@@ -136,8 +169,9 @@ geminiGrounding4R <- function(mode,
   )
 
   # Add grounding tools if enabled
-  if (enable_grounding) {
-    body$tools <- list(grounding_tool)
+  tools <- build_grounding_tools(model, dynamic_threshold, debug)
+  if (!is.null(tools)) {
+    body$tools <- tools
   }
 
   if (!is.null(max_tokens))
@@ -150,7 +184,7 @@ geminiGrounding4R <- function(mode,
     cat("=== DEBUG: Request Body ===\n")
     cat(json_body)
     cat("\n=== DEBUG: Endpoint ===\n")
-    cat(gsub("key=[^&]*", "key=***", endpoint))
+    cat(endpoint)
     cat("\n========================\n")
   }
 
@@ -160,7 +194,10 @@ geminiGrounding4R <- function(mode,
       url  = endpoint,
       body = json_body,
       encode = "json",
-      httr::add_headers("Content-Type" = "application/json"),
+      httr::add_headers(
+        "Content-Type" = "application/json",
+        "x-goog-api-key" = api_key
+      ),
       ...
     )
     if (httr::http_error(res)) {
@@ -183,7 +220,11 @@ geminiGrounding4R <- function(mode,
   #---------------------------------------------------------------------------
   if (mode %in% c("stream_text", "stream_chat")) {   # ■ streaming --------------
     h <- curl::new_handle()
-    curl::handle_setheaders(h, "Content-Type" = "application/json")
+    curl::handle_setheaders(
+      h,
+      "Content-Type" = "application/json",
+      "x-goog-api-key" = api_key
+    )
     curl::handle_setopt(h, post = TRUE, postfields = json_body)
 
     acc <- character()

@@ -24,7 +24,7 @@ chatAI4R is an experimental project aimed at developing and implementing various
 - R package developers - automate documentation (Roxygen2), generate functions, improve code quality
 - Data analysts - interpret statistical results, process literature, extract insights
 
-**Key Difference**: Not just an API wrapper - provides a **4-layer architecture** from basic API access to expert-level workflows and domain-specific analysis tools.
+**Key Difference**: Beyond multi-functional API wrappers - provides a **4-layer architecture** from basic API access to expert-level workflows and domain-specific analysis tools.
 
 ## ✨ Key Features
 

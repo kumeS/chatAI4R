@@ -20,9 +20,9 @@ bibliography: paper.bib
 
 # Summary
 
-Large Language Models (LLMs) have revolutionized natural language processing (NLP), data mining, and program coding. The chatAI4R package provides a comprehensive toolkit for seamlessly integrating LLMs within R environments. Beyond basic text generation and conversation capabilities, it supports text embeddings and delivers sophisticated LLM assistance through simple function calls, significantly extending R-based data analysis and knowledge discovery processes. Unlike existing R packages, the chatAI4R package offers unique R package development support features. Rather than functioning as a simple API wrapper, it provides comprehensive development automation and AI-assisted data mining capabilities. The package combines command-line and graphical operations, offering flexibility for users across all skill levels. Available on both GitHub and the Comprehensive R Archive Network (CRAN), chatAI4R ensures stability, reliability, and broad community accessibility.
+Large Language Models (LLMs) have revolutionized natural language processing (NLP), data mining, and program coding. The chatAI4R package provides a comprehensive toolkit for seamlessly integrating LLMs within R environments. Beyond basic text generation and conversation capabilities, it supports text embeddings and delivers sophisticated LLM assistance through simple function calls, significantly extending R-based data analysis and knowledge discovery processes. Unlike existing R packages, the chatAI4R package offers unique R package development support features. Rather than functioning as a multi-functional API wrapper, it provides comprehensive development automation and AI-assisted data mining capabilities. The package combines command-line and graphical operations, offering flexibility for users across all skill levels. Available on both GitHub and the Comprehensive R Archive Network (CRAN), chatAI4R ensures stability, reliability, and broad community accessibility.
 
-Originally a development aid for R packages, chatAI4R is evolving into a data-analysis companion by adding interpretation, knowledge extraction, and multi-LLM capabilities. It serves R package developers (automating Roxygen2 docs, function generation, code quality) and data analysts (statistical interpretation, literature processing, insight extraction) with a four-layer architecture that goes beyond simple API wrappers.
+Originally a development aid for R packages, chatAI4R is evolving into a data-analysis companion by adding interpretation, knowledge extraction, and multi-LLM capabilities. It serves R package developers (automating Roxygen2 docs, function generation, code quality) and data analysts (statistical interpretation, literature processing, insight extraction) with a four-layer architecture that goes beyond multi-functional API wrappers.
 
 # State of the Field
 
@@ -38,7 +38,7 @@ While these existing tools provide valuable functionality, they primarily serve 
 
 # Statement of need
 
-While existing R packages provide basic LLM functionality, critical gaps remain in comprehensive R-specific package development support and integrated data analysis workflows. Current tools serve as simple API wrappers without addressing complex analytical needs.
+While existing R packages provide basic LLM functionality, critical gaps remain in comprehensive R-specific package development support and integrated data analysis workflows. Current tools serve as general-purpose API wrappers without addressing complex analytical needs.
 
 chatAI4R addresses these limitations through its unique multi-layered conceptual architecture, providing a comprehensive ecosystem for LLM integration specifically designed for R users. The package supports nine LLM API platforms through unified interfaces, including OpenAI GPT models and Google Gemini, and provides innovative access to 23 models simultaneously via io.net's Intelligence API (https://io.net/), a cloud platform that provides distributed GPU computing resources, enabling access to state-of-the-art models such as DeepSeek, phi-4, and Llama-4.
 
@@ -117,4 +117,3 @@ The package integrates seamlessly with development environments, providing GUI-b
 
 
 # References
-

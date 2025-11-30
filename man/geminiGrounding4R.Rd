@@ -2,12 +2,13 @@
 % Please edit documentation in R/geminiGrounding4R.R
 \name{geminiGrounding4R}
 \alias{geminiGrounding4R}
-\title{Gemini API Google Search Grounding Request (v1beta, 2025-07)}
+\title{Gemini API Google Search Grounding Request (v1/v1beta, 2025-07)}
 \usage{
 geminiGrounding4R(
   mode,
   contents,
-  model = "gemini-1.5-pro",
+  model = "gemini-2.5-flash",
+  api_version = "v1beta",
   store_history = FALSE,
   dynamic_threshold = 0.7,
   api_key = Sys.getenv("GoogleGemini_API_KEY"),
@@ -23,12 +24,14 @@ geminiGrounding4R(
 \item{contents}{Character vector (single-turn) or list of message objects
 (chat modes). See Examples.}
 
-\item{model}{Gemini model ID. Default `"gemini-2.0-flash"`.}
+\item{model}{Gemini model ID. Default `"gemini-2.5-flash"`.}
+
+\item{api_version}{API version for the Generative Language API (`"v1"` or `"v1beta"`). Default `"v1beta"`.}
 
 \item{store_history}{Logical. If TRUE, chat history is persisted to the
 `chat_history` env-var (JSON).}
 
-\item{dynamic_threshold}{Numeric [0,1] for dynamic retrieval threshold (default: 0.7).}
+\item{dynamic_threshold}{Numeric [0,1] for dynamic retrieval threshold (default: 0.7). Only used for Gemini 1.5 models with `googleSearchRetrieval`; ignored for newer models that use `google_search`.}
 
 \item{api_key}{Your Google Gemini API key (default: `Sys.getenv("GoogleGemini_API_KEY")`).}
 
