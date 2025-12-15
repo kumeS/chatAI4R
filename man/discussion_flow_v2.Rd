@@ -19,7 +19,7 @@ discussion_flow_v2(
 )
 }
 \arguments{
-\item{issue}{The issue to be discussed. Example: "I want to solve linear programming and create a timetable."}
+\item{issue}{The issue to be discussed. Example: "I want to perform differential gene expression analysis from RNA-seq data and interpret enriched pathways."}
 
 \item{Domain}{The domain of the discussion, default is "bioinformatics".}
 
@@ -69,7 +69,7 @@ English is recommended as the input language, but the review will also be conduc
 }
 \examples{
 \dontrun{
-issue <-  "I want to solve linear programming and create a timetable."
+issue <-  "I want to perform differential gene expression analysis from RNA-seq data and interpret enriched pathways."
 
 #Run Discussion with the domain of bioinformatics
 discussion_flow_v2(issue)
