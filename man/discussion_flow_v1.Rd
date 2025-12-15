@@ -7,13 +7,11 @@
 discussion_flow_v1(
   issue,
   Domain = "bioinformatics",
-  Model = "gpt-4o-mini",
+  Model = "gpt-5-nano",
   api_key = Sys.getenv("OPENAI_API_KEY"),
   language = "English",
   Summary_nch = 50,
-  verbose = TRUE,
-  Nonfuture = TRUE,
-  sayENorJA = TRUE
+  verbose = TRUE
 )
 }
 \arguments{
@@ -21,7 +19,7 @@ discussion_flow_v1(
 
 \item{Domain}{The domain of the discussion, default is "bioinformatics".}
 
-\item{Model}{The model to be used, default is "gpt-4o-mini".}
+\item{Model}{The model to be used, default is "gpt-5-nano".}
 
 \item{api_key}{The API key for OpenAI, default is retrieved from the system environment variable "OPENAI_API_KEY".}
 
@@ -30,10 +28,6 @@ discussion_flow_v1(
 \item{Summary_nch}{The number of characters for the summary, default is 50.}
 
 \item{verbose}{Logical, whether to print verbose output, default is TRUE.}
-
-\item{Nonfuture}{Logical, whether to use an asynchronous processing or not, default is not to use (TRUE).}
-
-\item{sayENorJA}{Logical, whether to say in English or Japanese, default is TRUE. This feature is available on  macOS system only.}
 }
 \value{
 A summary of the conversation between the bots.
@@ -61,7 +55,7 @@ English is recommended as the input language, but the review will also be conduc
 }
 \examples{
 \dontrun{
-issue <-  "I want to solve linear programming and create a timetable."
+issue <-  "I want to discuss about a potentiality of multivariate analysis for metabolomics data."
 
 #Run Discussion with the domain of bioinformatics
 discussion_flow_v1(issue)
