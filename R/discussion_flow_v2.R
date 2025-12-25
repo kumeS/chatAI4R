@@ -38,13 +38,15 @@
 #' @author Satoshi Kume
 #' @examples
 #' \dontrun{
-#' issue <-  "I want to perform differential gene expression analysis from RNA-seq data and interpret enriched pathways."
+#' issue <-  "I want to perform differential gene expression analysis from
+#'            RNA-seq data and interpret enriched pathways."
 #'
 #' #Run Discussion with the domain of bioinformatics
 #' discussion_flow_v2(issue)
 #' }
 
-#issue = "I want to perform differential gene expression analysis from RNA-seq data and interpret enriched pathways.";Domain = "bioinformatics";Model = "gpt-4o-mini";api_key = Sys.getenv("OPENAI_API_KEY");language = "English";Summary_nch = 50; verbose = TRUE; sayENorJA = FALSE; Sentence_difficulty = 2; R_expert_setting = TRUE; rep_x = 3
+#issue = "I want to perform differential gene expression analysis from RNA-seq data
+#         and interpret enriched pathways.";Domain = "bioinformatics";Model = "gpt-4o-mini";api_key = Sys.getenv("OPENAI_API_KEY");language = "English";Summary_nch = 50; verbose = TRUE; sayENorJA = FALSE; Sentence_difficulty = 2; R_expert_setting = TRUE; rep_x = 3
 #discussion_flow_v2(issue, sayENorJA = FALSE)
 
 discussion_flow_v2 <- function(issue,

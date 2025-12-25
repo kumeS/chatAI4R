@@ -31,7 +31,7 @@ A value close to 0 produces more deterministic output, while a higher value (up 
 The generated text or the full response from the API, depending on the value of `simple`.
 }
 \description{
-**⚠️ DEPRECATED AND SCHEDULED FOR REMOVAL**: This function uses the legacy OpenAI completions API 
+**[WARNING] DEPRECATED AND SCHEDULED FOR REMOVAL**: This function uses the legacy OpenAI completions API 
   which is being phased out by OpenAI. **This function will be removed in a future version.**
   
   **MIGRATION REQUIRED**: Please migrate to chat4R() for all new implementations.

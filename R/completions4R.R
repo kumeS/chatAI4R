@@ -1,5 +1,5 @@
 #' @title completions4R: Generate text using OpenAI completions API (Legacy - DEPRECATED)
-#' @description **⚠️ DEPRECATED AND SCHEDULED FOR REMOVAL**: This function uses the legacy OpenAI completions API 
+#' @description **[WARNING] DEPRECATED AND SCHEDULED FOR REMOVAL**: This function uses the legacy OpenAI completions API 
 #'   which is being phased out by OpenAI. **This function will be removed in a future version.**
 #'   
 #'   **MIGRATION REQUIRED**: Please migrate to chat4R() for all new implementations.
