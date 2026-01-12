@@ -38,10 +38,10 @@ chatAI4R is an experimental project aimed at developing and implementing various
 
 ### 🏗️ 4-Layer Architecture (Beyond Simple API Wrapper)
 
-**Layer 1 - Core**: Direct API access (`chat4R`, `gemini4R`, `multiLLMviaionet`)
-**Layer 2 - Usage**: Conversation memory, text processing (`conversation4R`, `proofreadText`)
-**Layer 3 - Workflow**: Multi-bot systems, R package automation (`discussion_flow_v1`, `autocreateFunction4R`)
-**Layer 4 - Expertise**: Domain-specific analysis (`interpretResult` with 13 domains, `geminiGrounding4R`)
+**Layer 1 - Core Functions**: Direct API access (`chat4R`, `gemini4R`, `multiLLMviaionet`)
+**Layer 2 - Advanced Functions**: Intelligent processing and domain-specific analysis (`interpretResult`, `conversation4R`, `geminiGrounding4R`)
+**Layer 3 - Workflow Functions**: Multi-agent collaboration and package automation (`discussion_flow_v2`, `autocreateFunction4R`)
+**Layer 4 - Integration Functions**: Ecosystem connectivity (deploying R-based web APIs via `plumber` for backend embedding, and GUI support)
 
 ### 🔒 Production-Ready Security
 - HTTP status validation and error handling
@@ -182,8 +182,7 @@ conversation4R("It has 10,000 samples and 50 features")
 
 # 3. R package development
 autocreateFunction4R(
-  FunctionName = "calculate_fold_change",
-  specification = "Calculate log2 fold change with error handling"
+  Func_description = "Create a function to calculate log2 fold change with error handling"
 )
 # → Generates function + Roxygen2 documentation
 ```
@@ -191,17 +190,18 @@ autocreateFunction4R(
 ### Advanced Features
 
 **Statistical Interpretation** (13+ domains):
+
 ```r
 model <- lm(mpg ~ wt + hp, data = mtcars)
-interpretResult(summary(model), domain = "Regression Analysis")
+interpretResult(analysis_type = "regression", result_text = summary(model))
 ```
 
 **Multi-Expert Discussion**:
+
 ```r
 discussion_flow_v1(
-  title = "RNA-seq analysis strategy",
-  expert1 = "Bioinformatics Specialist",
-  expert2 = "Statistical Geneticist"
+  issue = "RNA-seq analysis strategy",
+  Domain = "Bioinformatics"
 )
 ```
 
@@ -227,27 +227,6 @@ chatAI4R includes a comprehensive automated testing framework:
 - **Base Tests**: 14 core functions for quick validation (~9 seconds)
 - **Extended Tests**: Phase 1-5 suites covering all function categories (~50 seconds)
 - **CI/CD Ready**: Automated testing on Windows, macOS, and Linux via GitHub Actions
-
-### Running Tests
-
-```r
-# Quick validation (recommended for daily development)
-source("tests/test/run_all_tests.R")
-results <- run_all_tests()
-
-# Comprehensive testing (before releases)
-source("tests/test/phase1_tests.R")
-p1_results <- run_phase1_tests()
-# ... continue with phase2-5
-```
-
-See [tests/test/README.md](https://github.com/kumeS/chatAI4R/blob/main/tests/test/README.md) for detailed documentation.
-
-- [examples for proodread English text and check error in Japanese on Rstudio](https://youtu.be/VJaltAS9Ef8)
-
-###  Applied usage of the chatAI4R package
-
-- AI-based chatting loaded with highly-technical documents (RIKEN Pressrelease text)
 
 ## Prompts for chatGPT / GPT-4
 
@@ -310,8 +289,6 @@ Core functions provide direct access to multiple AI APIs, enabling basic AI oper
 |DifyChat4R|Chat and completion endpoints through Dify platform|Dify|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/DifyChat4R.R)||
 |multiLLMviaionet|Execute multiple LLM models simultaneously via io.net API|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
 |list_ionet_models|List available LLM models on io.net platform|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
-|multiLLM_random10|Quick execution of 10 randomly selected models via io.net|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
-|multiLLM_random5|Quick execution of 5 randomly selected models via io.net|io.net|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/multiLLMviaionet.R)||
 |completions4R|⚠️ **DEPRECATED** - Generate text using OpenAI completions API (scheduled for removal)|OpenAI|[Script](https://github.com/kumeS/chatAI4R/blob/main/R/completions4R.R)|[Flowchart](https://github.com/kumeS/chatAI4R/blob/main/inst/flowchart/completions4R.png)|
 
 **Utility Functions (Non-API)**
@@ -398,12 +375,6 @@ Expert-level functions that provide sophisticated data analysis, pattern recogni
 
 </details>
 
-### Functions for RIKEN press release (future developments)
-
-- get_riken_pressrelease_urls: Get URLs of RIKEN Press Releases
-- riken_pressrelease_text_jpn: Extract text from RIKEN press-release (Japanese)
-- riken_pressrelease_textEmbedding: Extract text and perform text embedding from RIKEN press-release
-
 ## 💻 Additional Examples
 
 ### Multi-LLM Execution via io.net
@@ -414,21 +385,12 @@ Execute multiple LLM models simultaneously for comprehensive AI responses across
 # Set io.net API key
 Sys.setenv(IONET_API_KEY = "your-ionet-api-key")
 
-# Basic multi-LLM execution with latest 2025 models
+# Basic multi-LLM execution (Randomly selects 3 models)
 result <- multiLLMviaionet(
   prompt = "Explain quantum computing",
-  models = c("deepseek-ai/DeepSeek-R1-0528",                    # Latest reasoning model
-             "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8", # Llama 4 multimodal
-             "Qwen/Qwen3-235B-A22B-FP8",                      # Latest Qwen3 MoE
-             "mistralai/Magistral-Small-2506",                # Advanced multilingual
-             "microsoft/phi-4")                               # Compact powerhouse
+  max_models = 3,
+  random_selection = TRUE
 )
-
-# 🎲 Quick random 10 model comparison (balanced across families)
-result <- multiLLM_random10("What is artificial intelligence?")
-
-# ⚡ Quick random 5 model comparison (for faster testing)
-result <- multiLLM_random5("Write a Python function")
 
 # 📋 Explore available models (23+ total as of 2025)
 all_models <- list_ionet_models()
@@ -450,10 +412,10 @@ View(detailed_info)
 result <- multiLLMviaionet(
   prompt = "Design a machine learning pipeline for time series forecasting",
   max_models = 8,
+  streaming = FALSE,
   random_selection = TRUE,
+  max_tokens = 2000,
   temperature = 0.3,        # More deterministic for technical tasks
-  max_tokens = 2000,        # Longer responses
-  streaming = FALSE,        # Wait for complete responses
   parallel = TRUE,          # True async execution
   verbose = TRUE           # Monitor progress
 )
