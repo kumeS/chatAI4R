@@ -187,6 +187,8 @@ autocreateFunction4R(
 # → Generates function + Roxygen2 documentation
 ```
 
+**Note regarding output formatting**: Current AI models tend to emit many literal `\n` sequences in generated text. This package intentionally preserves `\n` so it formats as intended when displayed via `cat()` (rather than `print()`), which improves readability in typical console usage. It is recommended to use `cat()` to display the output.
+
 ### Advanced Features
 
 **Statistical Interpretation** (13+ domains):
