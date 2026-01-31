@@ -48,7 +48,7 @@ A distinctive feature is the multi-agent discussion system (`discussion_flow_v1(
 
 The chatAI4R package excels in data analysis interpretation through the `interpretResult()` function, providing specialized interpretation for multiple analysis types including PCA and regression. This feature bridges the gap between statistical output and scientific interpretation, a capability that is absent in current R-LLM packages.
 
-![Figure 1: Four-layered conceptual framework of the chatAI4R package, showing the hierarchical structure from core functions to specialized applications](figure1.png)
+![Four-layered conceptual framework of the chatAI4R package, showing the hierarchical structure from core functions to specialized applications](figure1.png)
 
 The package maintains production-level reliability through CRAN distribution, ensuring multi-platform compatibility and rigorous testing. Its open-source nature under the Artistic License 2.0 promotes community contribution while maintaining professional development practices.
 
@@ -68,64 +68,6 @@ The package supports integration with six API platforms: OpenAI, Google Gemini, 
 
 The package employs defensive programming with comprehensive error handling, input validation, and graceful degradation when API services are unavailable. Package reliability is ensured through automated testing. Furthermore, to address the challenge of frequent API changes across these platforms, chatAI4R employs a sustainable maintenance strategy combining user contributions with high-frequency, LLM-assisted autonomous code updates, ensuring long-term resilience.
 
-# Usage
-
 The chatAI4R package provides multiple interaction modes to accommodate different user preferences and workflows. Users can access LLM capabilities through simple function calls or interactive interfaces.
-
-Basic text generation and conversation capabilities are accessible through the core functions:
-
-``` r
-# Conversation with OpenAI GPT models
-result <- chat4R(content = "Explain principal component analysis", Model = "gpt-5-nano")
-
-# Multi-model comparison
-result <- multiLLMviaionet(prompt = "Optimize this statistical analysis", max_models = 3)
-```
-
-For data analysis interpretation, the package provides specialized interpretations by specifying analysis types:
-
-``` r
-# Statistical result interpretation
-pca_result <- prcomp(mtcars)
-interpretation <- interpretResult(analysis_type = "PCA", result_text = summary(pca_result))
-```
-
-The multi-agent discussion system enables collaborative problem-solving through structured dialogue:
-
-``` r
-# Multi-agent collaboration (v1: basic)
-discussion_flow_v1(
-  issue = "Optimize machine learning pipeline",
-  Domain = "data science"
-)
-
-# Multi-agent collaboration (v2: with extended settings)
-discussion_flow_v2(
-  issue = "Optimize machine learning pipeline",
-  Domain = "data science",
-  Sentence_difficulty = 2,
-  R_expert_setting = TRUE,
-  rep_x = 3
-)
-```
-
-Development automation features streamline R package creation and maintenance:
-
-``` r
-# Function creation from clipboard content
-# (Prerequisite: Copy "Function to calculate BMI" to clipboard)
-createRfunction(Model = "gpt-5", SelectedCode = FALSE)
-
-# Add Roxygen2 documentation
-# (Prerequisite: Select the function definition below)
-# my_add <- function(x, y) { x + y }
-addRoxygenDescription(Model = "gpt-5-nano", SelectedCode = TRUE)
-
-# Generate and Improve R Functions
-autocreateFunction4R(
-  Func_description = "Calculate Body Mass Index (BMI) given height and weight",
-  Model = "gpt-5"
-)
-```
 
 # References

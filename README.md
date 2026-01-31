@@ -198,13 +198,38 @@ model <- lm(mpg ~ wt + hp, data = mtcars)
 interpretResult(analysis_type = "regression", result_text = summary(model))
 ```
 
-**Multi-Expert Discussion**:
+### Multi-Agent Discussion
+
+Collaborative problem-solving with multiple specialized agents:
 
 ```r
+# Basic discussion
 discussion_flow_v1(
-  issue = "RNA-seq analysis strategy",
-  Domain = "Bioinformatics"
+  issue = "Optimize machine learning pipeline",
+  Domain = "data science"
 )
+
+# Advanced discussion with custom settings
+discussion_flow_v2(
+  issue = "Optimize machine learning pipeline",
+  Domain = "data science",
+  Sentence_difficulty = 2,
+  R_expert_setting = TRUE,
+  rep_x = 3
+)
+```
+
+### R Package Development Utils
+
+Streamline package creation and documentation:
+
+```r
+# Add Roxygen2 documentation to selected code
+# (Select the function definition in RStudio first)
+addRoxygenDescription(Model = "gpt-5-nano", SelectedCode = TRUE)
+
+# Create function from clipboard content
+createRfunction(Model = "gpt-5", SelectedCode = FALSE)
 ```
 
 ## 💡 Use Cases
